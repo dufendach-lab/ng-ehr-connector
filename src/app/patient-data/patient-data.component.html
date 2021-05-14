@@ -6,17 +6,22 @@
     <mat-card-content>
         <div class="data-container">
             <div class="search-box">
-                <app-search-box></app-search-box>
+                <mat-form-field class="material-form">
+                  <mat-label>Enter Loinc Code Here</mat-label>
+                  <input matInput [(ngModel)]="ptData" #message="ngModel" maxlength="256" placeholder="Ex '29463-7'">
+                  <mat-hint align="start">Ex. 29463-7</mat-hint>
+                  <mat-hint align="end">{{message.value.length}} / 10</mat-hint>
+                </mat-form-field>
                 <button mat-button (click)="search()">Search</button>
             </div>
-        
+
             <div class="search-out">
                 <mat-card class="search-out-data-card">
                     <mat-card-header>
                         <mat-card-title>Data Retrieved:</mat-card-title>
                     </mat-card-header>
-                    <mat-card-content *ngIf="dataReceived">
-                        <p>{{ actualPtData }}</p>
+                    <mat-card-content *ngIf="(obsBundle | async) as b">
+                        <app-obs-value-list [observations]="b"></app-obs-value-list>
                     </mat-card-content>
                 </mat-card>
             </div>
