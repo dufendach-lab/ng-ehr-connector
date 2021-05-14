@@ -3,16 +3,15 @@ import Bundle from 'fhirclient/lib/Client';
 import Observation from "fhirclient/lib/Client"
 import { first} from 'rxjs/operators';
 import { FhirAuthService } from './fhir-auth.service';
-import { PatientService } from './patient.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ObservationService {
-  constructor(private auth: FhirAuthService, private ps: PatientService) { }
-  
+  constructor(private auth: FhirAuthService) { }
+
   async getObservation(code: string): Promise<Observation | Bundle> {
-    const patientID = await this.ps.patientID.pipe(first()).toPromise();
+    const patientID = await this.auth.patientId.pipe(first()).toPromise();
     console.log(`PID: ${patientID}`);
     const client = await this.auth.client.pipe(first()).toPromise();
     if (client) {

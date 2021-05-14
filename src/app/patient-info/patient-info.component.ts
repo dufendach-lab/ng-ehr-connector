@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {FhirAuthService} from "../fhir-auth.service";
-import {filter, switchMap} from "rxjs/operators";
-import {from, Observable, of} from "rxjs";
 import { PatientService } from '../patient.service';
 import { ObservationService } from '../observation.service';
 
@@ -12,12 +9,11 @@ import { ObservationService } from '../observation.service';
 })
 export class PatientInfoComponent implements OnInit {
   patient = this.patientService.patient;
-  oberservation = this.obService.getObservation('29463-7');
+  observation = this.obService.getObservation('29463-7');
 
-  name: string = 'Johnathan Doe';
-  ptBirth: string ='11/08/2000';
-  ptHeight: string = '187.96cm'
-
+  name: string = 'FIRST_LAST';
+  ptBirth: string ='00/00/0000';
+  ptHeight: string = '000.00cm';
 
   constructor(private patientService: PatientService, private obService: ObservationService) {
   }
