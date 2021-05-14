@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FhirAuthService} from "../fhir-auth.service";
 import {filter, switchMap} from "rxjs/operators";
 import {from, of} from "rxjs";
+import { PatientService } from '../patient.service';
 
 @Component({
   selector: 'app-patient-info',
@@ -9,19 +10,9 @@ import {from, of} from "rxjs";
   styleUrls: ['./patient-info.component.scss']
 })
 export class PatientInfoComponent implements OnInit {
-  patient: any;
+  patient = this.patientService.patient;
 
-  constructor(auth: FhirAuthService) {
-    this.patient = auth.client.pipe(
-      filter(client => client !== null),
-      switchMap(client => {
-        if (client !== null) {
-          return from(client.request(`Patient/${client.patient.id}`));
-        } else {
-          return of(null);
-        }
-      })
-    );
+  constructor(private patientService: PatientService) {
   }
 
   ngOnInit(): void {
