@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { from, Observable, of } from 'rxjs';
+import { BehaviorSubject, from, Observable, of, Subject } from 'rxjs';
 import { FhirAuthService } from './fhir-auth.service';
 import { filter, switchMap } from 'rxjs/operators';
 import Client from 'fhirclient/lib/Client';
@@ -12,7 +12,7 @@ export class PatientService {
 
   public readonly patient: Observable<Patient>;
 
-  patientID: string|null = null;
+  public readonly patientID = new Subject<string>();
 
   constructor(
     private auth: FhirAuthService,
@@ -21,7 +21,9 @@ export class PatientService {
       filter(client => client !== null),
       switchMap(client => {
         if (client !== null) {
-          this.patientID = client.getPatientId();
+          const pid = client.getPatientId();
+          if (pid !== null) this.patientID.next(pid);
+          
           return from(client.request(`Patient/${client.patient.id}`));
         } else {
           return of(null);

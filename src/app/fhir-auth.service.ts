@@ -20,8 +20,8 @@ export class FhirAuthService {
   authorize = oauth2.authorize;
 
   testAuth(): void {
-    // this.authorize(smartHealthIt);
-    this.authorize(epicConfig);
+    this.authorize(smartHealthIt);
+    //this.authorize(epicConfig);
   }
 
 }
