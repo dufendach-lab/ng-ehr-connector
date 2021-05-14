@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { filter } from 'rxjs/operators';
+import { PatientService } from '../patient.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  patient = this.ps.patient.pipe(filter(p => p !== null && p !== undefined));
+
+  constructor(private ps: PatientService) { }
 
   ngOnInit(): void {
   }
