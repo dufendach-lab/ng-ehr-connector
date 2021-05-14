@@ -6,7 +6,7 @@ export const smartHealthIt: AuthorizeParams = {
   scope: 'launch/patient',
   // iss: 'https://launch.smarthealthit.org/v/r2/sim/eyJrIjoiMSIsImoiOiIxIiwiYiI6InNtYXJ0LTc3Nzc3MDUifQ/fhir',
   iss: 'https://launch.smarthealthit.org/v/r3/sim/eyJrIjoiMSIsImoiOiIxIiwiYiI6IjExOTc2ZjkwLWJiNDItNDUwYS04YjU4LTkyYTRjYWNlMWQyNyJ9/fhir',
-  redirectUri: 'http://localhost:4200',
+  redirectUri: 'http://localhost:4200/dashboard',
 };
 
 export const epicConfig: AuthorizeParams = {

@@ -8,13 +8,21 @@
 
         .search-box {
             display: flex;
-            
+            flex-direction: column;
+
+              .material-form {
+                width: 60%;
+                padding-top: 1rem;
+              }
+
             button {
-                margin-left: 2rem;
+                margin-top: 1rem;
+                margin-bottom: 1rem;
+                margin-right: 80%;
                 background-color: rgb(60, 96, 255);
                 color: white;
-                margin: 2rem;
             }
         }
     }
 }
+
