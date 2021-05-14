@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import Bundle from 'fhirclient/lib/Client';
-import Observation from "fhirclient/lib/Client"
 import { first} from 'rxjs/operators';
 import { FhirAuthService } from './fhir-auth.service';
+
+import { fhirclient }from 'fhirclient/lib/types';
+import Bundle = fhirclient.FHIR.Bundle;
+import Observation = fhirclient.FHIR.Observation;
 
 @Injectable({
   providedIn: 'root'

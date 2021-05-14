@@ -1,1 +1,4 @@
-<p>obs-value-list works!</p>
+<ul>
+  <h2>{{ obsList[0].resource.code.text }}</h2>
+  <li *ngFor="let obs of obsList"> {{obs.resource.valueQuantity.value | number:'1.0-3'}} {{obs.resource.valueQuantity.unit}} </li>
+</ul>
