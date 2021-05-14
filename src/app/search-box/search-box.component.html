@@ -1,8 +1,8 @@
 <form class="form-container">
     <mat-form-field class="material-form">
       <mat-label>Enter Loinc Code Here</mat-label>
-      <input matInput #message maxlength="256" placeholder="Loinc code..." >
-      <mat-hint align="start"><strong>Must enter a valid loinc code</strong> </mat-hint>
+      <input matInput #message maxlength="256" placeholder="Ex '29463-7'" >
+      <mat-hint align="start"><strong>Must enter a valid loinc code (e.g.'29463-7')</strong> </mat-hint>
       <mat-hint align="end">{{message.value.length}} / 10</mat-hint>
     </mat-form-field>
   </form>

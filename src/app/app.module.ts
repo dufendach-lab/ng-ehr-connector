@@ -13,6 +13,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { PatientDataComponent } from './patient-data/patient-data.component';
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ObsValueListComponent } from './obs-value-list/obs-value-list.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     NavbarComponent,
     PatientDataComponent,
     SearchBoxComponent,
-    DashboardComponent
+    DashboardComponent,
+    ObsValueListComponent
   ],
   imports: [
     BrowserModule,
