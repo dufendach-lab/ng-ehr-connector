@@ -10,15 +10,13 @@ import Patient = fhirclient.FHIR.Patient;
   styleUrls: ['./patient-info.component.scss']
 })
 export class PatientInfoComponent implements OnInit {
-
   @Input() patient: Patient | null | undefined;
 
-  oberservation = this.obService.getObservation('29463-7');
+  observation = this.obService.getObservation('29463-7');
 
   name: string = '';
   ptBirth: string ='11/08/2000';
   ptHeight: string = '187.96cm';
-
 
   constructor(private obService: ObservationService) {
     console.log(this.patient);
