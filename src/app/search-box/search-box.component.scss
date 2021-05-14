@@ -1,0 +1,10 @@
+.form-container {
+    width: 100%;
+    overflow: visible;
+    
+    .material-form {
+        min-width: 50%;
+        max-width: 20rem;
+        padding-top: 5%;
+    }
+}

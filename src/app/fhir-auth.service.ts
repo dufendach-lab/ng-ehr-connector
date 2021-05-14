@@ -23,5 +23,4 @@ export class FhirAuthService {
     // this.authorize(smartHealthIt);
     this.authorize(epicConfig);
   }
-
 }
