@@ -1,9 +1,10 @@
-<h1>NG EHR Connector</h1>
+<app-navbar></app-navbar>
 
-<button (click)="authorize()">Authorize</button>
-
-<div>
-  <pre>{{client | async | json}}</pre>
+<div class="button-container">
+  <button mat-button class="auth-button" (click)="authorize()">Authorize</button>
 </div>
 
+<br><br>
+
 <router-outlet></router-outlet>
+

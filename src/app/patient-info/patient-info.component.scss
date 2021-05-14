@@ -1,0 +1,11 @@
+.patient-info-card {
+    width: 50%;
+    margin: auto;
+
+    mat-card-content {
+        .pt-info-container {
+            display: flex;
+            justify-content: space-evenly;
+        }
+    }
+}

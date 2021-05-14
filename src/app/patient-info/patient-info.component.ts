@@ -14,6 +14,11 @@ export class PatientInfoComponent implements OnInit {
   patient = this.patientService.patient;
   oberservation = this.obService.getObservation('29463-7');
 
+  name: string = 'Johnathan Doe';
+  ptBirth: string ='11/08/2000';
+  ptHeight: string = '187.96cm'
+
+
   constructor(private patientService: PatientService, private obService: ObservationService) {
   }
 
