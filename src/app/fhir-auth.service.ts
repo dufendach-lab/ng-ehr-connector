@@ -17,17 +17,10 @@ export class FhirAuthService {
     this.client = from(oauth2.ready()).pipe(shareReplay(1));
   }
 
-  authorize(clientConfig: AuthorizeParams): Promise<string | void> {
-    return oauth2.authorize({
-      clientId: clientConfig.clientId,
-      scope: clientConfig.scope,
-      iss: clientConfig.iss
-    })
-  }
+  authorize = oauth2.authorize;
 
   testAuth(): void {
     // this.authorize(smartHealthIt);
     this.authorize(epicConfig);
   }
-
 }

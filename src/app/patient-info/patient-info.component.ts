@@ -10,6 +10,10 @@ import {from, of} from "rxjs";
 })
 export class PatientInfoComponent implements OnInit {
   patient: any;
+  name: string = 'Johnathan Doe';
+  ptBirth: string ='11/08/2000';
+  ptHeight: string = '187.96cm'
+
 
   constructor(auth: FhirAuthService) {
     this.patient = auth.client.pipe(
