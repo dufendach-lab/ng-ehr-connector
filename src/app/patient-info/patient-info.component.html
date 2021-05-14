@@ -1,0 +1,20 @@
+
+<mat-card class="patient-info-card">
+    <mat-card-header>
+      <mat-card-title>Patient Info:</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="pt-info-container">
+            <h2>Name: {{ name }} </h2>
+            <h2>Birthday: {{ ptBirth }} </h2>
+            <h2>Height(cm): {{ ptHeight }} </h2>
+        </div>
+    </mat-card-content>
+  </mat-card>
+
+<!-- <div><pre>{{patient | json}}</pre></div>
+<h1>Observation</h1>
+<div *ngIf="(observation | async) as obs">
+  <app-obs-value-list [observations]="obs"></app-obs-value-list>
+</div> -->
+

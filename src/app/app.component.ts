@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {FhirAuthService} from "./fhir-auth.service";
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'ng-ehr-connector';
+  client = this.auth.client;
+
+  constructor(private auth: FhirAuthService) {
+  }
+
+  authorize() {
+    this.auth.testAuth();
+  }
 }

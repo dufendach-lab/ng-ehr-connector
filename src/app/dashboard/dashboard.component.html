@@ -1,0 +1,6 @@
+<div *ngIf="(patient | async) as pt">
+  <app-patient-info [patient]="pt"></app-patient-info>
+  <br><br>
+  <app-patient-data></app-patient-data>
+</div>
+

@@ -1,0 +1,40 @@
+// Colors pulled from centerlink
+$color-batman: #000;
+$white: #fff;
+$primary: #732d64;
+$secondary: #1b9bbb;
+$next-color: #9db283;
+
+.nav-container {
+    width: 100%;
+}
+
+nav {
+    overflow: auto;
+    background: linear-gradient(45deg, $primary 70%, $secondary, $next-color);
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    top: 0;
+    width: 100%;
+    z-index: 10000;
+
+    h1 {
+        color: #cd539a;
+        padding-left: 2%;
+        text-shadow: -1px 1px 0 $white,
+                    1px -1px 0 $white,
+                    1px 1px 0 $white,
+                    -1px -1px 0 $white;
+    }
+
+    h3 {
+        color: #cd539a;
+        padding-right: 2%;
+        text-shadow: -1px 1px 0 $white,
+                    1px -1px 0 $white,
+                    1px 1px 0 $white,
+                    -1px -1px 0 $white;
+    }
+}
