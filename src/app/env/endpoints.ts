@@ -12,7 +12,7 @@ export const smartHealthIt: AuthorizeParams = {
 export const epicConfig: AuthorizeParams = {
   clientId: 'f7cfa009-58a4-4de2-8437-3b77306faedd', // EHR Connector
   scope: 'launch/patient',
-  // iss: 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/DSTU2/', // DSTU2
-  iss: 'https://open-ic.epic.com/argonaut/api/FHIR/Argonaut/', // Open epic
+  iss: 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/DSTU2/', // DSTU2
+  // iss: 'https://open-ic.epic.com/argonaut/api/FHIR/Argonaut/', // Open epic
   // redirectUri: 'http://localhost:4200/dashboard',
 }
