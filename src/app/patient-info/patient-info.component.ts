@@ -15,8 +15,8 @@ export class PatientInfoComponent implements OnInit {
   observation = this.obService.getObservation('29463-7');
 
   name: string = '';
-  ptBirth: string ='11/08/2000';
-  ptHeight: string = '187.96cm';
+  bday: string = '';
+  gender: string = '';
 
   constructor(private obService: ObservationService) {
     console.log(this.patient);
@@ -24,6 +24,8 @@ export class PatientInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.getName();
+    this.getBday();
+    this.getGender();
   }
 
   getName(): void {
@@ -31,6 +33,22 @@ export class PatientInfoComponent implements OnInit {
 
     if(name) {
       this.name = `${name.given[0]} ${name.family}`;
+    }
+  }
+
+  getBday(): void {
+    const bday = this.patient?.birthDate;
+
+    if(bday) {
+      this.bday = `${bday}`;
+    }
+  }
+
+  getGender(): void {
+    const gender = this.patient?.gender;
+
+    if(gender) {
+      this.gender = `${gender}`;
     }
   }
 

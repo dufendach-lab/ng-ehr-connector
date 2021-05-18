@@ -5,7 +5,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,7 +15,6 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { PatientDataComponent } from './patient-data/patient-data.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ObsValueListComponent } from './obs-value-list/obs-value-list.component';
-
 
 @NgModule({
   declarations: [
@@ -33,7 +33,9 @@ import { ObsValueListComponent } from './obs-value-list/obs-value-list.component
     MatCardModule,
     MatInputModule,
     MatFormFieldModule,
-    FormsModule
+    FormsModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

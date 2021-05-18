@@ -15,14 +15,20 @@ export class ObsValueListComponent implements OnInit {
 
   obsList: Observation[] = [];
 
-
+  isValueThere: boolean = false;
 
   constructor() { }
 
   ngOnInit(): void {
     console.log(this.observations?.entry);
+
     if (this.observations) {
       this.obsList = this.observations.entry;
+
+      if(this.obsList[0].resource.code) {
+        this.isValueThere = true;
+      }
+
       console.log(this.obsList[0]);
     }
   }

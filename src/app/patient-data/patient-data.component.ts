@@ -5,6 +5,7 @@ import { fhirclient }from 'fhirclient/lib/types';
 import Bundle = fhirclient.FHIR.Bundle;
 import Observation = fhirclient.FHIR.Observation;
 import { ObservationService } from '../observation.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-patient-data',
@@ -13,7 +14,7 @@ import { ObservationService } from '../observation.service';
 })
 export class PatientDataComponent implements OnInit {
 
-  ptData: string = "29463-7";
+  ptData = new FormControl("29463-7");
 
   obsBundle = new Subject<Bundle | Observation>();
 
@@ -26,7 +27,7 @@ export class PatientDataComponent implements OnInit {
 
   search(): void {
     this.dataReceived = true;
-    this.actualPtData = this.ptData;
+    this.actualPtData = this.ptData.value;
 
     this.obsService.getObservation(this.actualPtData).then(b => this.obsBundle.next(b));
   }

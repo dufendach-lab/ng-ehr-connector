@@ -8,9 +8,8 @@
             <div class="search-box">
                 <mat-form-field class="material-form">
                   <mat-label>Enter Loinc Code Here</mat-label>
-                  <input matInput [(ngModel)]="ptData" #message="ngModel" maxlength="256" placeholder="Ex '29463-7'">
+                  <input matInput [formControl]="ptData" maxlength="256" placeholder="Ex '29463-7'">
                   <mat-hint align="start">Ex. 29463-7</mat-hint>
-                  <mat-hint align="end">{{message.value.length}} / 10</mat-hint>
                 </mat-form-field>
                 <button mat-button (click)="search()">Search</button>
             </div>

@@ -1,4 +1,13 @@
 <ul>
-  <h2>{{ obsList[0].resource.code.text }}</h2>
-  <li *ngFor="let obs of obsList"> {{obs.resource.valueQuantity.value | number:'1.0-3'}} {{obs.resource.valueQuantity.unit}} </li>
+  <h2 *ngIf="isValueThere; else noValue">{{ obsList[0].resource.code.text}}</h2>
+
+  <div *ngFor="let obs of obsList">
+    <li *ngIf="obs.resource.valueQuantity; else noValue">
+      {{obs.resource.valueQuantity.value | number:'1.0-3'}} {{obs.resource.valueQuantity.unit}}
+    </li>
+  </div>
+
+
 </ul>
+
+<ng-template #noValue>Missing Value</ng-template>
