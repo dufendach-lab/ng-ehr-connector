@@ -1,4 +1,4 @@
-<div *ngIf="(patient | async) as pt">
+<div *ngIf="(patient | async) as pt" class="container">
   <app-patient-info [patient]="pt"></app-patient-info>
   <br><br>
   <app-patient-data></app-patient-data>
