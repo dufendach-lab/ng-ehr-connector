@@ -62,15 +62,3 @@ export const epicConfig: AuthorizeParams = {
   // iss: 'https://open-ic.epic.com/argonaut/api/FHIR/Argonaut/', // Open epic
   // redirectUri: 'http://localhost:4200/dashboard',
 }
-
-// getEpicEndpoints()
-// function getEpicEndpoints() {
-//   data.Entries.forEach(element => {
-//     let entry = {} as FhirEndpoint;
-//     entry.FHIRPatientFacingURI = element.FHIRPatientFacingURI;
-//     entry.OrganizationName = element.OrganizationName;
-//     entry.clientId = EPIC_CLIENT_ID;
-//     testEndpoints.push(entry)
-//   });
-// }
-
