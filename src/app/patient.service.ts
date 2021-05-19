@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { from, Observable, of, Subject } from 'rxjs';
 import { FhirAuthService } from './fhir-auth.service';
 import { filter, switchMap } from 'rxjs/operators';
-
-import { fhirclient }from 'fhirclient/lib/types';
+import {fhirclient} from 'fhirclient/lib/types';
 import Patient = fhirclient.FHIR.Patient;
 
 @Injectable({
