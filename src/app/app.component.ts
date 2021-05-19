@@ -10,9 +10,8 @@ import {FhirAuthService} from "./fhir-auth.service";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-
-  isAuthorized = this.auth.authorized;
   client = this.auth.client;
+  isAuthorized = this.auth.authorized;
 
   stateCtrl = new FormControl();
   options: string[] = ['SmartHealthIT', 'epicHealthService', 'ExtraExtra'];

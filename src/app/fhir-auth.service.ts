@@ -3,7 +3,7 @@ import {from, Observable} from "rxjs";
 import Client from "fhirclient/lib/Client";
 import {oauth2} from "fhirclient";
 import {epicConfig, smartHealthIt} from "./env/endpoints";
-import {map, shareReplay, switchMap} from "rxjs/operators";
+import {map, shareReplay} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -16,18 +16,16 @@ export class FhirAuthService {
   constructor() {
     this.client = from(oauth2.ready()).pipe(shareReplay(1));
     this.patientId = this.client.pipe(map(client => client?.getPatientId() || null));
-    this.authorized = this.client.pipe(map(client => client && client.getPatientId() !== null))
+    this.authorized = this.client.pipe(map(client => client && client.getPatientId() !== null));
   }
 
   authorize = oauth2.authorize;
 
   testAuth(val: string): void {
     if(val == 'SmartHealthIT'){
-      console.log('Working');
       this.authorize(smartHealthIt);
    }
     else if(val == 'epicHealthService') {
-     console.log("Working");
      this.authorize(epicConfig);
     }
   }

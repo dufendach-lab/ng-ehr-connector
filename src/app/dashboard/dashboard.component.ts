@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { filter } from 'rxjs/operators';
 import { PatientService } from '../patient.service';
 
@@ -14,6 +14,10 @@ export class DashboardComponent implements OnInit {
   constructor(private ps: PatientService) { }
 
   ngOnInit(): void {
+  }
+
+  logout() {
+    console.warn('Implement logout functionality.');
   }
 
 }

@@ -11,10 +11,11 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "~12.0.0",
-    "@angular/cdk": "^12.0.0",
+    "@angular/cdk": "github:angular/cdk-builds",
     "@angular/common": "~12.0.0",
     "@angular/compiler": "~12.0.0",
     "@angular/core": "~12.0.0",
+    "@angular/flex-layout": "github:angular/flex-layout-builds",
     "@angular/forms": "~12.0.0",
     "@angular/material": "^12.0.0",
     "@angular/platform-browser": "~12.0.0",

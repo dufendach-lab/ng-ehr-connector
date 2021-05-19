@@ -1,32 +1,36 @@
-<app-navbar></app-navbar>
+<div class="content" fxFlexFill>
+  <app-navbar></app-navbar>
 
-<div *ngIf="isAuthorized | async; else login">
-  <router-outlet></router-outlet>
+  <div *ngIf="isAuthorized | async; else login">
+    <router-outlet></router-outlet>
+  </div>
+
+  <ng-template #login>
+    <div class="login-container">
+      <form class="login-form">
+        <mat-form-field class="form-field">
+          <mat-label>Choose Service</mat-label>
+          <input type="text"
+          matInput
+          [formControl]="stateCtrl"
+          [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption>
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+      </form>
+    </div>
+
+    <div class="button-container">
+      <button mat-button class="auth-button" (click)="authorize(stateCtrl.value)">Authorize</button>
+    </div>
+  </ng-template>
 </div>
 
-<ng-template #login>
-  <div class="login-container">
-    <form class="login-form">
-      <mat-form-field class="form-field">
-        <mat-label>Choose Service</mat-label>
-        <input type="text"
-         matInput
-         [formControl]="stateCtrl"
-         [matAutocomplete]="auto">
-        <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption>
-          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-            {{option}}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
 
-    </form>
-  </div>
-
-  <div class="button-container">
-    <button mat-button class="auth-button" (click)="authorize(stateCtrl.value)">Authorize</button>
-  </div>
-</ng-template>
 
 
 
