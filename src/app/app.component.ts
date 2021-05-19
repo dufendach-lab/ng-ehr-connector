@@ -3,7 +3,6 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import {FhirAuthService} from "./fhir-auth.service";
-import * as data from '../assets/EpicEndpoints.json'
 
 @Component({
   selector: 'app-root',
@@ -38,10 +37,4 @@ export class AppComponent implements OnInit {
     const filterValue = value.toLowerCase();
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
-
-  // getEpicEndpoints() {
-  //   data.Entries.forEach(element => {
-  //     this.options.push(element.OrganizationName);
-  //   });
-  // }
 }
