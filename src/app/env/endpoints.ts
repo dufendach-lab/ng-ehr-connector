@@ -63,6 +63,7 @@ export const epicConfig: AuthorizeParams = {
   // redirectUri: 'http://localhost:4200/dashboard',
 }
 
+// getEpicEndpoints()
 // function getEpicEndpoints() {
 //   data.Entries.forEach(element => {
 //     let entry = {} as FhirEndpoint;

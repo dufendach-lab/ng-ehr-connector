@@ -15,6 +15,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { PatientDataComponent } from './patient-data/patient-data.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ObsValueListComponent } from './obs-value-list/obs-value-list.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ObsValueListComponent } from './obs-value-list/obs-value-list.component
     NavbarComponent,
     PatientDataComponent,
     DashboardComponent,
-    ObsValueListComponent
+    ObsValueListComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,

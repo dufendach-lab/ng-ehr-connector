@@ -4,8 +4,13 @@ import Client from "fhirclient/lib/Client";
 import {oauth2} from "fhirclient";
 import {epicConfig, FhirEndpoint, smartHealthIt} from "./env/endpoints";
 import {map, shareReplay, switchMap} from "rxjs/operators";
-import * as endpoints from '../assets/EpicEndpoints.json'
+import * as data from '../assets/EpicEndpoints.json'
 import { Console } from 'console';
+
+interface EpicEndpoint {
+  OrganizationName: string;
+  FHIRPatientFacingURI: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +26,6 @@ export class FhirAuthService {
     this.client = from(oauth2.ready()).pipe(shareReplay(1));
     this.patientId = this.client.pipe(map(client => client?.getPatientId() || null));
     this.authorized = this.client.pipe(map(client => client && client.getPatientId() !== null));
-
     this.fhirEndpoints = this.getEndpoints();
   }
 
@@ -39,11 +43,9 @@ export class FhirAuthService {
   }
 
   getEndpoints():FhirEndpoint[]{
+    const endpoints: EpicEndpoint[] = (data as any).default;
     const res: FhirEndpoint[] = []
     console.log(endpoints);
-
-
-
     endpoints.forEach(element => {
       let entry = {} as FhirEndpoint;
       entry.FHIRPatientFacingURI = element.FHIRPatientFacingURI;
