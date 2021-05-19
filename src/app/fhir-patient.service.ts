@@ -14,9 +14,7 @@ export class FhirPatientService {
 
   // Grabs patients name
   getName(pt: Patient | null | undefined): string {
-    const name: string = pt?.name[0];
-
-    if(name) {
+    if(pt?.name) {
       const res: string = pt?.name[0].given[0] + " " + pt?.name[0].family;
       return res;
     }
@@ -25,9 +23,8 @@ export class FhirPatientService {
 
   // Grabs patients bday
   getBday(pt: Patient | null | undefined): string {
-    const bday: string = pt?.birthDate;
-
-    if(bday) {
+    if(pt?.birthDate) {
+      const bday: string = pt?.birthDate;
       return bday;
     }
     return 'N/A';
@@ -35,9 +32,8 @@ export class FhirPatientService {
 
   // Grabs Patients gender
   getGender(pt: Patient | null | undefined): string {
-    const gender: string = pt?.gender;
-
-    if(gender) {
+    if(pt?.gender) {
+      const gender: string = pt?.gender;
       return gender.toUpperCase();
     }
     return 'N/A';
@@ -45,9 +41,8 @@ export class FhirPatientService {
 
   // Grabs phone number
   getPhoneNum(pt: Patient | null | undefined): string {
-    const phone: string = pt?.telecom[0].value;
-
-    if(phone) {
+    if(pt?.telecom) {
+      const phone = pt?.telecom[0].value;
       return phone;
     }
     return 'N/A';
@@ -55,23 +50,43 @@ export class FhirPatientService {
 
   // Grabs full address
   getAddress(pt: Patient | null | undefined): string {
-    const hold = pt?.address[0];
-    const address: string = hold.line[0];
-    const city: string = hold.city;
-    const state: string = hold.state;
-    const zip: string = hold.postalCode;
-    const country: string = hold.country;
-
-    if(hold){
+    if(pt?.address){
+      const hold = pt?.address[0];
+      const address: string = hold.line[0];
+      const city: string = hold.city;
+      const state: string = hold.state;
+      const zip: string = hold.postalCode;
       let res;
       if(hold.line[1]) {
-        let extraInfo = hold.line[1];
-        res = address + " " + extraInfo + ",  " + city + ", " + state + " " + zip;
+        const extraInfo = hold.line[1];
+        res = address + " " + extraInfo + ", " + city + ", " + state + " " + zip;
         return res;
       }
       res = address + ", " + city + ", " + state + " " + zip;
       return res;
+    } else {
+      return 'N/A';
     }
-    return 'N/A';
+  }
+
+  // Gets primary spoken language
+  getLanguage(pt: Patient | null | undefined): string {
+    if(pt?.communication) {
+      const res: string = pt?.communication[0].language.coding[0].display;
+      console.log(res);
+      return res;
+    } else {
+      return 'N/A';
+    }
+  }
+
+  // Gets primary care physician
+  getProvider(pt: Patient | null | undefined): string {
+    if(pt?.careProvider) {
+      const res = pt?.careProvider[0].display;
+      return res;
+    } else {
+      return 'N/A';
+    }
   }
 }

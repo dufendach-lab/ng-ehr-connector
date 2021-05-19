@@ -20,6 +20,8 @@ export class PatientInfoComponent implements OnInit {
   gender: string = '';
   phoneNum: string = '';
   address: string = '';
+  language: string = '';
+  provider: string = '';
 
   constructor(private obService: ObservationService,
     private fps: FhirPatientService) {
@@ -31,6 +33,8 @@ export class PatientInfoComponent implements OnInit {
     this.gender = this.fps.getGender(this.patient);
     this.phoneNum = this.fps.getPhoneNum(this.patient);
     this.address = this.fps.getAddress(this.patient);
+    this.language = this.fps.getLanguage(this.patient);
+    this.provider = this.fps.getProvider(this.patient);
   }
 
 }
