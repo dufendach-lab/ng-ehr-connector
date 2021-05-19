@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ObservationService } from '../observation.service';
+import { FhirPatientService } from '../fhir-patient.service';
 
 import { fhirclient }from 'fhirclient/lib/types';
 import Patient = fhirclient.FHIR.Patient;
@@ -17,39 +18,19 @@ export class PatientInfoComponent implements OnInit {
   name: string = '';
   bday: string = '';
   gender: string = '';
+  phoneNum: string = '';
+  address: string = '';
 
-  constructor(private obService: ObservationService) {
-    console.log(this.patient);
+  constructor(private obService: ObservationService,
+    private fps: FhirPatientService) {
   }
 
   ngOnInit(): void {
-    this.getName();
-    this.getBday();
-    this.getGender();
-  }
-
-  getName(): void {
-    const name = this.patient?.name[0];
-
-    if(name) {
-      this.name = `${name.given[0]} ${name.family}`;
-    }
-  }
-
-  getBday(): void {
-    const bday = this.patient?.birthDate;
-
-    if(bday) {
-      this.bday = `${bday}`;
-    }
-  }
-
-  getGender(): void {
-    const gender = this.patient?.gender;
-
-    if(gender) {
-      this.gender = `${gender}`;
-    }
+    this.name = this.fps.getName(this.patient);
+    this.bday = this.fps.getBday(this.patient);
+    this.gender = this.fps.getGender(this.patient);
+    this.phoneNum = this.fps.getPhoneNum(this.patient);
+    this.address = this.fps.getAddress(this.patient);
   }
 
 }

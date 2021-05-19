@@ -4,7 +4,7 @@
       <mat-card-title>Patient Info:</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        <div class="pt-info-container">
+        <div class="pt-info-container" fxLayout="row" fxLayout.lt-sm="column">
             <h3>Name: {{ name }} </h3>
             <h3> Birthday: {{ bday }} </h3>
             <h3> Gender: {{ gender }} </h3>
@@ -12,7 +12,11 @@
     </mat-card-content>
   </mat-card>
 
-<!-- <div><pre>{{patient | json}}</pre></div> -->
+  <h3 style="margin-left: 20px;">Phone: {{ phoneNum }}</h3>
+  <br>
+  <h3 style="margin-left: 20px;">Address: {{ address }}</h3>
+
+<div><pre>{{patient | json}}</pre></div>
 <!--
 <h1>Observation</h1>
 <div *ngIf="(observation | async) as obs">
