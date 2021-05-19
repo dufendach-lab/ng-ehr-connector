@@ -7,6 +7,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from "@angular/material/core";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +18,7 @@ import { PatientDataComponent } from './patient-data/patient-data.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ObsValueListComponent } from './obs-value-list/obs-value-list.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { AuthorizeComponent } from './authorize/authorize.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,8 @@ import { RegistrationComponent } from './registration/registration.component';
     PatientDataComponent,
     DashboardComponent,
     ObsValueListComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    AuthorizeComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +41,9 @@ import { RegistrationComponent } from './registration/registration.component';
     MatFormFieldModule,
     FormsModule,
     MatAutocompleteModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [],
   bootstrap: [AppComponent]

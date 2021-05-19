@@ -52,7 +52,7 @@ export const smartHealthIt: AuthorizeParams = {
   scope: 'launch/patient',
   // iss: 'https://launch.smarthealthit.org/v/r2/sim/eyJrIjoiMSIsImoiOiIxIiwiYiI6InNtYXJ0LTc3Nzc3MDUifQ/fhir',
   iss: 'https://launch.smarthealthit.org/v/r3/sim/eyJrIjoiMSIsImoiOiIxIiwiYiI6IjExOTc2ZjkwLWJiNDItNDUwYS04YjU4LTkyYTRjYWNlMWQyNyJ9/fhir',
-  // redirectUri: 'http://localhost:4200/dashboard',
+  redirectUri: 'http://localhost:4200/dashboard',
 };
 
 export const epicConfig: AuthorizeParams = {
@@ -60,17 +60,7 @@ export const epicConfig: AuthorizeParams = {
   scope: 'launch/patient',
   iss: 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/DSTU2/', // DSTU2
   // iss: 'https://open-ic.epic.com/argonaut/api/FHIR/Argonaut/', // Open epic
-  // redirectUri: 'http://localhost:4200/dashboard',
+  redirectUri: 'http://localhost:4200/dashboard',
 }
 
-// getEpicEndpoints()
-// function getEpicEndpoints() {
-//   data.Entries.forEach(element => {
-//     let entry = {} as FhirEndpoint;
-//     entry.FHIRPatientFacingURI = element.FHIRPatientFacingURI;
-//     entry.OrganizationName = element.OrganizationName;
-//     entry.clientId = EPIC_CLIENT_ID;
-//     testEndpoints.push(entry)
-//   });
-// }
 
