@@ -63,4 +63,3 @@ export const epicConfig: AuthorizeParams = {
   redirectUri: 'http://localhost:4200/dashboard',
 }
 
-

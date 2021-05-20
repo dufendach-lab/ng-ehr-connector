@@ -12,7 +12,6 @@ $next-color: #9db283;
     nav {
       height: 5%;
       overflow: auto;
-      background: linear-gradient(45deg, $primary 70%, $secondary, $next-color);
       position: relative;
       display: flex;
       justify-content: space-between;
@@ -29,15 +28,15 @@ $next-color: #9db283;
                       1px 1px 0 $white,
                       -1px -1px 0 $white;
       }
+      .button-container {
 
-      h3 {
-          color: #cd539a;
-          padding-right: 2%;
-          text-shadow: -1px 1px 0 $white,
-                      1px -1px 0 $white,
-                      1px 1px 0 $white,
-                      -1px -1px 0 $white;
+        margin-right: 2rem;
+        .logout-button {
+          background-color: $primary;
+          color: white;
+        }
       }
+
   }
 
 }
