@@ -9,9 +9,11 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class MainFormComponent implements OnInit {
   userDataForm = this.fb.group({
     endOfGestation: ['', Validators.required], // Date
-    gestationalAge: ['', Validators.required], // Numerical
+    gestationalAgeWk: ['', Validators.required], // Numerical
+    gestationalAgeDay: ['', Validators.required],
     ruptMembranes: ['', Validators.required], // Y/N - If yes, gestational age at time of rupture (num)
-    ageAtRuptTime: [''],
+    ageAtRuptTimeWk: [''],
+    ageAtRuptTimeDay: [''],
     deliverLoc: ['', Validators.required], // CCHMC, GSH, UC, or other - If other, describe (free text)
     otherDesc: [''],
     donOrRec: ['', Validators.required], // Donor or recipient option (triggers secSet)

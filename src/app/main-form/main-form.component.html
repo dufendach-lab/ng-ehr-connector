@@ -1,103 +1,144 @@
 <mat-card style="margin:auto; width: 70%;">
   <mat-card-title>-- Main Form Component --</mat-card-title>
-  <form [formGroup]="userDataForm" style="margin-top: 3rem;">
+  <ng-container [formGroup]="userDataForm" style="margin-top: 3rem;">
     <h3>End of Gestation</h3>
-    <input type="date" formControlName="endOfGestation">
+    <mat-form-field>
+      <mat-label>Date</mat-label><br>
+      <input matInput [matDatepicker]="picker" formControlName="endOfGestation" placeholder="--/--/----">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
     <br>
 
     <h3>Gestational Age</h3>
-    <input type="number" formControlName="gestationalAge">
-    <br>
+    <mat-form-field>
+      <mat-label>Weeks</mat-label>
+      <input matInput type="number" formControlName="gestationalAgeWk">
+    </mat-form-field>&nbsp;&nbsp;
+    <mat-form-field>
+      <mat-label>Days</mat-label>
+      <input matInput type="number" formControlName="gestationalAgeDay">
+    </mat-form-field>
+
 
     <h3>Rupture of Membranes</h3>
-    <input type="radio" formControlName="ruptMembranes" id="yes" value="yes">
-    <label for="yes">Yes</label><br>
-    <input type="radio" formControlName="ruptMembranes" id="no" value="no">
-    <label for="no">No</label>
-    <br>
+    <mat-radio-group formControlName="ruptMembranes">
+      <mat-radio-button value="yes">Yes</mat-radio-button>&nbsp;&nbsp;
+      <mat-radio-button value="no">No</mat-radio-button>
+    </mat-radio-group><br>
+
     <div *ngIf="userDataForm.value.ruptMembranes == 'yes'">
-      <h3>Gestational age at time of rupter</h3>
-      <input type="number" formControlName="ageAtRuptTime">
+      <h3>Gestational age at time of rupture</h3>
+      <mat-form-field>
+        <mat-label>Weeks</mat-label>
+        <input matInput type="number" formControlName="ageAtRuptTimeWk">
+      </mat-form-field>&nbsp;&nbsp;
+      <mat-form-field>
+        <mat-label>Days</mat-label>
+        <input matInput type="number" formControlName="ageAtRuptTimeDay">
+      </mat-form-field>
     </div><br>
 
     <h3>Delivery Location</h3>
-    <input type="radio" formControlName="deliverLoc" id="cchmc" value="cchmc">
-    <label for="cchmc">Cincinnati Childrens Hospital Medical Center</label><br>
-    <input type="radio" formControlName="deliverLoc" id="gsh" value="gsh">
-    <label for="gsh">Good Samaritan Hospital</label><br>
-    <input type="radio" formControlName="deliverLoc" id="uc" value="uc">
-    <label for="uc">University of Cincinnati Medical Center</label><br>
-    <input type="radio" formControlName="deliverLoc" id="other" value="other">
-    <label for="other">Other</label>
+    <mat-radio-group formControlName="deliverLoc">
+      <mat-radio-button value="cchmc">Cincinnati Childrens Hospital Medical Center</mat-radio-button><br><br>
+      <mat-radio-button value="gsh">Good Samaritan Hospital</mat-radio-button><br><br>
+      <mat-radio-button value="ucmc">University of Cincinnati Medical Center</mat-radio-button><br><br>
+      <mat-radio-button value="other">Other</mat-radio-button>
+    </mat-radio-group>
+
     <br><br>
     <div *ngIf="userDataForm.value.deliverLoc == 'other'">
-      <label for="othertext">Describe</label><br>
-      <input type="text" formControlName="otherDesc" id="othertext">
+      <mat-form-field>
+        <mat-label>Describe</mat-label>
+        <input matInput type="text" formControlName="otherDesc">
+      </mat-form-field>
     </div>
 
     <h3>Donor or Recipient</h3>
-    <input type="radio" formControlName="donOrRec" id="recipient" value="recipient">
-    <label for="recipient">Recipient</label><br>
-    <input type="radio" formControlName="donOrRec" id="donor" value="donor">
-    <label for="donor">Donor</label>
-    <br>
+    <mat-radio-group formControlName="donOrRec">
+      <mat-radio-button value="recipient">Recipient</mat-radio-button>&nbsp;&nbsp;
+      <mat-radio-button value="donor">Donor</mat-radio-button>
+    </mat-radio-group>
+    <br><br>
 
-    <div formGroupName="secSet">
+    <ng-container formGroupName="secSet">
 
       <h3>Type of Birth</h3>
-      <input type="radio" formControlName="typeOfBirth" id="cesarea" value="cesarea">
-      <label for="cesarea">Cesarea</label><br>
-      <input type="radio" formControlName="typeOfBirth" id="vaginal" value="vaginal">
-      <label for="vaginal">Vaginal</label>
+      <mat-radio-group formControlName="typeOfBirth">
+        <mat-radio-button value="cesarea">Cesarea</mat-radio-button>&nbsp;&nbsp;
+        <mat-radio-button value="vaginal">Vaginal</mat-radio-button>
+      </mat-radio-group>
+      <br><br>
 
-      <h3>Birth Weight (g)</h3>
-      <input type="text" formControlName="birthWeight">
+      <h3>Birth Weight(g)</h3>
+      <mat-form-field>
+        <mat-label>Grams</mat-label>
+        <input matInput type="text" formControlName="birthWeight">
+      </mat-form-field>
       <br>
 
       <h3>Sex of the Child</h3>
-      <input type="radio" formControlName="sexOfChild" id="male" value="male">
-      <label for="male">Male</label><br>
-      <input type="radio" formControlName="sexOfChild" id="female" value="female">
-      <label for="female">Female</label>
-      <br>
+      <mat-radio-group formControlName="sexOfChild">
+        <mat-radio-button value="male">Male</mat-radio-button>&nbsp;&nbsp;
+        <mat-radio-button value="female">Female</mat-radio-button>
+      </mat-radio-group>
+      <br><br>
 
       <h3>Fetal MRN</h3>
-      <input type="number" formControlName="fetalMRN">
-      <br>
+      <mat-form-field>
+        <mat-label>Medical Record #</mat-label>
+        <input matInput type="number" formControlName="fetalMRN">
+      </mat-form-field>
+      <br><br>
 
       <h3>Baby Name</h3>
-      <input type="text" formControlName="babyName">
-      <br>
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput type="text" formControlName="babyName">
+      </mat-form-field>
+      <br><br>
 
       <h3>Live Birth</h3>
-      <input type="radio" formControlName="liveBirth" id="yes" value="yes">
-      <label for="yes">Yes</label><br>
-      <input type="radio" formControlName="liveBirth" id="yes" value="no">
-      <label for="no">No</label>
-      <br>
+      <mat-radio-group formControlName="liveBirth">
+        <mat-radio-button value="yes">Yes</mat-radio-button>&nbsp;&nbsp;
+        <mat-radio-button value="no">No</mat-radio-button>
+      </mat-radio-group>
+      <br><br>
 
       <h3>Death Within 30 Days</h3>
-      <input type="radio" formControlName="deathInThirty" id="yes" value="yes">
-      <label for="yes">Yes</label><br>
-      <input type="radio" formControlName="deathInThirty" id="yes" value="no">
-      <label for="no">No</label>
+      <mat-radio-group formControlName="deathInThirty">
+        <mat-radio-button value="yes">Yes</mat-radio-button>&nbsp;&nbsp;
+        <mat-radio-button value="no">No</mat-radio-button>
+      </mat-radio-group>
       <br><br>
+
       <div *ngIf="userDataForm.get('secSet.deathInThirty')?.value == 'yes'">
-        <label for="desc">Explain</label><br>
-        <input type="text" formControlName="deathDesc" id="desc">
+        <mat-form-field>
+          <mat-label>Descripion</mat-label>
+          <input matInput type="text" formControlName="deathDesc" id="desc">
+        </mat-form-field>
+
       </div>
 
       <h3>Termination</h3>
-      <input type="radio" formControlName="termination" id="yes" value="yes">
-      <label for="yes">Yes</label><br>
-      <input type="radio" formControlName="termination" id="yes" value="no">
-      <label for="no">No</label>
-    </div>
-    <br>
+      <mat-radio-group formControlName="termination">
+        <mat-radio-button value="yes">Yes</mat-radio-button>&nbsp;&nbsp;
+        <mat-radio-button value="no">No</mat-radio-button>
+      </mat-radio-group>
+      <br><br>
+    </ng-container>
 
-    <button type="submit" [disabled]="!userDataForm.valid" (click)="submit()" style="margin-bottom: 4rem;">Submit</button>
 
-  </form>
+    <button mat-raised-button
+    color="primary"
+    type="submit"
+    [disabled]="!userDataForm.valid"
+    (click)="submit()"
+    style="margin-bottom: 4rem;">
+    Submit</button>
+
+  </ng-container>
 </mat-card>
 
 
