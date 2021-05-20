@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { waitForAsync } from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { fhirclient } from 'fhirclient/lib/types';
+import { Observable } from 'rxjs';
+import { FhirAuthService } from '../fhir-auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -6,10 +11,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+  isAuth: Observable<boolean | null>;
 
-  constructor() { }
+  constructor(private router: Router, private auth: FhirAuthService) {
+    this.isAuth = auth.authorized;
+  }
 
   ngOnInit(): void {
+
+  }
+
+  logout(): void {
+    sessionStorage.clear();
+    this.router.navigate(['/']);
   }
 
 }

@@ -8,9 +8,9 @@ $next-color: #9db283;
 .nav-container {
     width: 100%;
 
-
     nav {
       height: 5%;
+      background-color: $next-color;
       overflow: auto;
       position: relative;
       display: flex;
@@ -21,12 +21,10 @@ $next-color: #9db283;
       z-index: 10000;
 
       h1 {
-          color: #cd539a;
-          padding-left: 2%;
-          text-shadow: -1px 1px 0 $white,
-                      1px -1px 0 $white,
-                      1px 1px 0 $white,
-                      -1px -1px 0 $white;
+          margin-left: 2rem;
+          color: $primary;
+          font-weight: bolder;
+
       }
       .button-container {
 

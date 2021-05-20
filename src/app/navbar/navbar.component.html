@@ -2,8 +2,9 @@
 <div class="nav-container">
     <nav>
         <h1 class="text-tag">CCHMC EHR Connector</h1>
-        <div class="button-container">
-          <button mat-raised-button class="logout-button">Logout</button>
+
+        <div *ngIf="isAuth | async" class="button-container">
+          <button mat-raised-button class="logout-button" (click)="logout()">Logout</button>
         </div>
     </nav>
 </div>
