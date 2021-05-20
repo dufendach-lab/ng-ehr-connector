@@ -36,12 +36,27 @@
     </div>
 <div>
     <mat-form-field class="form-field" style="max-width: 30em; width: 90%;">
+      <mat-chip-list #chipList>
+        <mat-chip
+          *ngFor="let hos of selectedHospitals"
+          [selectable]="true"
+          [removable]="true"
+          (removed)="removeChip(hos)">
+          {{hos}}
+          <mat-icon matChipRemove *ngIf="true">X</mat-icon>
+        </mat-chip>
       <input type="text"
          matInput
          formControlName="Hospital"
+         #hospitalInput
          [matAutocomplete]="auto"
-         placeholder="Select a hospital" [(ngModel)]="registrationInfo.Hospital">
-       <mat-autocomplete #auto="matAutocomplete">
+         [matChipInputFor]="chipList"
+         [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+         [matChipInputAddOnBlur]="true"
+         (matChipInputTokenEnd)="addChip($event)"
+         placeholder="Select a hospital" [(ngModel)]="registrationInfo.hospital">
+        </mat-chip-list>
+       <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
         <mat-option *ngFor="let hospital of hospitalList | async" [value]="hospital">
           {{hospital}}
         </mat-option>
@@ -51,6 +66,6 @@
   </form>
 
   <div class="button-container">
-    <button mat-button class="submit-button" (click)="submit()" [disabled]="!registration.valid">Submit</button>
+    <button mat-button class="submit-button" (click)="submit()" [disabled]="!(registration.valid) || (selectedHospitals.length == 0)">Submit</button>
   </div>
 </div>

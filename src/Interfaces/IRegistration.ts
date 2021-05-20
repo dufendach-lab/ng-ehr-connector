@@ -4,5 +4,5 @@ export interface IRegistration {
   MotherDoB: Date;
   EstDueDate: Date;
   Diagnosis: string;
-  Hospital: string[];
+  hospital: string[];
 }
