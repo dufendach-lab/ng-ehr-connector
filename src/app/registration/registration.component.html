@@ -5,24 +5,24 @@
       <mat-label>First Name</mat-label>
       <input type="text"
        matInput
-       formControlName="firstname">
+       formControlName="firstname" [(ngModel)]="registrationInfo.firstName">
     </mat-form-field>
 
     <mat-form-field class="form-field">
       <mat-label>Last Name</mat-label>
       <input type="text"
        matInput
-       formControlName="lastname">
+       formControlName="lastname" [(ngModel)]="registrationInfo.lastName">
     </mat-form-field>
 <div>
     <mat-form-field class="form-field">
-      <input matInput [matDatepicker] = "DoBpicker" placeholder = "Mother's Birthday" formControlName='MotherDoB'>
+      <input matInput [matDatepicker] = "DoBpicker" placeholder = "Mother's Birthday" formControlName='MotherDoB' [(ngModel)]="registrationInfo.MotherDoB">
       <mat-datepicker-toggle matSuffix [for] = "DoBpicker"></mat-datepicker-toggle>
       <mat-datepicker #DoBpicker disabled="false"></mat-datepicker>
     </mat-form-field>
   </div>
     <mat-form-field class="form-field">
-      <input matInput [matDatepicker] = "EDDpicker" placeholder = "Estimated Due Date" formControlName='EstDueDate'>
+      <input matInput [matDatepicker] = "EDDpicker" placeholder = "Estimated Due Date" formControlName='EstDueDate' [(ngModel)]="registrationInfo.EstDueDate">
       <mat-datepicker-toggle matSuffix [for] = "EDDpicker"></mat-datepicker-toggle>
       <mat-datepicker #EDDpicker disabled="false"></mat-datepicker>
     </mat-form-field>
@@ -31,7 +31,7 @@
       <mat-label>Diagnosis</mat-label>
       <input type="text"
        matInput
-       formControlName="Diagnosis">
+       formControlName="Diagnosis" [(ngModel)]="registrationInfo.Diagnosis">
     </mat-form-field>
     </div>
 <div>
@@ -40,7 +40,7 @@
          matInput
          formControlName="Hospital"
          [matAutocomplete]="auto"
-         placeholder="Select a hospital">
+         placeholder="Select a hospital" [(ngModel)]="registrationInfo.Hospital">
        <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let hospital of hospitalList | async" [value]="hospital">
           {{hospital}}

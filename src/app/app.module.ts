@@ -10,6 +10,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from "@angular/material/core";
+import { MatChipsModule } from '@angular/material/chips'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -50,6 +51,7 @@ import { AuthorizeComponent } from './authorize/authorize.component';
     ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatChipsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
