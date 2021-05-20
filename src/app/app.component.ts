@@ -28,7 +28,6 @@ export class AppComponent implements OnInit {
     //   map(value => this._filter(value))
     // );
   }
-
   // authorize(val: string) {
   //   this.auth.testAuth(val);
   // }
