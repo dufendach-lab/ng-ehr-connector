@@ -5,24 +5,24 @@
       <mat-label>First Name</mat-label>
       <input type="text"
        matInput
-       formControlName="firstname">
+       formControlName="firstname" [(ngModel)]="registrationInfo.firstName">
     </mat-form-field>
 
     <mat-form-field class="form-field">
       <mat-label>Last Name</mat-label>
       <input type="text"
        matInput
-       formControlName="lastname">
+       formControlName="lastname" [(ngModel)]="registrationInfo.lastName">
     </mat-form-field>
 <div>
     <mat-form-field class="form-field">
-      <input matInput [matDatepicker] = "DoBpicker" placeholder = "Mother's Birthday" formControlName='MotherDoB'>
+      <input matInput [matDatepicker] = "DoBpicker" placeholder = "Mother's Birthday" formControlName='MotherDoB' [(ngModel)]="registrationInfo.MotherDoB">
       <mat-datepicker-toggle matSuffix [for] = "DoBpicker"></mat-datepicker-toggle>
       <mat-datepicker #DoBpicker disabled="false"></mat-datepicker>
     </mat-form-field>
   </div>
     <mat-form-field class="form-field">
-      <input matInput [matDatepicker] = "EDDpicker" placeholder = "Estimated Due Date" formControlName='EstDueDate'>
+      <input matInput [matDatepicker] = "EDDpicker" placeholder = "Estimated Due Date" formControlName='EstDueDate' [(ngModel)]="registrationInfo.EstDueDate">
       <mat-datepicker-toggle matSuffix [for] = "EDDpicker"></mat-datepicker-toggle>
       <mat-datepicker #EDDpicker disabled="false"></mat-datepicker>
     </mat-form-field>
@@ -31,17 +31,32 @@
       <mat-label>Diagnosis</mat-label>
       <input type="text"
        matInput
-       formControlName="Diagnosis">
+       formControlName="Diagnosis" [(ngModel)]="registrationInfo.Diagnosis">
     </mat-form-field>
     </div>
 <div>
     <mat-form-field class="form-field" style="max-width: 30em; width: 90%;">
+      <mat-chip-list #chipList>
+        <mat-chip
+          *ngFor="let hos of selectedHospitals"
+          [selectable]="true"
+          [removable]="true"
+          (removed)="removeChip(hos)">
+          {{hos}}
+          <mat-icon matChipRemove *ngIf="true">X</mat-icon>
+        </mat-chip>
       <input type="text"
          matInput
          formControlName="Hospital"
+         #hospitalInput
          [matAutocomplete]="auto"
-         placeholder="Select a hospital">
-       <mat-autocomplete #auto="matAutocomplete">
+         [matChipInputFor]="chipList"
+         [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+         [matChipInputAddOnBlur]="true"
+         (matChipInputTokenEnd)="addChip($event)"
+         placeholder="Select a hospital" [(ngModel)]="registrationInfo.hospital">
+        </mat-chip-list>
+       <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
         <mat-option *ngFor="let hospital of hospitalList | async" [value]="hospital">
           {{hospital}}
         </mat-option>
@@ -51,6 +66,6 @@
   </form>
 
   <div class="button-container">
-    <button mat-button class="submit-button" (click)="submit()" [disabled]="!registration.valid">Submit</button>
+    <button mat-button class="submit-button" (click)="submit()" [disabled]="!(registration.valid) || (selectedHospitals.length == 0)">Submit</button>
   </div>
 </div>

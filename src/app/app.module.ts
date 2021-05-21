@@ -9,7 +9,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule } from "@angular/material/core";
+import { MatChipsModule } from '@angular/material/chips'
 import { MatRadioModule } from '@angular/material/radio';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -50,7 +51,8 @@ import { AuthorizeComponent } from './authorize/authorize.component';
     FlexLayoutModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatRadioModule
+    MatChipsModule,
+    MatRadioModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
