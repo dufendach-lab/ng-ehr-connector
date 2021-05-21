@@ -17,16 +17,19 @@ export class RegistrationComponent implements OnInit {
 
   constructor( private fb: FormBuilder, private fhirService: FhirAuthService) { }
 
+  //Hospital list, that updates as autocomplete occurs
   hospitalList: Observable<string[]> | any;
   hospitalOptions: string[] = []
+  //Initializes a new interface to store the data
   registrationInfo = {} as IRegistration;
+  //Hoispital selected for the chips seen
   selectedHospitals: string[] = [];
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
   @ViewChild('hospitalInput') hospitalInput = {} as ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete = {} as MatAutocomplete;
 
-  //registration = new FormControl();
+  //The formbuilder reactive form
   registration = this.fb.group({
     firstname: ['', Validators.required],
     lastname: ['', Validators.required],
@@ -36,8 +39,7 @@ export class RegistrationComponent implements OnInit {
     Hospital: ['', Validators.required],
   })
 
-  //Save as an interface
-
+  //Uses the Engpoints function to retrieve a list of all the available epic endpoints
   getHospitalList(){
     const res = this.fhirService.getEndpoints();
     this.hospitalOptions = [];
@@ -46,6 +48,7 @@ export class RegistrationComponent implements OnInit {
     });
   }
 
+  //Obtains the list of hospitals, then watches the hospital field value to update list as autoomplete occurs
   ngOnInit(): void {
     this.getHospitalList();
     this.hospitalList = this.registration.controls['Hospital'].valueChanges.pipe(
@@ -59,36 +62,36 @@ export class RegistrationComponent implements OnInit {
     return this.hospitalOptions.filter(hospitalOptions => hospitalOptions.toLowerCase().includes(filterValue));
   }
 
+  //Logs the patients registraion data
   submit() {
-    console.log("Interface Info")
     this.registrationInfo.hospital = this.selectedHospitals;
     console.log(this.registrationInfo)
-    console.log("FB info");
-    console.log(this.registration.value);
   }
 
 
-  //Stuff required for the chips
+  //Add a chip to the hosipital selection
   addChip(event: MatChipInputEvent){
     if(!this.matAutocomplete.isOpen){
-    const input = event.input;
-    const value = event.value;
-    this.registration.controls['Hospital'].clearValidators();
-    if ((value || '').trim()) {
-      this.registrationInfo.hospital.push(value.trim());
+      const input = event.input;
+      const value = event.value;
+      //Clear validation to enusre form can be submitted since at least 1 hospital was selected
+      this.registration.controls['Hospital'].clearValidators();
+      if ((value || '').trim()) {
+        this.registrationInfo.hospital.push(value.trim());
+      }
+      if (input) {
+        input.value = '';
+      }
+      this.registration.controls['Hospital'].setValue(null);
+      this.ngOnInit();
     }
-    if (input) {
-      input.value = '';
-    }
-    this.registration.controls['Hospital'].setValue(null);
-    this.ngOnInit();
   }
-  }
-
+  //Allows for a chip to removed
   removeChip(hos: string){
     const index = this.selectedHospitals.indexOf(hos);
     if(index >= 0){
       this.selectedHospitals.splice(index, 1);
+      //If this is the last chip left, the validator is renable to ensure that a hospital is selected
       if(this.selectedHospitals.length == 0){
         this.registration.controls['Hospital'].setValidators([Validators.required]);
       }

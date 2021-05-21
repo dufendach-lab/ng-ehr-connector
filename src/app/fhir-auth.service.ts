@@ -40,6 +40,7 @@ export class FhirAuthService {
     }
   }
 
+  //Uses Epic's provided Epic Endpoint to create a list of all te endpoints, then returns as a list of all endpoints
   getEndpoints():FhirEndpoint[]{
     const endpoints: EpicEndpoint[] = (data as any).default;
     const res: FhirEndpoint[] = []
