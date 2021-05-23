@@ -2,13 +2,19 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AuthorizeComponent} from './authorize/authorize.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
+import { LandingComponent } from './landing/landing.component';
+import { LoginComponent } from './login/login.component';
+import { MainFormComponent } from './main-form/main-form.component';
 import {RegistrationComponent} from './registration/registration.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'authorize', pathMatch: 'full',},
+  {path: '', redirectTo: 'landing', pathMatch: 'full',},
   {path: 'dashboard', component: DashboardComponent,},
   {path: 'registration', component: RegistrationComponent},
-  {path: 'authorize', component: AuthorizeComponent}
+  {path: 'authorize', component: AuthorizeComponent},
+  {path: 'landing', component: LandingComponent},
+  {path: 'login', component: LoginComponent},
+  {path: 'survey', component: MainFormComponent},
 ];
 
 @NgModule({
