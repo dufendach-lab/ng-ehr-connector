@@ -1,8 +1,8 @@
-<div *ngIf="isAuthorized | async; else login">
-  <router-outlet></router-outlet>
-</div>
+<!--<div *ngIf="isAuthorized | async; else login">-->
+<!--  <router-outlet></router-outlet>-->
+<!--</div>-->
 
-<ng-template #login>
+<!--<ng-template #login>-->
   <div class="login-container">
     <form class="login-form">
       <mat-form-field class="form-field">
@@ -24,4 +24,4 @@
   <div class="button-container">
     <button mat-raised-button class="mat-primary auth-button" (click)="authorize(stateCtrl.value)">Authorize</button>
   </div>
-</ng-template>
+<!--</ng-template>-->
