@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import {Component, OnInit} from '@angular/core';
+import {FormControl} from '@angular/forms';
+import {Observable} from 'rxjs';
+import {first, map, startWith} from 'rxjs/operators';
 import {FhirAuthService} from "../fhir-auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-authorize',
@@ -11,39 +12,47 @@ import {FhirAuthService} from "../fhir-auth.service";
 })
 export class AuthorizeComponent implements OnInit {
 
-  isAuthorized = this.auth.authorized;
   client = this.auth.client;
 
   stateCtrl = new FormControl();
-  options: string[] = ['SmartHealthIT', 'epicHealthService', 'ExtraExtra'];
+  options: string[] = ['SmartHealthIT', 'epicHealthService'];
   filteredOptions: Observable<string[]> | any;
 
-  constructor(private auth: FhirAuthService) {
+  constructor(private auth: FhirAuthService, private router: Router) {
+
+    // If authorized, navigate to dashboard instead
+    this.auth.authorized
+      .pipe(first(value => value === true))
+      .subscribe(_ => router.navigate(['/dashboard']))
   }
 
   ngOnInit() {
-      this.check();
-      this.filteredOptions = this.stateCtrl.valueChanges.pipe(
+    this.check();
+    this.filteredOptions = this.stateCtrl.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value))
     );
+  }
+
+  onSubmit() {
+    this.authorize(this.stateCtrl.value);
   }
 
   authorize(val: string) {
     this.auth.testAuth(val);
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
-  }
-
   // Triggers page reload in ngOnInit
   check(): void {
-    if(!sessionStorage.getItem('foo')) {
+    if (!sessionStorage.getItem('foo')) {
       sessionStorage.setItem('foo', 'no reload');
       location.reload();
     }
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
 }

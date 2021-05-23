@@ -1,13 +1,13 @@
+<h2><ng-container *ngIf="isValueThere; else noValue">{{ obsList[0].resource.code.text}}</ng-container></h2>
+
 <ul>
-  <h2 *ngIf="isValueThere; else noValue">{{ obsList[0].resource.code.text}}</h2>
-
-  <div *ngFor="let obs of obsList">
-    <li *ngIf="obs.resource.valueQuantity; else noValue">
-      {{obs.resource.valueQuantity.value | number:'1.0-3'}} {{obs.resource.valueQuantity.unit}}
+  <ng-container *ngFor="let obs of obsList">
+    <li>
+      <ng-container *ngIf="obs.resource.valueQuantity; else noValue">
+        {{obs.resource.valueQuantity.value | number:'1.0-3'}} {{obs.resource.valueQuantity.unit}}
+      </ng-container>
     </li>
-  </div>
-
-
+  </ng-container>
 </ul>
 
 <ng-template #noValue>Missing Value</ng-template>
