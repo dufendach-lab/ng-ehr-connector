@@ -1,0 +1,54 @@
+$cchmc-pink: #ca5699;
+$cchmc-green: #73b44a;
+$cchmc-darkgreen: #3a5b25;
+$cchmc-lightgreen: #b9daa4;
+$cchmc-blue: #00aac8;
+$cchmc-lightblue: #98cbcf;
+$cchmc-gray: #565a5c;
+$cchmc-lightgray: #bdc0c1;
+$cchmc-semiLightGray: #969a9c;
+$cchmc-purple: #99336e;
+
+.cchmc-default {
+  color: $cchmc-gray;
+}
+
+.cchmc-pink {
+  color: $cchmc-pink;
+}
+
+.cchmc-green {
+  color: $cchmc-green;
+}
+
+.cchmc-darkgreen {
+  color: $cchmc-darkgreen;
+}
+
+.cchmc-blue {
+  color: $cchmc-blue;
+}
+
+.cchmc-gray {
+  color: $cchmc-gray;
+}
+
+.cchmc-purple {
+  color: $cchmc-purple;
+}
+
+.treatability {
+  color: $cchmc-green;
+}
+
+.preventability {
+  color: $cchmc-pink;
+}
+
+.adult-onset {
+  color: $cchmc-blue;
+}
+
+.carrier-status {
+  color: $cchmc-purple;
+}
