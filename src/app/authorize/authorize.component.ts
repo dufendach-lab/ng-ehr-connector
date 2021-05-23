@@ -15,7 +15,7 @@ export class AuthorizeComponent implements OnInit {
   client = this.auth.client;
 
   stateCtrl = new FormControl();
-  options: string[] = ['SmartHealthIT', 'epicHealthService', 'ExtraExtra'];
+  options: string[] = ['SmartHealthIT', 'epicHealthService'];
   filteredOptions: Observable<string[]> | any;
 
   constructor(private auth: FhirAuthService, private router: Router) {
@@ -32,6 +32,10 @@ export class AuthorizeComponent implements OnInit {
       startWith(''),
       map(value => this._filter(value))
     );
+  }
+
+  onSubmit() {
+    this.authorize(this.stateCtrl.value);
   }
 
   authorize(val: string) {
