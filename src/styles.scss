@@ -5,3 +5,15 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+$default-padding: 15px;
+
+.app-horizontal-padding {
+  padding-left: $default-padding;
+  padding-right: $default-padding;
+}
+
+.app-vertical-padding {
+  padding-top: $default-padding;
+  padding-bottom: $default-padding;
+}
