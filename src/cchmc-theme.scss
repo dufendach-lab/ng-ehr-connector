@@ -1,7 +1,7 @@
 /**
 * Generated theme by Material Theme Generator
 * https://materialtheme.arcsine.dev
-* Fork at: https://materialtheme.arcsine.dev/?c=YHBhbGV0dGU$YHByaW1hcnk$YF48I2NhNTY5OSIsIj9lcjwjZWZjY2UwIiwiO2VyPCNiNzNjN2N$LCIlPmBePCMwMGFhYzgiLCI~ZXI8I2IzZTZlZiIsIjtlcjwjMDA5MGI0fiwid2Fybj5gXjwjZmY1YTVjIiwiP2VyPCNmZmNlY2UiLCI7ZXI8I2ZmM2Y0MX4sIj9UZXh0PCMwYzBjMGQiLCI~PTwjZjJmMmYzIiwiO1RleHQ8I2ZiZmJmZiIsIjs9PCMzMTM0MzV$LCJmb250cz5bYEA8KC00fixgQDwoLTN$LGBAPCgtMn4sYEA8KC0xfixgQDxoZWFkbGluZX4sYEA8dGl0bGV$LGBAPHN1YiktMn4sYEA8c3ViKS0xfixgQDxib2R5LTJ$LGBAPGJvZHktMX4sYEA8YnV0dG9ufixgQDxjYXB0aW9ufixgQDxpbnB1dCIsInNpemU$bnVsbH1dLCJpY29uczxGaWxsZWQiLCI~bmVzcz50cnVlLCJ2ZXJzaW9uPjEyfQ==
+* Fork at: https://materialtheme.arcsine.dev/?c=YHBhbGV0dGU$YHByaW1hcnk$YF48I2M2NTM5NSIsIj9lcjwjZWVjYmRmIiwiO2VyPCNiMTM5Nzh$LCIlPmBePCMwMGFhYzgiLCI~ZXI8I2IzZTZlZiIsIjtlcjwjMDA5MGI0fiwid2Fybj5gXjwjZmY1YTVjIiwiP2VyPCNmZmNlY2UiLCI7ZXI8I2ZmM2Y0MX4sIj9UZXh0PCMwYzBjMGQiLCI~PTwjZjJmMmYzIiwiO1RleHQ8I2ZiZmJmZiIsIjs9PCMzMTM0MzV$LCJmb250cz5bYEA8KC00fixgQDwoLTN$LGBAPCgtMn4sYEA8KC0xfixgQDxoZWFkbGluZX4sYEA8dGl0bGV$LGBAPHN1YiktMn4sYEA8c3ViKS0xfixgQDxib2R5LTJ$LGBAPGJvZHktMX4sYEA8YnV0dG9ufixgQDxjYXB0aW9ufixgQDxpbnB1dCIsInNpemU$bnVsbH1dLCJpY29uczxGaWxsZWQiLCI~bmVzcz50cnVlLCJ2ZXJzaW9uPjEyfQ==
 */
 
 @use '~@angular/material' as mat;
@@ -149,20 +149,20 @@ $mat-dark-theme-background: (
 // Theme Config
 
 body {
-  --primary-color: #ca5699;
-  --primary-lighter-color: #efcce0;
-  --primary-darker-color: #b73c7c;
-  --text-primary-color: #{$dark-primary-text};
+  --primary-color: #c65395;
+  --primary-lighter-color: #eecbdf;
+  --primary-darker-color: #b13978;
+  --text-primary-color: #{$light-primary-text};
   --text-primary-lighter-color: #{$dark-primary-text};
   --text-primary-darker-color: #{$light-primary-text};
 }
 $mat-primary: (
-  main: #ca5699,
-  lighter: #efcce0,
-  darker: #b73c7c,
-  200: #ca5699, // For slide toggle,
+  main: #c65395,
+  lighter: #eecbdf,
+  darker: #b13978,
+  200: #c65395, // For slide toggle,
   contrast : (
-    main: $dark-primary-text,
+    main: $light-primary-text,
     lighter: $dark-primary-text,
     darker: $light-primary-text,
   )
