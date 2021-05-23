@@ -12,6 +12,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatChipsModule } from '@angular/material/chips'
 import { MatRadioModule } from '@angular/material/radio';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,6 +24,8 @@ import { ObsValueListComponent } from './obs-value-list/obs-value-list.component
 import { MainFormComponent } from './main-form/main-form.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { AuthorizeComponent } from './authorize/authorize.component';
+import { LandingComponent } from './landing/landing.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +39,8 @@ import { AuthorizeComponent } from './authorize/authorize.component';
     AuthorizeComponent,
     ObsValueListComponent,
     MainFormComponent,
+    LandingComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,6 +58,7 @@ import { AuthorizeComponent } from './authorize/authorize.component';
     MatNativeDateModule,
     MatChipsModule,
     MatRadioModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
