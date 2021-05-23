@@ -1,6 +1,6 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {Observable, Subscription} from 'rxjs';
+import {Observable} from 'rxjs';
 import {first, map, startWith} from 'rxjs/operators';
 import {FhirAuthService} from "../fhir-auth.service";
 import {Router} from "@angular/router";
