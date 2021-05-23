@@ -1,11 +1,12 @@
 <!-- Main navbar container -->
-<div class="nav-container">
-    <nav>
-        <h1 class="text-tag">CCHMC EHR Connector</h1>
+<mat-toolbar color="primary" role="heading" class="mat-elevation-z5">
+  <button mat-button routerLink="/">
+    <h1 class="text-tag">CCHMC EHR Connector</h1>
+  </button>
 
-        <div *ngIf="isAuth | async" class="button-container">
-          <button mat-raised-button class="logout-button" (click)="logout()">Logout</button>
-        </div>
-    </nav>
-</div>
+  <span fxFlex></span>
+  <div *ngIf="isAuth | async" class="button-container">
 
+    <button mat-button class="logout-button" (click)="logout()">Logout</button>
+  </div>
+</mat-toolbar>
