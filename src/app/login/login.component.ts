@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject, HostListener } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
@@ -44,7 +43,7 @@ export class LoginComponent implements OnInit {
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
-    console.log(event);
+    // console.log(event);
     if (event.key === "Enter") {
       this.onSubmit();
     }
