@@ -15,9 +15,4 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  logout() {
-    console.warn('Implement logout functionality.');
-  }
-
 }

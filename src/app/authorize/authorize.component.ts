@@ -4,6 +4,9 @@ import {Observable} from 'rxjs';
 import {first, map, startWith} from 'rxjs/operators';
 import {FhirAuthService} from "../fhir-auth.service";
 import {Router} from "@angular/router";
+import {FhirEndpoint} from "../env/endpoints";
+import {fhirclient} from "fhirclient/lib/types";
+import AuthorizeParams = fhirclient.AuthorizeParams;
 
 @Component({
   selector: 'app-authorize',
@@ -15,7 +18,10 @@ export class AuthorizeComponent implements OnInit {
   client = this.auth.client;
 
   stateCtrl = new FormControl();
-  options: string[] = ['SmartHealthIT', 'epicHealthService'];
+  // options: string[] = ['SmartHealthIT', 'epicHealthService'];
+  readonly options: string[];
+  readonly endpoints: FhirEndpoint[];
+
   filteredOptions: Observable<string[]> | any;
 
   constructor(private auth: FhirAuthService, private router: Router) {
@@ -24,6 +30,9 @@ export class AuthorizeComponent implements OnInit {
     this.auth.authorized
       .pipe(first(value => value === true))
       .subscribe(_ => router.navigate(['/dashboard']))
+
+    this.endpoints = this.auth.fhirEndpoints;
+    this.options = this.endpoints.map(v => v.OrganizationName);
   }
 
   ngOnInit() {
@@ -35,11 +44,23 @@ export class AuthorizeComponent implements OnInit {
   }
 
   onSubmit() {
-    this.authorize(this.stateCtrl.value);
+    const orgName = this.stateCtrl.value;
+    const endpoint = this.endpoints.find(value => value.OrganizationName === orgName);
+
+    if (endpoint) {
+      const params: AuthorizeParams = {
+        iss: endpoint.FHIRPatientFacingURI,
+        clientId: 'f7cfa009-58a4-4de2-8437-3b77306faedd',
+        scope: 'launch/patient',
+      }
+
+      this.authorize(params);
+    }
+
   }
 
-  authorize(val: string) {
-    this.auth.testAuth(val);
+  authorize(params: AuthorizeParams) {
+    this.auth.authorize(params);
   }
 
   // Triggers page reload in ngOnInit
