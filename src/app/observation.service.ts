@@ -14,45 +14,33 @@ export class ObservationService {
 
   async getObservation(code: string): Promise<Observation | Bundle> {
     const client = await this.auth.client.pipe(first(c => c !== null)).toPromise();
-    if(client) {
+    if (client) {
       const patientID = client.getPatientId();
+      console.log(`PID: ${patientID}`);
 
-      const res = await client.request(`/Observation?patient=${patientID}&category=${code}`);
+      const res = await client.request(`/Observation?patient=${patientID}&code=${code}`);
+      console.log(`RESULT: ${res}`);
+      console.log(res);
       return res;
+
     } else {
-      return Promise.reject('Client is null');
+      return Promise.reject('client is null');
     }
   }
 
-  // async getObservation(code: string): Promise<Observation | Bundle> {
-  //   const client = await this.auth.client.pipe(first(c => c !== null)).toPromise();
-  //   if (client) {
-  //     const patientID = client.getPatientId();
-  //     console.log(`PID: ${patientID}`);
+  async getObservationByCategory(category: string): Promise<Observation | Bundle> {
+    const client = await this.auth.client.pipe(first(c => c !== null)).toPromise();
+    if (client) {
+      const patientID = client.getPatientId();
+      console.log(`PID: ${patientID}`);
 
-  //     const res = await client.request(`/Observation?patient=${patientID}&code=${code}`);
-  //     console.log(`RESULT: ${res}`);
-  //     console.log(res);
-  //     return res;
+      const res = await client.request(`/Observation?patient=${patientID}&category=${category}`);
+      console.log(`RESULT: ${res}`);
+      console.log(res);
+      return res;
 
-  //   } else {
-  //     return Promise.reject('client is null');
-  //   }
-  // }
-
-  // async getObservationByCategory(category: string): Promise<Observation | Bundle> {
-  //   const client = await this.auth.client.pipe(first(c => c !== null)).toPromise();
-  //   if (client) {
-  //     const patientID = client.getPatientId();
-  //     console.log(`PID: ${patientID}`);
-
-  //     const res = await client.request(`/Observation?patient=${patientID}&category=${category}`);
-  //     console.log(`RESULT: ${res}`);
-  //     console.log(res);
-  //     return res;
-
-  //   } else {
-  //     return Promise.reject('client is null');
-  //   }
-  // }
+    } else {
+      return Promise.reject('client is null');
+    }
+  }
 }

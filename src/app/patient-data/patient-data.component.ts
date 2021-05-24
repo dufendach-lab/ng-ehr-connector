@@ -19,6 +19,9 @@ interface Categories {
 })
 export class PatientDataComponent implements OnInit {
 
+  ptData = new FormControl('29463-7');
+  formValue = new FormControl('vital-signs');
+
   obsBundle: Subject<Bundle | Observation> = new Subject();
 
   categories: Categories[] = [
@@ -33,7 +36,6 @@ export class PatientDataComponent implements OnInit {
     {value: 'activity', viewValue: 'Activity'},
   ];
 
-  formValue: string = '';
   // obsBundle: Subject<Bundle | Observation> = new Subject();
 
   constructor(private obsService: ObservationService) {
@@ -44,7 +46,7 @@ export class PatientDataComponent implements OnInit {
 
   // Search function
   search(): void {
-    const code = this.formValue;
+    const code = this.ptData.value;
     if (code) {
       console.log(`getting code ${code}`);
       this.obsService.getObservation(code).then(b => {
@@ -55,12 +57,11 @@ export class PatientDataComponent implements OnInit {
     }
   }
 
-  // searchByCategory(): void {
-  //   const category = this.category.value;
-  //   if (category) {
-  //     this.obsService.getObservationByCategory(category).then(b => this.obsBundle.next(b));
-
-  //   }
-  // }
+  searchByCategory(): void {
+    const category = this.formValue.value;
+    if (category) {
+      this.obsService.getObservationByCategory(category).then(b => this.obsBundle.next(b));
+    }
+  }
 
 }
