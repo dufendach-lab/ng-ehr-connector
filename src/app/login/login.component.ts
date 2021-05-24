@@ -14,7 +14,7 @@ interface DialogData {
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
+  hide = true;
   loginData = {} as DialogData;
   incorrectLogin = false;
   login = this.fb.group({

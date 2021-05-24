@@ -40,7 +40,8 @@ export class RegistrationComponent implements OnInit {
 
   //Uses the Engpoints function to retrieve a list of all the available epic endpoints
   getHospitalList() {
-    return this.fhirService.fhirEndpoints.map(v => v.OrganizationName);
+    this.hospitalOptions = this.fhirService.fhirEndpoints.map(v => v.OrganizationName);
+    return //this.fhirService.fhirEndpoints.map(v => v.OrganizationName);
 
     // const res = this.fhirService.fhirEndpoints;
     // this.hospitalOptions = [];
