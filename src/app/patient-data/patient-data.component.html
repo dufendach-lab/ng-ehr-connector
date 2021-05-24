@@ -1,29 +1,33 @@
-
 <mat-card class="patient-data-card">
-    <mat-card-header>
-      <mat-card-title>Patient Data:</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-        <div class="data-container">
-            <div class="search-box">
-                <mat-form-field class="material-form">
-                  <mat-label>Enter Loinc Code Here</mat-label>
-                  <input matInput [formControl]="ptData" maxlength="256" placeholder="Ex '29463-7'">
-                  <mat-hint align="start">Ex. 29463-7</mat-hint>
-                </mat-form-field>
-                <button mat-button (click)="search()">Search</button>
-            </div>
+  <mat-card-header>
+    <mat-card-title>Patient Data</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="data-container" fxLayout="column" fxLayoutGap="15px">
+      <div fxLayout="row" fxLayoutGap="15px">
+        <form class="search-box" fxLayout="column" (ngSubmit)="search()" fxFlex>
+          <mat-form-field class="material-form" fxFlex>
+            <mat-label fxFlex>Enter LOINC Code</mat-label>
+            <input matInput [formControl]="ptData" maxlength="256" placeholder="Ex '29463-7'">
+            <mat-hint align="start">Ex. 29463-7</mat-hint>
+          </mat-form-field>
+          <button mat-raised-button color="primary">LOINC Search</button>
+        </form>
 
-            <div class="search-out">
-                <mat-card class="search-out-data-card">
-                    <mat-card-header>
-                        <mat-card-title>Data Retrieved:</mat-card-title>
-                    </mat-card-header>
-                    <mat-card-content *ngIf="(obsBundle | async) as b">
-                        <app-obs-value-list [observations]="b"></app-obs-value-list>
-                    </mat-card-content>
-                </mat-card>
-            </div>
-        </div>
-    </mat-card-content>
-  </mat-card>
+        <form class="search-box" fxLayout="column" (ngSubmit)="searchByCategory()" fxFlex>
+          <mat-form-field class="material-form" fxFlex>
+            <mat-label fxFlex>Enter Category Code</mat-label>
+            <input matInput [formControl]="category" maxlength="256" placeholder="Ex 'vital-signs'">
+            <mat-hint align="start">Ex. vital-signs, laboratory</mat-hint>
+          </mat-form-field>
+          <button mat-raised-button color="primary">Category Search</button>
+        </form>
+      </div>
+
+      <div *ngIf="(obsBundle | async) as bundle">
+        <app-obs-value-list [observations]="bundle"></app-obs-value-list>
+      </div>
+      <a mat-button href="https://www.hl7.org/fhir/valueset-observation-category.html">FHIR Categories</a>
+    </div>
+  </mat-card-content>
+</mat-card>

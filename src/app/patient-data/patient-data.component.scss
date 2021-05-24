@@ -3,30 +3,6 @@
     width: 50%;
     margin: auto;
 
-    .data-container {
-        margin-left: 2rem;
-
-        .search-box {
-            display: flex;
-            flex-direction: column;
-
-              .material-form {
-                width: 60%;
-                padding-top: 1rem;
-              }
-
-            button {
-                margin-top: .5rem;
-                margin-right: 80%;
-                background-color: rgb(60, 96, 255);
-                color: white;
-            }
-        }
-
-        .search-out {
-          padding-top: 2rem;;
-        }
-    }
 }
 
 

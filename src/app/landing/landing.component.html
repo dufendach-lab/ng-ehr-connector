@@ -1,0 +1,11 @@
+<div fxLayoutGap="15px" class="button-container">
+  <button fxFlex mat-raised-button color="accent" routerLink="/registration">Register</button>
+  <button fxFlex mat-raised-button color="accent" (click)="loginModal()">Login</button>
+  <button fxFlex *ngIf="isAuthorized | async" class="link-buttons" mat-raised-button color="accent" routerLink="/dashboard">Dashboard</button>
+  <button fxFlex *ngIf="!(isAuthorized | async)" class="link-buttons" mat-raised-button color="accent" routerLink="/authorize">Authorize</button>
+  <button fxFlex mat-raised-button color="accent" routerLink="/survey">Survey</button>
+</div>
+
+<ng-template #authorizeButton>
+
+</ng-template>

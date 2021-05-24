@@ -1,8 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ObservationService } from '../observation.service';
-import { FhirPatientService } from '../fhir-patient.service';
+import {Component, Input, OnInit} from '@angular/core';
+import {FhirPatientService} from '../fhir-patient.service';
 
-import { fhirclient }from 'fhirclient/lib/types';
+import {fhirclient} from 'fhirclient/lib/types';
 import Patient = fhirclient.FHIR.Patient;
 
 @Component({
@@ -13,7 +12,7 @@ import Patient = fhirclient.FHIR.Patient;
 export class PatientInfoComponent implements OnInit {
   @Input() patient: Patient | null | undefined;
 
-  observation = this.obService.getObservation('29463-7');
+  // observation = this.obService.getObservation('29463-7');
 
   name: string = '';
   bday: string = '';
@@ -23,8 +22,7 @@ export class PatientInfoComponent implements OnInit {
   language: string = '';
   provider: string = '';
 
-  constructor(private obService: ObservationService,
-    private fps: FhirPatientService) {
+  constructor(private fps: FhirPatientService) {
   }
 
   // Initializes patient info using Fhir-patient service

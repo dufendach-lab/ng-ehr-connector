@@ -1,3 +1,5 @@
+//import * as data from '../assets/EpicEndpoints.json'
 export const environment = {
-  production: true
+  production: true,
+  //epicEnv: data
 };

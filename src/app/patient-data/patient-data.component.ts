@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
+import {Component, OnInit} from '@angular/core';
+import {Subject} from 'rxjs';
 
-import { fhirclient }from 'fhirclient/lib/types';
+import {fhirclient} from 'fhirclient/lib/types';
+import {ObservationService} from '../observation.service';
+import {FormControl} from '@angular/forms';
 import Bundle = fhirclient.FHIR.Bundle;
 import Observation = fhirclient.FHIR.Observation;
-import { ObservationService } from '../observation.service';
-import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-patient-data',
@@ -16,22 +16,39 @@ export class PatientDataComponent implements OnInit {
 
   // Holds search box value
   ptData = new FormControl("29463-7");
+  category = new FormControl("vital-signs");
 
-  obsBundle = new Subject<Bundle | Observation>();
+  obsBundle: Subject<Bundle | Observation> = new Subject();
 
-  actualPtData: string = '';
-  dataReceived: boolean = false;
-  constructor(private obsService: ObservationService) { }
+  // obsBundle: Subject<Bundle | Observation> = new Subject();
+
+  constructor(private obsService: ObservationService) {
+  }
 
   ngOnInit(): void {
   }
 
   // Search function
   search(): void {
-    this.dataReceived = true;
-    this.actualPtData = this.ptData.value;
+    const code = this.ptData.value;
+    if (code) {
+      console.log(`getting code ${code}`);
+      this.obsService.getObservation(code).then(b => {
+        console.log('value returned:');
+        console.log(b);
+        this.obsBundle.next(b);
+      });
 
-    this.obsService.getObservation(this.actualPtData).then(b => this.obsBundle.next(b));
+    }
+
+  }
+
+  searchByCategory(): void {
+    const category = this.category.value;
+    if (category) {
+      this.obsService.getObservationByCategory(category).then(b => this.obsBundle.next(b));
+
+    }
   }
 
 }
