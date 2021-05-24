@@ -1,4 +1,7 @@
-<div class="registration-container">
+<!-- <mat-card style="margin:auto; width: 70%;">
+  <mat-card-title>Registration</mat-card-title>
+  <ng-container style="margin-top: 3rem;"> -->
+    <!-- <div class="registration-container"> -->
   <h1>Registration</h1>
   <form class="registration-form" [formGroup]="registration">
     <!-- Mother's First Name input -->
@@ -41,7 +44,7 @@
     </div>
 <div>
     <!-- Expected Delivery Hospital Selection Input Field -->
-    <mat-form-field class="form-field" style="max-width: 30em; width: 90%;">
+    <mat-form-field class="form-field" style="max-width: 30em; width: 90%;"> <!-- style="max-width: 30em; width: 90%;" -->
       <!-- Chips to display all curently selected hospital locations -->
       <mat-chip-list #chipList>
         <mat-chip
@@ -74,7 +77,14 @@
   </form>
 
   <!-- Submit button which ensures validation and checks to see if there is at least 1 hospital chip -->
-  <div class="button-container">
+  <!-- <div class="button-container">
+    <button mat-button class="submit-button" (click)="submit()" [disabled]="!(registration.valid) || (selectedHospitals.length == 0)">Submit</button>
+  </div> -->
+  <div mat-dialog-actions>
+    <button mat-button class="submit-button" (click)="onCancel()">Cancel</button>
     <button mat-button class="submit-button" (click)="submit()" [disabled]="!(registration.valid) || (selectedHospitals.length == 0)">Submit</button>
   </div>
-</div>
+<!-- </div> -->
+
+<!-- </ng-container>
+</mat-card> -->

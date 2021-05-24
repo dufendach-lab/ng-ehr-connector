@@ -1,3 +1,4 @@
+<h2>Login</h2>
 <form class="registration-form" [formGroup]="login">
   <mat-form-field class="form-field">
     <mat-label>Username</mat-label>
@@ -16,8 +17,9 @@
 </form>
 <div *ngIf="incorrectLogin" style="color: red;">Username or Password are incorrect</div>
 <div mat-dialog-actions>
-  <button mat-button class="submit-button" (click)="onCancel()">Cancel</button>
+  <!-- <button mat-button class="submit-button" (click)="onCancel()">Cancel</button> -->
   <button mat-button class="submit-button" (click)="onSubmit()" [disabled]="!(login.valid)">Login</button>
+  <button mat-button class="submit-button" (click)="onRegister()">Register</button>
 </div>
 
 
