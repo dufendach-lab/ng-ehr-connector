@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 
 import { fhirclient }from 'fhirclient/lib/types';
 import Bundle = fhirclient.FHIR.Bundle;
@@ -9,8 +9,7 @@ import Observation = fhirclient.FHIR.Observation;
   templateUrl: './obs-value-list.component.html',
   styleUrls: ['./obs-value-list.component.scss']
 })
-export class ObsValueListComponent implements OnInit {
-
+export class ObsValueListComponent implements OnChanges {
   @Input() observations: Bundle | null | Observation = null;
 
   obsList: Observation[] = [];
@@ -19,15 +18,18 @@ export class ObsValueListComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-    console.log(this.observations?.entry);
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['observations']) {
+      this.updateObservationList();
+    }
 
+  }
+
+  private updateObservationList() {
     if (this.observations) {
       this.obsList = this.observations.entry;
 
-      if(this.obsList[0].resource.code) {
-        this.isValueThere = true;
-      }
+      this.isValueThere = this.obsList[0].resource.code != null;
 
       console.log(this.obsList[0]);
     }
