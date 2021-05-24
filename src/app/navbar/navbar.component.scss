@@ -33,6 +33,10 @@ $next-color: #9db283;
           background-color: $primary;
           color: white;
         }
+
+        .logout-button:hover {
+          background-color: #5c2450;
+        }
       }
 
   }

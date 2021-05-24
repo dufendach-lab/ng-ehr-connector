@@ -9,15 +9,11 @@ import { PatientService } from '../patient.service';
 })
 export class DashboardComponent implements OnInit {
 
-  patient = this.ps.patient.pipe(filter(p => p !== null && p !== undefined));
+  patient = this.ps.patient.pipe(filter(p => p !== null && p !== undefined)); // create patient
 
   constructor(private ps: PatientService) { }
 
   ngOnInit(): void {
-  }
-
-  logout() {
-    console.warn('Implement logout functionality.');
   }
 
 }

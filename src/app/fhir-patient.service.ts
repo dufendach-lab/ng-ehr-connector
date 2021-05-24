@@ -3,9 +3,6 @@ import { fhirclient } from 'fhirclient/lib/types';
 
 import Patient = fhirclient.FHIR.Patient;
 
-// Refactor 'let' inits
-//
-
 @Injectable({
   providedIn: 'root'
 })

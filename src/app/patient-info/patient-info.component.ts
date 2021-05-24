@@ -27,6 +27,7 @@ export class PatientInfoComponent implements OnInit {
     private fps: FhirPatientService) {
   }
 
+  // Initializes patient info using Fhir-patient service
   ngOnInit(): void {
     this.name = this.fps.getName(this.patient);
     this.bday = this.fps.getBday(this.patient);
