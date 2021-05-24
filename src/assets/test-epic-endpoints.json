@@ -1,0 +1,22 @@
+[
+  {
+    "OrganizationName": "Smart Health IT test server",
+    "FHIRPatientFacingURI": "https://launch.smarthealthit.org/v/r3/sim/eyJrIjoiMSIsImoiOiIxIiwiYiI6IjExOTc2ZjkwLWJiNDItNDUwYS04YjU4LTkyYTRjYWNlMWQyNyJ9/fhir"
+  },
+  {
+    "OrganizationName": "Epic DSTU2",
+    "FHIRPatientFacingURI": "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/DSTU2/"
+  },
+  {
+    "OrganizationName": "Open-ic.Epic",
+    "FHIRPatientFacingURI": "https://open-ic.epic.com/argonaut/api/FHIR/Argonaut/"
+  },
+  {
+    "OrganizationName": "CCHMC Dev Server",
+    "FHIRPatientFacingURI": "https://boomertest.cchmc.org/fhir/api/FHIR/DSTU2/"
+  },
+  {
+    "OrganizationName": "UC Dev Server",
+    "FHIRPatientFacingURI": "https://epic-soap-test.uchealth.com/FHIRProxy/api/FHIR/DSTU2/"
+  }
+]
