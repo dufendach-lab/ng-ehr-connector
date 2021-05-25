@@ -17,7 +17,9 @@ export class NavbarComponent implements OnInit {
 
   }
 
+  // Clears session storage and redirects to simulate logout
   logout(): void {
+
     this.auth.logOut();
     this.router.navigate(['/']);
   }

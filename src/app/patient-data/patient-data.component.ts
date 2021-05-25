@@ -7,6 +7,11 @@ import {FormControl} from '@angular/forms';
 import Bundle = fhirclient.FHIR.Bundle;
 import Observation = fhirclient.FHIR.Observation;
 
+interface Categories {
+  value: string,
+  viewValue: string
+}
+
 @Component({
   selector: 'app-patient-data',
   templateUrl: './patient-data.component.html',
@@ -14,10 +19,22 @@ import Observation = fhirclient.FHIR.Observation;
 })
 export class PatientDataComponent implements OnInit {
 
-  ptData = new FormControl("29463-7");
-  category = new FormControl("vital-signs");
+  ptData = new FormControl('29463-7');
+  formValue = new FormControl('vital-signs');
 
   obsBundle: Subject<Bundle | Observation> = new Subject();
+
+  categories: Categories[] = [
+    {value: 'social-history', viewValue: 'Social History'},
+    {value: 'vital-signs', viewValue: 'Vital Signs'},
+    {value: 'imaging', viewValue: 'Imaging'},
+    {value: 'laboratory', viewValue: 'Laboratory'},
+    {value: 'procedure', viewValue: 'Procedure'},
+    {value: 'survey', viewValue: 'Survey'},
+    {value: 'exam', viewValue: 'Exam'},
+    {value: 'therapy', viewValue: 'Therapy'},
+    {value: 'activity', viewValue: 'Activity'},
+  ];
 
   // obsBundle: Subject<Bundle | Observation> = new Subject();
 
@@ -27,6 +44,7 @@ export class PatientDataComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // Search function
   search(): void {
     const code = this.ptData.value;
     if (code) {
@@ -36,16 +54,13 @@ export class PatientDataComponent implements OnInit {
         console.log(b);
         this.obsBundle.next(b);
       });
-
     }
-
   }
 
   searchByCategory(): void {
-    const category = this.category.value;
+    const category = this.formValue.value;
     if (category) {
       this.obsService.getObservationByCategory(category).then(b => this.obsBundle.next(b));
-
     }
   }
 

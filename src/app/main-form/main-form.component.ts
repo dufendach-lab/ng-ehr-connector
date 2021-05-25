@@ -1,6 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
+// Interface to hold form data that will be put in DB
+export interface patientData {
+  endOfGestation: string,
+  gestationalAgeWeek: string,
+  gestationalAgeDay: string,
+  rupturedMembranes: string,
+  ageAtRuptureTimeWeek: string,
+  ageAtRuptureTimeDay: string,
+  delivereryLocation: string,
+  otherDescription: string,
+  donorOrRecipient: string,
+  typeOfBirth: string,
+  birthWeight: string,
+  sexOfChild: string,
+  fetalMRN: string,
+  babyName: string,
+  liveBirth: string,
+  deathInThirty: string,
+  deathDescription: string,
+  termination: string
+}
+
 @Component({
   selector: 'app-main-form',
   templateUrl: './main-form.component.html',
@@ -30,12 +52,16 @@ export class MainFormComponent implements OnInit {
     })
   });
 
+  newData = { } as patientData;
+
   constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
   }
 
+  // TODO: currently console logs the data interface
+  // Will hook up to firestore
   submit() {
-    console.warn(JSON.stringify(this.userDataForm.value));
+    console.warn(this.newData);
   }
 }

@@ -4,7 +4,7 @@
     <h3>End of Gestation</h3>
     <mat-form-field>
       <mat-label>Date</mat-label><br>
-      <input matInput [matDatepicker]="picker" formControlName="endOfGestation" placeholder="--/--/----">
+      <input matInput [matDatepicker]="picker" formControlName="endOfGestation" placeholder="--/--/----" [(ngModel)]="newData.endOfGestation">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
@@ -13,16 +13,16 @@
     <h3>Gestational Age</h3>
     <mat-form-field>
       <mat-label>Weeks</mat-label>
-      <input matInput type="number" formControlName="gestationalAgeWk">
+      <input matInput type="number" formControlName="gestationalAgeWk" [(ngModel)]="newData.gestationalAgeWeek">
     </mat-form-field>&nbsp;&nbsp;
     <mat-form-field>
       <mat-label>Days</mat-label>
-      <input matInput type="number" formControlName="gestationalAgeDay">
+      <input matInput type="number" formControlName="gestationalAgeDay" [(ngModel)]="newData.gestationalAgeDay">
     </mat-form-field>
 
 
     <h3>Rupture of Membranes</h3>
-    <mat-radio-group formControlName="ruptMembranes">
+    <mat-radio-group formControlName="ruptMembranes" [(ngModel)]="newData.rupturedMembranes">
       <mat-radio-button value="yes">Yes</mat-radio-button>&nbsp;&nbsp;
       <mat-radio-button value="no">No</mat-radio-button>
     </mat-radio-group><br>
@@ -31,16 +31,16 @@
       <h3>Gestational age at time of rupture</h3>
       <mat-form-field>
         <mat-label>Weeks</mat-label>
-        <input matInput type="number" formControlName="ageAtRuptTimeWk">
+        <input matInput type="number" formControlName="ageAtRuptTimeWk" [(ngModel)]="newData.ageAtRuptureTimeWeek">
       </mat-form-field>&nbsp;&nbsp;
       <mat-form-field>
         <mat-label>Days</mat-label>
-        <input matInput type="number" formControlName="ageAtRuptTimeDay">
+        <input matInput type="number" formControlName="ageAtRuptTimeDay" [(ngModel)]="newData.ageAtRuptureTimeDay">
       </mat-form-field>
     </div><br>
 
     <h3>Delivery Location</h3>
-    <mat-radio-group formControlName="deliverLoc">
+    <mat-radio-group formControlName="deliverLoc" [(ngModel)]="newData.delivereryLocation">
       <mat-radio-button value="cchmc">Cincinnati Childrens Hospital Medical Center</mat-radio-button><br><br>
       <mat-radio-button value="gsh">Good Samaritan Hospital</mat-radio-button><br><br>
       <mat-radio-button value="ucmc">University of Cincinnati Medical Center</mat-radio-button><br><br>
@@ -51,12 +51,12 @@
     <div *ngIf="userDataForm.value.deliverLoc == 'other'">
       <mat-form-field>
         <mat-label>Describe</mat-label>
-        <input matInput type="text" formControlName="otherDesc">
+        <input matInput type="text" formControlName="otherDesc" [(ngModel)]="newData.otherDescription">
       </mat-form-field>
     </div>
 
     <h3>Donor or Recipient</h3>
-    <mat-radio-group formControlName="donOrRec">
+    <mat-radio-group formControlName="donOrRec" [(ngModel)]="newData.donorOrRecipient">
       <mat-radio-button value="recipient">Recipient</mat-radio-button>&nbsp;&nbsp;
       <mat-radio-button value="donor">Donor</mat-radio-button>
     </mat-radio-group>
@@ -65,7 +65,7 @@
     <ng-container formGroupName="secSet">
 
       <h3>Type of Birth</h3>
-      <mat-radio-group formControlName="typeOfBirth">
+      <mat-radio-group formControlName="typeOfBirth" [(ngModel)]="newData.typeOfBirth">
         <mat-radio-button value="cesarea">Cesarea</mat-radio-button>&nbsp;&nbsp;
         <mat-radio-button value="vaginal">Vaginal</mat-radio-button>
       </mat-radio-group>
@@ -74,12 +74,12 @@
       <h3>Birth Weight(g)</h3>
       <mat-form-field>
         <mat-label>Grams</mat-label>
-        <input matInput type="text" formControlName="birthWeight">
+        <input matInput type="text" formControlName="birthWeight" [(ngModel)]="newData.birthWeight">
       </mat-form-field>
       <br>
 
       <h3>Sex of the Child</h3>
-      <mat-radio-group formControlName="sexOfChild">
+      <mat-radio-group formControlName="sexOfChild" [(ngModel)]="newData.sexOfChild">
         <mat-radio-button value="male">Male</mat-radio-button>&nbsp;&nbsp;
         <mat-radio-button value="female">Female</mat-radio-button>
       </mat-radio-group>
@@ -88,26 +88,26 @@
       <h3>Fetal MRN</h3>
       <mat-form-field>
         <mat-label>Medical Record #</mat-label>
-        <input matInput type="number" formControlName="fetalMRN">
+        <input matInput type="number" formControlName="fetalMRN" [(ngModel)]="newData.fetalMRN">
       </mat-form-field>
       <br><br>
 
       <h3>Baby Name</h3>
       <mat-form-field>
         <mat-label>Name</mat-label>
-        <input matInput type="text" formControlName="babyName">
+        <input matInput type="text" formControlName="babyName" [(ngModel)]="newData.babyName">
       </mat-form-field>
       <br><br>
 
       <h3>Live Birth</h3>
-      <mat-radio-group formControlName="liveBirth">
+      <mat-radio-group formControlName="liveBirth" [(ngModel)]="newData.liveBirth">
         <mat-radio-button value="yes">Yes</mat-radio-button>&nbsp;&nbsp;
         <mat-radio-button value="no">No</mat-radio-button>
       </mat-radio-group>
       <br><br>
 
       <h3>Death Within 30 Days</h3>
-      <mat-radio-group formControlName="deathInThirty">
+      <mat-radio-group formControlName="deathInThirty" [(ngModel)]="newData.deathInThirty">
         <mat-radio-button value="yes">Yes</mat-radio-button>&nbsp;&nbsp;
         <mat-radio-button value="no">No</mat-radio-button>
       </mat-radio-group>
@@ -116,19 +116,18 @@
       <div *ngIf="userDataForm.get('secSet.deathInThirty')?.value == 'yes'">
         <mat-form-field>
           <mat-label>Descripion</mat-label>
-          <input matInput type="text" formControlName="deathDesc" id="desc">
+          <input matInput type="text" formControlName="deathDesc" id="desc" [(ngModel)]="newData.deathDescription">
         </mat-form-field>
 
       </div>
 
       <h3>Termination</h3>
-      <mat-radio-group formControlName="termination">
+      <mat-radio-group formControlName="termination" [(ngModel)]="newData.termination">
         <mat-radio-button value="yes">Yes</mat-radio-button>&nbsp;&nbsp;
         <mat-radio-button value="no">No</mat-radio-button>
       </mat-radio-group>
       <br><br>
     </ng-container>
-
 
     <button mat-raised-button
     color="primary"
