@@ -15,6 +15,8 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatSelectModule} from '@angular/material/select';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 import {FlexLayoutModule} from '@angular/flex-layout';
 
@@ -73,6 +75,8 @@ import {AngularFirestoreModule} from "@angular/fire/firestore";
     MatDialogModule,
     MatToolbarModule,
     MatSelectModule,
+    MatExpansionModule,
+    MatCheckboxModule,
 
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,

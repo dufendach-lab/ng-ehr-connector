@@ -29,7 +29,7 @@ export class ObsValueListComponent implements OnChanges {
     if (this.observations) {
       this.obsList = this.observations.entry;
 
-      this.isValueThere = this.obsList[0].resource.code != (null || undefined);
+      this.isValueThere = this.obsList[0].resource.code != null;
 
       console.log(this.obsList[0]);
     }

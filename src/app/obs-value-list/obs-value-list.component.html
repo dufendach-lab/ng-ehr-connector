@@ -1,4 +1,4 @@
-<h2><ng-container *ngIf="isValueThere; else noValue">{{ obsList[0].resource.code.text}}</ng-container></h2>
+<h2><ng-container *ngIf="isValueThere; else noValue">Results</ng-container></h2>
 
 <ul>
   <ng-container *ngFor="let obs of obsList">
@@ -23,4 +23,4 @@
   </ng-container>
 </ul>
 
-<ng-template #noValue>Missing Value</ng-template>
+<ng-template #noValue>No Result</ng-template>

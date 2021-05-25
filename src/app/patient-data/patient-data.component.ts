@@ -8,8 +8,14 @@ import Bundle = fhirclient.FHIR.Bundle;
 import Observation = fhirclient.FHIR.Observation;
 
 interface Categories {
-  value: string,
-  viewValue: string
+  value: string;
+  viewValue: string;
+}
+
+interface Task {
+  name: string;
+  completed: boolean;
+  subtasks: Task[];
 }
 
 @Component({
@@ -24,6 +30,16 @@ export class PatientDataComponent implements OnInit {
 
   obsBundle: Subject<Bundle | Observation> = new Subject();
 
+  task: Task = {
+    name: 'Authorize All',
+    completed: false,
+    subtasks: [
+      {name: 'vitals', completed: false, subtasks: []},
+      {name: 'socials', completed: false, subtasks: []},
+      {name: 'labs', completed: false, subtasks: []}
+    ]
+  };
+
   categories: Categories[] = [
     {value: 'social-history', viewValue: 'Social History'},
     {value: 'vital-signs', viewValue: 'Vital Signs'},
@@ -36,9 +52,8 @@ export class PatientDataComponent implements OnInit {
     {value: 'activity', viewValue: 'Activity'},
   ];
 
-  // obsBundle: Subject<Bundle | Observation> = new Subject();
-
   constructor(private obsService: ObservationService) {
+
   }
 
   ngOnInit(): void {
@@ -64,8 +79,47 @@ export class PatientDataComponent implements OnInit {
     }
   }
 
-  searchMedStatement(): void {
+  searchByMedStatement(): void {
     this.obsService.getMedStatement().then(b => this.obsBundle.next(b));
   }
+
+  searchByImmunization(): void {
+    this.obsService.getImmunization().then(b => this.obsBundle.next(b));
+  }
+
+  searchByConditions(): void {
+    this.obsService.getConditions().then(b => this.obsBundle.next(b));
+  }
+
+  searchByProcedures(): void {
+    this.obsService.getProcedures().then(b => this.obsBundle.next(b));
+  }
+
+  searchByDocuments(): void {
+    this.obsService.getDocuments().then(b => this.obsBundle.next(b));
+  }
+
+
+  // TESTING DROP MENUS AND CHECKBOXES
+  // allComplete: boolean = false;
+
+  // updateAllComplete() {
+  //   this.allComplete = this.task.subtasks != null && this.task.subtasks.every(t => t.completed);
+  // }
+
+  // someComplete(): boolean {
+  //   if (this.task.subtasks == null) {
+  //     return false;
+  //   }
+  //   return this.task.subtasks.filter(t => t.completed).length > 0 && !this.allComplete;
+  // }
+
+  // setAll(completed: boolean) {
+  //   this.allComplete = completed;
+  //   if (this.task.subtasks == null) {
+  //     return;
+  //   }
+  //   this.task.subtasks.forEach(t => t.completed = completed);
+  // }
 
 }
