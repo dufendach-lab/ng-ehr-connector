@@ -36,7 +36,7 @@ export class AuthorizeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.check();
+    // this.check();
     this.filteredOptions = this.stateCtrl.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value))
@@ -63,13 +63,13 @@ export class AuthorizeComponent implements OnInit {
     this.auth.authorize(params);
   }
 
-  // Triggers page reload in ngOnInit
-  check(): void {
-    if (!sessionStorage.getItem('foo')) {
-      sessionStorage.setItem('foo', 'no reload');
-      location.reload();
-    }
-  }
+  // // Triggers page reload in ngOnInit
+  // check(): void {
+  //   if (!sessionStorage.getItem('foo')) {
+  //     sessionStorage.setItem('foo', 'no reload');
+  //     location.reload();
+  //   }
+  // }
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();

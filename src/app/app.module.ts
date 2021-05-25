@@ -14,6 +14,7 @@ import {MatChipsModule} from '@angular/material/chips'
 import {MatRadioModule} from '@angular/material/radio';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatSelectModule} from '@angular/material/select';
 
 import {FlexLayoutModule} from '@angular/flex-layout';
 
@@ -30,6 +31,10 @@ import {AuthorizeComponent} from './authorize/authorize.component';
 import {LandingComponent} from './landing/landing.component';
 import {LoginComponent} from './login/login.component';
 import { LandingInfoComponent } from './landing-info/landing-info.component';
+
+import {environment} from "../environments/environment";
+import {AngularFireModule} from "@angular/fire";
+import {AngularFirestoreModule} from "@angular/fire/firestore";
 
 @NgModule({
   declarations: [
@@ -69,6 +74,10 @@ import { LandingInfoComponent } from './landing-info/landing-info.component';
     MatRadioModule,
     MatDialogModule,
     MatToolbarModule,
+    MatSelectModule,
+
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

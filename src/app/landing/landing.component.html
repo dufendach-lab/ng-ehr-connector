@@ -1,12 +1,18 @@
 <app-landing-info></app-landing-info>
-<div fxLayoutGap="15px" class="button-container">
+<div fxLayoutGap="15px" class="button-container" fxLayout="column">
   <!-- <button fxFlex mat-raised-button color="accent" routerLink="/registration">Register</button>
   <button fxFlex mat-raised-button color="accent" (click)="loginModal()">Login</button> -->
-  <button fxFlex *ngIf="isAuthorized | async" class="link-buttons" mat-raised-button color="accent" routerLink="/dashboard">Dashboard</button>
-  <button fxFlex *ngIf="!(isAuthorized | async)" class="link-buttons" mat-raised-button color="accent" routerLink="/authorize">Authorize</button>
-  <button fxFlex mat-raised-button color="accent" routerLink="/survey">Survey</button>
+
+  <div *ngIf="patientData | async as pt">
+    <h1>{{pt.firstName}} {{pt.lastName}}</h1>
+    <ul>
+      <li *ngFor="let h of pt.hospital">{{h}}</li>
+    </ul>
+  </div>
+
+  <div fxLayout="row" fxLayoutGap="15px">
+    <button fxFlex *ngIf="isAuthorized | async" class="link-buttons" mat-raised-button color="accent" routerLink="/dashboard">Dashboard</button>
+    <button fxFlex *ngIf="!(isAuthorized | async)" class="link-buttons" mat-raised-button color="accent" routerLink="/authorize">Authorize</button>
+    <button fxFlex mat-raised-button color="accent" routerLink="/survey">Survey</button>
+  </div>
 </div>
-
-<ng-template #authorizeButton>
-
-</ng-template>
