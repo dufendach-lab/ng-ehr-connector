@@ -3,9 +3,6 @@ import { fhirclient } from 'fhirclient/lib/types';
 
 import Patient = fhirclient.FHIR.Patient;
 
-// Refactor 'let' inits
-//
-
 @Injectable({
   providedIn: 'root'
 })
@@ -73,7 +70,7 @@ export class FhirPatientService {
   getLanguage(pt: Patient | null | undefined): string {
     if(pt?.communication) {
       const res: string = pt?.communication[0].language.coding[0].display;
-      console.log(res);
+      //console.log(res);
       return res;
     } else {
       return 'N/A';

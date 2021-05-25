@@ -14,6 +14,7 @@ import {MatChipsModule} from '@angular/material/chips'
 import {MatRadioModule} from '@angular/material/radio';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatSelectModule} from '@angular/material/select';
 
 import {FlexLayoutModule} from '@angular/flex-layout';
 
@@ -67,6 +68,7 @@ import {LoginComponent} from './login/login.component';
     MatRadioModule,
     MatDialogModule,
     MatToolbarModule,
+    MatSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
