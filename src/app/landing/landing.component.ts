@@ -5,6 +5,7 @@ import {FhirAuthService} from "../fhir-auth.service";
 import { Router, RouterEvent, NavigationEnd } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { first } from 'rxjs/operators';
+import { LandingInfoComponent } from '../landing-info/landing-info.component';
 
 @Component({
   selector: 'app-landing',

@@ -29,6 +29,7 @@ import {RegistrationComponent} from './registration/registration.component';
 import {AuthorizeComponent} from './authorize/authorize.component';
 import {LandingComponent} from './landing/landing.component';
 import {LoginComponent} from './login/login.component';
+import { LandingInfoComponent } from './landing-info/landing-info.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import {LoginComponent} from './login/login.component';
     MainFormComponent,
     LandingComponent,
     LoginComponent,
+    LandingInfoComponent,
   ],
   imports: [
     BrowserModule,

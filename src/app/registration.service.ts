@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { getPatientParam } from 'fhirclient/lib/lib';
+import { Observable } from 'rxjs';
 import { IRegistration } from 'src/Interfaces/IRegistration';
 
 @Injectable({
@@ -17,7 +19,15 @@ export class RegistrationService {
   constructor() { }
 
   //Updates User Info above when a registered person is logged in
-  updatePatient(): void{
+  async updatePatient(patient: IRegistration): Promise<void>{
+    console.log('update');
+    console.log(this.user);
+    this.user = patient;
+  }
 
+  async getPatient(): Promise<IRegistration> {
+    console.log('get');
+    console.log(this.user);
+    return this.user;
   }
 }

@@ -10,6 +10,8 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
 import { LoginComponent } from '../login/login.component';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
+import { RegistrationService } from '../registration.service';
 
 @Component({
   selector: 'app-registration',
@@ -38,19 +40,14 @@ export class RegistrationComponent implements OnInit {
     Hospital: ['', Validators.required],
   })
 
-  constructor(private fb: FormBuilder, private fhirService: FhirAuthService, public dialogRef: MatDialogRef<RegistrationComponent>, private dialog: MatDialog, private RegAuth: AuthService,) {
+  constructor(private fb: FormBuilder, private fhirService: FhirAuthService, public dialogRef: MatDialogRef<RegistrationComponent>,
+     private dialog: MatDialog, private RegAuth: AuthService, private router: Router, private regService: RegistrationService) {
   }
 
   //Uses the Engpoints function to retrieve a list of all the available epic endpoints
   getHospitalList() {
     this.hospitalOptions = this.fhirService.fhirEndpoints.map(v => v.OrganizationName);
-    return //this.fhirService.fhirEndpoints.map(v => v.OrganizationName);
-
-    // const res = this.fhirService.fhirEndpoints;
-    // this.hospitalOptions = [];
-    // res.forEach(hos => {
-    //   this.hospitalOptions.push(hos.OrganizationName);
-    // });
+    return
   }
 
   //Obtains the list of hospitals, then watches the hospital field value to update list as autoomplete occurs
@@ -65,8 +62,10 @@ export class RegistrationComponent implements OnInit {
   //Logs the patients registraion data
   submit() {
     this.registrationInfo.hospital = this.selectedHospitals;
+    this.regService.updatePatient(this.registrationInfo);
+    this.dialogRef.close();
+    this.router.navigateByUrl('/landing');
     this.RegAuth.setLoginAuth('true');
-    console.log(this.registrationInfo)
   }
 
   onCancel(){
