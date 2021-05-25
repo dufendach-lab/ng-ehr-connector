@@ -31,6 +31,10 @@ import {AuthorizeComponent} from './authorize/authorize.component';
 import {LandingComponent} from './landing/landing.component';
 import {LoginComponent} from './login/login.component';
 
+import {environment} from "../environments/environment";
+import {AngularFireModule} from "@angular/fire";
+import {AngularFirestoreModule} from "@angular/fire/firestore";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,6 +73,9 @@ import {LoginComponent} from './login/login.component';
     MatDialogModule,
     MatToolbarModule,
     MatSelectModule,
+
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
