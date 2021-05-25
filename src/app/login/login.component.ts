@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
   onSubmit(): void{
     if(this.loginData.username == 'mom' && this.loginData.password == 'password'){
       this.dialogRef.close();
-      this.router.navigateByUrl('/authorize');
+      this.router.navigateByUrl('/landing');
       this.RegAuth.setLoginAuth('true');
     }
     else{

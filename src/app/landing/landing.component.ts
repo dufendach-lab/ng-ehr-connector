@@ -4,6 +4,7 @@ import { LoginComponent } from '../login/login.component';
 import {FhirAuthService} from "../fhir-auth.service";
 import { Router, RouterEvent, NavigationEnd } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-landing',
@@ -13,7 +14,12 @@ import { AuthService } from '../auth.service';
 export class LandingComponent implements OnInit {
   isAuthorized = this.fhirAuth.authorized;
 
-  constructor(private dialog: MatDialog, private fhirAuth: FhirAuthService, private router: Router, private RegAuth: AuthService) { }
+  constructor(private dialog: MatDialog, private fhirAuth: FhirAuthService, private router: Router, private RegAuth: AuthService ) {
+    // If authorized, navigate to dashboard instead
+    this.fhirAuth.authorized
+      .pipe(first(value => value === true))
+      .subscribe(_ => router.navigate(['/dashboard']))
+   }
 
   loggedIn = this.RegAuth.getLoginAuth();
   email= '';
