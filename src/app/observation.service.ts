@@ -43,4 +43,21 @@ export class ObservationService {
       return Promise.reject('client is null');
     }
   }
+
+  async getMedStatement(): Promise<Observation | Bundle> {
+    const client = await this.auth.client.pipe(first(c => c !== null)).toPromise();
+    if (client) {
+      const patientID = client.getPatientId();
+      console.log(`PID: ${patientID}`);
+
+      const res = await client.request(`/MedicationStatement?patient=${patientID}`);
+      console.log(`RESULT: ${res}`);
+      console.log(res);
+      return res;
+
+    } else {
+      return Promise.reject('client is null');
+    }
+  }
+
 }

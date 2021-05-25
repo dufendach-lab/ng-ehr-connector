@@ -64,4 +64,8 @@ export class PatientDataComponent implements OnInit {
     }
   }
 
+  searchMedStatement(): void {
+    this.obsService.getMedStatement().then(b => this.obsBundle.next(b));
+  }
+
 }
