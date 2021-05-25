@@ -1,3 +1,5 @@
+// git update-index --assume-unchanged .\src\environments\environment.ts
+
 import * as data from '../assets/EpicEndpoints.json';
 
 export const environment = {

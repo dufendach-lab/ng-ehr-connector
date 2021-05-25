@@ -2,6 +2,8 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+// git update-index --assume-unchanged .\src\environments\environment.prod.ts
+
 import * as data from '../assets/test-epic-endpoints.json';
 
 export const environment = {
