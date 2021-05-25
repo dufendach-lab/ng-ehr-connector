@@ -2,10 +2,23 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-//import * as data from '../assets/EpicEndpoints.json'
+// git update-index --assume-unchanged .\src\environments\environment.prod.ts
+
+import * as data from '../assets/test-epic-endpoints.json';
+
 export const environment = {
   production: false,
-  //epicEnv: data
+  epicEnv: data,
+
+  firebase: {
+    apiKey: "AIzaSyBcBu8AmFMkbb65Ufzjfo9d9kgqsHh_SO8",
+    authDomain: "ehr-connector.firebaseapp.com",
+    projectId: "ehr-connector",
+    storageBucket: "ehr-connector.appspot.com",
+    messagingSenderId: "658001155017",
+    appId: "1:658001155017:web:92d3e4a601aa72cd81ce18",
+    measurementId: "G-ZVKYKQWRPV"
+  }
 };
 
 /*

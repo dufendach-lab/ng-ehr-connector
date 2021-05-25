@@ -2,8 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import { LoginComponent } from '../login/login.component';
 import {FhirAuthService} from "../fhir-auth.service";
-import { Router, RouterEvent, NavigationEnd } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import {AngularFirestore} from "@angular/fire/firestore";
+import {IRegistration} from "../../Interfaces/IRegistration";
+import {Observable} from "rxjs";
+import {map} from "rxjs/operators";
 
 @Component({
   selector: 'app-landing',
@@ -13,7 +17,20 @@ import { AuthService } from '../auth.service';
 export class LandingComponent implements OnInit {
   isAuthorized = this.fhirAuth.authorized;
 
-  constructor(private dialog: MatDialog, private fhirAuth: FhirAuthService, private router: Router, private RegAuth: AuthService) { }
+  patientData: Observable<IRegistration | undefined>;
+
+  constructor(
+    private dialog: MatDialog,
+    private fhirAuth: FhirAuthService,
+    private router: Router,
+    private RegAuth: AuthService,
+    private afs: AngularFirestore)
+  {
+    this.patientData = this.afs
+      .collection('patients')
+      .doc<IRegistration>('TsYOnFQmEq4TQWr0eOnO')
+      .get().pipe(map(doc => doc.data()));
+  }
 
   loggedIn = this.RegAuth.getLoginAuth();
   email= '';
@@ -22,14 +39,6 @@ export class LandingComponent implements OnInit {
     if(this.loggedIn == 'false'){
       this.loginModal();
     }
-
-    // this.router.events.pipe(
-    //   filter((event: RouterEvent) => event instanceof NavigationEnd),
-    //   takeUntil(this.destroy),
-    //   debounceTime(1000)
-    // ).subscribe(() => {
-    //   this.loginModal();
-    // });
   }
 
   loginModal(){
