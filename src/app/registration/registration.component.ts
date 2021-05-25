@@ -7,6 +7,9 @@ import {IRegistration} from '../../Interfaces/IRegistration';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {MatAutocomplete, MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
+import { LoginComponent } from '../login/login.component';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-registration',
@@ -35,12 +38,13 @@ export class RegistrationComponent implements OnInit {
     Hospital: ['', Validators.required],
   })
 
-  constructor(private fb: FormBuilder, private fhirService: FhirAuthService) {
+  constructor(private fb: FormBuilder, private fhirService: FhirAuthService, public dialogRef: MatDialogRef<RegistrationComponent>, private dialog: MatDialog, private RegAuth: AuthService,) {
   }
 
   //Uses the Engpoints function to retrieve a list of all the available epic endpoints
   getHospitalList() {
-    return this.fhirService.fhirEndpoints.map(v => v.OrganizationName);
+    this.hospitalOptions = this.fhirService.fhirEndpoints.map(v => v.OrganizationName);
+    return //this.fhirService.fhirEndpoints.map(v => v.OrganizationName);
 
     // const res = this.fhirService.fhirEndpoints;
     // this.hospitalOptions = [];
@@ -61,9 +65,18 @@ export class RegistrationComponent implements OnInit {
   //Logs the patients registraion data
   submit() {
     this.registrationInfo.hospital = this.selectedHospitals;
+    this.RegAuth.setLoginAuth('true');
     console.log(this.registrationInfo)
   }
 
+  onCancel(){
+    this.dialog.closeAll()
+    this.dialog.open(LoginComponent, {
+      width: '400px',
+      data: {},
+      disableClose: true
+    });
+  }
   //Add a chip to the hosipital selection
   addChip(event: MatChipInputEvent) {
     if (!this.matAutocomplete.isOpen) {

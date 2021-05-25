@@ -1,7 +1,9 @@
 import { Component, OnInit, Inject, HostListener } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
+import { RegistrationComponent } from '../registration/registration.component';
 
 interface DialogData {
   username: string;
@@ -14,7 +16,7 @@ interface DialogData {
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
+  hide = true;
   loginData = {} as DialogData;
   incorrectLogin = false;
   login = this.fb.group({
@@ -22,7 +24,7 @@ export class LoginComponent implements OnInit {
     password: ['', Validators.required],
   })
 
-  constructor(public dialogRef: MatDialogRef<LoginComponent>, private fb: FormBuilder, private router: Router,
+  constructor(public dialogRef: MatDialogRef<LoginComponent>, private fb: FormBuilder, private router: Router, private dialog: MatDialog, private RegAuth: AuthService,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
   ngOnInit(): void {
@@ -32,13 +34,27 @@ export class LoginComponent implements OnInit {
     this.dialogRef.close();
   }
   onSubmit(): void{
-    if(this.loginData.username == 'Mom' && this.loginData.password == 'hunter2'){
+    if(this.loginData.username == 'mom' && this.loginData.password == 'password'){
       this.dialogRef.close();
       this.router.navigateByUrl('/authorize');
+      this.RegAuth.setLoginAuth('true');
     }
     else{
       this.incorrectLogin = true;
     }
+  }
+
+  onRegister(): void{
+    this.dialog.closeAll();
+    const dialogRef = this.dialog.open(RegistrationComponent, {
+      width: '400px',
+      data: {},
+      disableClose: true
+    });
+
+    // dialogRef.afterClosed().subscribe(result => {
+    //   this.email = result;
+    // });
   }
 
   @HostListener('window:keyup', ['$event'])

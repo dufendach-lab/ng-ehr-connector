@@ -57,7 +57,7 @@ export class FhirAuthService {
 
   logOut() {
     sessionStorage.clear();
-
     this._client.next(null);
+    location.reload();
   }
 }
