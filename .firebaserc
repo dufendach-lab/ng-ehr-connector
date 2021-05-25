@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "ehr-connector"
+  },
+  "targets": {
+    "ehr-connector": {
+      "hosting": {
+        "ng-ehr-connector": [
+          "ehr-connector"
+        ]
+      }
+    }
   }
 }
