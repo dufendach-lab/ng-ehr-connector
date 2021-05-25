@@ -24,8 +24,8 @@ export class LandingComponent implements OnInit {
     private fhirAuth: FhirAuthService,
     private router: Router,
     private RegAuth: AuthService,
-    private afs: AngularFirestore)
-  {
+    private afs: AngularFirestore,
+  ) {
     this.patientData = this.afs
       .collection('patients')
       .doc<IRegistration>('TsYOnFQmEq4TQWr0eOnO')
