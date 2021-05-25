@@ -2,10 +2,21 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-//import * as data from '../assets/EpicEndpoints.json'
+import * as data from '../assets/test-epic-endpoints.json';
+
 export const environment = {
   production: false,
-  //epicEnv: data
+  epicEnv: data,
+
+  firebase: {
+    apiKey: '',
+    authDomain: '',
+    projectId: '',
+    storageBucket: '',
+    messagingSenderId: '',
+    appId: '',
+    measurementId: ''
+  }
 };
 
 /*
