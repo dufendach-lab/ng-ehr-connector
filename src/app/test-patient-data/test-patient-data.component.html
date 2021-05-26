@@ -1,0 +1,51 @@
+<mat-card class="patient-data-card">
+  <mat-card-header>
+    <mat-card-title>Patient Data</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="data-container" fxLayout="column" fxLayoutGap="15px">
+
+      <form class="search-box" fxLayout="column" fxFlex>
+        <mat-form-field class="material-form" fxFlex>
+          <mat-label>Select Category</mat-label>
+          <mat-select [formControl]="formValue">
+            <mat-option *ngFor="let category of categories" [value]="category.value">
+              {{ category.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="searchByCategory()">Category Search</button>
+      </form>
+
+      <div fxLayout="row" fxLayoutGap="15px">
+        <form class="search-box" fxLayout="column"  fxFlex>
+          <mat-form-field class="material-form" fxFlex>
+            <mat-label fxFlex>Enter LOINC Code</mat-label>
+            <input matInput [formControl]="ptData" maxlength="256" placeholder="Ex '29463-7'">
+            <mat-hint align="start">Ex. 29463-7</mat-hint>
+          </mat-form-field>
+          <button mat-raised-button color="primary" (click)="search()">LOINC Search</button>
+        </form>
+      </div>
+
+      <form class="search-box" fxLayout="column" fxFlex>
+        <mat-form-field class="material-form" fxFlex>
+          <mat-label>Select Search Option</mat-label>
+          <mat-select [formControl]="formValue2">
+            <mat-option *ngFor="let info of information" [value]="info.value">
+              {{ info.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="selectedSearch()">Search Extras</button>
+      </form>
+
+      <div *ngIf="(obsBundle | async) as bundle">
+        <app-obs-value-list [observations]="bundle"></app-obs-value-list>
+      </div>
+      <a mat-button href="https://www.hl7.org/fhir/valueset-observation-category.html" target="_blank">FHIR Categories</a>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<ng-template #loading><br>Loading...</ng-template>
