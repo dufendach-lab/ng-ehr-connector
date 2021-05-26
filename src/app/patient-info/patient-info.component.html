@@ -1,18 +1,15 @@
 <mat-card class="patient-info-card">
   <mat-card-header>
-    <mat-card-title>Demographic Information</mat-card-title>
+    <mat-card-title>Patient Demographic</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <div class="pt-info-container" fxLayout="row" fxLayout.lt-sm="column">
-      <h3>Name: {{ name }} </h3>
-      <h3> Birthday: {{ bday }} </h3>
-      <h3> Gender: {{ gender | titlecase }} </h3>
-
-    </div>
-    <p style="margin-left: 20px;">Phone: {{ phoneNum }}</p>
-    <p style="margin-left: 20px;">Address: {{ address }}</p>
-    <p style="margin-left: 20px;">Care Provider: {{ provider }}</p>
-    <p style="margin-left: 20px;">Language: {{ language }}</p>
+    <p style="margin-left: 20px;"><span style="font-weight: bold; color: primary">Name: </span>{{ name }}</p>
+    <p style="margin-left: 20px;"><span style="font-weight: bold; color: primary">Birthday: </span>{{ bday }}</p>
+    <p style="margin-left: 20px;"><span style="font-weight: bold; color: primary">Gender: </span>{{ gender }}</p>
+    <p style="margin-left: 20px;"><span style="font-weight: bold; color: primary">Phone: </span>{{ phoneNum }}</p>
+    <p style="margin-left: 20px;"><span style="font-weight: bold; color: primary">Address: </span>{{ address }}</p>
+    <p style="margin-left: 20px;"><span style="font-weight: bold; color: primary">Care Provider: </span>{{ provider }}</p>
+    <p style="margin-left: 20px;"><span style="font-weight: bold; color: primary">Lanuage: </span>{{ language }}</p>
   </mat-card-content>
 </mat-card>
 

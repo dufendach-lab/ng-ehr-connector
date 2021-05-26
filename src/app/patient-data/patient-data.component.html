@@ -5,50 +5,24 @@
   <mat-card-content>
     <div class="data-container" fxLayout="column" fxLayoutGap="15px">
 
-      <form class="search-box" fxLayout="column" fxFlex>
-        <mat-form-field class="material-form" fxFlex>
-          <mat-label>Select Category</mat-label>
-          <mat-select [formControl]="formValue">
-            <mat-option value="social-history">Social History</mat-option>
-            <mat-option value="vital-signs">Vital Signs</mat-option>
-            <mat-option value="imaging" disabled>Imaging</mat-option>
-            <mat-option value="laboratory">Laboratory</mat-option>
-            <mat-option value="procedure" disabled>Procedure</mat-option>
-            <mat-option value="survey" disabled>Survey</mat-option>
-            <mat-option value="exam" disabled>Exam</mat-option>
-            <mat-option value="therapy" disabled>Therapy</mat-option>
-            <mat-option value="activity" disabled>Activity</mat-option>
-            <!-- <mat-option *ngFor="let category of categories" [value]="category.value">
-              {{ category.viewValue }}
-            </mat-option> -->
-          </mat-select>
-        </mat-form-field>
-        <button mat-raised-button color="primary" (click)="searchByCategory()">Category Search</button>
-      </form>
-
-      <div fxLayout="row" fxLayoutGap="15px">
-        <form class="search-box" fxLayout="column"  fxFlex>
-          <mat-form-field class="material-form" fxFlex>
-            <mat-label fxFlex>Enter LOINC Code</mat-label>
-            <input matInput [formControl]="ptData" maxlength="256" placeholder="Ex '29463-7'">
-            <mat-hint align="start">Ex. 29463-7</mat-hint>
-          </mat-form-field>
-          <button mat-raised-button color="primary" (click)="search()">LOINC Search</button>
-        </form>
+      <div style="padding-left: 1rem;">
+        <h3>Heres what we were able to pull from MyChart.</h3>
+        <h3>Select the data you would like to send CCHMC:</h3>
+        <br>
+        <mat-checkbox color="primary"
+        [checked]="allComplete"
+        [indeterminate]="someComplete()"
+        (change)="setAll($event.checked)">
+        Authorize All
+        </mat-checkbox>
       </div>
-
-
-
-      <!-- <h3>-- testing --</h3>
-      <mat-checkbox color="primary"
-       [checked]="allComplete"
-       [indeterminate]="someComplete()"
-       (change)="setAll($event.checked)">
-       Authorize All
-      </mat-checkbox>
+      <br>
       <mat-accordion>
 
-        <mat-expansion-panel (opened)="searchByCategory('vital-signs')">
+        <!-- TODO: obs-value-list printing no value at end of every entry array -->
+
+        <!-- VITAL SIGNS PANEL -->
+        <mat-expansion-panel>
           <mat-expansion-panel-header>
               <mat-panel-title>Vital Signs</mat-panel-title>
               <div *ngIf="task.subtasks[0].completed">
@@ -60,13 +34,14 @@
            color="primary"
            (ngModelChange)="updateAllComplete()">
             Include
-          </mat-checkbox>
-          <div *ngIf="(obsBundle | async) as bundle; else loading">
+          </mat-checkbox><br>
+          <div *ngIf="(vitalsBundle | async) as bundle; else loading">
             <app-obs-value-list [observations]="bundle"></app-obs-value-list>
           </div>
         </mat-expansion-panel>
 
-        <mat-expansion-panel (opened)="searchByCategory('social-history')">
+        <!-- SOCIAL HISTORY PANEL -->
+        <mat-expansion-panel >
           <mat-expansion-panel-header>
             <mat-panel-title>Social History</mat-panel-title>
             <div *ngIf="task.subtasks[1].completed">
@@ -78,13 +53,14 @@
            color="primary"
            (ngModelChange)="updateAllComplete()">
             Include
-          </mat-checkbox>
-          <div *ngIf="(obsBundle | async) as bundle; else loading">
+          </mat-checkbox><br>
+          <div *ngIf="(socialBundle | async) as bundle; else loading">
             <app-obs-value-list [observations]="bundle"></app-obs-value-list>
           </div>
         </mat-expansion-panel>
 
-        <mat-expansion-panel (opened)="searchByCategory('laboratory')">
+        <!-- LABORATORY PANEL -->
+        <mat-expansion-panel >
           <mat-expansion-panel-header>
             <mat-panel-title>Laboratory</mat-panel-title>
             <div *ngIf="task.subtasks[2].completed">
@@ -96,29 +72,117 @@
             color="primary"
              (ngModelChange)="updateAllComplete()">
              Include
-            </mat-checkbox>
-          <div *ngIf="(obsBundle | async) as bundle; else loading">
+            </mat-checkbox><br>
+          <div *ngIf="(labBundle | async) as bundle; else loading">
             <app-obs-value-list [observations]="bundle"></app-obs-value-list>
           </div>
         </mat-expansion-panel>
 
-      </mat-accordion> -->
-        <!-- <form class="search-box" fxLayout="column"  fxFlex>
-          <mat-form-field class="material-form" fxFlex>
-            <mat-label fxFlex>Enter Category Code</mat-label>
-            <input matInput [formControl]="category" maxlength="256" placeholder="Ex 'vital-signs'">
-            <mat-hint align="start">Ex. vital-signs, laboratory</mat-hint>
-          </mat-form-field>
-          <button mat-raised-button color="primary">Category Search</button>
-        </form> -->
+        <!-- MEDICAL STATEMENT PANEL -->
+        <mat-expansion-panel >
+          <mat-expansion-panel-header>
+            <mat-panel-title>Medical Statement</mat-panel-title>
+            <div *ngIf="task.subtasks[3].completed">
+              <mat-panel-description>Selected</mat-panel-description>
+            </div>
+          </mat-expansion-panel-header>
+          <mat-checkbox
+           [(ngModel)]="task.subtasks[3].completed"
+            color="primary"
+             (ngModelChange)="updateAllComplete()">
+             Include
+            </mat-checkbox><br>
+          <div *ngIf="(medBundle | async) as bundle; else loading">
+            <app-obs-value-list [observations]="bundle"></app-obs-value-list>
+          </div>
+        </mat-expansion-panel>
 
-      <button mat-raised-button color="primary" (click)="searchByDocuments()">Test Search</button>
-      <div *ngIf="(obsBundle | async) as bundle">
+        <!-- IMMUNIZATION PANEL -->
+        <mat-expansion-panel >
+          <mat-expansion-panel-header>
+            <mat-panel-title>Immunization</mat-panel-title>
+            <div *ngIf="task.subtasks[4].completed">
+              <mat-panel-description>Selected</mat-panel-description>
+            </div>
+          </mat-expansion-panel-header>
+          <mat-checkbox
+           [(ngModel)]="task.subtasks[4].completed"
+            color="primary"
+             (ngModelChange)="updateAllComplete()">
+             Include
+            </mat-checkbox><br>
+          <div *ngIf="(immuneBundle | async) as bundle; else loading">
+            <app-obs-value-list [observations]="bundle"></app-obs-value-list>
+          </div>
+        </mat-expansion-panel>
+
+        <!-- CONDITIONS PANEL -->
+        <mat-expansion-panel >
+          <mat-expansion-panel-header>
+            <mat-panel-title>Conditions</mat-panel-title>
+            <div *ngIf="task.subtasks[5].completed">
+              <mat-panel-description>Selected</mat-panel-description>
+            </div>
+          </mat-expansion-panel-header>
+          <mat-checkbox
+           [(ngModel)]="task.subtasks[5].completed"
+            color="primary"
+             (ngModelChange)="updateAllComplete()">
+             Include
+            </mat-checkbox><br>
+          <div *ngIf="(conditionBundle | async) as bundle; else loading">
+            <app-obs-value-list [observations]="bundle"></app-obs-value-list>
+          </div>
+        </mat-expansion-panel>
+
+        <!-- PROCEDURES PANEL -->
+        <mat-expansion-panel >
+          <mat-expansion-panel-header>
+            <mat-panel-title>Procedures</mat-panel-title>
+            <div *ngIf="task.subtasks[6].completed">
+              <mat-panel-description>Selected</mat-panel-description>
+            </div>
+          </mat-expansion-panel-header>
+          <mat-checkbox
+           [(ngModel)]="task.subtasks[6].completed"
+            color="primary"
+             (ngModelChange)="updateAllComplete()">
+             Include
+            </mat-checkbox><br>
+          <div *ngIf="(procedureBundle | async) as bundle; else loading">
+            <app-obs-value-list [observations]="bundle"></app-obs-value-list>
+          </div>
+        </mat-expansion-panel>
+
+        <!-- DOCUMENT PANEL -->
+        <mat-expansion-panel >
+          <mat-expansion-panel-header>
+            <mat-panel-title>Documents</mat-panel-title>
+            <div *ngIf="task.subtasks[7].completed">
+              <mat-panel-description>Selected</mat-panel-description>
+            </div>
+          </mat-expansion-panel-header>
+          <mat-checkbox
+           [(ngModel)]="task.subtasks[7].completed"
+            color="primary"
+             (ngModelChange)="updateAllComplete()">
+             Include
+            </mat-checkbox><br>
+          <div *ngIf="(documentBundle | async) as bundle; else loading">
+            <app-obs-value-list [observations]="bundle"></app-obs-value-list>
+          </div>
+        </mat-expansion-panel>
+
+      </mat-accordion>
+
+
+
+      <!-- <div *ngIf="(obsBundle | async) as bundle">
         <app-obs-value-list [observations]="bundle"></app-obs-value-list>
-      </div>
+      </div> -->
       <a mat-button href="https://www.hl7.org/fhir/valueset-observation-category.html" target="_blank">FHIR Categories</a>
     </div>
   </mat-card-content>
 </mat-card>
 
-<ng-template #loading><br>Loading...</ng-template>
+<ng-template #loading><br>Error retrieving information.</ng-template>

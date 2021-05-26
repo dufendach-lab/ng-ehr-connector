@@ -36,6 +36,7 @@ import {LoginComponent} from './login/login.component';
 import {environment} from "../environments/environment";
 import {AngularFireModule} from "@angular/fire";
 import {AngularFirestoreModule} from "@angular/fire/firestore";
+import { TestPatientDataComponent } from './test-patient-data/test-patient-data.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import {AngularFirestoreModule} from "@angular/fire/firestore";
     MainFormComponent,
     LandingComponent,
     LoginComponent,
+    TestPatientDataComponent,
   ],
   imports: [
     BrowserModule,
