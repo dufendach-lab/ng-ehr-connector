@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import { LoginComponent } from '../login/login.component';
-import {FhirAuthService} from "../fhir-auth.service";
-import { Router } from '@angular/router';
-import { AuthService } from '../auth.service';
-import {AngularFirestore} from "@angular/fire/firestore";
-import {IRegistration} from "../../Interfaces/IRegistration";
-import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
+import {LoginComponent} from '../login/login.component';
+import {FhirAuthService} from '../fhir-auth.service';
+import {Router} from '@angular/router';
+import {AuthService} from '../auth.service';
+import {AngularFirestore} from '@angular/fire/firestore';
+import {IRegistration} from '../../Interfaces/IRegistration';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-landing',
@@ -18,6 +18,8 @@ export class LandingComponent implements OnInit {
   isAuthorized = this.fhirAuth.authorized;
 
   patientData: Observable<IRegistration | undefined>;
+  loggedIn = this.RegAuth.getLoginAuth();
+  email = '';
 
   constructor(
     private dialog: MatDialog,
@@ -32,16 +34,13 @@ export class LandingComponent implements OnInit {
       .get().pipe(map(doc => doc.data()));
   }
 
-  loggedIn = this.RegAuth.getLoginAuth();
-  email= '';
-
   ngOnInit(): void {
-    if(this.loggedIn == 'false'){
+    if (this.loggedIn == 'false') {
       this.loginModal();
     }
   }
 
-  loginModal(){
+  loginModal() {
     const dialogRef = this.dialog.open(LoginComponent, {
       width: '400px',
       data: {},
