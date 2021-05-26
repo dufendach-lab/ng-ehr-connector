@@ -15,6 +15,8 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatSelectModule} from '@angular/material/select';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 import {FlexLayoutModule} from '@angular/flex-layout';
 
@@ -34,6 +36,7 @@ import {LoginComponent} from './login/login.component';
 import {environment} from "../environments/environment";
 import {AngularFireModule} from "@angular/fire";
 import {AngularFirestoreModule} from "@angular/fire/firestore";
+import { TestPatientDataComponent } from './test-patient-data/test-patient-data.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +52,7 @@ import {AngularFirestoreModule} from "@angular/fire/firestore";
     MainFormComponent,
     LandingComponent,
     LoginComponent,
+    TestPatientDataComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,6 +77,8 @@ import {AngularFirestoreModule} from "@angular/fire/firestore";
     MatDialogModule,
     MatToolbarModule,
     MatSelectModule,
+    MatExpansionModule,
+    MatCheckboxModule,
 
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,

@@ -1,26 +1,68 @@
-<h2><ng-container *ngIf="isValueThere; else noValue">{{ obsList[0].resource.code.text}}</ng-container></h2>
-
 <ul>
   <ng-container *ngFor="let obs of obsList">
     <li>
       <ng-container *ngIf="obs.resource.issue; then noValue"></ng-container>
 
-      <ng-container *ngIf="obs.resource.valueQuantity">
+      <ng-container *ngIf="obs.resource.resourceType == 'Observation' && obs.resource.valueQuantity">
         <span style="font-weight: bolder;">{{ obs.resource.code.text }}:  </span> {{obs.resource.valueQuantity.value | number:'1.0-3'}} {{obs.resource.valueQuantity.unit}}
         <p>Date Issued: {{ (obs.resource.issued || obs.resource.effectiveDateTime) | date: 'short'}} EST</p>
       </ng-container>
-      <ng-container *ngIf="obs.resource.component">
+      <ng-container *ngIf="obs.resource.resourceType == 'Observation' && obs.resource.valueRatio">
+        <span style="font-weight: bolder;">{{ obs.resource.code.text }}:   </span>  {{ obs.resource.valueRatio.numerator.value }}/{{ obs.resource.valueRatio.denominator.value }}
+        <p>Date Issued: {{ (obs.resource.issued || obs.resource.effectiveDateTime) | date: 'short'}} EST</p>
+      </ng-container>
+      <ng-container *ngIf="obs.resource.resourceType == 'Observation' && obs.resource.valueString">
+        <span style="font-weight: bolder;">{{ obs.resource.code.text }}:   </span> {{ obs.resource.valueString }}
+        <p>Date Issued: {{ (obs.resource.issued || obs.resource.effectiveDateTime) | date: 'short'}} EST</p>
+      </ng-container>
+
+      <ng-container *ngIf="obs.resource.resourceType == 'Observation' && obs.resource.component">
         <ng-container *ngFor="let comp of obs.resource.component">
           <span style="font-weight: bolder;">{{ comp.code.text }}:  </span> {{comp.valueQuantity.value | number:'1.0-3'}} {{comp.valueQuantity.unit}};
         </ng-container>
         <p>Date Issued: {{ (obs.resource.issued || obs.resource.effectiveDateTime) | date: 'short'}} EST</p>
       </ng-container>
-      <ng-container *ngIf="obs.resource.valueCodeableConcept">
-        <span style="font-weight: bolder;">{{ obs.resource.valueCodeableConcept.text }}</span>
+
+      <ng-container *ngIf="obs.resource.resourceType == 'Observation' && obs.resource.valueCodeableConcept">
+        <span style="font-weight: bolder;">{{ obs.resource.code.text }}: {{ obs.resource.valueCodeableConcept.text }}</span>
         <p>Date Issued: {{ (obs.resource.issued || obs.resource.effectiveDateTime) | date: 'short'}} EST</p>
       </ng-container>
+
+      <ng-container *ngIf="obs.resource.resourceType == 'DocumentReference'">
+        <span style="font-weight: bolder;">{{ obs.resource.class.text }}</span>
+        <p>Date Issued: {{ (obs.resource.indexed) | date: 'short'}} EST</p>
+      </ng-container>
+
+      <ng-container *ngIf="obs.resource.resourceType == 'MedicationStatement'">
+        <span style="font-weight: bolder;">{{ obs.resource.medicationCodeableConcept.text }}</span>
+        <p>Date Start: {{ (obs.resource.effectivePeriod.start) | date: 'short'}}</p>
+        <p>Date End: {{ (obs.resource.effectivePeriod.end) | date: 'short'}}</p>
+      </ng-container>
+
+      <ng-container *ngIf="obs.resource.resourceType == 'Immunization'">
+        <span style="font-weight: bolder;">{{ obs.resource.vaccineCode.text }}</span>
+        <p>Date Issued: {{ (obs.resource.date) | date: 'short'}} EST</p>
+      </ng-container>
+
+      <ng-container *ngIf="(obs.resource.resourceType == 'Condition') && (obs.resource.severity)">
+        <span style="font-weight: bolder;">{{ obs.resource.code.text }}</span>
+        <p>Severity: {{ obs.resource.severity.text }}</p>
+        <p>Date Recorded: {{ (obs.resource.dateRecorded) | date: 'short'}} EST</p>
+      </ng-container>
+      <ng-container *ngIf="obs.resource.resourceType == 'Condition'">
+        <span style="font-weight: bolder;">{{ obs.resource.code.text }}</span>
+        <p>Severity: N/A</p>
+        <p>Date Recorded: {{ (obs.resource.dateRecorded) | date: 'short'}} EST</p>
+      </ng-container>
+
+      <ng-container *ngIf="obs.resource.resourceType == 'Procedure'">
+        <span style="font-weight: bolder;">{{ obs.resource.code.text }}</span>
+        <p>Date Performed: {{ (obs.resource.performedDateTime) | date: 'short'}} EST</p>
+      </ng-container>
+
     </li><br>
   </ng-container>
 </ul>
 
-<ng-template #noValue>Missing Value</ng-template>
+<ng-template #noValue>No value or N/A</ng-template>
+<ng-template #skip></ng-template>
