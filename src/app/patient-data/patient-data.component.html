@@ -25,7 +25,7 @@
         <mat-expansion-panel>
           <mat-expansion-panel-header>
               <mat-panel-title>Vital Signs</mat-panel-title>
-              <div *ngIf="task.subtasks[0].completed">
+              <div *ngIf="task.subtasks[0].completed; else notcomplete">
                 <mat-panel-description>Selected</mat-panel-description>
               </div>
           </mat-expansion-panel-header>
@@ -44,7 +44,7 @@
         <mat-expansion-panel >
           <mat-expansion-panel-header>
             <mat-panel-title>Social History</mat-panel-title>
-            <div *ngIf="task.subtasks[1].completed">
+            <div *ngIf="task.subtasks[1].completed; else notcomplete">
               <mat-panel-description>Selected</mat-panel-description>
             </div>
           </mat-expansion-panel-header>
@@ -63,7 +63,7 @@
         <mat-expansion-panel >
           <mat-expansion-panel-header>
             <mat-panel-title>Laboratory</mat-panel-title>
-            <div *ngIf="task.subtasks[2].completed">
+            <div *ngIf="task.subtasks[2].completed; else notcomplete">
               <mat-panel-description>Selected</mat-panel-description>
             </div>
           </mat-expansion-panel-header>
@@ -82,7 +82,7 @@
         <mat-expansion-panel >
           <mat-expansion-panel-header>
             <mat-panel-title>Medical Statement</mat-panel-title>
-            <div *ngIf="task.subtasks[3].completed">
+            <div *ngIf="task.subtasks[3].completed; else notcomplete">
               <mat-panel-description>Selected</mat-panel-description>
             </div>
           </mat-expansion-panel-header>
@@ -101,7 +101,7 @@
         <mat-expansion-panel >
           <mat-expansion-panel-header>
             <mat-panel-title>Immunization</mat-panel-title>
-            <div *ngIf="task.subtasks[4].completed">
+            <div *ngIf="task.subtasks[4].completed; else notcomplete">
               <mat-panel-description>Selected</mat-panel-description>
             </div>
           </mat-expansion-panel-header>
@@ -120,7 +120,7 @@
         <mat-expansion-panel >
           <mat-expansion-panel-header>
             <mat-panel-title>Conditions</mat-panel-title>
-            <div *ngIf="task.subtasks[5].completed">
+            <div *ngIf="task.subtasks[5].completed; else notcomplete">
               <mat-panel-description>Selected</mat-panel-description>
             </div>
           </mat-expansion-panel-header>
@@ -139,7 +139,7 @@
         <mat-expansion-panel >
           <mat-expansion-panel-header>
             <mat-panel-title>Procedures</mat-panel-title>
-            <div *ngIf="task.subtasks[6].completed">
+            <div *ngIf="task.subtasks[6].completed; else notcomplete">
               <mat-panel-description>Selected</mat-panel-description>
             </div>
           </mat-expansion-panel-header>
@@ -158,7 +158,7 @@
         <mat-expansion-panel >
           <mat-expansion-panel-header>
             <mat-panel-title>Documents</mat-panel-title>
-            <div *ngIf="task.subtasks[7].completed">
+            <div *ngIf="task.subtasks[7].completed; else notcomplete">
               <mat-panel-description>Selected</mat-panel-description>
             </div>
           </mat-expansion-panel-header>
@@ -175,7 +175,7 @@
 
       </mat-accordion>
 
-
+      <button mat-raised-button color="primary" >Submit</button>
 
       <!-- <div *ngIf="(obsBundle | async) as bundle">
         <app-obs-value-list [observations]="bundle"></app-obs-value-list>
@@ -186,3 +186,4 @@
 </mat-card>
 
 <ng-template #loading><br>Error retrieving information.</ng-template>
+<ng-template #notcomplete><mat-panel-description fxLayoutAlign="end">Not Selected</mat-panel-description></ng-template>
