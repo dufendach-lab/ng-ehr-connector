@@ -9,10 +9,10 @@
         <h3>Heres what we were able to pull from MyChart. Select the data you would like to send CCHMC:</h3>
         <br>
         <mat-checkbox color="primary"
-        [checked]="allComplete"
-        [indeterminate]="someComplete()"
-        (change)="setAll($event.checked)">
-        Select All
+                      [checked]="allComplete"
+                      [indeterminate]="someComplete()"
+                      (change)="setAll($event.checked)">
+          Select All
         </mat-checkbox>
       </div>
       <br>
@@ -23,150 +23,181 @@
         <!-- VITAL SIGNS PANEL -->
         <mat-expansion-panel>
           <mat-expansion-panel-header>
-              <mat-panel-title>Vital Signs&nbsp;&nbsp;&nbsp;<mat-icon aria-hidden="false" aria-label="Example science">equalizer</mat-icon></mat-panel-title>
-              <div *ngIf="task.subtasks[0].completed; else notcomplete">
-                <mat-panel-description>Selected</mat-panel-description>
-              </div>
+            <mat-panel-title>
+              <mat-checkbox [(ngModel)]="task.subtasks[0].completed"
+                            (click)="$event.stopPropagation()"
+                            (keydown)="$event.stopPropagation()"
+                            color="primary"
+                            (ngModelChange)="updateAllComplete()">
+                <mat-icon aria-hidden="false" aria-label="Example science">equalizer</mat-icon>
+                <span>Vital Signs</span>
+              </mat-checkbox>
+            </mat-panel-title>
+<!--            <div *ngIf="task.subtasks[0].completed; else notcomplete">-->
+<!--              <mat-panel-description>Selected</mat-panel-description>-->
+<!--            </div>-->
           </mat-expansion-panel-header>
-          <mat-checkbox
-           [(ngModel)]="task.subtasks[0].completed"
-           color="primary"
-           (ngModelChange)="updateAllComplete()">
-            Include
-          </mat-checkbox><br>
           <div *ngIf="(vitalsBundle | async) as bundle; else loading">
             <app-obs-value-list [observations]="bundle"></app-obs-value-list>
           </div>
         </mat-expansion-panel>
 
         <!-- SOCIAL HISTORY PANEL -->
-        <mat-expansion-panel >
+        <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <mat-panel-title>Social History &nbsp;&nbsp;&nbsp;<mat-icon aria-hidden="false" aria-label="Example science">smoking_rooms</mat-icon></mat-panel-title>
+            <mat-panel-title>Social History &nbsp;&nbsp;&nbsp;<mat-icon aria-hidden="false"
+                                                                        aria-label="Example science">smoking_rooms
+            </mat-icon>
+            </mat-panel-title>
             <div *ngIf="task.subtasks[1].completed; else notcomplete">
               <mat-panel-description>Selected</mat-panel-description>
             </div>
           </mat-expansion-panel-header>
           <mat-checkbox
-           [(ngModel)]="task.subtasks[1].completed"
-           color="primary"
-           (ngModelChange)="updateAllComplete()">
+            [(ngModel)]="task.subtasks[1].completed"
+            color="primary"
+            (ngModelChange)="updateAllComplete()">
             Include
-          </mat-checkbox><br>
+          </mat-checkbox>
+          <br>
           <div *ngIf="(socialBundle | async) as bundle; else loading">
             <app-obs-value-list [observations]="bundle"></app-obs-value-list>
           </div>
         </mat-expansion-panel>
 
         <!-- LABORATORY PANEL -->
-        <mat-expansion-panel >
+        <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <mat-panel-title>Laboratory &nbsp;&nbsp;&nbsp;<mat-icon aria-hidden="false" aria-label="Example science">science</mat-icon></mat-panel-title>
+            <mat-panel-title>Laboratory &nbsp;&nbsp;&nbsp;<mat-icon aria-hidden="false" aria-label="Example science">
+              science
+            </mat-icon>
+            </mat-panel-title>
             <div *ngIf="task.subtasks[2].completed; else notcomplete">
               <mat-panel-description>Selected</mat-panel-description>
             </div>
           </mat-expansion-panel-header>
           <mat-checkbox
-           [(ngModel)]="task.subtasks[2].completed"
+            [(ngModel)]="task.subtasks[2].completed"
             color="primary"
-             (ngModelChange)="updateAllComplete()">
-             Include
-            </mat-checkbox><br>
+            (ngModelChange)="updateAllComplete()">
+            Include
+          </mat-checkbox>
+          <br>
           <div *ngIf="(labBundle | async) as bundle; else loading">
             <app-obs-value-list [observations]="bundle"></app-obs-value-list>
           </div>
         </mat-expansion-panel>
 
         <!-- MEDICAL STATEMENT PANEL -->
-        <mat-expansion-panel >
+        <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <mat-panel-title>Medical Statement &nbsp;&nbsp;&nbsp;<mat-icon aria-hidden="false" aria-label="Example science">medication</mat-icon></mat-panel-title>
+            <mat-panel-title>Medical Statement &nbsp;&nbsp;&nbsp;<mat-icon aria-hidden="false"
+                                                                           aria-label="Example science">medication
+            </mat-icon>
+            </mat-panel-title>
             <div *ngIf="task.subtasks[3].completed; else notcomplete">
               <mat-panel-description>Selected</mat-panel-description>
             </div>
           </mat-expansion-panel-header>
           <mat-checkbox
-           [(ngModel)]="task.subtasks[3].completed"
+            [(ngModel)]="task.subtasks[3].completed"
             color="primary"
-             (ngModelChange)="updateAllComplete()">
-             Include
-            </mat-checkbox><br>
+            (ngModelChange)="updateAllComplete()">
+            Include
+          </mat-checkbox>
+          <br>
           <div *ngIf="(medBundle | async) as bundle; else loading">
             <app-obs-value-list [observations]="bundle"></app-obs-value-list>
           </div>
         </mat-expansion-panel>
 
         <!-- IMMUNIZATION PANEL -->
-        <mat-expansion-panel >
+        <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <mat-panel-title>Immunization &nbsp;&nbsp;&nbsp;<mat-icon aria-hidden="false" aria-label="Example science">coronavirus</mat-icon></mat-panel-title>
+            <mat-panel-title>Immunization &nbsp;&nbsp;&nbsp;<mat-icon aria-hidden="false" aria-label="Example science">
+              coronavirus
+            </mat-icon>
+            </mat-panel-title>
             <div *ngIf="task.subtasks[4].completed; else notcomplete">
               <mat-panel-description>Selected</mat-panel-description>
             </div>
           </mat-expansion-panel-header>
           <mat-checkbox
-           [(ngModel)]="task.subtasks[4].completed"
+            [(ngModel)]="task.subtasks[4].completed"
             color="primary"
-             (ngModelChange)="updateAllComplete()">
-             Include
-            </mat-checkbox><br>
+            (ngModelChange)="updateAllComplete()">
+            Include
+          </mat-checkbox>
+          <br>
           <div *ngIf="(immuneBundle | async) as bundle; else loading">
             <app-obs-value-list [observations]="bundle"></app-obs-value-list>
           </div>
         </mat-expansion-panel>
 
         <!-- CONDITIONS PANEL -->
-        <mat-expansion-panel >
+        <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <mat-panel-title>Conditions &nbsp;&nbsp;&nbsp;<mat-icon aria-hidden="false" aria-label="Example science">local_hospital</mat-icon></mat-panel-title>
+            <mat-panel-title>Conditions &nbsp;&nbsp;&nbsp;<mat-icon aria-hidden="false" aria-label="Example science">
+              local_hospital
+            </mat-icon>
+            </mat-panel-title>
             <div *ngIf="task.subtasks[5].completed; else notcomplete">
               <mat-panel-description>Selected</mat-panel-description>
             </div>
           </mat-expansion-panel-header>
           <mat-checkbox
-           [(ngModel)]="task.subtasks[5].completed"
+            [(ngModel)]="task.subtasks[5].completed"
             color="primary"
-             (ngModelChange)="updateAllComplete()">
-             Include
-            </mat-checkbox><br>
+            (ngModelChange)="updateAllComplete()">
+            Include
+          </mat-checkbox>
+          <br>
           <div *ngIf="(conditionBundle | async) as bundle; else loading">
             <app-obs-value-list [observations]="bundle"></app-obs-value-list>
           </div>
         </mat-expansion-panel>
 
         <!-- PROCEDURES PANEL -->
-        <mat-expansion-panel >
+        <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <mat-panel-title>Procedures &nbsp;&nbsp;&nbsp;<mat-icon aria-hidden="false" aria-label="Example science">healing</mat-icon></mat-panel-title>
+            <mat-panel-title>Procedures &nbsp;&nbsp;&nbsp;<mat-icon aria-hidden="false" aria-label="Example science">
+              healing
+            </mat-icon>
+            </mat-panel-title>
             <div *ngIf="task.subtasks[6].completed; else notcomplete">
               <mat-panel-description>Selected</mat-panel-description>
             </div>
           </mat-expansion-panel-header>
           <mat-checkbox
-           [(ngModel)]="task.subtasks[6].completed"
+            [(ngModel)]="task.subtasks[6].completed"
             color="primary"
-             (ngModelChange)="updateAllComplete()">
-             Include
-            </mat-checkbox><br>
+            (ngModelChange)="updateAllComplete()">
+            Include
+          </mat-checkbox>
+          <br>
           <div *ngIf="(procedureBundle | async) as bundle; else loading">
             <app-obs-value-list [observations]="bundle"></app-obs-value-list>
           </div>
         </mat-expansion-panel>
 
         <!-- DOCUMENT PANEL -->
-        <mat-expansion-panel >
+        <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <mat-panel-title>Documents &nbsp;&nbsp;&nbsp;<mat-icon aria-hidden="false" aria-label="Example science">description</mat-icon></mat-panel-title>
+            <mat-panel-title>Documents &nbsp;&nbsp;&nbsp;<mat-icon aria-hidden="false" aria-label="Example science">
+              description
+            </mat-icon>
+            </mat-panel-title>
             <div *ngIf="task.subtasks[7].completed; else notcomplete">
               <mat-panel-description>Selected</mat-panel-description>
             </div>
           </mat-expansion-panel-header>
           <mat-checkbox
-           [(ngModel)]="task.subtasks[7].completed"
+            [(ngModel)]="task.subtasks[7].completed"
             color="primary"
-             (ngModelChange)="updateAllComplete()">
-             Include
-            </mat-checkbox><br>
+            (ngModelChange)="updateAllComplete()">
+            Include
+          </mat-checkbox>
+          <br>
           <div *ngIf="(documentBundle | async) as bundle; else loading">
             <app-obs-value-list [observations]="bundle"></app-obs-value-list>
           </div>
@@ -179,10 +210,13 @@
       <!-- <div *ngIf="(obsBundle | async) as bundle">
         <app-obs-value-list [observations]="bundle"></app-obs-value-list>
       </div> -->
-      <a mat-button href="https://www.hl7.org/fhir/valueset-observation-category.html" target="_blank">FHIR Categories</a>
+      <a mat-button href="https://www.hl7.org/fhir/valueset-observation-category.html" target="_blank">FHIR
+        Categories</a>
     </div>
   </mat-card-content>
 </mat-card>
 
 <ng-template #loading><br>Error retrieving information.</ng-template>
-<ng-template #notcomplete><mat-panel-description fxLayoutAlign="end">Not Selected</mat-panel-description></ng-template>
+<ng-template #notcomplete>
+  <mat-panel-description fxLayoutAlign="end">Not Selected</mat-panel-description>
+</ng-template>
