@@ -1,8 +1,8 @@
 export interface IRegistration {
   firstName: string;
   lastName: string;
-  MotherDoB: Date;
-  EstDueDate: Date;
+  MotherDoB: any;
+  EstDueDate: any;
   Diagnosis: string;
   hospital: string[];
 }
