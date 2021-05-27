@@ -9,8 +9,8 @@ import { FhirAuthService } from '../fhir-auth.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  //readonly isAuth = this.auth.authorized;
-  readonly isAuth = this.logAuth.user
+  readonly isAuth = this.auth.authorized;
+  readonly isAuth2 = this.logAuth.user;
   constructor(private router: Router, private auth: FhirAuthService, private logAuth: AuthService) {
   }
 

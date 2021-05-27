@@ -5,7 +5,7 @@
   </button>
 
   <span fxFlex></span>
-  <div *ngIf="isAuth | async" class="button-container">
+  <div *ngIf="(isAuth | async) || (isAuth2 | async)" class="button-container">
 
     <button mat-button class="logout-button" (click)="logout()">Logout</button>
   </div>
