@@ -20,16 +20,20 @@ import { RegistrationService } from '../registration.service';
 })
 export class RegistrationComponent implements OnInit {
 
+  hide = true;
   //Hospital list, that updates as autocomplete occurs
   hospitalList: Observable<string[]> | any;
   hospitalOptions: string[] = []
+
   //Initializes a new interface to store the data
   registrationInfo = {} as IRegistration;
+
   //Hoispital selected for the chips seen
   selectedHospitals: string[] = [];
   separatorKeysCodes: number[] = [ENTER, COMMA];
   @ViewChild('hospitalInput') hospitalInput = {} as ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete = {} as MatAutocomplete;
+
   //The formbuilder reactive form
   registration = this.fb.group({
     firstname: ['', Validators.required],
@@ -38,10 +42,18 @@ export class RegistrationComponent implements OnInit {
     EstDueDate: ['', Validators.required],
     Diagnosis: ['', Validators.required],
     Hospital: ['', Validators.required],
+    email: ['', Validators.required],
+    password: ['', Validators.required],
   })
 
-  constructor(private fb: FormBuilder, private fhirService: FhirAuthService, public dialogRef: MatDialogRef<RegistrationComponent>,
-     private dialog: MatDialog, private RegAuth: AuthService, private router: Router, private regService: RegistrationService) {
+  constructor(
+    private fb: FormBuilder,
+    private fhirService: FhirAuthService,
+    //public dialogRef: MatDialogRef<RegistrationComponent>,
+    //private dialog: MatDialog,
+    //private RegAuth: AuthService,
+    private router: Router,
+    private regService: RegistrationService) {
   }
 
   //Uses the Engpoints function to retrieve a list of all the available epic endpoints
@@ -62,19 +74,19 @@ export class RegistrationComponent implements OnInit {
   //Logs the patients registraion data
   submit() {
     this.registrationInfo.hospital = this.selectedHospitals;
-    this.regService.updatePatient(this.registrationInfo);
-    this.dialogRef.close();
-    this.router.navigateByUrl('/landing');
-    this.RegAuth.setLoginAuth('true');
+    this.regService.createPatient(this.registrationInfo, this.registration.controls['email'].value, this.registration.controls['password'].value);
+    //this.dialogRef.close();
+    //this.router.navigateByUrl('/landing');
+    //this.RegAuth.setLoginAuth('true');
   }
 
   onCancel(){
-    this.dialog.closeAll()
-    this.dialog.open(LoginComponent, {
-      width: '400px',
-      data: {},
-      disableClose: true
-    });
+    // this.dialog.closeAll()
+    // this.dialog.open(LoginComponent, {
+    //   width: '400px',
+    //   data: {},
+    //   disableClose: true
+    // });
   }
   //Add a chip to the hosipital selection
   addChip(event: MatChipInputEvent) {

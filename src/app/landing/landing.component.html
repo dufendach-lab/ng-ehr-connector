@@ -1,18 +1,51 @@
-<app-landing-info></app-landing-info>
-<div fxLayoutGap="15px" class="button-container" fxLayout="column">
-  <!-- <button fxFlex mat-raised-button color="accent" routerLink="/registration">Register</button>
+<div *ngIf="user | async; else Login">
+  <div>
+    <app-landing-info></app-landing-info>
+  </div>
+  <br><br>
+  <div fxLayoutGap="15px" class="button-container" fxLayout="column">
+    <!-- <button fxFlex mat-raised-button color="accent" routerLink="/registration">Register</button>
   <button fxFlex mat-raised-button color="accent" (click)="loginModal()">Login</button> -->
 
-  <div *ngIf="patientData | async as pt">
-    <h1>{{pt.firstName}} {{pt.lastName}}</h1>
-    <ul>
-      <li *ngFor="let h of pt.hospital">{{h}}</li>
-    </ul>
-  </div>
+    <!-- <h1 *ngIf="user | async as u">{{ u.uid }}</h1>
 
-  <div fxLayout="row" fxLayoutGap="15px">
-    <button fxFlex *ngIf="isAuthorized | async" class="link-buttons" mat-raised-button color="accent" routerLink="/dashboard">Dashboard</button>
-    <button fxFlex *ngIf="!(isAuthorized | async)" class="link-buttons" mat-raised-button color="accent" routerLink="/authorize">Authorize</button>
-    <button fxFlex mat-raised-button color="accent" routerLink="/survey">Survey</button>
+    <div *ngIf="patientData | async as pt">
+      <h1>{{ pt.firstName }} {{ pt.lastName }}</h1>
+      <ul>
+        <li *ngFor="let h of pt.hospital">{{ h }}</li>
+      </ul>
+    </div> -->
+
+    <div fxLayout="row" fxLayoutGap="15px">
+      <button
+        fxFlex
+        *ngIf="isAuthorized | async"
+        class="link-buttons"
+        mat-raised-button
+        color="accent"
+        routerLink="/dashboard"
+      >
+        Dashboard
+      </button>
+      <button
+        fxFlex
+        *ngIf="!(isAuthorized | async)"
+        class="link-buttons"
+        mat-raised-button
+        color="accent"
+        routerLink="/authorize"
+      >
+        Authorize
+      </button>
+      <button fxFlex mat-raised-button color="accent" routerLink="/survey">
+        Survey
+      </button>
+    </div>
   </div>
 </div>
+
+<ng-template #Login>
+  <app-login></app-login>
+  <br>
+  <app-registration></app-registration>
+</ng-template>
