@@ -51,7 +51,7 @@
         <div *ngIf="obs.resource.severity">
           <p>Severity: {{ obs.resource.severity.text }}</p>
         </div>
-        <p>Practioner: {{ obs.resource.asserter.display }}</p>
+        <p>Practioner: {{ obs.resource.asserter?.display }}</p>
         <p>Date Recorded: {{ (obs.resource.dateRecorded) | date: 'short'}} EST</p>
       </ng-container>
       <!-- <ng-container *ngIf="(obs.resource.resourceType == 'Condition') && (!obs.resource.serverity)">
