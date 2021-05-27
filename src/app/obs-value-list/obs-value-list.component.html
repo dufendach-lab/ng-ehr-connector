@@ -36,7 +36,9 @@
       <ng-container *ngIf="obs.resource.resourceType == 'MedicationStatement'">
         <span style="font-weight: bolder;">{{ obs.resource.medicationCodeableConcept.text }}</span>
         <p>Date Start: {{ (obs.resource.effectivePeriod.start) | date: 'short'}}</p>
-        <p>Date End: {{ (obs.resource.effectivePeriod.end) | date: 'short'}}</p>
+        <div *ngIf="obs.resource.effectivePeriod.end">
+          <p>Date End: {{ (obs.resource.effectivePeriod.end) | date: 'short'}}</p>
+        </div>
       </ng-container>
 
       <ng-container *ngIf="obs.resource.resourceType == 'Immunization'">

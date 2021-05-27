@@ -17,6 +17,7 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatSelectModule} from '@angular/material/select';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatIcon, MatIconModule} from '@angular/material/icon';
 
 import {FlexLayoutModule} from '@angular/flex-layout';
 
@@ -79,6 +80,7 @@ import { TestPatientDataComponent } from './test-patient-data/test-patient-data.
     MatSelectModule,
     MatExpansionModule,
     MatCheckboxModule,
+    MatIconModule,
 
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
