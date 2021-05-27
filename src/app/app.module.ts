@@ -17,7 +17,7 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatSelectModule} from '@angular/material/select';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatIcon, MatIconModule} from '@angular/material/icon';
+import {MatIconModule} from '@angular/material/icon';
 
 import {FlexLayoutModule} from '@angular/flex-layout';
 
@@ -35,10 +35,10 @@ import {LandingComponent} from './landing/landing.component';
 import {LoginComponent} from './login/login.component';
 import { LandingInfoComponent } from './landing-info/landing-info.component';
 
-import {environment} from "../environments/environment";
-import {AngularFireModule} from "@angular/fire";
-import {AngularFirestoreModule} from "@angular/fire/firestore";
-import { AngularFireAuthModule } from "@angular/fire/auth";
+import {environment} from '../environments/environment';
+import {AngularFireModule} from '@angular/fire';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { TestPatientDataComponent } from './test-patient-data/test-patient-data.component'
 
 @NgModule({
