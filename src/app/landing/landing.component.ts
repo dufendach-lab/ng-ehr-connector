@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import { LoginComponent } from '../login/login.component';
 import {FhirAuthService} from "../fhir-auth.service";
@@ -18,6 +18,8 @@ import {Observable} from "rxjs";
 export class LandingComponent implements OnInit {
   isAuthorized = this.fhirAuth.authorized;
   patientData: Observable<IRegistration | undefined>;
+  loggedIn = this.RegAuth.getLoginAuth();
+  email = '';
 
   user = this.auth.user;
 
@@ -43,9 +45,6 @@ export class LandingComponent implements OnInit {
     )
   }
 
-  loggedIn = this.RegAuth.getLoginAuth();
-  email= '';
-
   ngOnInit(): void {
     // this.user.pipe(map(x => x.))
     // if(this.patientData){
@@ -66,6 +65,7 @@ export class LandingComponent implements OnInit {
     //   data: {},
     //   disableClose: true
     // });
+
 
     // dialogRef.afterClosed().subscribe(result => {
     //   this.email = result;
