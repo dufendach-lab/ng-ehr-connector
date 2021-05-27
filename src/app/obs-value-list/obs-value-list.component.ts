@@ -14,7 +14,7 @@ export class ObsValueListComponent implements OnChanges {
 
   obsList: Observation[] = [];
 
-  isValueThere: boolean = false;
+  // isValueThere: boolean = false;
 
   constructor() { }
 
@@ -28,10 +28,10 @@ export class ObsValueListComponent implements OnChanges {
   private updateObservationList() {
     if (this.observations) {
       this.obsList = this.observations.entry;
-
-      this.isValueThere = this.obsList[0].resource.resourceType != null;
-
-      console.log(this.obsList[0]);
+      //
+      // this.isValueThere = this.obsList[0].resource.resourceType != null;
+      //
+      // console.log(this.obsList[0]);
     }
   }
 
