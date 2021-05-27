@@ -33,11 +33,13 @@ import {RegistrationComponent} from './registration/registration.component';
 import {AuthorizeComponent} from './authorize/authorize.component';
 import {LandingComponent} from './landing/landing.component';
 import {LoginComponent} from './login/login.component';
+import { LandingInfoComponent } from './landing-info/landing-info.component';
 
 import {environment} from "../environments/environment";
 import {AngularFireModule} from "@angular/fire";
 import {AngularFirestoreModule} from "@angular/fire/firestore";
-import { TestPatientDataComponent } from './test-patient-data/test-patient-data.component';
+import { AngularFireAuthModule } from "@angular/fire/auth";
+import { TestPatientDataComponent } from './test-patient-data/test-patient-data.component'
 
 @NgModule({
   declarations: [
@@ -53,6 +55,7 @@ import { TestPatientDataComponent } from './test-patient-data/test-patient-data.
     MainFormComponent,
     LandingComponent,
     LoginComponent,
+    LandingInfoComponent,
     TestPatientDataComponent,
   ],
   imports: [
@@ -84,6 +87,7 @@ import { TestPatientDataComponent } from './test-patient-data/test-patient-data.
 
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    AngularFireAuthModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

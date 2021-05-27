@@ -23,34 +23,49 @@ export class LoginComponent implements OnInit {
     username: ['', Validators.required],
     password: ['', Validators.required],
   })
+  user = this.auth.user;
 
-  constructor(public dialogRef: MatDialogRef<LoginComponent>, private fb: FormBuilder, private router: Router, private dialog: MatDialog, private RegAuth: AuthService,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
+  constructor(//public dialogRef: MatDialogRef<LoginComponent>,
+    private fb: FormBuilder,
+    private router: Router,
+    //private dialog: MatDialog,
+    private RegAuth: AuthService,
+    //@Inject(MAT_DIALOG_DATA)
+    //public data: DialogData,
+    private auth: AuthService,) { }
 
   ngOnInit(): void {
+    this.RegAuth.user.subscribe();
   }
 
   onCancel(): void {
-    this.dialogRef.close();
+    //this.dialogRef.close();
   }
   onSubmit(): void{
-    if(this.loginData.username == 'mom' && this.loginData.password == 'password'){
-      this.dialogRef.close();
-      this.router.navigateByUrl('/authorize');
-      this.RegAuth.setLoginAuth('true');
-    }
-    else{
-      this.incorrectLogin = true;
-    }
+    this.RegAuth.checkCreditionals(this.loginData.username, this.loginData.password).then(_ =>
+      //this.dialogRef.close()
+      console.log('success')
+    );
+    //if(this.RegAuth.user.
+    // if(this.loginData.username == 'mom' && this.loginData.password == 'password'){
+    //   this.dialogRef.close();
+    //   this.router.navigateByUrl('/landing');
+    //   this.RegAuth.setLoginAuth('true');
+    // }
+    // else{
+    //   this.incorrectLogin = true;
+    // }
   }
 
+
+
   onRegister(): void{
-    this.dialog.closeAll();
-    const dialogRef = this.dialog.open(RegistrationComponent, {
-      width: '400px',
-      data: {},
-      disableClose: true
-    });
+    // this.dialog.closeAll();
+    // const dialogRef = this.dialog.open(RegistrationComponent, {
+    //   width: '400px',
+    //   data: {},
+    //   disableClose: true
+    // });
 
     // dialogRef.afterClosed().subscribe(result => {
     //   this.email = result;

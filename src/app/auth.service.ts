@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 import {from, Observable, Subject} from "rxjs";
 import {map, shareReplay} from "rxjs/operators";
+import { IRegistration } from 'src/Interfaces/IRegistration';
 
 @Injectable({
   providedIn: 'root'
@@ -8,15 +10,17 @@ import {map, shareReplay} from "rxjs/operators";
 export class AuthService {
 
   //private LoginAuth: boolean = false;
-  constructor() { }
+  constructor(private afa: AngularFireAuth) { }
 
+  user = this.afa.user  //{} as Observable<IRegistration | string>;
   //Register new users
   registration(userName: string, passWord:string) :void{
 
   }
-  //Check creditionals against backend
-  checkCreditionals() :void{
 
+  //Check creditionals against backend
+  checkCreditionals(email: string, pword: string) {
+    return this.afa.signInWithEmailAndPassword(email, pword);
   }
 
   //Makes Login Auth True after it hasben verfied
@@ -35,6 +39,10 @@ export class AuthService {
       return status;
     }
     //return this.LoginAuth;
+  }
+
+  signout(){
+    this.afa.signOut();
   }
 
   //If authenticated then allow for own information
