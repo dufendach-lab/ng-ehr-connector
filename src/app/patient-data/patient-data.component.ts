@@ -86,4 +86,15 @@ export class PatientDataComponent implements OnInit {
     }
     this.task.subtasks.forEach(t => t.completed = completed);
   }
+
+  submitData(): void {
+    console.log(this.vitalsBundle);
+    console.log(this.socialBundle);
+    console.log(this.labBundle);
+    console.log(this.medBundle);
+    console.log(this.procedureBundle);
+    console.log(this.immuneBundle);
+    console.log(this.conditionBundle);
+    console.log(this.documentBundle);
+  }
 }

@@ -4,8 +4,6 @@ import { FormBuilder, Validators } from '@angular/forms';
 // Interface to hold form data that will be put in DB
 export interface patientData {
   endOfGestation: string,
-  gestationalAgeWeek: string,
-  gestationalAgeDay: string,
   rupturedMembranes: string,
   ageAtRuptureTimeWeek: string,
   ageAtRuptureTimeDay: string,
@@ -31,8 +29,6 @@ export interface patientData {
 export class MainFormComponent implements OnInit {
   userDataForm = this.fb.group({
     endOfGestation: ['', Validators.required], // Date
-    gestationalAgeWk: ['', Validators.required], // Numerical
-    gestationalAgeDay: ['', Validators.required],
     ruptMembranes: ['', Validators.required], // Y/N - If yes, gestational age at time of rupture (num)
     ageAtRuptTimeWk: [''],
     ageAtRuptTimeDay: [''],
