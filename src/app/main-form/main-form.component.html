@@ -10,17 +10,6 @@
     </mat-form-field>
     <br>
 
-    <h3>Gestational Age</h3>
-    <mat-form-field>
-      <mat-label>Weeks</mat-label>
-      <input matInput type="number" formControlName="gestationalAgeWk" [(ngModel)]="newData.gestationalAgeWeek">
-    </mat-form-field>&nbsp;&nbsp;
-    <mat-form-field>
-      <mat-label>Days</mat-label>
-      <input matInput type="number" formControlName="gestationalAgeDay" [(ngModel)]="newData.gestationalAgeDay">
-    </mat-form-field>
-
-
     <h3>Rupture of Membranes</h3>
     <mat-radio-group formControlName="ruptMembranes" [(ngModel)]="newData.rupturedMembranes">
       <mat-radio-button value="yes">Yes</mat-radio-button>&nbsp;&nbsp;
