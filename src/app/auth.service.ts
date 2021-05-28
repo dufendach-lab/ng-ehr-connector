@@ -9,10 +9,9 @@ import { IRegistration } from 'src/Interfaces/IRegistration';
 })
 export class AuthService {
 
-  //private LoginAuth: boolean = false;
   constructor(private afa: AngularFireAuth) { }
 
-  user = this.afa.user  //{} as Observable<IRegistration | string>;
+  user = this.afa.user
   //Register new users
   registration(userName: string, passWord:string) :void{
 
@@ -47,16 +46,6 @@ export class AuthService {
 
   //If authenticated then allow for own information
   authorizeInfo() :void{
-    // const loginStatus = this.LoginAuth
-    // if(this.LoginAuth == false){
-    //   return false;
-    // }
-    // else if(this.LoginAuth == true){
-    //   return true;
-    // }
-    // else{
-    //   return false
-    // }
   }
 
   //Allow authentication as admin

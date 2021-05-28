@@ -1,5 +1,5 @@
 <mat-card style="margin: auto; width: 70%">
-  <mat-card-title>Registration</mat-card-title>
+  <mat-card-title>Register a Patient</mat-card-title>
   <ng-container style="margin-top: 3rem">
     <form class="registration-form" [formGroup]="registration">
       <!-- Mother's First Name input -->
@@ -10,7 +10,7 @@
                formControlName="firstname"
                [(ngModel)]="registrationInfo.firstName"/>
       </mat-form-field>
-
+      <div>
       <!-- Mother's Last Name Input Field -->
       <mat-form-field class="form-field">
         <mat-label>Last Name</mat-label>
@@ -19,6 +19,7 @@
                formControlName="lastname"
                [(ngModel)]="registrationInfo.lastName"/>
       </mat-form-field>
+    </div>
       <div>
         <!-- Mother's Date of Birth Input Field -->
         <mat-form-field class="form-field">
@@ -92,16 +93,12 @@
                  matInput
                  formControlName="email"/>
         </mat-form-field>
-      </div>
-      <div>
-        <!-- Mother's Last Name Input Field -->
+        Or
         <mat-form-field class="form-field">
-          <mat-label>Password</mat-label>
-          <input [type]="hide ? 'password' : 'text'"
+          <mat-label>Phone</mat-label>
+          <input type="text"
                  matInput
-                 formControlName="password"/>
-          <mat-icon matSuffix (click)="hide = !hide"
-                    class="material-icons">{{hide ? "visibility_off" : "visibility"}}</mat-icon>
+                 formControlName="phone"/>
         </mat-form-field>
       </div>
     </form>
@@ -113,12 +110,6 @@
               (click)="submit()"
               [disabled]="!registration.valid || selectedHospitals.length == 0">
         Register
-      </button>
-
-      <button mat-button
-              class="submit-button"
-              [routerLink]="['/landing']">
-        Login
       </button>
     </div>
   </ng-container>

@@ -51,7 +51,7 @@ export class LandingInfoComponent implements OnInit {
     const iGestationalAgeInDays = 280 - daysUntilDD;
 	  const fGestationalAgeInWeeks = iGestationalAgeInDays / 7;
 	  const iEGAWeeks = Math.floor( fGestationalAgeInWeeks );
-	  const iEGADays = ((fGestationalAgeInWeeks % 1)*7).toFixed(0);
+	  const iEGADays = ((fGestationalAgeInWeeks % 1)*6).toFixed(0);
 
     this.gestationalAge = iEGAWeeks.toString() + ' weeks ' + iEGADays.toString() + ' days';
     console.log(this.gestationalAge);

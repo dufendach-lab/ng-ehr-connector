@@ -5,8 +5,10 @@
   </button>
 
   <span fxFlex></span>
-  <div *ngIf="(isAuth | async) || (isAuth2 | async)" class="button-container">
-
+  <div *ngIf="(isAuth | async) || (isAuth2 | async)" class="button-container" fxLayout = "row">
+    <div>
+      <h1 class="text-tag">Welcome, {{nameConcat}}</h1>
+    </div>
     <button mat-button class="logout-button" (click)="logout()">Logout</button>
   </div>
 </mat-toolbar>
