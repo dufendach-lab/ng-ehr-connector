@@ -18,8 +18,6 @@
       <br>
       <mat-accordion>
 
-        <!-- TODO: obs-value-list printing no value at end of every entry array -->
-
         <!-- VITAL SIGNS PANEL -->
         <mat-expansion-panel>
           <mat-expansion-panel-header>
@@ -29,8 +27,8 @@
                             (keydown)="$event.stopPropagation()"
                             color="primary"
                             (ngModelChange)="updateAllComplete()">
-                <mat-icon aria-hidden="false" aria-label="Example science">equalizer</mat-icon>
-                <span>Vital Signs</span>
+                <span>Vital Signs</span> &nbsp;&nbsp;&nbsp;
+                <mat-icon >equalizer</mat-icon>
               </mat-checkbox>
             </mat-panel-title>
 <!--            <div *ngIf="task.subtasks[0].completed; else notcomplete">-->
@@ -45,20 +43,20 @@
         <!-- SOCIAL HISTORY PANEL -->
         <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <mat-panel-title>Social History &nbsp;&nbsp;&nbsp;<mat-icon aria-hidden="false"
-                                                                        aria-label="Example science">smoking_rooms
-            </mat-icon>
+            <mat-panel-title>
+              <mat-checkbox [(ngModel)]="task.subtasks[1].completed"
+                            (click)="$event.stopPropagation()"
+                            (keydown)="$event.stopPropagation()"
+                            color="primary"
+                            (ngModelChange)="updateAllComplete()">
+                <span>Social Hisotry</span> &nbsp;&nbsp;&nbsp;
+                <mat-icon >smoking_rooms</mat-icon>
+              </mat-checkbox>
             </mat-panel-title>
-            <div *ngIf="task.subtasks[1].completed; else notcomplete">
+            <!-- <div *ngIf="task.subtasks[1].completed; else notcomplete">
               <mat-panel-description>Selected</mat-panel-description>
-            </div>
+            </div> -->
           </mat-expansion-panel-header>
-          <mat-checkbox
-            [(ngModel)]="task.subtasks[1].completed"
-            color="primary"
-            (ngModelChange)="updateAllComplete()">
-            Include
-          </mat-checkbox>
           <br>
           <div *ngIf="(socialBundle | async) as bundle; else loading">
             <app-obs-value-list [observations]="bundle"></app-obs-value-list>
@@ -68,20 +66,20 @@
         <!-- LABORATORY PANEL -->
         <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <mat-panel-title>Laboratory &nbsp;&nbsp;&nbsp;<mat-icon aria-hidden="false" aria-label="Example science">
-              science
-            </mat-icon>
+            <mat-panel-title>
+              <mat-checkbox [(ngModel)]="task.subtasks[2].completed"
+                            (click)="$event.stopPropagation()"
+                            (keydown)="$event.stopPropagation()"
+                            color="primary"
+                            (ngModelChange)="updateAllComplete()">
+                <span>Laboratory</span> &nbsp;&nbsp;&nbsp;
+                <mat-icon >science</mat-icon>
+              </mat-checkbox>
             </mat-panel-title>
-            <div *ngIf="task.subtasks[2].completed; else notcomplete">
+            <!-- <div *ngIf="task.subtasks[2].completed; else notcomplete">
               <mat-panel-description>Selected</mat-panel-description>
-            </div>
+            </div> -->
           </mat-expansion-panel-header>
-          <mat-checkbox
-            [(ngModel)]="task.subtasks[2].completed"
-            color="primary"
-            (ngModelChange)="updateAllComplete()">
-            Include
-          </mat-checkbox>
           <br>
           <div *ngIf="(labBundle | async) as bundle; else loading">
             <app-obs-value-list [observations]="bundle"></app-obs-value-list>
@@ -91,20 +89,20 @@
         <!-- MEDICAL STATEMENT PANEL -->
         <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <mat-panel-title>Medical Statement &nbsp;&nbsp;&nbsp;<mat-icon aria-hidden="false"
-                                                                           aria-label="Example science">medication
-            </mat-icon>
+            <mat-panel-title>
+              <mat-checkbox [(ngModel)]="task.subtasks[3].completed"
+                            (click)="$event.stopPropagation()"
+                            (keydown)="$event.stopPropagation()"
+                            color="primary"
+                            (ngModelChange)="updateAllComplete()">
+                <span>Medical Statement</span> &nbsp;&nbsp;&nbsp;
+                <mat-icon >medication</mat-icon>
+              </mat-checkbox>
             </mat-panel-title>
-            <div *ngIf="task.subtasks[3].completed; else notcomplete">
+            <!-- <div *ngIf="task.subtasks[3].completed; else notcomplete">
               <mat-panel-description>Selected</mat-panel-description>
-            </div>
+            </div> -->
           </mat-expansion-panel-header>
-          <mat-checkbox
-            [(ngModel)]="task.subtasks[3].completed"
-            color="primary"
-            (ngModelChange)="updateAllComplete()">
-            Include
-          </mat-checkbox>
           <br>
           <div *ngIf="(medBundle | async) as bundle; else loading">
             <app-obs-value-list [observations]="bundle"></app-obs-value-list>
@@ -114,20 +112,21 @@
         <!-- IMMUNIZATION PANEL -->
         <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <mat-panel-title>Immunization &nbsp;&nbsp;&nbsp;<mat-icon aria-hidden="false" aria-label="Example science">
-              coronavirus
-            </mat-icon>
+            <mat-panel-title>
+              <mat-checkbox [(ngModel)]="task.subtasks[4].completed"
+                            (click)="$event.stopPropagation()"
+                            (keydown)="$event.stopPropagation()"
+                            color="primary"
+                            (ngModelChange)="updateAllComplete()">
+                <span>Immunization</span> &nbsp;&nbsp;&nbsp;
+                <mat-icon >coronavirus</mat-icon>
+              </mat-checkbox>
             </mat-panel-title>
-            <div *ngIf="task.subtasks[4].completed; else notcomplete">
+            <!-- <div *ngIf="task.subtasks[4].completed; else notcomplete">
               <mat-panel-description>Selected</mat-panel-description>
-            </div>
+            </div> -->
           </mat-expansion-panel-header>
-          <mat-checkbox
-            [(ngModel)]="task.subtasks[4].completed"
-            color="primary"
-            (ngModelChange)="updateAllComplete()">
-            Include
-          </mat-checkbox>
+
           <br>
           <div *ngIf="(immuneBundle | async) as bundle; else loading">
             <app-obs-value-list [observations]="bundle"></app-obs-value-list>
@@ -137,20 +136,20 @@
         <!-- CONDITIONS PANEL -->
         <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <mat-panel-title>Conditions &nbsp;&nbsp;&nbsp;<mat-icon aria-hidden="false" aria-label="Example science">
-              local_hospital
-            </mat-icon>
+            <mat-panel-title>
+              <mat-checkbox [(ngModel)]="task.subtasks[5].completed"
+                            (click)="$event.stopPropagation()"
+                            (keydown)="$event.stopPropagation()"
+                            color="primary"
+                            (ngModelChange)="updateAllComplete()">
+                <span>Conditions</span> &nbsp;&nbsp;&nbsp;
+                <mat-icon >local_hospital</mat-icon>
+              </mat-checkbox>
             </mat-panel-title>
-            <div *ngIf="task.subtasks[5].completed; else notcomplete">
+            <!-- <div *ngIf="task.subtasks[5].completed; else notcomplete">
               <mat-panel-description>Selected</mat-panel-description>
-            </div>
+            </div> -->
           </mat-expansion-panel-header>
-          <mat-checkbox
-            [(ngModel)]="task.subtasks[5].completed"
-            color="primary"
-            (ngModelChange)="updateAllComplete()">
-            Include
-          </mat-checkbox>
           <br>
           <div *ngIf="(conditionBundle | async) as bundle; else loading">
             <app-obs-value-list [observations]="bundle"></app-obs-value-list>
@@ -160,20 +159,20 @@
         <!-- PROCEDURES PANEL -->
         <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <mat-panel-title>Procedures &nbsp;&nbsp;&nbsp;<mat-icon aria-hidden="false" aria-label="Example science">
-              healing
-            </mat-icon>
+            <mat-panel-title>
+              <mat-checkbox [(ngModel)]="task.subtasks[6].completed"
+                            (click)="$event.stopPropagation()"
+                            (keydown)="$event.stopPropagation()"
+                            color="primary"
+                            (ngModelChange)="updateAllComplete()">
+                <span>Procedures</span> &nbsp;&nbsp;&nbsp;
+                <mat-icon >healing</mat-icon>
+              </mat-checkbox>
             </mat-panel-title>
-            <div *ngIf="task.subtasks[6].completed; else notcomplete">
+            <!-- <div *ngIf="task.subtasks[6].completed; else notcomplete">
               <mat-panel-description>Selected</mat-panel-description>
-            </div>
+            </div> -->
           </mat-expansion-panel-header>
-          <mat-checkbox
-            [(ngModel)]="task.subtasks[6].completed"
-            color="primary"
-            (ngModelChange)="updateAllComplete()">
-            Include
-          </mat-checkbox>
           <br>
           <div *ngIf="(procedureBundle | async) as bundle; else loading">
             <app-obs-value-list [observations]="bundle"></app-obs-value-list>
@@ -183,20 +182,20 @@
         <!-- DOCUMENT PANEL -->
         <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <mat-panel-title>Documents &nbsp;&nbsp;&nbsp;<mat-icon aria-hidden="false" aria-label="Example science">
-              description
-            </mat-icon>
+            <mat-panel-title>
+              <mat-checkbox [(ngModel)]="task.subtasks[7].completed"
+                            (click)="$event.stopPropagation()"
+                            (keydown)="$event.stopPropagation()"
+                            color="primary"
+                            (ngModelChange)="updateAllComplete()">
+                <span>Documents</span> &nbsp;&nbsp;&nbsp;
+                <mat-icon >description</mat-icon>
+              </mat-checkbox>
             </mat-panel-title>
-            <div *ngIf="task.subtasks[7].completed; else notcomplete">
+            <!-- <div *ngIf="task.subtasks[7].completed; else notcomplete">
               <mat-panel-description>Selected</mat-panel-description>
-            </div>
+            </div> -->
           </mat-expansion-panel-header>
-          <mat-checkbox
-            [(ngModel)]="task.subtasks[7].completed"
-            color="primary"
-            (ngModelChange)="updateAllComplete()">
-            Include
-          </mat-checkbox>
           <br>
           <div *ngIf="(documentBundle | async) as bundle; else loading">
             <app-obs-value-list [observations]="bundle"></app-obs-value-list>

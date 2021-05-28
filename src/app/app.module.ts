@@ -39,7 +39,8 @@ import {environment} from '../environments/environment';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { TestPatientDataComponent } from './test-patient-data/test-patient-data.component'
+import { TestPatientDataComponent } from './test-patient-data/test-patient-data.component';
+import { ObsValueDisplayComponent } from './obs-value-display/obs-value-display.component'
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { TestPatientDataComponent } from './test-patient-data/test-patient-data.
     LoginComponent,
     LandingInfoComponent,
     TestPatientDataComponent,
+    ObsValueDisplayComponent,
   ],
   imports: [
     BrowserModule,
