@@ -71,7 +71,7 @@ export class RegistrationOtherComponent implements OnInit {
   //Logs the patients registraion data
   submit() {
     this.registrationInfo.hospital = this.selectedHospitals;
-    const phone = true;
+    const phone = false;
     const email = true;
     if(phone) {
       this.regService.createNonRegisteredPatient(this.registrationInfo, this.registration.controls['phone'].value);
