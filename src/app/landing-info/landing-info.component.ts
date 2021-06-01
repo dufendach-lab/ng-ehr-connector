@@ -46,12 +46,12 @@ export class LandingInfoComponent implements OnInit {
     // today.getUTCFullYear();
     // today.getUTCMonth();
     // today.getUTCDay();
-    const DD = new Date(EstDD.toDate().getUTCFullYear(), EstDD.toDate().getUTCMonth()-1, EstDD.toDate().getUTCDay());
+    const DD = new Date(EstDD.toDate().getUTCFullYear(), EstDD.toDate().getUTCMonth(), EstDD.toDate().getUTCDay());
     const daysUntilDD = (DD.getTime()-today.getTime()) / (1000 * 60 * 60 * 24 );
     const iGestationalAgeInDays = 280 - daysUntilDD;
 	  const fGestationalAgeInWeeks = iGestationalAgeInDays / 7;
 	  const iEGAWeeks = Math.floor( fGestationalAgeInWeeks );
-	  const iEGADays = ((fGestationalAgeInWeeks % 1)*7).toFixed(0);
+	  const iEGADays = ((fGestationalAgeInWeeks % 1)*6).toFixed(0);
 
     this.gestationalAge = iEGAWeeks.toString() + ' weeks ' + iEGADays.toString() + ' days';
     console.log(this.gestationalAge);

@@ -2,11 +2,9 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { getPatientParam } from 'fhirclient/lib/lib';
 import { Observable } from 'rxjs';
-import { map, pluck, switchMap } from 'rxjs/operators';
+import { filter, map, pluck, switchMap } from 'rxjs/operators';
 import { IRegistration } from 'src/Interfaces/IRegistration';
 import { AngularFirestore } from '@angular/fire/firestore';
-//import firebase from 'firebase/app';
-//import User = firebase.User
 
 @Injectable({
   providedIn: 'root'
@@ -25,32 +23,16 @@ export class RegistrationService {
   userInfo = {} as Observable<IRegistration>
   patient = this.afa.user;
   patientInfo = this.afs;
-  //private userDetails = {} as User;
 
   constructor(private afa: AngularFireAuth, private afs: AngularFirestore) { }
 
   //Updates User Info above when a registered person is logged in
   async updatePatient(patient: IRegistration): Promise<void>{
-    //console.log('update');
-    //console.log(this.user);
     this.userInfo.pipe(map(client => client = patient));
   }
 
   async createPatient(newPatient: IRegistration, email: string, password: string): Promise<void>{
-    console.log(newPatient);
-    console.log(email);
-    console.log(password);
     this.afa.createUserWithEmailAndPassword(email, password)
-    // .then(() => {
-    //   this.patientInfo.collection('paients').doc(this.patient.pipe(map(x => x?.uid))).set(newPatient)
-    // });
-    // this.patient.pipe(
-    //   map(x => x?.uid.toString())
-    // )
-    // this.afs.collection('patients')
-    //const uniueID;
-    //this.patient.pipe(pluck('uid'));
-    //this.afs.collection('patients').doc(this.patient.subscribe((u => u?.uid))).set(newPatient);
 
     this.patient.subscribe((user) => {
       if (user) {
@@ -58,13 +40,61 @@ export class RegistrationService {
         this.patientInfo.collection('patients').doc(uniqueID).set(newPatient)
       }
     })
-    //await this.patientInfo.collection('patients').doc(this.userDetails.uid).set(newPatient)
   }
 
-  async getPatient(): Promise<IRegistration> {
-    //console.log('get');
-    //console.log(this.user);
-    this.userInfo.subscribe(dt => this.user)
-    return this.user;
+  //FIXME: Finish this function
+  async createPatientPhone(newPatient: IRegistration, phone: string): Promise<void>{
+    //const appVerifier = this.afa
+    //this.afa.signInWithPhoneNumber(phone, window.)
+
+    this.patient.subscribe((user) => {
+      if (user) {
+        const uniqueID = user.uid;
+        this.patientInfo.collection('patients').doc(uniqueID).set(newPatient)
+      }
+    })
+  }
+
+  async createNonRegisteredPatient(newPatient: IRegistration, EmailOrPhone: string) {
+    this.afs.collection('patients').doc(EmailOrPhone).set(newPatient);
+    //Send auth depending on phone or email
+    const email = true;
+    if(email){
+
+    }
+    else{
+
+    }
+  }
+
+  async updateNonRegisteredPatient(EmailOrPhone: string, password: string) {
+    //check for @ symbol to determine phone or email
+    const email = true;
+    if(email){
+      this.afa.createUserWithEmailAndPassword(EmailOrPhone, password);
+      this.patient.subscribe((user) => {
+        if (user) {
+          const uniqueID = user.uid;
+          const userInfo = this.afs.collection('patients').doc(EmailOrPhone);
+          this.patientInfo.collection('patients').doc(uniqueID).set(userInfo);
+          this.afs.collection('patients').doc(EmailOrPhone).delete();
+        }
+      })
+    }
+    else{
+
+    }
+  }
+
+  getPatient(): Observable<IRegistration | undefined> {
+    const info  = this.patient.pipe(
+      filter(u => u != null),
+      switchMap( u => this.afs
+        .collection('patients')
+        .doc<IRegistration>(u?.uid)
+        .get().pipe(map(doc => doc.data()))
+      )
+    )
+    return info;
   }
 }

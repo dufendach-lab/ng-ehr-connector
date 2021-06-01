@@ -6,6 +6,7 @@ import { LandingComponent } from './landing/landing.component';
 import { LoginComponent } from './login/login.component';
 import { MainFormComponent } from './main-form/main-form.component';
 import {RegistrationComponent} from './registration/registration.component';
+import { RegistrationOtherComponent } from './registration-other/registration-other.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'landing', pathMatch: 'full',},
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'landing', component: LandingComponent},
   {path: 'login', component: LoginComponent},
   {path: 'survey', component: MainFormComponent},
+  {path: 'registration/admin', component: RegistrationOtherComponent}
 ];
 
 @NgModule({

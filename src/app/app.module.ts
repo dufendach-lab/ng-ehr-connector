@@ -40,6 +40,7 @@ import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { TestPatientDataComponent } from './test-patient-data/test-patient-data.component';
+import { RegistrationOtherComponent } from './registration-other/registration-other.component'
 import { ObsValueDisplayComponent } from './obs-value-display/obs-value-display.component'
 
 @NgModule({
@@ -58,6 +59,7 @@ import { ObsValueDisplayComponent } from './obs-value-display/obs-value-display.
     LoginComponent,
     LandingInfoComponent,
     TestPatientDataComponent,
+    RegistrationOtherComponent,
     ObsValueDisplayComponent,
   ],
   imports: [

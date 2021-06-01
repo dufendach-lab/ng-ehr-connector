@@ -7,18 +7,16 @@
         type="text"
         matInput
         formControlName="username"
-        [(ngModel)]="loginData.username"
-      />
+        [(ngModel)]="loginData.username"/>
     </mat-form-field>
-    <br />
+    <br/>
     <mat-form-field class="form-field">
       <mat-label>Password</mat-label>
       <input
         [type]="hide ? 'password' : 'text'"
         matInput
         formControlName="password"
-        [(ngModel)]="loginData.password"
-      />
+        [(ngModel)]="loginData.password"/>
       <mat-icon matSuffix (click)="hide = !hide" class="material-icons">{{
         hide ? "visibility_off" : "visibility"
       }}</mat-icon>
@@ -32,9 +30,15 @@
       mat-button
       class="submit-button"
       (click)="onSubmit()"
-      [disabled]="!login.valid"
-    >
+      [disabled]="!login.valid">
       Login
+    </button>
+
+    <button
+      mat-button
+      class="submit-button"
+      [routerLink]="['/registration']">
+      Register
     </button>
   </div>
 </mat-card>

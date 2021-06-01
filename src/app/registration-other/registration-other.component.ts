@@ -14,11 +14,11 @@ import { Router } from '@angular/router';
 import { RegistrationService } from '../registration.service';
 
 @Component({
-  selector: 'app-registration',
-  templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.scss']
+  selector: 'app-registration-other',
+  templateUrl: './registration-other.component.html',
+  styleUrls: ['./registration-other.component.scss']
 })
-export class RegistrationComponent implements OnInit {
+export class RegistrationOtherComponent implements OnInit {
 
   hide = true;
   //Hospital list, that updates as autocomplete occurs
@@ -42,16 +42,13 @@ export class RegistrationComponent implements OnInit {
     EstDueDate: ['', Validators.required],
     Diagnosis: ['', Validators.required],
     Hospital: ['', Validators.required],
-    email: ['', Validators.required],
-    password: ['', Validators.required],
+    email: ['', Validators.required], //Only one of these is required, do some logic to fix
+    phone: ['', Validators.required], //Only one of these is required, do some logic to fix
   })
 
   constructor(
     private fb: FormBuilder,
     private fhirService: FhirAuthService,
-    //public dialogRef: MatDialogRef<RegistrationComponent>,
-    //private dialog: MatDialog,
-    //private RegAuth: AuthService,
     private router: Router,
     private regService: RegistrationService) {
   }
@@ -74,12 +71,20 @@ export class RegistrationComponent implements OnInit {
   //Logs the patients registraion data
   submit() {
     this.registrationInfo.hospital = this.selectedHospitals;
-    this.regService.createPatient(this.registrationInfo, this.registration.controls['email'].value, this.registration.controls['password'].value);
-    this.router.navigateByUrl('/landing');
+    const phone = true;
+    const email = true;
+    if(phone) {
+      this.regService.createNonRegisteredPatient(this.registrationInfo, this.registration.controls['phone'].value);
+    }
+    else if(email){
+      this.regService.createNonRegisteredPatient(this.registrationInfo, this.registration.controls['email'].value);
+    }
+    else{
+      console.log('Something went wrong');
+    }
   }
 
-  onLogin(){
-
+  onCancel(){
   }
   //Add a chip to the hosipital selection
   addChip(event: MatChipInputEvent) {

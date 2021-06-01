@@ -1,35 +1,28 @@
 <div *ngIf="registrationInfo | async as pt">
   <mat-card style="margin: auto; width: 70%">
-    <mat-card-title>Mother's Info</mat-card-title>
     <ng-container style="margin-top: 3rem">
-      <h3>First Name:</h3>
-      <div>{{ pt.firstName }}</div>
-      <br />
+      <div fxLayout="row">
+        <div style="font-weight: bold;">Date of Birth: &nbsp;</div>
+        <div>{{ pt.MotherDoB.toDate() | date: "yyyy/MM/dd" }}</div>
+      </div>
+      <br/>
 
-      <h3>Last Name:</h3>
-      <div>{{ pt.lastName }}</div>
-      <br />
+      <div fxLayout="row">
+        <div style="font-weight: bold;">Estimated Due Date: &nbsp;</div>
+        <div>{{ pt.EstDueDate.toDate() | date: "yyyy/MM/dd" }}</div>
+      </div>
+      <br/>
 
-      <h3>Mother's Date of Birth</h3>
-      <div>{{ pt.MotherDoB.toDate() | date: "yyyy/MM/dd" }}</div>
-      <br />
+      <div fxLayout="row">
+        <div style="font-weight: bold;">Diagnosis: &nbsp;</div>
+        <div>{{ pt.Diagnosis }}</div>
+      </div>
+      <br/>
 
-      <h3>Estimated Due Date</h3>
-      <div>{{ pt.EstDueDate.toDate() | date: "yyyy/MM/dd" }}</div>
-      <br />
-
-      <h3>Diagnosis</h3>
-      <div>{{ pt.Diagnosis }}</div>
-      <br />
-
-      <h3>Hospital</h3>
-      <ul>
-        <li *ngFor="let h of pt.hospital">{{ h }}</li>
-      </ul>
-      <br />
-
-      <h3>Gestational Age</h3>
+      <div fxLayout="row">
+      <div style="font-weight: bold;">Gestational Age: &nbsp;</div>
       <div>{{ gestationalAge }}</div>
+      </div>
       <br />
     </ng-container>
   </mat-card>
