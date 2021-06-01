@@ -42,7 +42,11 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { TestPatientDataComponent } from './test-patient-data/test-patient-data.component';
 import { RegistrationOtherComponent } from './registration-other/registration-other.component'
 import { ObsValueDisplayComponent } from './obs-value-display/obs-value-display.component';
-import { LaunchComponent } from './launch/launch.component'
+import { LaunchComponent } from './launch/launch.component';
+import { NavContainerComponent } from './nav-container/nav-container.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list'
 
 @NgModule({
   declarations: [
@@ -63,6 +67,7 @@ import { LaunchComponent } from './launch/launch.component'
     RegistrationOtherComponent,
     ObsValueDisplayComponent,
     LaunchComponent,
+    NavContainerComponent,
   ],
   imports: [
     BrowserModule,
@@ -94,6 +99,9 @@ import { LaunchComponent } from './launch/launch.component'
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    LayoutModule,
+    MatSidenavModule,
+    MatListModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
