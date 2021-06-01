@@ -13,13 +13,13 @@ import {NavContainerComponent} from "./nav-container/nav-container.component";
 const routes: Routes = [
   {
     path: '',
-    component: LaunchComponent,
-    pathMatch: 'full',
-  },
-  {
-    path: 'm',
     component: NavContainerComponent,
     children: [
+      {
+        path: '',
+        redirectTo: 'landing',
+        pathMatch: 'full',
+      },
       {
         path: 'dashboard',
         component: DashboardComponent,

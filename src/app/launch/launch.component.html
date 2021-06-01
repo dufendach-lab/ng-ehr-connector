@@ -17,7 +17,19 @@
   </div>
   <div class="main-area"></div>
 
-  <div class="login-area mat-elevation-z3">
-    <app-login></app-login>
+  <div class="login-area mat-elevation-z3" fxLayout="column" fxLayoutGap="15px">
+    <ng-container *ngIf="!registerEnabled else register">
+      <app-login></app-login>
+      <mat-divider></mat-divider>
+      <p class="center-horizontal">New here?</p>
+      <button mat-button (click)="registerEnabled = true">Create an account</button>
+    </ng-container>
   </div>
 </div>
+
+<ng-template #register>
+  <app-registration></app-registration>
+  <mat-divider></mat-divider>
+  <p>Already have an account?</p>
+  <button mat-button (click)="registerEnabled = false">Login Instead</button>
+</ng-template>
