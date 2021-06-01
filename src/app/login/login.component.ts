@@ -1,9 +1,7 @@
-import { Component, OnInit, Inject, HostListener } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { AuthService } from '../auth.service';
-import { RegistrationComponent } from '../registration/registration.component';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {AuthService} from '../auth.service';
 
 interface DialogData {
   username: string;
@@ -24,26 +22,27 @@ export class LoginComponent implements OnInit {
     password: ['', Validators.required],
   })
   user = this.auth.user;
+  registerEnabled = false;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private RegAuth: AuthService,
-    private auth: AuthService,) { }
+    private auth: AuthService,) {
+  }
 
   ngOnInit(): void {
-    this.RegAuth.user.subscribe();
+    // this.auth.user.pipe(first()).subscribe();
   }
 
-  onSubmit(): void{
-    this.RegAuth.checkCreditionals(this.loginData.username, this.loginData.password);
-  }
+  //
+  // @HostListener('window:keyup', ['$event'])
+  // keyEvent(event: KeyboardEvent) {
+  //   // console.log(event);
+  //   if (event.key === "Enter") {
+  //     this.onSubmit();
+  //   }
 
-  @HostListener('window:keyup', ['$event'])
-  keyEvent(event: KeyboardEvent) {
-    // console.log(event);
-    if (event.key === "Enter") {
-      this.onSubmit();
-    }
+  onSubmit(): void {
+    this.auth.checkCreditionals(this.loginData.username, this.loginData.password);
   }
 }

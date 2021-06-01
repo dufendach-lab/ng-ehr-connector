@@ -1,4 +1,8 @@
-<app-navbar></app-navbar>
-<div class="main-content">
+<ng-container *ngIf="user | async else launch">
   <router-outlet></router-outlet>
-</div>
+</ng-container>
+
+<ng-template #launch>
+  <app-launch></app-launch>
+</ng-template>
+

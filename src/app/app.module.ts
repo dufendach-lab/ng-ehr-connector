@@ -41,7 +41,13 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { TestPatientDataComponent } from './test-patient-data/test-patient-data.component';
 import { RegistrationOtherComponent } from './registration-other/registration-other.component'
-import { ObsValueDisplayComponent } from './obs-value-display/obs-value-display.component'
+import { ObsValueDisplayComponent } from './obs-value-display/obs-value-display.component';
+import { LaunchComponent } from './launch/launch.component';
+import { NavContainerComponent } from './nav-container/nav-container.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list'
+import {MatDividerModule} from "@angular/material/divider";
 
 @NgModule({
   declarations: [
@@ -61,6 +67,8 @@ import { ObsValueDisplayComponent } from './obs-value-display/obs-value-display.
     TestPatientDataComponent,
     RegistrationOtherComponent,
     ObsValueDisplayComponent,
+    LaunchComponent,
+    NavContainerComponent,
   ],
   imports: [
     BrowserModule,
@@ -75,6 +83,7 @@ import { ObsValueDisplayComponent } from './obs-value-display/obs-value-display.
     // Material imports
     MatButtonModule,
     MatCardModule,
+    MatDividerModule,
     MatInputModule,
     MatFormFieldModule,
     MatAutocompleteModule,
@@ -88,6 +97,9 @@ import { ObsValueDisplayComponent } from './obs-value-display/obs-value-display.
     MatExpansionModule,
     MatCheckboxModule,
     MatIconModule,
+    MatSidenavModule,
+    MatListModule,
+    LayoutModule,
 
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,

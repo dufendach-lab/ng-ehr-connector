@@ -5,9 +5,8 @@
   <mat-card-content>
     <div class="data-container" fxLayout="column" fxLayoutGap="15px">
 
-      <div style="padding-left: 1rem;">
-        <p>Deselect the data you would not like to send to CCHMC:</p>
-        <br>
+      <div>
+        <p>Deselect any data you want to withhold from Cincinnati Children's:</p>
         <mat-checkbox color="primary"
                       [checked]="allComplete"
                       [indeterminate]="someComplete()"
@@ -15,7 +14,6 @@
           Select All
         </mat-checkbox>
       </div>
-      <br>
       <mat-accordion>
 
         <!-- VITAL SIGNS PANEL -->
@@ -188,7 +186,7 @@
 
       </mat-accordion>
 
-      <button mat-raised-button color="primary" (click)="submitData()">Send to CCHMC</button>
+      <button mat-raised-button color="primary" (click)="submitData()">Send to Cincinnati Children's</button>
 
     </div>
   </mat-card-content>

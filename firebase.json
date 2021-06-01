@@ -1,20 +1,6 @@
 {
   "hosting": [
     {
-      "public": "dist/ng-ehr-connector",
-      "ignore": [
-        "firebase.json",
-        "**/.*",
-        "**/node_modules/**"
-      ],
-      "rewrites": [
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
-    },
-    {
       "target": "ng-ehr-connector",
       "public": "dist/ng-ehr-connector",
       "ignore": [
