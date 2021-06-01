@@ -6,7 +6,7 @@
     <div class="data-container" fxLayout="column" fxLayoutGap="15px">
 
       <div style="padding-left: 1rem;">
-        <h3>Heres what we were able to pull from MyChart. Select the data you would like to send CCHMC:</h3>
+        <p>Deselect the data you would not like to send to CCHMC:</p>
         <br>
         <mat-checkbox color="primary"
                       [checked]="allComplete"
@@ -27,13 +27,11 @@
                             (keydown)="$event.stopPropagation()"
                             color="primary"
                             (ngModelChange)="updateAllComplete()">
-                <span>Vital Signs</span> &nbsp;&nbsp;&nbsp;
-                <mat-icon >equalizer</mat-icon>
+                <mat-icon >equalizer</mat-icon>&nbsp;&nbsp;
+                <span>Vital Signs</span>
+
               </mat-checkbox>
             </mat-panel-title>
-<!--            <div *ngIf="task.subtasks[0].completed; else notcomplete">-->
-<!--              <mat-panel-description>Selected</mat-panel-description>-->
-<!--            </div>-->
           </mat-expansion-panel-header>
           <div *ngIf="(vitalsBundle | async) as bundle; else loading">
             <app-obs-value-list [observations]="bundle"></app-obs-value-list>
@@ -49,13 +47,11 @@
                             (keydown)="$event.stopPropagation()"
                             color="primary"
                             (ngModelChange)="updateAllComplete()">
-                <span>Social Hisotry</span> &nbsp;&nbsp;&nbsp;
-                <mat-icon >smoking_rooms</mat-icon>
+                <mat-icon>groups</mat-icon>&nbsp;&nbsp;
+                <span>Social History</span>
+
               </mat-checkbox>
             </mat-panel-title>
-            <!-- <div *ngIf="task.subtasks[1].completed; else notcomplete">
-              <mat-panel-description>Selected</mat-panel-description>
-            </div> -->
           </mat-expansion-panel-header>
           <br>
           <div *ngIf="(socialBundle | async) as bundle; else loading">
@@ -72,13 +68,11 @@
                             (keydown)="$event.stopPropagation()"
                             color="primary"
                             (ngModelChange)="updateAllComplete()">
-                <span>Laboratory</span> &nbsp;&nbsp;&nbsp;
-                <mat-icon >science</mat-icon>
+                <mat-icon >science</mat-icon>&nbsp;&nbsp;
+                <span>Laboratory</span>
+
               </mat-checkbox>
             </mat-panel-title>
-            <!-- <div *ngIf="task.subtasks[2].completed; else notcomplete">
-              <mat-panel-description>Selected</mat-panel-description>
-            </div> -->
           </mat-expansion-panel-header>
           <br>
           <div *ngIf="(labBundle | async) as bundle; else loading">
@@ -95,13 +89,11 @@
                             (keydown)="$event.stopPropagation()"
                             color="primary"
                             (ngModelChange)="updateAllComplete()">
-                <span>Medical Statement</span> &nbsp;&nbsp;&nbsp;
-                <mat-icon >medication</mat-icon>
+                <mat-icon >medication</mat-icon> &nbsp;&nbsp;
+                <span>Medical Statement</span>
+
               </mat-checkbox>
             </mat-panel-title>
-            <!-- <div *ngIf="task.subtasks[3].completed; else notcomplete">
-              <mat-panel-description>Selected</mat-panel-description>
-            </div> -->
           </mat-expansion-panel-header>
           <br>
           <div *ngIf="(medBundle | async) as bundle; else loading">
@@ -118,13 +110,11 @@
                             (keydown)="$event.stopPropagation()"
                             color="primary"
                             (ngModelChange)="updateAllComplete()">
-                <span>Immunization</span> &nbsp;&nbsp;&nbsp;
-                <mat-icon >coronavirus</mat-icon>
+                <mat-icon >coronavirus</mat-icon>&nbsp;&nbsp;
+                <span>Immunization</span>
+
               </mat-checkbox>
             </mat-panel-title>
-            <!-- <div *ngIf="task.subtasks[4].completed; else notcomplete">
-              <mat-panel-description>Selected</mat-panel-description>
-            </div> -->
           </mat-expansion-panel-header>
 
           <br>
@@ -142,13 +132,11 @@
                             (keydown)="$event.stopPropagation()"
                             color="primary"
                             (ngModelChange)="updateAllComplete()">
-                <span>Conditions</span> &nbsp;&nbsp;&nbsp;
-                <mat-icon >local_hospital</mat-icon>
+                <mat-icon >local_hospital</mat-icon>&nbsp;&nbsp;
+                <span>Conditions</span>
+
               </mat-checkbox>
             </mat-panel-title>
-            <!-- <div *ngIf="task.subtasks[5].completed; else notcomplete">
-              <mat-panel-description>Selected</mat-panel-description>
-            </div> -->
           </mat-expansion-panel-header>
           <br>
           <div *ngIf="(conditionBundle | async) as bundle; else loading">
@@ -165,13 +153,11 @@
                             (keydown)="$event.stopPropagation()"
                             color="primary"
                             (ngModelChange)="updateAllComplete()">
-                <span>Procedures</span> &nbsp;&nbsp;&nbsp;
-                <mat-icon >healing</mat-icon>
+                <mat-icon >healing</mat-icon>&nbsp;&nbsp;
+                <span>Procedures</span>
+
               </mat-checkbox>
             </mat-panel-title>
-            <!-- <div *ngIf="task.subtasks[6].completed; else notcomplete">
-              <mat-panel-description>Selected</mat-panel-description>
-            </div> -->
           </mat-expansion-panel-header>
           <br>
           <div *ngIf="(procedureBundle | async) as bundle; else loading">
@@ -188,13 +174,11 @@
                             (keydown)="$event.stopPropagation()"
                             color="primary"
                             (ngModelChange)="updateAllComplete()">
-                <span>Documents</span> &nbsp;&nbsp;&nbsp;
-                <mat-icon >description</mat-icon>
+                <mat-icon >description</mat-icon>&nbsp;&nbsp;
+                <span>Documents</span>
+
               </mat-checkbox>
             </mat-panel-title>
-            <!-- <div *ngIf="task.subtasks[7].completed; else notcomplete">
-              <mat-panel-description>Selected</mat-panel-description>
-            </div> -->
           </mat-expansion-panel-header>
           <br>
           <div *ngIf="(documentBundle | async) as bundle; else loading">
@@ -204,13 +188,8 @@
 
       </mat-accordion>
 
-      <button mat-raised-button color="primary" (click)="submitData()">Submit</button>
+      <button mat-raised-button color="primary" (click)="submitData()">Send to CCHMC</button>
 
-      <!-- <div *ngIf="(obsBundle | async) as bundle">
-        <app-obs-value-list [observations]="bundle"></app-obs-value-list>
-      </div> -->
-      <a mat-button href="https://www.hl7.org/fhir/valueset-observation-category.html" target="_blank">FHIR
-        Categories</a>
     </div>
   </mat-card-content>
 </mat-card>
