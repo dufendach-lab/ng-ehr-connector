@@ -36,16 +36,16 @@ export class PatientDataComponent implements OnInit {
 
   task: Task = {
     name: 'Authorize All',
-    completed: false,
+    completed: true,
     subtasks: [
-      {name: 'vitals', completed: false, subtasks: []},
-      {name: 'socials', completed: false, subtasks: []},
-      {name: 'labs', completed: false, subtasks: []},
-      {name: 'meds', completed: false, subtasks: []},
-      {name: 'immune', completed: false, subtasks: []},
-      {name: 'condition', completed: false, subtasks: []},
-      {name: 'procedure', completed: false, subtasks: []},
-      {name: 'document', completed: false, subtasks: []}
+      {name: 'vitals', completed: true, subtasks: []},
+      {name: 'socials', completed: true, subtasks: []},
+      {name: 'labs', completed: true, subtasks: []},
+      {name: 'meds', completed: true, subtasks: []},
+      {name: 'immune', completed: true, subtasks: []},
+      {name: 'condition', completed: true, subtasks: []},
+      {name: 'procedure', completed: true, subtasks: []},
+      {name: 'document', completed: true, subtasks: []}
     ]
   };
 
@@ -56,16 +56,6 @@ export class PatientDataComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // const example = forkJoin({
-    //   vitals: this.obsService.getObservationByCategory("vital-signs").then(b => this.vitalsBundle.next(b)),
-    //   social: this.obsService.getObservationByCategory("social-history").then(b => this.socialBundle.next(b)),
-    //   lab:  this.obsService.getObservationByCategory("laboratory").then(b => this.labBundle.next(b)),
-    //   med: this.obsService.getData('MedicationStatement').then(b => this.medBundle.next(b)),
-    //   immun: this.obsService.getData('Immunization').then(b => this.immuneBundle.next(b)),
-    //   condit: this.obsService.getData('Condition').then(b => this.conditionBundle.next(b)),
-    //   proc: this.obsService.getData('Procedure').then(b => this.procedureBundle.next(b)),
-    //   doc: this.obsService.getData('DocumentReference').then(b => this.documentBundle.next(b))
-    // });
     this.obsService.getObservationByCategory("vital-signs").then(b => this.vitalsBundle.next(b));
     this.obsService.getObservationByCategory("social-history").then(b => this.socialBundle.next(b));
     this.obsService.getObservationByCategory("laboratory").then(b => this.labBundle.next(b));
