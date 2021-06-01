@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Subject} from 'rxjs';
+import {forkJoin, Subject} from 'rxjs';
 
 import {fhirclient} from 'fhirclient/lib/types';
 import {ObservationService} from '../observation.service';
@@ -56,14 +56,24 @@ export class PatientDataComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // const example = forkJoin({
+    //   vitals: this.obsService.getObservationByCategory("vital-signs").then(b => this.vitalsBundle.next(b)),
+    //   social: this.obsService.getObservationByCategory("social-history").then(b => this.socialBundle.next(b)),
+    //   lab:  this.obsService.getObservationByCategory("laboratory").then(b => this.labBundle.next(b)),
+    //   med: this.obsService.getData('MedicationStatement').then(b => this.medBundle.next(b)),
+    //   immun: this.obsService.getData('Immunization').then(b => this.immuneBundle.next(b)),
+    //   condit: this.obsService.getData('Condition').then(b => this.conditionBundle.next(b)),
+    //   proc: this.obsService.getData('Procedure').then(b => this.procedureBundle.next(b)),
+    //   doc: this.obsService.getData('DocumentReference').then(b => this.documentBundle.next(b))
+    // });
     this.obsService.getObservationByCategory("vital-signs").then(b => this.vitalsBundle.next(b));
     this.obsService.getObservationByCategory("social-history").then(b => this.socialBundle.next(b));
     this.obsService.getObservationByCategory("laboratory").then(b => this.labBundle.next(b));
-    this.obsService.getMedStatement().then(b => this.medBundle.next(b));
-    this.obsService.getImmunization().then(b => this.immuneBundle.next(b));
-    this.obsService.getConditions().then(b => this.conditionBundle.next(b));
-    this.obsService.getProcedures().then(b => this.procedureBundle.next(b));
-    this.obsService.getDocuments().then(b => this.documentBundle.next(b));
+    this.obsService.getData('MedicationStatement').then(b => this.medBundle.next(b));
+    this.obsService.getData('Immunization').then(b => this.immuneBundle.next(b));
+    this.obsService.getData('Condition').then(b => this.conditionBundle.next(b));
+    this.obsService.getData('Procedure').then(b => this.procedureBundle.next(b));
+    this.obsService.getData('DocumentReference').then(b => this.documentBundle.next(b));
   }
 
   allComplete: boolean = false;
@@ -88,13 +98,5 @@ export class PatientDataComponent implements OnInit {
   }
 
   submitData(): void {
-    console.log(this.vitalsBundle);
-    console.log(this.socialBundle);
-    console.log(this.labBundle);
-    console.log(this.medBundle);
-    console.log(this.procedureBundle);
-    console.log(this.immuneBundle);
-    console.log(this.conditionBundle);
-    console.log(this.documentBundle);
   }
 }

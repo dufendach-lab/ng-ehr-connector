@@ -1,12 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
-import {first, map, startWith} from 'rxjs/operators';
+import {filter, first, map, startWith, switchMap} from 'rxjs/operators';
 import {FhirAuthService} from "../fhir-auth.service";
 import {Router} from "@angular/router";
 import {FhirEndpoint} from "../env/endpoints";
 import {fhirclient} from "fhirclient/lib/types";
 import AuthorizeParams = fhirclient.AuthorizeParams;
+import { AngularFirestore } from '@angular/fire/firestore';
+import { AuthService } from '../auth.service';
+import { IRegistration } from 'src/Interfaces/IRegistration';
 
 @Component({
   selector: 'app-authorize',
@@ -16,6 +19,8 @@ import AuthorizeParams = fhirclient.AuthorizeParams;
 export class AuthorizeComponent implements OnInit {
 
   client = this.auth.client;
+  user = this.logAuth.user;
+  registrationInfo: Observable<IRegistration | undefined>;
 
   stateCtrl = new FormControl();
   // options: string[] = ['SmartHealthIT', 'epicHealthService'];
@@ -24,7 +29,7 @@ export class AuthorizeComponent implements OnInit {
 
   filteredOptions: Observable<string[]> | any;
 
-  constructor(private auth: FhirAuthService, private router: Router) {
+  constructor(private auth: FhirAuthService, private router: Router, private afs: AngularFirestore, private logAuth: AuthService) {
 
     // If authorized, navigate to dashboard instead
     this.auth.authorized
@@ -33,6 +38,15 @@ export class AuthorizeComponent implements OnInit {
 
     this.endpoints = this.auth.fhirEndpoints;
     this.options = this.endpoints.map(v => v.OrganizationName);
+
+    this.registrationInfo = this.user.pipe(
+      filter(u => u != null),
+      switchMap( u => this.afs
+        .collection('patients')
+        .doc<IRegistration>(u?.uid)
+        .get().pipe(map(doc => doc.data()))
+        )
+      )
   }
 
   ngOnInit() {
@@ -57,6 +71,20 @@ export class AuthorizeComponent implements OnInit {
       this.authorize(params);
     }
 
+  }
+
+  onSubmitSelected(val: string) {
+    const orgName = val;
+    const endpoint = this.endpoints.find(value => value.OrganizationName === orgName);
+
+    if (endpoint) {
+      const params: AuthorizeParams = {
+        iss: endpoint.FHIRPatientFacingURI,
+        clientId: 'f7cfa009-58a4-4de2-8437-3b77306faedd',
+        scope: 'launch/patient',
+      }
+      this.authorize(params);
+    }
   }
 
   authorize(params: AuthorizeParams) {

@@ -1,3 +1,11 @@
+<div *ngIf="registrationInfo | async as pt" fxLayout="column" style="margin-bottom: 2rem;">
+  <h3 style="text-align: center;">Choose your hospital below or use the searchbox.</h3>
+  <div *ngFor="let h of pt.hospital" style=" margin: auto; padding: 10px;">
+    <button mat-raised-button class="mat-primary" (click)="onSubmitSelected(h)">{{ h }}</button>
+  </div>
+
+</div>
+
 <div fxLayout="row">
   <span fxFlex></span>
 
