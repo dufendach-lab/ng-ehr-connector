@@ -18,5 +18,17 @@
   {
     "OrganizationName": "UC Dev Server",
     "FHIRPatientFacingURI": "https://epic-soap-test.uchealth.com/FHIRProxy/api/FHIR/DSTU2/"
+  },
+  {
+    "OrganizationName": "Wake Forest",
+    "FHIRPatientFacingURI": "https://open-ic.epic.com/argonaut/api/FHIR/Argonaut/"
+  },
+  {
+    "OrganizationName": "Duke",
+    "FHIRPatientFacingURI": "https://open-ic.epic.com/argonaut/api/FHIR/Argonaut/"
+  },
+  {
+    "OrganizationName": "NC State",
+    "FHIRPatientFacingURI": "https://open-ic.epic.com/argonaut/api/FHIR/Argonaut/"
   }
 ]
