@@ -7,9 +7,6 @@ import {IRegistration} from '../../Interfaces/IRegistration';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {MatAutocomplete, MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
-import { LoginComponent } from '../login/login.component';
-import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { RegistrationService } from '../registration.service';
 
@@ -49,20 +46,17 @@ export class RegistrationComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private fhirService: FhirAuthService,
-    //public dialogRef: MatDialogRef<RegistrationComponent>,
-    //private dialog: MatDialog,
-    //private RegAuth: AuthService,
     private router: Router,
     private regService: RegistrationService) {
   }
 
-  //Uses the Engpoints function to retrieve a list of all the available epic endpoints
+  //Uses the Endpoints function to retrieve a list of all the available epic endpoints
   getHospitalList() {
     this.hospitalOptions = this.fhirService.fhirEndpoints.map(v => v.OrganizationName);
     return
   }
 
-  //Obtains the list of hospitals, then watches the hospital field value to update list as autoomplete occurs
+  //Obtains the list of hospitals, then watches the hospital field value to update list as auto complete occurs
   ngOnInit(): void {
     this.getHospitalList();
     this.hospitalList = this.registration.controls['Hospital'].valueChanges.pipe(
@@ -75,7 +69,7 @@ export class RegistrationComponent implements OnInit {
   submit() {
     this.registrationInfo.hospital = this.selectedHospitals;
     this.regService.createPatient(this.registrationInfo, this.registration.controls['email'].value, this.registration.controls['password'].value);
-    this.router.navigateByUrl('/landing');
+    // this.router.navigateByUrl('/m/landing');
   }
 
   onLogin(){

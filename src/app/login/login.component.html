@@ -1,46 +1,33 @@
-<mat-card style="margin: auto; width: 70%">
-  <mat-card-title>Login</mat-card-title>
-  <form class="registration-form" [formGroup]="login">
-    <mat-form-field class="form-field">
-      <mat-label>Username</mat-label>
-      <input
-        type="text"
-        matInput
-        formControlName="username"
-        [(ngModel)]="loginData.username"/>
-    </mat-form-field>
-    <br/>
-    <mat-form-field class="form-field">
-      <mat-label>Password</mat-label>
-      <input
-        [type]="hide ? 'password' : 'text'"
-        matInput
-        formControlName="password"
-        [(ngModel)]="loginData.password"/>
-      <mat-icon matSuffix (click)="hide = !hide" class="material-icons">{{
-        hide ? "visibility_off" : "visibility"
+<!--<mat-card style="margin: auto; width: 70%">-->
+<!--  <mat-card-title>Login</mat-card-title>-->
+<form class="registration-form" [formGroup]="login" (ngSubmit)="onSubmit()" fxLayout="column">
+  <mat-form-field class="form-field">
+    <mat-label>Username</mat-label>
+    <input type="text"
+           matInput
+           formControlName="username"
+           [(ngModel)]="loginData.username"/>
+  </mat-form-field>
+  <mat-form-field class="form-field">
+    <mat-label>Password</mat-label>
+    <input [type]="hide ? 'password' : 'text'"
+           matInput
+           formControlName="password"
+           [(ngModel)]="loginData.password"/>
+    <mat-icon matSuffix (click)="hide = !hide" class="material-icons">{{
+      hide ? "visibility_off" : "visibility"
       }}</mat-icon>
-    </mat-form-field>
-  </form>
+  </mat-form-field>
+  <button mat-raised-button
+          color="primary"
+          class="action-button"
+          [disabled]="!login.valid">Log in
+  </button>
   <div *ngIf="incorrectLogin" style="color: red">
     Username or Password are incorrect
   </div>
-  <div>
-    <button
-      mat-button
-      class="submit-button"
-      (click)="onSubmit()"
-      [disabled]="!login.valid">
-      Login
-    </button>
-
-    <button
-      mat-button
-      class="submit-button"
-      [routerLink]="['/registration']">
-      Register
-    </button>
-  </div>
-</mat-card>
-
-
+<!--  <mat-divider></mat-divider>-->
+<!--  <button mat-button role="button" class="action-button"-->
+<!--          routerLink="/registration"-->
+<!--          (click)="registerEnabled = true">Register</button>-->
+</form>

@@ -32,7 +32,7 @@ export class RegistrationService {
   }
 
   async createPatient(newPatient: IRegistration, email: string, password: string): Promise<void>{
-    this.afa.createUserWithEmailAndPassword(email, password)
+    await this.afa.createUserWithEmailAndPassword(email, password);
 
     this.patient.subscribe((user) => {
       if (user) {
