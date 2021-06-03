@@ -31,15 +31,25 @@ export class RegistrationService {
     this.userInfo.pipe(map(client => client = patient));
   }
 
-  async createPatient(newPatient: IRegistration, email: string, password: string): Promise<void>{
-    await this.afa.createUserWithEmailAndPassword(email, password);
+  async createPatient(newPatient: IRegistration, email: string, password: string): Promise<boolean | void>{
+    try{
+      await this.afa.createUserWithEmailAndPassword(email, password);
 
-    this.patient.subscribe((user) => {
-      if (user) {
-        const uniqueID = user.uid;
-        this.patientInfo.collection('patients').doc(uniqueID).set(newPatient)
+      this.patient.subscribe((user) => {
+        if (user) {
+          const uniqueID = user.uid;
+          this.patientInfo.collection('patients').doc(uniqueID).set(newPatient)
+        }
+      })
+      return true;
+    }
+    catch(e){
+      console.log(e.code)
+      if(e.code == "auth/email-already-in-use"){
+        return false;
+        //Promise.reject;
       }
-    })
+    }
   }
 
   //FIXME: Finish this function

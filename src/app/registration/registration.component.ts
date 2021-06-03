@@ -17,7 +17,12 @@ import { RegistrationService } from '../registration.service';
 })
 export class RegistrationComponent implements OnInit {
 
-  hide = true;
+  passwordsMatch = true;
+  isPage2 = false;
+  pageButtonText = "Next Page";
+  EmailInUse = false;
+  hide1 = true;
+  hide2 = true;
   //Hospital list, that updates as autocomplete occurs
   hospitalList: Observable<string[]> | any;
   hospitalOptions: string[] = []
@@ -40,7 +45,8 @@ export class RegistrationComponent implements OnInit {
     Diagnosis: ['', Validators.required],
     Hospital: ['', Validators.required],
     email: ['', Validators.required],
-    password: ['', Validators.required],
+    password1: ['', Validators.required],
+    password2: ['', Validators.required],
   })
 
   constructor(
@@ -67,9 +73,38 @@ export class RegistrationComponent implements OnInit {
 
   //Logs the patients registraion data
   submit() {
-    this.registrationInfo.hospital = this.selectedHospitals;
-    this.regService.createPatient(this.registrationInfo, this.registration.controls['email'].value, this.registration.controls['password'].value);
+    if(this.registration.controls['password1'].value === this.registration.controls['password2'].value){
+      this.registrationInfo.hospital = this.selectedHospitals;
+      try{
+        this.regService.createPatient(this.registrationInfo, this.registration.controls['email'].value, this.registration.controls['password1'].value).then((result) =>{
+          console.log(result)
+          if(result === false){
+            this.EmailInUse = true;
+          }
+        })
+        console.log("Wrong block");
+      }
+      catch(e){
+        console.log("Correct Block")
+        this.EmailInUse = true;
+        console.log(e);
+      }
+    }
+    else{
+      this.passwordsMatch = false;
+    }
+    console.log(this.EmailInUse)
     // this.router.navigateByUrl('/m/landing');
+  }
+
+  pageChange(){
+    this.isPage2 = !this.isPage2;
+    if(this.isPage2 == false){
+      this.pageButtonText = "Next Page";
+    }
+    else{
+      this.pageButtonText = "Previous Page";
+    }
   }
 
   onLogin(){
