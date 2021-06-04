@@ -3,6 +3,7 @@
 <form class="registration-form" [formGroup]="registration" fxLayout="column" (ngSubmit)="submit()">
   <!-- Mother's First Name input -->
   <!--    <div fxLayout="row" fxLayoutGap="15px">-->
+  <ng-container *ngIf="isPage2; else elseTemplate">
   <mat-form-field class="form-field" fxFlex>
     <mat-label>First Name</mat-label>
     <input type="text"
@@ -80,23 +81,48 @@
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
+</ng-container>
+
+  <ng-template #elseTemplate>
   <mat-form-field class="form-field">
     <mat-label>Email</mat-label>
     <input type="text"
            matInput
            formControlName="email"/>
   </mat-form-field>
+  <div *ngIf="EmailInUse">
+    <span style="color: red;">Email is already in use</span>
+  </div>
 
   <!-- Psasword Input Field -->
   <mat-form-field class="form-field">
     <mat-label>Password</mat-label>
-    <input [type]="hide ? 'password' : 'text'"
+    <input [type]="hide1 ? 'password' : 'text'"
            matInput
-           formControlName="password"/>
-    <mat-icon matSuffix (click)="hide = !hide"
-              class="material-icons">{{hide ? "visibility_off" : "visibility"}}</mat-icon>
+           formControlName="password1"/>
+    <mat-icon matSuffix (click)="hide1 = !hide1"
+              class="material-icons">{{hide1 ? "visibility_off" : "visibility"}}</mat-icon>
   </mat-form-field>
-
+  <span>Please reenter your password</span>
+  <mat-form-field class="form-field">
+    <mat-label>Password</mat-label>
+    <input [type]="hide2 ? 'password' : 'text'"
+           matInput
+           formControlName="password2"/>
+    <mat-icon matSuffix (click)="hide2 = !hide2"
+              class="material-icons">{{hide2 ? "visibility_off" : "visibility"}}</mat-icon>
+  </mat-form-field>
+  <div *ngIf="!passwordsMatch">
+    <span>Passwords do not match</span>
+  </div>
+</ng-template>
+<button mat-raised-button
+          class="submit-button"
+          color="primary"
+          type="button"
+          (click)="pageChange()">{{pageButtonText}}
+  </button>
+&nbsp;
   <button mat-raised-button
           class="submit-button"
           color="primary"
