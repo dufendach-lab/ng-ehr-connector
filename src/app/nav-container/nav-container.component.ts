@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {Observable} from 'rxjs';
 import {filter, map, shareReplay, switchMap} from 'rxjs/operators';
@@ -14,6 +14,9 @@ import { AngularFirestore } from '@angular/fire/firestore';
   styleUrls: ['./nav-container.component.scss']
 })
 export class NavContainerComponent implements OnInit {
+
+  @ViewChild('drawer') drawer: any;
+
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
@@ -54,6 +57,12 @@ export class NavContainerComponent implements OnInit {
     this.ehrAuth.signout();
     this.auth.logOut();
     this.router.navigate(['/']);
+  }
+
+  closeSideNav() {
+    if(this.drawer._mode==="over"){
+      this.drawer.close();
+    }
   }
 
 }

@@ -1,9 +1,11 @@
 .sidenav-container {
   height: 100%;
+  margin-top: 2rem;
 }
 
 .sidenav {
   width: 200px;
+  padding-top: 4rem;
 }
 
 .sidenav .mat-toolbar {
@@ -19,3 +21,4 @@
 .main-content {
   padding: 20px;
 }
+
