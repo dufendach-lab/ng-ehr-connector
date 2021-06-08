@@ -38,12 +38,12 @@ export class RegistrationComponent implements OnInit {
 
   //The formbuilder reactive form
   registration = this.fb.group({
-    firstname: ['', Validators.required],
+    firstname: ['' , Validators.required],
     lastname: ['', Validators.required],
     MotherDoB: ['', Validators.required],
-    EstDueDate: ['', Validators.required],
-    Diagnosis: ['', Validators.required],
-    Hospital: ['', Validators.required],
+    EstDueDate: [''],
+    Diagnosis: [''],
+    Hospital: [''],
     email: ['', Validators.required],
     password1: ['', Validators.required],
     password2: ['', Validators.required],
@@ -64,36 +64,30 @@ export class RegistrationComponent implements OnInit {
 
   //Obtains the list of hospitals, then watches the hospital field value to update list as auto complete occurs
   ngOnInit(): void {
-    this.getHospitalList();
-    this.hospitalList = this.registration.controls['Hospital'].valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value))
-    );
+
   }
 
   //Logs the patients registraion data
   submit() {
     if(this.registration.controls['password1'].value === this.registration.controls['password2'].value){
-      this.registrationInfo.hospital = this.selectedHospitals;
       try{
-        this.regService.createPatient(this.registrationInfo, this.registration.controls['email'].value, this.registration.controls['password1'].value).then((result) =>{
+        this.regService.createPatient(this.registration.controls['email'].value, this.registration.controls['password1'].value).then((result) =>{
           console.log(result)
           if(result === false){
             this.EmailInUse = true;
           }
+          else{
+            this.regService.createPatientInfo(this.registrationInfo)
+          }
         })
-        console.log("Wrong block");
       }
       catch(e){
-        console.log("Correct Block")
         this.EmailInUse = true;
-        console.log(e);
       }
     }
     else{
       this.passwordsMatch = false;
     }
-    console.log(this.EmailInUse)
     // this.router.navigateByUrl('/m/landing');
   }
 
@@ -109,45 +103,5 @@ export class RegistrationComponent implements OnInit {
 
   onLogin(){
 
-  }
-  //Add a chip to the hosipital selection
-  addChip(event: MatChipInputEvent) {
-    if (!this.matAutocomplete.isOpen) {
-      const input = event.input;
-      const value = event.value;
-      //Clear validation to enusre form can be submitted since at least 1 hospital was selected
-      this.registration.controls['Hospital'].clearValidators();
-      if ((value || '').trim()) {
-        this.registrationInfo.hospital.push(value.trim());
-      }
-      if (input) {
-        input.value = '';
-      }
-      this.registration.controls['Hospital'].setValue(null);
-      this.ngOnInit();
-    }
-  }
-
-  //Allows for a chip to removed
-  removeChip(hos: string) {
-    const index = this.selectedHospitals.indexOf(hos);
-    if (index >= 0) {
-      this.selectedHospitals.splice(index, 1);
-      //If this is the last chip left, the validator is renable to ensure that a hospital is selected
-      if (this.selectedHospitals.length == 0) {
-        this.registration.controls['Hospital'].setValidators([Validators.required]);
-      }
-    }
-  }
-
-  selected(event: MatAutocompleteSelectedEvent): void {
-    this.selectedHospitals.push(event.option.viewValue);
-    this.hospitalInput.nativeElement.value = '';
-    this.registration.controls['Hospital'].setValue(null);
-  }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.hospitalOptions.filter(hospitalOptions => hospitalOptions.toLowerCase().includes(filterValue));
   }
 }

@@ -10,6 +10,7 @@ import AuthorizeParams = fhirclient.AuthorizeParams;
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AuthService } from '../auth.service';
 import { IRegistration } from 'src/Interfaces/IRegistration';
+import { IGravidasDetails } from 'src/Interfaces/IGravidasDetails';
 
 @Component({
   selector: 'app-authorize',
@@ -20,7 +21,8 @@ export class AuthorizeComponent implements OnInit {
 
   client = this.auth.client;
   user = this.logAuth.user;
-  registrationInfo: Observable<IRegistration | undefined>;
+  //registrationInfo: Observable<IRegistration | undefined>;
+  gravidasDetails: Observable<IGravidasDetails | undefined>;
 
   stateCtrl = new FormControl();
   // options: string[] = ['SmartHealthIT', 'epicHealthService'];
@@ -39,14 +41,14 @@ export class AuthorizeComponent implements OnInit {
     this.endpoints = this.auth.fhirEndpoints;
     this.options = this.endpoints.map(v => v.OrganizationName);
 
-    this.registrationInfo = this.user.pipe(
-      filter(u => u != null),
-      switchMap( u => this.afs
-        .collection('patients')
-        .doc<IRegistration>(u?.uid)
-        .get().pipe(map(doc => doc.data()))
+      this.gravidasDetails = this.user.pipe(
+        filter(u => u != null),
+        switchMap( u => this.afs
+          .collection('patients')
+          .doc<IGravidasDetails>(u?.uid)
+          .get().pipe(map(doc => doc.data()))
+          )
         )
-      )
   }
 
   ngOnInit() {

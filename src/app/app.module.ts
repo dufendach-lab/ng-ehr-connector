@@ -48,6 +48,8 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list'
 import {MatDividerModule} from "@angular/material/divider";
+import { GravidasDetailEditorComponent } from './gravidas-detail-editor/gravidas-detail-editor.component';
+import { GravidasViewerComponent } from './gravidas-viewer/gravidas-viewer.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +71,8 @@ import {MatDividerModule} from "@angular/material/divider";
     ObsValueDisplayComponent,
     LaunchComponent,
     NavContainerComponent,
+    GravidasDetailEditorComponent,
+    GravidasViewerComponent,
   ],
   imports: [
     BrowserModule,

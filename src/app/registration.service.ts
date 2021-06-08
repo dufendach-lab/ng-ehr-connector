@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { filter, map, pluck, switchMap } from 'rxjs/operators';
 import { IRegistration } from 'src/Interfaces/IRegistration';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { IGravidasDetails } from 'src/Interfaces/IGravidasDetails'
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +16,6 @@ export class RegistrationService {
     firstName: 'Jane',
     lastName: 'Doe',
     MotherDoB: new Date(),
-    EstDueDate: new Date(),
-    Diagnosis: '',
-    hospital: ['CCHMC'],
   }
   uid: string = '';
   userInfo = {} as Observable<IRegistration>
@@ -31,25 +29,54 @@ export class RegistrationService {
     this.userInfo.pipe(map(client => client = patient));
   }
 
-  async createPatient(newPatient: IRegistration, email: string, password: string): Promise<boolean | void>{
+  async createPatient(email: string, password: string): Promise<boolean | void>{
     try{
       await this.afa.createUserWithEmailAndPassword(email, password);
-
-      this.patient.subscribe((user) => {
-        if (user) {
-          const uniqueID = user.uid;
-          this.patientInfo.collection('patients').doc(uniqueID).set(newPatient)
-        }
-      })
-      return true;
     }
     catch(e){
       console.log(e.code)
       if(e.code == "auth/email-already-in-use"){
         return false;
-        //Promise.reject;
       }
     }
+  }
+
+  async createPatientInfo(newPatient: IRegistration): Promise<void> {
+    this.patient.subscribe((user) => {
+        if (user) {
+          const uniqueID = user.uid;
+          this.patientInfo.collection('patients').doc(uniqueID).set(newPatient)
+        }
+      })
+  }
+
+  async createGravidas(gravidas: IGravidasDetails) : Promise<void> {
+    const docName = new Date(gravidas.EstDueDate);
+    const docNameString = docName.toISOString().substr(0,10);
+    this.patient.subscribe((user) => {
+      if (user) {
+        const uniqueID = user.uid;
+        this.patientInfo.collection('patients').doc(uniqueID).collection('gravidas').doc(docNameString).set(gravidas)
+      }
+    })
+  }
+
+  getGravidas() : Promise<IGravidasDetails[] | undefined | void>{
+    let uID = "";
+    this.patient.subscribe(user => {
+      if(user){
+        uID = user.uid;
+      }
+    })
+
+    const dbRef = this.afs.collection('patients').doc(uID).collection('gravidas');
+    const snapShot = dbRef.get();
+    snapShot.forEach(doc => {
+      console.log(doc.forEach(docu => {
+        console.log(docu.data());
+      }))
+    })
+    return Promise.reject("Bad");
   }
 
   //FIXME: Finish this function
