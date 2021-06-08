@@ -21,6 +21,7 @@ export class GravidasViewerComponent implements OnInit {
   user = this.logAuth.user;
   //registrationInfo: Observable<IRegistration | undefined>;
   gravidasDetails: Observable<IGravidasDetails | undefined>;
+  allGravidas: Observable<IGravidasDetails[]> | undefined;
   gravTest: any;
   test1: IGravidasDetails[] = [];
 
@@ -36,36 +37,6 @@ export class GravidasViewerComponent implements OnInit {
         .get().pipe(map(doc => doc.data()))
         )
     )
-
-    this.gravTest = this.user.pipe(
-      filter(u => u != null),
-      switchMap( u => this.afs
-        .collection('patients')
-        .doc<IRegistration>(u?.uid)
-        .collection('gravidas').get()
-        .pipe(map(doc => doc.docs.forEach(data => data.data())))
-      )
-    )
-
-
-    // this.gravTest = this.user.pipe(
-    //   filter(u => u != null),
-    //   switchMap( u => this.afs
-    //     .collection('patients')
-    //     .doc<IRegistration>(u?.uid)
-    //     .collection('gravidas').get()
-    //     .pipe(map(doc => doc.forEach(doc => {
-    //       let data = doc.data()
-    //       let temp = {} as IGravidasDetails;
-    //       temp.Diagnosis = data.Diagnosis;
-    //       temp.EstDueDate = data.EstDueDate
-    //       temp.hospital = data.hospital
-    //       temp.parity = data.parity
-
-    //       this.test1.push(temp)
-    //     })))
-    //   )
-    // )
    }
 
   ngOnInit(): void {
@@ -76,10 +47,17 @@ export class GravidasViewerComponent implements OnInit {
         //console.log(this.gravidasDetails);
       }
     })
-    //this.regService.getGravidas();
+    this.allGravidas = this.regService.getGravidas();
+
+    this.allGravidas.subscribe((gravida) => {
+      if(gravida){
+        console.log("Gravidas")
+        console.log(gravida)
+      }
+    })
   }
 
-  gestationalAgeCalc(EstDD: any){
+  gestationalAgeCalc(EstDD: any): string{
     const today = new Date();
     const DD = new Date(EstDD.toDate().getUTCFullYear(), EstDD.toDate().getUTCMonth(), EstDD.toDate().getUTCDay());
     const daysUntilDD = (DD.getTime()-today.getTime()) / (1000 * 60 * 60 * 24 );
@@ -89,5 +67,6 @@ export class GravidasViewerComponent implements OnInit {
 	  const iEGADays = ((fGestationalAgeInWeeks % 1)*6).toFixed(0);
 
     this.gestationalAge = iEGAWeeks.toString() + ' weeks ' + iEGADays.toString() + ' days';
+    return this.gestationalAge;
   }
 }

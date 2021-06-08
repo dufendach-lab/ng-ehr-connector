@@ -51,6 +51,13 @@
            formControlName="Diagnosis"
            [(ngModel)]="gravidasDetails.Diagnosis"/>
   </mat-form-field>
+  <mat-form-field class="form-field">
+    <mat-label>Parity</mat-label>
+    <input type="text"
+           matInput
+           formControlName="Parity"
+           [(ngModel)]="gravidasDetails.parity"/>
+  </mat-form-field>
   <!-- Expected Delivery Hospital Selection Input Field -->
   <mat-form-field class="form-field">
     <!-- Chips to display all curently selected hospital locations -->

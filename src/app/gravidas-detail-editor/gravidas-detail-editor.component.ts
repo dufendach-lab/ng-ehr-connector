@@ -55,18 +55,16 @@ export class GravidasDetailEditorComponent implements OnInit {
   }
 
   registration = this.fb.group({
-    firstname: [''],
-    lastname: [''],
-    MotherDoB: [''],
+    // firstname: [''],
+    // lastname: [''],
+    // MotherDoB: [''],
     EstDueDate: ['', Validators.required],
     Diagnosis: ['', Validators.required],
     Hospital: ['', Validators.required],
+    Parity: ['', Validators.required],
   })
 
   submit() {
-    if(this.firstDetail){
-      this.regService.createPatientInfo(this.registrationInfo)
-    }
     this.gravidasDetails.hospital = this.selectedHospitals;
     this.regService.createGravidas(this.gravidasDetails);
 

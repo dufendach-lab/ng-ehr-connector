@@ -61,22 +61,46 @@ export class RegistrationService {
     })
   }
 
-  getGravidas() : Promise<IGravidasDetails[] | undefined | void>{
-    let uID = "";
-    this.patient.subscribe(user => {
-      if(user){
-        uID = user.uid;
-      }
-    })
+  // async getGravidas(): Observable<IGravidasDetails[]> {
+  //   let uID = "";
+  //   this.patient.subscribe(user => {
+  //     if(user){
+  //       uID = user.uid;
+  //     }
+  //   })
 
-    const dbRef = this.afs.collection('patients').doc(uID).collection('gravidas');
-    const snapShot = dbRef.get();
-    snapShot.forEach(doc => {
-      console.log(doc.forEach(docu => {
-        console.log(docu.data());
-      }))
-    })
-    return Promise.reject("Bad");
+  //   // const dbRef = this.afs.collection('patients').doc(uID).collection('gravidas');
+  //   // const snapShot = await dbRef.get();
+  //   // snapShot.forEach(doc => {
+  //   //   console.log(doc.forEach(docu => {
+  //   //     console.log(docu.data());
+  //   //   }))
+  //   // })
+
+  //   //const snapShot = await this.afs.collection('patients').doc(uID).collection('gravidas').get();
+  //   return this.afs.collection()
+  // }
+
+  getGravidas(): Observable<IGravidasDetails[]> {
+    return this.afa.user.pipe( // Pipe from the "user" object because first need a signed-in user
+      switchMap((user) => {
+        if (user) {
+          return this.afs
+            .collection('patients')
+            .doc(user.uid) // User ID is obtained from the piped user
+            .collection<IGravidasDetails>('gravidas')
+            .valueChanges() // This is the Observable that can be returned
+        }
+        return Promise.reject(new Error('User not defined'));
+      }),
+      map(gravidas => { // This map converts a Firestore Timestamp to a JavaScript Date object
+        const exercises: IGravidasDetails[] = [];
+        gravidas.forEach(gravida => {
+          exercises.push(gravida);
+        });
+        return exercises;
+      })
+    )
   }
 
   //FIXME: Finish this function
