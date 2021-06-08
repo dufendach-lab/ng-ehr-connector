@@ -37,7 +37,8 @@ export class LandingInfoComponent implements OnInit {
     this.gravidasDetails = this.regService.getGravidas();
     this.gravidasDetails.subscribe(gravidas => {
       if(gravidas){
-        this.recentGravidas = gravidas[0]
+        const lastIndex = gravidas.length - 1;
+        this.recentGravidas = gravidas[lastIndex]
       }
     })
   }
