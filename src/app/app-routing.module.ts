@@ -9,6 +9,8 @@ import {RegistrationComponent} from './registration/registration.component';
 import {RegistrationOtherComponent} from './registration-other/registration-other.component';
 import {LaunchComponent} from "./launch/launch.component";
 import {NavContainerComponent} from "./nav-container/nav-container.component";
+import { GravidasDetailEditorComponent } from './gravidas-detail-editor/gravidas-detail-editor.component';
+import { GravidasViewerComponent } from './gravidas-viewer/gravidas-viewer.component';
 
 const routes: Routes = [
   {
@@ -36,6 +38,14 @@ const routes: Routes = [
         path: 'landing',
         component: LandingComponent
       },
+      {
+        path: 'gravidas',
+        component: GravidasViewerComponent
+      },
+      {
+        path: 'gravidas/edit',
+        component: GravidasDetailEditorComponent
+      },
     ]
   },
   {
@@ -50,7 +60,7 @@ const routes: Routes = [
   {
     path: 'registration/admin',
     component: RegistrationOtherComponent
-  }
+  },
 ];
 
 @NgModule({
