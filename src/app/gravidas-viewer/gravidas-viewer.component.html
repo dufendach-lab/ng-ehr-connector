@@ -1,0 +1,73 @@
+<mat-card class="patient-data-card">
+  <mat-card-header>
+    <mat-card-title>Pregnancy's (Only works for 2021-11-11)</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="data-container" fxLayout="column" fxLayoutGap="15px">
+      <ng-container *ngIf="gravTest | async as gt; else elseTemplate">
+
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <span>This is working</span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+              <div fxLayout="row">
+                <div style="font-weight: bold;">Estimated Due Date: &nbsp;</div>
+                <div>{{ gt }}</div>
+              </div>
+              <br/>
+
+              <div fxLayout="row">
+                <div style="font-weight: bold;">Diagnosis: &nbsp;</div>
+                <div>{{ gt }}</div>
+              </div>
+              <br/>
+
+              <div fxLayout="row">
+                <div style="font-weight: bold;">Gestational Age: &nbsp;</div>
+                <div>{{ gestationalAge }}</div>
+              </div> >
+          </mat-expansion-panel>
+        </mat-accordion>
+
+      </ng-container>
+      <ng-template #elseTemplate>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <span>Est. Due Date</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div *ngIf="(gravidasDetails | async) as gd">
+            <div fxLayout="row">
+              <div style="font-weight: bold;">Estimated Due Date: &nbsp;</div>
+              <div>{{ gd.EstDueDate.toDate() | date: "yyyy/MM/dd" }}</div>
+            </div>
+            <br/>
+
+            <div fxLayout="row">
+              <div style="font-weight: bold;">Diagnosis: &nbsp;</div>
+              <div>{{ gd.Diagnosis }}</div>
+            </div>
+            <br/>
+
+            <div fxLayout="row">
+              <div style="font-weight: bold;">Gestational Age: &nbsp;</div>
+              <div>{{ gestationalAge }}</div>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </ng-template>
+
+
+    </div>
+    <button mat-button [routerLink]="['/gravidas/edit']">
+      <mat-icon>add</mat-icon>&nbsp;&nbsp;Add a pregnancy
+      <!-- <span>Add a pregnancy</span> -->
+    </button>
+  </mat-card-content>
+</mat-card>
