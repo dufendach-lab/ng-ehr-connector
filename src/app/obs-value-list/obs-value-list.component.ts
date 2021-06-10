@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 
 import { fhirclient }from 'fhirclient/lib/types';
@@ -28,10 +29,6 @@ export class ObsValueListComponent implements OnChanges {
   private updateObservationList() {
     if (this.observations) {
       this.obsList = this.observations.entry;
-      //
-      // this.isValueThere = this.obsList[0].resource.resourceType != null;
-      //
-      // console.log(this.obsList[0]);
     }
   }
 

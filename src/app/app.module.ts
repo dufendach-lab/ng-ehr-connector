@@ -48,6 +48,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list'
 import {MatDividerModule} from "@angular/material/divider";
+import { GraphDataComponent } from './graph-data/graph-data.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import {MatDividerModule} from "@angular/material/divider";
     ObsValueDisplayComponent,
     LaunchComponent,
     NavContainerComponent,
+    GraphDataComponent,
   ],
   imports: [
     BrowserModule,
