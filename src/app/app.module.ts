@@ -18,6 +18,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatIconModule} from '@angular/material/icon';
+import {MatTableModule} from '@angular/material/table';
 
 import {FlexLayoutModule} from '@angular/flex-layout';
 
@@ -49,6 +50,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list'
 import {MatDividerModule} from "@angular/material/divider";
 import { GraphDataComponent } from './graph-data/graph-data.component';
+import { DataTableComponent } from './data-table/data-table.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +73,7 @@ import { GraphDataComponent } from './graph-data/graph-data.component';
     LaunchComponent,
     NavContainerComponent,
     GraphDataComponent,
+    DataTableComponent,
   ],
   imports: [
     BrowserModule,
@@ -102,6 +105,7 @@ import { GraphDataComponent } from './graph-data/graph-data.component';
     MatSidenavModule,
     MatListModule,
     LayoutModule,
+    MatTableModule,
 
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,

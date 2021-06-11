@@ -1,16 +1,20 @@
 import { formatDate } from '@angular/common';
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import * as d3 from "d3";
 
-import { fhirclient }from 'fhirclient/lib/types';
-import Bundle = fhirclient.FHIR.Bundle;
-import Observation = fhirclient.FHIR.Observation;
-
-interface Weight {
+interface DialogData {
   value: string,
-  unit: string,
   date: Date
+}
+
+interface IncData {
+  name: string,
+  values: [
+    {value: string, date: string}
+  ],
+  unit: string
 }
 
 @Component({
@@ -18,17 +22,8 @@ interface Weight {
   templateUrl: './graph-data.component.html',
   styleUrls: ['./graph-data.component.scss']
 })
-export class GraphDataComponent implements OnInit, OnChanges {
-
-  @Input() observations: Bundle | null | Observation = null;
-  obsList: Observation[] = [];
-
-  weightData: Weight[] = [];
-
-  newVitalName: string[] = [];
-  newVitalDate: number[] = [];
-  vitalVal: string[] = [];
-  vitalUnit: string[] = [];
+export class GraphDataComponent implements OnInit {
+  userData: DialogData[] = [];
 
   private svg;
   private margin = 50;
@@ -38,68 +33,20 @@ export class GraphDataComponent implements OnInit, OnChanges {
   private yScale;
   private lineGroup;
 
-  constructor() { }
+  constructor(public dialogRef: MatDialogRef<GraphDataComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: IncData) { this.getData(); }
 
   ngOnInit(): void {
     this.createSvg();
     this.drawPlot();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['observations']) {
-      this.updateObservationList();
-    }
-  }
 
-  private updateObservationList() {
-    if (this.observations) {
-      this.obsList = this.observations.entry;
-      if(this.obsList[0]?.resource.resourceType === "Observation") {
-        this.getWeightData();
-      }
-    }
-  }
-
-  // Retrieves all weight data and places in array of Weights for graph
-  private getWeightData() {
-    if(this.obsList[0]?.resource.category.text !== "Vital Signs") { return; }
-
-    this.obsList.forEach(data => {
-      if(data.resource.issue) { return; }
-      if(data.resource.code.text === "Weight"){
-        let weight: Weight = {value: '', unit: '', date: new Date()};
-        weight.value = data.resource.valueQuantity.value;
-        weight.unit = data.resource.valueQuantity.unit;
-        let newDate: Date = new Date(data.resource.effectiveDateTime);
-        weight.date = newDate;
-        this.weightData.push(weight);
-      }
-    });
-  }
-
-   // Filters out same vital signs by picking one with most recent date
-   getRecentVitals() {
-    if(this.obsList[0]?.resource.category.text !== "Vital Signs") { return; }
-
-    this.obsList.forEach(data => {
-      // TODO: Figure out issue with the dates;
-      if(data.resource.issue) { return; }
-      if(!this.newVitalName.includes(data.resource.code.text)) {
-        this.newVitalName.push(data.resource.code.text);
-        this.newVitalDate.push(data.resource.effectiveDateTime);
-      }
-      else {
-        for(let i = 0; i < this.newVitalName.length; i++) {
-          if(this.newVitalName[i] == data.resource.code.text) {
-            if(data.resource.effectiveDateTime > this.newVitalDate[i]) {
-              this.newVitalDate[i] = data.resource.effectiveDateTime;
-            }
-          }
-        }
-      }
-    });
-    console.warn(this.newVitalDate);
-    console.warn(this.newVitalName);
+  private getData() {
+    this.data.values.forEach(element => {
+      let temp: DialogData = {value: element.value, date: new Date(element.date)}
+      this.userData.push(temp)
+    })
   }
 
   private createSvg(): void {
@@ -111,11 +58,10 @@ export class GraphDataComponent implements OnInit, OnChanges {
       .attr("transform", "translate(" + this.margin + "," + this.margin + ")");
 
       let iter: Date[] = [];
-      this.weightData.forEach(d => {
+      this.userData.forEach(d => {
         iter.push(d.date);
       });
       let sort = iter.sort((a,b)=> +a - +b)
-      console.log(sort)
       // Add X axis
       this.xScale = d3.scaleTime()
         .domain([sort[0], sort[sort.length - 1]])
@@ -123,7 +69,7 @@ export class GraphDataComponent implements OnInit, OnChanges {
 
         // Add Y axis
       this.yScale = d3.scaleLinear()
-      .domain([70, 100])
+      .domain([20, 150])
       .range([ this.height, 0]);
 
       // Add Line
@@ -135,13 +81,13 @@ export class GraphDataComponent implements OnInit, OnChanges {
 
   private drawPlot(): void {
 
-    this.svg.append("text")
-      .attr("x", (this.width / 2))
-      .attr("y", 0 - (this.margin / 2))
-      .attr("text-anchor", "middle")
-      .style("font-size", "16px")
-      .style("text-decoration", "underline")
-      .text("Weight vs Time Graph");
+    // this.svg.append("text")
+    //   .attr("x", (this.width / 2))
+    //   .attr("y", 0 - (this.margin / 2))
+    //   .attr("text-anchor", "middle")
+    //   .style("font-size", "16px")
+    //   .style("text-decoration", "underline")
+    //   .text("Weight vs Time Graph");
 
     this.svg.append("g")
       .attr("transform", "translate(0," + this.height + ")")
@@ -156,7 +102,7 @@ export class GraphDataComponent implements OnInit, OnChanges {
       .call(d3.axisLeft(this.yScale));
 
     this.svg.append('path')
-      .datum(this.weightData)
+      .datum(this.userData)
       .attr('class', 'line')
       .attr('fill', 'none')
       .attr('stroke', '#ca5699')
@@ -178,7 +124,7 @@ export class GraphDataComponent implements OnInit, OnChanges {
     // Add dots
     const dots = this.svg.append('g');
     dots.selectAll("dot")
-      .data(this.weightData)
+      .data(this.userData)
       .enter()
       .append("circle")
       .attr("id", "dotsTooltip")
@@ -207,7 +153,7 @@ export class GraphDataComponent implements OnInit, OnChanges {
       })
       .on('mousemove', (e,d) => {
         let date = formatDate(d.date, "shortDate", "en-US")
-        tooltip.style('top', (e.pageY-80)+"px").style('left', (e.pageX-300)+"px")
+        tooltip.style('top', (e.pageY-60)+"px").style('left', (e.pageX-60)+"px")
                     .html(`Weight: ${d.value} kg</br>Date:  ${date}`);
       });
 
@@ -215,3 +161,32 @@ export class GraphDataComponent implements OnInit, OnChanges {
 
 }
 
+
+//   newVitalName: string[] = [];
+//   newVitalDate: number[] = [];
+//   vitalVal: string[] = [];
+//   vitalUnit: string[] = [];
+
+// Filters out same vital signs by picking one with most recent date
+  //  getRecentVitals() {
+  //   if(this.obsList[0]?.resource.category.text !== "Vital Signs") { return; }
+
+  //   this.obsList.forEach(data => {
+  //     if(data.resource.issue) { return; }
+  //     if(!this.newVitalName.includes(data.resource.code.text)) {
+  //       this.newVitalName.push(data.resource.code.text);
+  //       this.newVitalDate.push(data.resource.effectiveDateTime);
+  //     }
+  //     else {
+  //       for(let i = 0; i < this.newVitalName.length; i++) {
+  //         if(this.newVitalName[i] == data.resource.code.text) {
+  //           if(data.resource.effectiveDateTime > this.newVitalDate[i]) {
+  //             this.newVitalDate[i] = data.resource.effectiveDateTime;
+  //           }
+  //         }
+  //       }
+  //     }
+  //   });
+  //   console.warn(this.newVitalDate);
+  //   console.warn(this.newVitalName);
+  // }

@@ -32,7 +32,8 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
           <div *ngIf="(vitalsBundle | async) as bundle; else loading">
-            <app-obs-value-list [observations]="bundle"></app-obs-value-list>
+            <app-data-table [observations]="bundle"></app-data-table>
+            <!-- <app-obs-value-list [observations]="bundle"></app-obs-value-list> -->
             <!-- <app-graph-data></app-graph-data> -->
           </div>
         </mat-expansion-panel>
@@ -190,12 +191,11 @@
       <button mat-raised-button color="primary" (click)="submitData()">Send to Cincinnati Children's</button>
 
     </div>
-    <div class="graph-container">
+    <!-- <div class="graph-container">
       <div *ngIf="(vitalsBundle | async) as bundle; else loading">
         <app-graph-data [observations]="bundle"></app-graph-data>
       </div>
-
-    </div>
+    </div> -->
   </mat-card-content>
 </mat-card>
 
