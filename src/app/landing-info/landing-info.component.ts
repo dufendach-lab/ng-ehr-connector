@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RegistrationService } from '../registration.service';
 import { IRegistration } from '../../Interfaces/IRegistration'
+import { IGravidasDetails } from '../../Interfaces/IGravidasDetails'
 import { AuthService } from '../auth.service';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -16,7 +17,11 @@ export class LandingInfoComponent implements OnInit {
   gestationalAge: any;
   user = this.logAuth.user;
   registrationInfo: Observable<IRegistration | undefined>;
-  constructor(private regService: RegistrationService, private logAuth: AuthService, private afs: AngularFirestore,) { this.registrationInfo = this.user.pipe(
+  gravidasDetails!: Observable<IGravidasDetails[] | undefined>;
+  recentGravidas!: IGravidasDetails;
+
+  constructor(private regService: RegistrationService, private logAuth: AuthService, private afs: AngularFirestore,) {
+    this.registrationInfo = this.user.pipe(
     filter(u => u != null),
     switchMap( u => this.afs
       .collection('patients')
@@ -27,25 +32,19 @@ export class LandingInfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.regService.userInfo.subscribe(dt => this.getRegistrationInfo());
-    // console.log(this.registrationInfo.pipe(map (x=> {
-    //   console.log(x?.EstDueDate.toDate())
-    //   console.log(x?.MotherDoB.toDate())
-    // })))
-    //this.getRegistrationInfo();
-    this.registrationInfo.subscribe((user) => {
-      if(user){
-        this.EDD = user.EstDueDate;//user.EstDueDate.toDate()
-        this.gestationalAgeCalc(this.EDD);
+    this.registrationInfo.subscribe((user) => { })
+
+    this.gravidasDetails = this.regService.getGravidas();
+    this.gravidasDetails.subscribe(gravidas => {
+      if(gravidas){
+        const lastIndex = gravidas.length - 1;
+        this.recentGravidas = gravidas[lastIndex]
       }
     })
   }
 
-  gestationalAgeCalc(EstDD: any){
+  gestationalAgeCalc(EstDD: any): string{
     const today = new Date();
-    // today.getUTCFullYear();
-    // today.getUTCMonth();
-    // today.getUTCDay();
     const DD = new Date(EstDD.toDate().getUTCFullYear(), EstDD.toDate().getUTCMonth(), EstDD.toDate().getUTCDay());
     const daysUntilDD = (DD.getTime()-today.getTime()) / (1000 * 60 * 60 * 24 );
     const iGestationalAgeInDays = 280 - daysUntilDD;
@@ -54,21 +53,6 @@ export class LandingInfoComponent implements OnInit {
 	  const iEGADays = ((fGestationalAgeInWeeks % 1)*6).toFixed(0);
 
     this.gestationalAge = iEGAWeeks.toString() + ' weeks ' + iEGADays.toString() + ' days';
-    console.log(this.gestationalAge);
+    return this.gestationalAge;
   }
-
-  getRegistrationInfo(): void{
-    // console.log("getting reg");
-    // this.registrationInfo = this.regService.user;
-    // console.log(this.registrationInfo);
-    this.registrationInfo = this.user.pipe(
-      filter(u => u != null),
-      switchMap( u => this.afs
-        .collection('patients')
-        .doc<IRegistration>(u?.uid)
-        .get().pipe(map(doc => doc.data()))
-      )
-    )
-  }
-
 }

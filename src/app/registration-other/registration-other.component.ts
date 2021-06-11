@@ -61,16 +61,11 @@ export class RegistrationOtherComponent implements OnInit {
 
   //Obtains the list of hospitals, then watches the hospital field value to update list as autoomplete occurs
   ngOnInit(): void {
-    this.getHospitalList();
-    this.hospitalList = this.registration.controls['Hospital'].valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value))
-    );
   }
 
   //Logs the patients registraion data
   submit() {
-    this.registrationInfo.hospital = this.selectedHospitals;
+    //this.registrationInfo.hospital = this.selectedHospitals;
     const phone = false;
     const email = true;
     if(phone) {
@@ -85,45 +80,5 @@ export class RegistrationOtherComponent implements OnInit {
   }
 
   onCancel(){
-  }
-  //Add a chip to the hosipital selection
-  addChip(event: MatChipInputEvent) {
-    if (!this.matAutocomplete.isOpen) {
-      const input = event.input;
-      const value = event.value;
-      //Clear validation to enusre form can be submitted since at least 1 hospital was selected
-      this.registration.controls['Hospital'].clearValidators();
-      if ((value || '').trim()) {
-        this.registrationInfo.hospital.push(value.trim());
-      }
-      if (input) {
-        input.value = '';
-      }
-      this.registration.controls['Hospital'].setValue(null);
-      this.ngOnInit();
-    }
-  }
-
-  //Allows for a chip to removed
-  removeChip(hos: string) {
-    const index = this.selectedHospitals.indexOf(hos);
-    if (index >= 0) {
-      this.selectedHospitals.splice(index, 1);
-      //If this is the last chip left, the validator is renable to ensure that a hospital is selected
-      if (this.selectedHospitals.length == 0) {
-        this.registration.controls['Hospital'].setValidators([Validators.required]);
-      }
-    }
-  }
-
-  selected(event: MatAutocompleteSelectedEvent): void {
-    this.selectedHospitals.push(event.option.viewValue);
-    this.hospitalInput.nativeElement.value = '';
-    this.registration.controls['Hospital'].setValue(null);
-  }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.hospitalOptions.filter(hospitalOptions => hospitalOptions.toLowerCase().includes(filterValue));
   }
 }
