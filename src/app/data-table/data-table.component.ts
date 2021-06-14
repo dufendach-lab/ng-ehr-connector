@@ -7,6 +7,13 @@ import { fhirclient }from 'fhirclient/lib/types';
 import Bundle = fhirclient.FHIR.Bundle;
 import Observation = fhirclient.FHIR.Observation;
 
+/**
+ * TODO:
+ * - Fix blood pressure graph
+ * - Confirm units and conversions
+ * - Adjust graph for each vital
+ */
+
 interface Data {
   name: string,
   values: [
@@ -53,7 +60,6 @@ export class DataTableComponent implements OnInit, OnChanges {
    */
   private getData() {
     if(this.obsList[0]?.resource.category.text !== "Vital Signs") { return; }
-    console.log(this.obsList)
 
     this.obsList.forEach(d => {
       if(d.resource.issue) { return; }
@@ -70,7 +76,16 @@ export class DataTableComponent implements OnInit, OnChanges {
           datum.name = d.resource.code.text
           datum.unit = "*F";
           datum.values[0] = {value: (d.resource.valueQuantity.value * (9/5) + 32).toFixed(2).toString(), date: formatDate(d.resource.effectiveDateTime, 'shortDate', 'en-US')}
-        } else {
+        } else if(d.resource.code.text === "Height") {
+          datum.name = d.resource.code.text
+          datum.unit = "Inches";
+          datum.values[0] = {value: (d.resource.valueQuantity.value / 2.54).toFixed(2).toString(), date: formatDate(d.resource.effectiveDateTime, 'shortDate', 'en-US')}
+        } else if(d.resource.code.text === "R BMI") {
+          datum.name = d.resource.code.text
+          datum.unit = "";
+          datum.values[0] = {value: (d.resource.valueQuantity.value).toString(), date: formatDate(d.resource.effectiveDateTime, 'shortDate', 'en-US')}
+        }
+         else {
           datum.name = d.resource.code.text
           datum.unit = d.resource.valueQuantity.unit;
           datum.values[0] = (
@@ -88,6 +103,8 @@ export class DataTableComponent implements OnInit, OnChanges {
               datum.values[0] = {value: d.resource.component[0].valueQuantity.value + " / " + d.resource.component[1].valueQuantity.value, date: formatDate(d.resource.effectiveDateTime, 'shortDate', 'en-US')}
             } else if(d.resource.code.text === "Temperature") {
               datum.values[0] = {value: (d.resource.valueQuantity.value * (9/5) + 32).toFixed(2).toString(), date: formatDate(d.resource.effectiveDateTime, 'shortDate', 'en-US')}
+            } else if(d.resource.code.text === "Height") {
+              datum.values[0] = {value: (d.resource.valueQuantity.value / 2.54).toFixed(2).toString(), date: formatDate(d.resource.effectiveDateTime, 'shortDate', 'en-US')}
             } else {
               datum.values[0] = {value: d.resource.valueQuantity.value, date: formatDate(d.resource.effectiveDateTime, 'shortDate', 'en-US')}
             }

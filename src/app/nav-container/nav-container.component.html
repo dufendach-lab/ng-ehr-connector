@@ -1,24 +1,10 @@
-<mat-toolbar color="primary" role="heading" style="position: fixed; z-index: 10;">
-  <button mat-icon-button (click)="drawer.toggle()" *ngIf="(isHandset$ | async)">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <button mat-button routerLink="/" *ngIf="!(isHandset$ | async)">
-    <h1 class="text-tag" >[ App Name ]</h1>
-  </button>
+<!-- <mat-toolbar color="primary" role="heading" style="position: fixed; z-index: 10;"> -->
 
-  <span fxFlex></span>
-  <div *ngIf="(isAuth | async) || (isAuth2 | async)" class="button-container">
-    <div class="welcome-name">
-      <h1 class="text-tag">Hello, {{nameConcat}}</h1>
-    </div>
-  </div>
-</mat-toolbar>
-
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport
-      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="(isHandset$ | async) === false">
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false">
     <mat-nav-list>
       <a mat-list-item (click)="closeSideNav()" routerLink="landing">Home</a>
       <a mat-list-item (click)="closeSideNav()" routerLink="authorize">Connect to Hospital</a>
@@ -30,6 +16,21 @@
 
   </mat-sidenav>
   <mat-sidenav-content>
+    <mat-toolbar color="primary" role="heading">
+      <button mat-icon-button (click)="drawer.toggle()" *ngIf="(isHandset$ | async)">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <button mat-button routerLink="/" *ngIf="!(isHandset$ | async)">
+        <h1 class="text-tag" >[ App Name ]</h1>
+      </button>
+
+      <span fxFlex></span>
+      <div *ngIf="(isAuth | async) || (isAuth2 | async)" class="button-container">
+        <div class="welcome-name">
+          <h1 class="text-tag">Hello, {{nameConcat}}</h1>
+        </div>
+      </div>
+    </mat-toolbar>
 
     <!-- <app-navbar></app-navbar> -->
     <div class="main-content">
@@ -48,3 +49,5 @@
 <!--    </mat-toolbar>-->
   </mat-sidenav-content>
 </mat-sidenav-container>
+
+<div class="background"></div>

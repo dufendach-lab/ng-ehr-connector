@@ -1,35 +1,50 @@
 <mat-card style="margin:auto; width: 70%;">
   <h2>Please fill out all of the information below.</h2><br>
   <ng-container [formGroup]="userDataForm" style="margin-top: 3rem;">
-    <h3>End of Gestation</h3>
+
+    <h3>Baby's Name</h3>
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput type="text" formControlName="babyName" [(ngModel)]="newData.babyName">
+    </mat-form-field>
+    <br><br>
+
+    <h3>Baby's Date of Birth</h3>
     <mat-form-field>
       <mat-label>Date</mat-label><br>
-      <input matInput [matDatepicker]="picker" formControlName="endOfGestation" placeholder="--/--/----" [(ngModel)]="newData.endOfGestation">
+      <input matInput [matDatepicker]="picker" formControlName="DOB" placeholder="--/--/----" [(ngModel)]="newData.DOB">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
-    <br>
+    <br><br>
 
-    <h3>Rupture of Membranes</h3>
-    <mat-radio-group formControlName="ruptMembranes" [(ngModel)]="newData.rupturedMembranes">
-      <mat-radio-button value="yes">Yes</mat-radio-button>&nbsp;&nbsp;
-      <mat-radio-button value="no">No</mat-radio-button>
-    </mat-radio-group><br>
+    <h3>Baby's Time of Birth</h3>
+    <mat-form-field>
+      <mat-label>Time</mat-label>
+      <input matInput type="text" formControlName="birthTime" [(ngModel)]="newData.birthTime">
+    </mat-form-field>
+    <br><br>
 
-    <div *ngIf="userDataForm.value.ruptMembranes == 'yes'">
-      <h3>Gestational age at time of rupture</h3>
-      <mat-form-field>
-        <mat-label>Weeks</mat-label>
-        <input matInput type="number" formControlName="ageAtRuptTimeWk" [(ngModel)]="newData.ageAtRuptureTimeWeek">
-      </mat-form-field>&nbsp;&nbsp;
-      <mat-form-field>
-        <mat-label>Days</mat-label>
-        <input matInput type="number" formControlName="ageAtRuptTimeDay" [(ngModel)]="newData.ageAtRuptureTimeDay">
-      </mat-form-field>
-    </div><br>
+    <h3>Baby's Birth Weight</h3>
+    <mat-form-field>
+      <mat-label>Pounds</mat-label>
+      <input matInput type="text" formControlName="birthWeightLbs" [(ngModel)]="newData.birthWeightLbs">
+    </mat-form-field>&nbsp;&nbsp;
+    <mat-form-field>
+      <mat-label>Ounces</mat-label>
+      <input matInput type="text" formControlName="birthWeightOs" [(ngModel)]="newData.birthWeightOs">
+    </mat-form-field>
+    <br><br>
+
+    <h3>Baby's Gender</h3>
+    <mat-radio-group formControlName="sexOfChild" [(ngModel)]="newData.sexOfChild">
+      <mat-radio-button value="male">Male</mat-radio-button>&nbsp;&nbsp;
+      <mat-radio-button value="female">Female</mat-radio-button>
+    </mat-radio-group>
+    <br><br>
 
     <h3>Delivery Location</h3>
-    <mat-radio-group formControlName="deliverLoc" [(ngModel)]="newData.delivereryLocation">
+    <mat-radio-group formControlName="deliverLoc" [(ngModel)]="newData.deliveryLocation">
       <mat-radio-button value="cchmc">Cincinnati Childrens Hospital Medical Center</mat-radio-button><br><br>
       <mat-radio-button value="gsh">Good Samaritan Hospital</mat-radio-button><br><br>
       <mat-radio-button value="ucmc">University of Cincinnati Medical Center</mat-radio-button><br><br>
@@ -44,79 +59,31 @@
       </mat-form-field>
     </div>
 
-    <h3>Donor or Recipient</h3>
-    <mat-radio-group formControlName="donOrRec" [(ngModel)]="newData.donorOrRecipient">
-      <mat-radio-button value="recipient">Recipient</mat-radio-button>&nbsp;&nbsp;
-      <mat-radio-button value="donor">Donor</mat-radio-button>
+    <h3>Type of Birth</h3>
+    <mat-radio-group formControlName="typeOfBirth" [(ngModel)]="newData.typeOfBirth">
+      <mat-radio-button value="vaginal">Natural Birth</mat-radio-button>&nbsp;&nbsp;
+      <mat-radio-button value="cesarea">C-Section</mat-radio-button>
     </mat-radio-group>
     <br><br>
 
-    <ng-container formGroupName="secSet">
+    <h3>Baby's Status</h3>
+    <mat-form-field>
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="babyStatus" [(ngModel)]="newData.babyStatus">
+        <mat-option value="home">Baby is home</mat-option>
+        <mat-option value="homewithequip">Baby is home with equipment</mat-option>
+        <mat-option value="inhospital">Baby is still in hospital</mat-option>
+        <mat-option value="dead">Baby is deceased</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br><br>
 
-      <h3>Type of Birth</h3>
-      <mat-radio-group formControlName="typeOfBirth" [(ngModel)]="newData.typeOfBirth">
-        <mat-radio-button value="cesarea">Cesarea</mat-radio-button>&nbsp;&nbsp;
-        <mat-radio-button value="vaginal">Vaginal</mat-radio-button>
-      </mat-radio-group>
-      <br><br>
-
-      <h3>Birth Weight(g)</h3>
+    <div *ngIf="userDataForm.value.babyStatus === 'homewithequip'">
       <mat-form-field>
-        <mat-label>Grams</mat-label>
-        <input matInput type="text" formControlName="birthWeight" [(ngModel)]="newData.birthWeight">
+        <mat-label>Equipment</mat-label>
+        <input matInput type="text" formControlName="typeEquipment" [(ngModel)]="newData.typeEquipment">
       </mat-form-field>
-      <br>
-
-      <h3>Sex of the Child</h3>
-      <mat-radio-group formControlName="sexOfChild" [(ngModel)]="newData.sexOfChild">
-        <mat-radio-button value="male">Male</mat-radio-button>&nbsp;&nbsp;
-        <mat-radio-button value="female">Female</mat-radio-button>
-      </mat-radio-group>
-      <br><br>
-
-      <h3>Fetal MRN</h3>
-      <mat-form-field>
-        <mat-label>Medical Record #</mat-label>
-        <input matInput type="number" formControlName="fetalMRN" [(ngModel)]="newData.fetalMRN">
-      </mat-form-field>
-      <br><br>
-
-      <h3>Baby Name</h3>
-      <mat-form-field>
-        <mat-label>Name</mat-label>
-        <input matInput type="text" formControlName="babyName" [(ngModel)]="newData.babyName">
-      </mat-form-field>
-      <br><br>
-
-      <h3>Live Birth</h3>
-      <mat-radio-group formControlName="liveBirth" [(ngModel)]="newData.liveBirth">
-        <mat-radio-button value="yes">Yes</mat-radio-button>&nbsp;&nbsp;
-        <mat-radio-button value="no">No</mat-radio-button>
-      </mat-radio-group>
-      <br><br>
-
-      <h3>Death Within 30 Days</h3>
-      <mat-radio-group formControlName="deathInThirty" [(ngModel)]="newData.deathInThirty">
-        <mat-radio-button value="yes">Yes</mat-radio-button>&nbsp;&nbsp;
-        <mat-radio-button value="no">No</mat-radio-button>
-      </mat-radio-group>
-      <br><br>
-
-      <div *ngIf="userDataForm.get('secSet.deathInThirty')?.value == 'yes'">
-        <mat-form-field>
-          <mat-label>Descripion</mat-label>
-          <input matInput type="text" formControlName="deathDesc" id="desc" [(ngModel)]="newData.deathDescription">
-        </mat-form-field>
-
-      </div>
-
-      <h3>Termination</h3>
-      <mat-radio-group formControlName="termination" [(ngModel)]="newData.termination">
-        <mat-radio-button value="yes">Yes</mat-radio-button>&nbsp;&nbsp;
-        <mat-radio-button value="no">No</mat-radio-button>
-      </mat-radio-group>
-      <br><br>
-    </ng-container>
+    </div>
 
     <button mat-raised-button
     color="primary"

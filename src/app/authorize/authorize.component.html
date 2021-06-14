@@ -12,7 +12,7 @@
   <mat-card fxFlex="600px">
     <form class="login-form" (ngSubmit)="onSubmit()" fxLayout="column">
       <mat-form-field class="form-field">
-        <mat-label>Choose Service</mat-label>
+        <mat-label>Select Hospital</mat-label>
         <input type="text"
          matInput
          [formControl]="stateCtrl"
@@ -27,7 +27,7 @@
       <button mat-raised-button class="mat-primary">Authorize</button>
     </form>
 
-    <p style="font-size: 13px;">Don't see your hospital? <a routerLink="/survey">Enter data manually</a></p>
+    <p style="font-size: 15px;">Don't see your hospital? <a routerLink="/survey">Enter data manually</a></p>
   </mat-card>
   <span fxFlex></span>
 

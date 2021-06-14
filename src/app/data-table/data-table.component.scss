@@ -15,3 +15,13 @@ td.mat-cell {
   padding-left: 10px;
   text-align: center;
 }
+
+.mat-row .mat-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+}
+
+.mat-row:hover .mat-cell {
+  border-color: #ca5699;
+}

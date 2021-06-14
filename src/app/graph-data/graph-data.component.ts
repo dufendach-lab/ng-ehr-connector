@@ -26,7 +26,7 @@ export class GraphDataComponent implements OnInit {
   userData: DialogData[] = [];
 
   private svg;
-  private margin = 50;
+  private margin = 60;
   private width = 400 - (this.margin * 2);
   private height = 400 - (this.margin * 2);
   private xScale;
@@ -69,7 +69,7 @@ export class GraphDataComponent implements OnInit {
 
         // Add Y axis
       this.yScale = d3.scaleLinear()
-      .domain([20, 150])
+      .domain([0, 150])
       .range([ this.height, 0]);
 
       // Add Line
@@ -98,8 +98,23 @@ export class GraphDataComponent implements OnInit {
       .style("font-size", 12)
       .style("fill", "black");
 
+    this.svg.append("text")
+      .attr("transform",
+            "translate(" + (this.width/2) + " ," +
+                           (this.height + this.margin) + ")")
+      .style("text-anchor", "middle")
+      .text("Date");
+
     this.svg.append("g")
       .call(d3.axisLeft(this.yScale));
+
+    this.svg.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0 - this.margin)
+      .attr("x",0 - (this.height / 2))
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .text(this.data.name + ` (${this.data.unit})`);
 
     this.svg.append('path')
       .datum(this.userData)
@@ -144,7 +159,6 @@ export class GraphDataComponent implements OnInit {
           tooltip.style('visibility', 'visible');
       })
       .on('mouseout', (e, d) => {
-        console.log("leaving")
         d3.select(e.currentTarget).transition()
           .duration(400)
           .attr("r", 5)
@@ -153,8 +167,8 @@ export class GraphDataComponent implements OnInit {
       })
       .on('mousemove', (e,d) => {
         let date = formatDate(d.date, "shortDate", "en-US")
-        tooltip.style('top', (e.pageY-60)+"px").style('left', (e.pageX-60)+"px")
-                    .html(`Weight: ${d.value} kg</br>Date:  ${date}`);
+        tooltip.style('top', (e.pageY-70)+"px").style('left', (e.pageX-60)+"px")
+                    .html(`${this.data.name}: ${d.value} ${this.data.unit}</br>Date:  ${date}`);
       });
 
   }
