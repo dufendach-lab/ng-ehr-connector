@@ -32,12 +32,14 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
           <div *ngIf="(vitalsBundle | async) as bundle; else loading">
-            <app-obs-value-list [observations]="bundle"></app-obs-value-list>
+            <app-data-table [observations]="bundle"></app-data-table>
+            <!-- <app-obs-value-list [observations]="bundle"></app-obs-value-list> -->
+            <!-- <app-graph-data></app-graph-data> -->
           </div>
         </mat-expansion-panel>
 
         <!-- SOCIAL HISTORY PANEL -->
-        <mat-expansion-panel>
+        <!-- <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
               <mat-checkbox [(ngModel)]="task.subtasks[1].completed"
@@ -55,7 +57,7 @@
           <div *ngIf="(socialBundle | async) as bundle; else loading">
             <app-obs-value-list [observations]="bundle"></app-obs-value-list>
           </div>
-        </mat-expansion-panel>
+        </mat-expansion-panel> -->
 
         <!-- LABORATORY PANEL -->
         <mat-expansion-panel>
@@ -100,7 +102,7 @@
         </mat-expansion-panel>
 
         <!-- IMMUNIZATION PANEL -->
-        <mat-expansion-panel>
+        <!-- <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
               <mat-checkbox [(ngModel)]="task.subtasks[4].completed"
@@ -119,7 +121,7 @@
           <div *ngIf="(immuneBundle | async) as bundle; else loading">
             <app-obs-value-list [observations]="bundle"></app-obs-value-list>
           </div>
-        </mat-expansion-panel>
+        </mat-expansion-panel> -->
 
         <!-- CONDITIONS PANEL -->
         <mat-expansion-panel>
@@ -164,7 +166,7 @@
         </mat-expansion-panel>
 
         <!-- DOCUMENT PANEL -->
-        <mat-expansion-panel>
+        <!-- <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
               <mat-checkbox [(ngModel)]="task.subtasks[7].completed"
@@ -182,13 +184,18 @@
           <div *ngIf="(documentBundle | async) as bundle; else loading">
             <app-obs-value-list [observations]="bundle"></app-obs-value-list>
           </div>
-        </mat-expansion-panel>
+        </mat-expansion-panel> -->
 
       </mat-accordion>
 
       <button mat-raised-button color="primary" (click)="submitData()">Send to Cincinnati Children's</button>
 
     </div>
+    <!-- <div class="graph-container">
+      <div *ngIf="(vitalsBundle | async) as bundle; else loading">
+        <app-graph-data [observations]="bundle"></app-graph-data>
+      </div>
+    </div> -->
   </mat-card-content>
 </mat-card>
 

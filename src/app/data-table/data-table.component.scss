@@ -1,0 +1,27 @@
+table {
+  width: 100%;
+}
+
+.mat-column-name {
+  border-right: 0.5px solid #ca5699;
+  text-align: center;
+}
+
+th.mat-header-cell {
+  text-align: center;
+}
+
+td.mat-cell {
+  padding-left: 10px;
+  text-align: center;
+}
+
+.mat-row .mat-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+}
+
+.mat-row:hover .mat-cell {
+  border-color: #ca5699;
+}

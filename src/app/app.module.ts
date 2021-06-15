@@ -18,6 +18,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatIconModule} from '@angular/material/icon';
+import {MatTableModule} from '@angular/material/table';
 
 import {FlexLayoutModule} from '@angular/flex-layout';
 
@@ -48,6 +49,8 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list'
 import {MatDividerModule} from "@angular/material/divider";
+import { GraphDataComponent } from './graph-data/graph-data.component';
+import { DataTableComponent } from './data-table/data-table.component';
 import { GravidasDetailEditorComponent } from './gravidas-detail-editor/gravidas-detail-editor.component';
 import { GravidasViewerComponent } from './gravidas-viewer/gravidas-viewer.component';
 
@@ -71,6 +74,8 @@ import { GravidasViewerComponent } from './gravidas-viewer/gravidas-viewer.compo
     ObsValueDisplayComponent,
     LaunchComponent,
     NavContainerComponent,
+    GraphDataComponent,
+    DataTableComponent,
     GravidasDetailEditorComponent,
     GravidasViewerComponent,
   ],
@@ -104,6 +109,7 @@ import { GravidasViewerComponent } from './gravidas-viewer/gravidas-viewer.compo
     MatSidenavModule,
     MatListModule,
     LayoutModule,
+    MatTableModule,
 
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,

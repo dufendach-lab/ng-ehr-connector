@@ -11,28 +11,10 @@ import Observation = fhirclient.FHIR.Observation;
 export class ObsValueDisplayComponent implements OnInit {
   @Input() obsList: Observation[] = [];
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
-
-  // checkType(): boolean {
-  //   if(this.obsList[0].resource.resourceType == "DocumentReference") {
-  //     return true;
-  //   }
-  //   if(this.obsList[0].resource.resourceType == "Immunization") {
-  //     return true;
-  //   }
-  //   if(this.obsList[0].resource.resourceType == "Condition") {
-  //     return true;
-  //   }
-  //   if(this.obsList[0].resource.resourceType == "Procedure") {
-  //     return true;
-  //   }
-  //   if(this.obsList[0].resource.resourceType == "Observation") {
-  //     return true;
-  //   } else return false;
-  // }
-
 
 }

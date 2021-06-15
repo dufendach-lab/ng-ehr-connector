@@ -20,7 +20,7 @@ export class ObservationService {
 
       const res = await client.request(`/Observation?patient=${patientID}&code=${code}`);
       // console.log(`RESULT: ${res}`);
-      console.log(res);
+      // console.log(res);
       return res;
 
     } else {
@@ -35,8 +35,8 @@ export class ObservationService {
       console.log(`PID: ${patientID}`);
 
       const res = await client.request(`/Observation?patient=${patientID}&category=${category}`);
-      console.log(`RESULT: ${res}`);
-      console.log(res);
+      // console.log(`RESULT: ${res}`);
+      // console.log(res);
       return res;
 
     } else {
@@ -52,8 +52,8 @@ export class ObservationService {
       console.log(`PID: ${patientID}`);
 
       const res = await client.request(`/${type}?patient=${patientID}`);
-      console.log(`RESULT: ${res}`);
-      console.log(res);
+      // console.log(`RESULT: ${res}`);
+      // console.log(res);
       return res;
 
     } else {
