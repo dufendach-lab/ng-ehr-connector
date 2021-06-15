@@ -1,5 +1,5 @@
-<div *ngIf="(patient | async) as pt else auth" class="container" fxLayoutGap="15px">
-  <app-patient-info [patient]="pt"></app-patient-info>
+<div *ngIf="(patient | async) as pt else auth" class="container" fxLayoutGap="15px" style="margin-top: 4rem;">
+  <app-patient-info [patient]="pt" ></app-patient-info>
   <app-patient-data></app-patient-data>
 </div>
 

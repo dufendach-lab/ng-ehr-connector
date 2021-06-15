@@ -48,3 +48,4 @@ Thumbs.db
 .firebase
 /src/environments/environment.prod.ts
 /src/environments/environment.ts
+functions/permissions.json
