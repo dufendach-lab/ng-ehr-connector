@@ -18,7 +18,7 @@
   <div class="main-area"></div>
 
   <div class="login-area mat-elevation-z3" fxLayout="column" fxLayoutGap="15px" fxLayout.lt-sm="column">
-    <ng-container *ngIf="!registerEnabled else register">
+    <ng-container *ngIf="!registerEnabled else register" class="register-phone">
       <h2 class="center-horizontal">Log In</h2>
       <app-login></app-login>
       <mat-divider></mat-divider>
@@ -28,16 +28,17 @@
   </div>
 </div>
 
-<ng-template #register>
+<ng-template #register style="overflow: auto">
   <h2 class="center-horizontal">Create Account</h2>
   <app-registration></app-registration>
+
   <mat-divider></mat-divider>
   <p>Already have an account?</p>
   <button mat-button (click)="registerEnabled = false">Log In Instead</button>
 </ng-template>
 
 <ng-template #phone>
-  <div class="phone-launch">
+  <div class="phone-launch" [ngStyle]="{'height': (registerEnabled) ? '150%' : '100%'}">
     <div class="app-start-header-phone">
       <img src="assets/img/CC%20Logo%20-%20With%20Tagline.png" alt="cchmc logo" class="cchmc-logo-phone">
       <span fxFlex></span>
@@ -53,10 +54,9 @@
       </div>
     </div>
 
+    <div class="main-area" style="filter:blur(1px)"></div>
 
-    <div class="main-area" style="filter:blur(2px)"></div>
-
-      <div class="login-area-phone mat-elevation-z3" fxLayout="column" fxLayoutGap="15px" fxLayout.lt-sm="column">
+      <div class="login-area-phone mat-elevation-z3" fxLayout="column" fxLayoutGap="15px">
         <ng-container *ngIf="!registerEnabled else register">
           <h2 class="center-horizontal">Log In</h2>
           <app-login></app-login>
@@ -65,8 +65,6 @@
           <button mat-button (click)="registerEnabled = true">Create an account</button>
         </ng-container>
       </div>
-
-
 
   </div>
 </ng-template>
