@@ -1,24 +1,25 @@
-<table mat-table [dataSource]="data" class="mat-elevation-z5">
-  <ng-container matColumnDef="name" sticky>
-    <th mat-header-cell *matHeaderCellDef> Name </th>
-    <td mat-cell *matCellDef="let element">{{element.name}}</td>
-  </ng-container>
+<ng-container class="table-container">
+  <table mat-table [dataSource]="data" class="mat-elevation-z5">
+    <ng-container matColumnDef="name" [sticky]="true">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element">{{element.name}}</td>
+    </ng-container>
 
-  <ng-container [matColumnDef]="column" *ngFor="let column of displayColumns; let i=index;">
-    <th mat-header-cell *matHeaderCellDef> {{column}} </th>
-    <td mat-cell *matCellDef="let element">
-      <ng-container *ngIf="element.values[i] !== undefined; else na;">
-        {{element.values[i].value}} {{element.unit}}
-      </ng-container>
-    </td>
-  </ng-container>
+    <ng-container [matColumnDef]="column" *ngFor="let column of displayColumns; let i=index;">
+      <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+      <td mat-cell *matCellDef="let element">
+        <ng-container *ngIf="element.values[i] !== undefined; else na;">
+          {{element.values[i].value}} {{element.unit}}
+        </ng-container>
+      </td>
+    </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-  <tr mat-row
-  (click)="openDialog(row.name)"
-  *matRowDef="let row; columns: columnsToDisplay;"></tr>
-</table>
-
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row
+    (click)="openDialog(row.name)"
+    *matRowDef="let row; columns: columnsToDisplay;"></tr>
+  </table>
+</ng-container>
 
 <ng-template #na>-</ng-template>
 

@@ -19,6 +19,7 @@ export class LandingInfoComponent implements OnInit {
   registrationInfo: Observable<IRegistration | undefined>;
   gravidasDetails!: Observable<IGravidasDetails[] | undefined>;
   recentGravidas!: IGravidasDetails;
+  isIt: boolean = false;
 
   constructor(private regService: RegistrationService, private logAuth: AuthService, private afs: AngularFirestore,) {
     this.registrationInfo = this.user.pipe(
@@ -39,6 +40,7 @@ export class LandingInfoComponent implements OnInit {
       if(gravidas){
         const lastIndex = gravidas.length - 1;
         this.recentGravidas = gravidas[lastIndex]
+        if(lastIndex === -1) { this.isIt = false; } else { this.isIt = true; }
       }
     })
   }
