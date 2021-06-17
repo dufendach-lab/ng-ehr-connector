@@ -11,6 +11,7 @@ import {LaunchComponent} from "./launch/launch.component";
 import {NavContainerComponent} from "./nav-container/nav-container.component";
 import { GravidasDetailEditorComponent } from './gravidas-detail-editor/gravidas-detail-editor.component';
 import { GravidasViewerComponent } from './gravidas-viewer/gravidas-viewer.component';
+import { NewMomResourceComponent } from './new-mom-resource/new-mom-resource.component';
 
 const routes: Routes = [
   {
@@ -46,6 +47,10 @@ const routes: Routes = [
         path: 'gravidas/edit',
         component: GravidasDetailEditorComponent
       },
+      {
+        path: 'resources',
+        component: NewMomResourceComponent
+      }
     ]
   },
   {

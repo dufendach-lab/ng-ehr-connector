@@ -1,53 +1,55 @@
 <div *ngIf="user | async; else Login">
   <div style="margin-top: 1rem;" fxLayout="row" fxLayoutGap="15px" fxLayout.lt-sm="column" >
     <app-landing-info fxFlex></app-landing-info>
-    <mat-card fxFlex *ngIf="isAuthorized | async">
+
+    <mat-card fxFlex *ngIf="!hasBirthed" class="woah-card">
       <mat-card-header>
-        <mat-card-title>Dashboard</mat-card-title>
+        <mat-card-title>Gave Birth?</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p>Information pulled from the EHR is shown here.</p>
+        <h4>Click on the button below after you have given birth!</h4>
       </mat-card-content>
-      <button
-        class="link-buttons"
-        mat-raised-button
-        color="accent"
-        routerLink="/dashboard">
-        Dashboard
-      </button>
+      <button mat-raised-button color="accent" (click)="openDialog()">I gave birth!</button>
     </mat-card>
 
-    <mat-card fxFlex *ngIf="!(isAuthorized | async)">
-      <mat-card-header>
-        <mat-card-title>Authorize</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <p>Click here to authorize the EHR.</p>
-      </mat-card-content>
-      <button
-        class="link-buttons"
-        mat-raised-button
-        color="accent"
-        routerLink="/authorize">
-        Connect to your hospital
-      </button>
-    </mat-card>
+    <div *ngIf="hasBirthed">
+      <mat-card fxFlex *ngIf="isAuthorized | async">
+        <mat-card-header>
+          <mat-card-title>Babys Information</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Data pulled from the EHR is shown here</p>
+        </mat-card-content>
+        <button
+          class="link-buttons"
+          mat-raised-button
+          color="accent"
+          routerLink="/dashboard">
+          Dashboard
+        </button>
+      </mat-card>
+
+      <mat-card fxFlex *ngIf="!(isAuthorized | async)" class="woah-card">
+        <mat-card-header>
+          <mat-card-title>Authorize</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Click here to connect with your hospital and authorize the EHR</p>
+        </mat-card-content>
+        <button
+          class="link-buttons"
+          mat-raised-button
+          style="background-color: #00aac8; color: white"
+          routerLink="/authorize">
+          Connect to your hospital
+        </button>
+      </mat-card>
+    </div>
 
   </div>
   <br>
-    <!-- <button fxFlex mat-raised-button color="accent" routerLink="/registration">Register</button>
-  <button fxFlex mat-raised-button color="accent" (click)="loginModal()">Login</button> -->
 
-    <!-- <h1 *ngIf="user | async as u">{{ u.uid }}</h1>
-
-    <div *ngIf="patientData | async as pt">
-      <h1>{{ pt.firstName }} {{ pt.lastName }}</h1>
-      <ul>
-        <li *ngFor="let h of pt.hospital">{{ h }}</li>
-      </ul>
-    </div> -->
-
-    <div fxLayout="row" fxLayoutGap="15px" fxLayout.lt-sm="column" >
+    <div fxLayout="row" fxLayoutGap="15px" fxLayout.lt-sm="column">
       <mat-card fxFlex>
         <mat-card-header>
           <mat-card-title>
@@ -55,23 +57,30 @@
           </mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <p>Here is some other stuff</p>
+          <p>Helpful resources to assist you in the next stage of your life.</p>
         </mat-card-content>
-        <button mat-raised-button color="accent">Some other stuff</button>
+        <button mat-raised-button color="accent" routerLink="/resources">Resources</button>
       </mat-card>
 
       <mat-card fxFlex>
         <mat-card-header>
           <mat-card-title>
-            Some more stuff
+            Contact Us
           </mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <p>Here is some other stuff</p>
+          <h3>Fetal Care Center</h3>
+          <h4>Phone: </h4>
+          <p>1-888-338-2559</p>
+          <h4>Mailing Address: </h4>
+          <p>Cincinnati Children's Fetal Care Center<br>
+            MLC 11020<br>
+            3333 Burnet Ave.<br>
+            Cincinnati, OH 45229-3039</p>
         </mat-card-content>
-        <button mat-raised-button color="accent">
-          Take me to the stuff
-        </button>
+        <a mat-raised-button color="accent" href="https://www.cincinnatichildrens.org/service/f/fetal-care/contact/form" target="_blank">
+          Contact Form
+        </a>
       </mat-card>
 
 

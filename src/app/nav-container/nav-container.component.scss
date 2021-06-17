@@ -21,14 +21,13 @@
   padding: 20px;
 }
 
+
 .bg-img {
   background: url("../../assets/img/cchmc-pattern.PNG") repeat center center fixed;
   -webkit-background-size: repeat;
   -moz-background-size: repeat;
   -o-background-size: repeat;
   background-size: repeat;
-
-  height: 93%;
 
   z-index: -10;
   flex: 1 1 auto;

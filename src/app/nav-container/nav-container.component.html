@@ -33,31 +33,12 @@
       </div>
     </mat-toolbar>
 
-    <div class="bg-img">
+    <div class="bg-img" [ngStyle]="{'height': (isHandset$ | async) ? '980px' : '94%'}">
       <div class="outlet">
       <router-outlet></router-outlet>
       </div>
     </div>
 
-    <!-- <div class="outlet">
-      <router-outlet></router-outlet>
-    </div> -->
-
-
-
-
-
-<!--    <mat-toolbar color="primary">-->
-<!--      <button-->
-<!--        type="button"-->
-<!--        aria-label="Toggle sidenav"-->
-<!--        mat-icon-button-->
-<!--        (click)="drawer.toggle()"-->
-<!--        *ngIf="isHandset$ | async">-->
-<!--        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>-->
-<!--      </button>-->
-<!--      <span>Share to Care</span>-->
-<!--    </mat-toolbar>-->
   </mat-sidenav-content>
 </mat-sidenav-container>
 
