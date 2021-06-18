@@ -1,8 +1,14 @@
-table {
+.table-container {
   width: 100%;
+}
+.mat-table {
+  display: block;
+  width: 100%;
+  overflow-x: scroll;
 }
 
 .mat-column-name {
+  padding-right: 5px;
   border-right: 0.5px solid #ca5699;
   text-align: center;
 }
@@ -12,11 +18,12 @@ th.mat-header-cell {
 }
 
 td.mat-cell {
-  padding-left: 10px;
+  padding-left: 30px;
   text-align: center;
 }
 
 .mat-row .mat-cell {
+  padding-top: 10px;
   border-bottom: 1px solid transparent;
   border-top: 1px solid transparent;
   cursor: pointer;
@@ -25,3 +32,4 @@ td.mat-cell {
 .mat-row:hover .mat-cell {
   border-color: #ca5699;
 }
+
