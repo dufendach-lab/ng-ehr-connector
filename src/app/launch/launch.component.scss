@@ -60,3 +60,46 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+.phone-launch {
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+}
+
+.app-start-header-phone {
+  flex: 0 1 auto;
+  flex-flow: row;
+}
+
+.cchmc-logo-phone {
+  margin: 15px;
+  height: 50px;
+  width: auto;
+}
+
+.app-title-phone {
+  color: $cchmc-purple;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-area-phone {
+  padding: 12px;
+  position: fixed;
+  margin: 20px;
+  margin-top: 8.5rem;
+
+  align-self: center;
+
+  width: 85%;
+  background-color: white;
+
+  border-radius: 10px;
+
+  h2 {
+    color: $cchmc-pink;
+  }
+}

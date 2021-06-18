@@ -1,6 +1,7 @@
 <!-- <mat-toolbar color="primary" role="heading" style="position: fixed; z-index: 10;"> -->
 
   <mat-sidenav-container class="sidenav-container">
+
     <mat-sidenav #drawer class="sidenav" fixedInViewport
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
@@ -32,10 +33,20 @@
       </div>
     </mat-toolbar>
 
-    <!-- <app-navbar></app-navbar> -->
-    <div class="main-content">
+    <div class="bg-img">
+      <div class="outlet">
       <router-outlet></router-outlet>
+      </div>
     </div>
+
+    <!-- <div class="outlet">
+      <router-outlet></router-outlet>
+    </div> -->
+
+
+
+
+
 <!--    <mat-toolbar color="primary">-->
 <!--      <button-->
 <!--        type="button"-->
@@ -50,4 +61,3 @@
   </mat-sidenav-content>
 </mat-sidenav-container>
 
-<div class="background"></div>

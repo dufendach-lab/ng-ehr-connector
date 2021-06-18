@@ -1,4 +1,4 @@
-<mat-card style="margin:auto; width: 70%;">
+<mat-card style="margin:auto; overflow-x: scroll;">
   <h2>Please fill out all of the information below.</h2><br>
   <ng-container [formGroup]="userDataForm" style="margin-top: 3rem;">
 
@@ -45,7 +45,7 @@
 
     <h3>Delivery Location</h3>
     <mat-radio-group formControlName="deliverLoc" [(ngModel)]="newData.deliveryLocation">
-      <mat-radio-button value="cchmc">Cincinnati Childrens Hospital Medical Center</mat-radio-button><br><br>
+      <mat-radio-button value="cchmc">Cincinnati Childrens</mat-radio-button><br><br>
       <mat-radio-button value="gsh">Good Samaritan Hospital</mat-radio-button><br><br>
       <mat-radio-button value="ucmc">University of Cincinnati Medical Center</mat-radio-button><br><br>
       <mat-radio-button value="other">Other</mat-radio-button>

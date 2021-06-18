@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <ng-container *ngIf="!isAdmin; else adminPage">
   <div *ngIf="registrationInfo | async as pt">
     <div *ngIf="recentGravidas.EstDueDate != ''">
@@ -42,4 +43,54 @@
 
 <ng-template #adminPage>
   <mat-card-title>Admin</mat-card-title>
+=======
+<div *ngIf="registrationInfo | async as pt">
+  <div *ngIf="isIt; else noInfo">
+    <mat-card style="margin: auto;">
+      <ng-container style="margin-top: 3rem">
+        <div fxLayout="row">
+          <div style="font-weight: bold;">Date of Birth: &nbsp;</div>
+          <div>{{ pt.MotherDoB.toDate() | date: "yyyy/MM/dd" }}</div>
+        </div>
+        <br/>
+
+        <div fxLayout="row">
+          <div style="font-weight: bold;">Estimated Due Date: &nbsp;</div>
+          <div>{{ recentGravidas.EstDueDate.toDate() | date: "yyyy/MM/dd" }}</div>
+        </div>
+        <br/>
+
+        <div fxLayout="row">
+          <div style="font-weight: bold;">Diagnosis: &nbsp;</div>
+          <div>{{ recentGravidas.Diagnosis }}</div>
+        </div>
+        <br/>
+
+        <div fxLayout="row">
+          <div style="font-weight: bold;">Gestational Age: &nbsp;</div>
+          <div>{{ gestationalAgeCalc(recentGravidas.EstDueDate) }}</div>
+        </div>
+        <br />
+
+        <div fxLayout="row">
+          <div style="font-weight: bold;">Parity: &nbsp;</div>
+          <div>{{ recentGravidas.parity }}</div>
+        </div>
+        <br/>
+      </ng-container>
+    </mat-card>
+  </div>
+</div>
+
+<ng-template #noInfo>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>No info to show</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Add a pregnancy by clicking the button below</p>
+    </mat-card-content>
+    <button mat-raised-button color="accent" routerLink="/gravidas/edit">Add pregnancy</button>
+  </mat-card>
+>>>>>>> a68ada4824fd63b2ff356cc04958ebf00c7a10f9
 </ng-template>

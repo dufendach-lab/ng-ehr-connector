@@ -1,4 +1,4 @@
-<div class="launch-container">
+<div class="launch-container" *ngIf="!(isHandset$ | async); else phone">
   <div class="app-start-header">
     <img src="assets/img/CC%20Logo%20-%20With%20Tagline.png" alt="cchmc logo" class="cchmc-logo">
     <span fxFlex></span>
@@ -17,7 +17,7 @@
   </div>
   <div class="main-area"></div>
 
-  <div class="login-area mat-elevation-z3" fxLayout="column" fxLayoutGap="15px">
+  <div class="login-area mat-elevation-z3" fxLayout="column" fxLayoutGap="15px" fxLayout.lt-sm="column">
     <ng-container *ngIf="!registerEnabled else register">
       <h2 class="center-horizontal">Log In</h2>
       <app-login></app-login>
@@ -34,4 +34,39 @@
   <mat-divider></mat-divider>
   <p>Already have an account?</p>
   <button mat-button (click)="registerEnabled = false">Log In Instead</button>
+</ng-template>
+
+<ng-template #phone>
+  <div class="phone-launch">
+    <div class="app-start-header-phone">
+      <img src="assets/img/CC%20Logo%20-%20With%20Tagline.png" alt="cchmc logo" class="cchmc-logo-phone">
+      <span fxFlex></span>
+      <h2 class="app-title-phone">[ App Name ]</h2>
+      <span fxFlex></span>
+    </div>
+
+    <div fxLayout="row" fxFlexAlign="left">
+      <span fxFlex></span>
+      <div>
+        <button mat-button>About</button>
+        <button mat-button>Contact Us</button>
+      </div>
+    </div>
+
+
+    <div class="main-area" style="filter:blur(2px)"></div>
+
+      <div class="login-area-phone mat-elevation-z3" fxLayout="column" fxLayoutGap="15px" fxLayout.lt-sm="column">
+        <ng-container *ngIf="!registerEnabled else register">
+          <h2 class="center-horizontal">Log In</h2>
+          <app-login></app-login>
+          <mat-divider></mat-divider>
+          <p class="center-horizontal">New here?</p>
+          <button mat-button (click)="registerEnabled = true">Create an account</button>
+        </ng-container>
+      </div>
+
+
+
+  </div>
 </ng-template>
