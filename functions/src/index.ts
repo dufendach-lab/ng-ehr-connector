@@ -1,8 +1,15 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import {firestore} from "firebase-admin";
 
-admin.initializeApp();
+// eslint-disable-next-line max-len
+// const serviceAccount = require("/Users/calr5u/Projects/FHIR-APP/functions/serviceAccountKey.json");
+admin.initializeApp(
+    // {
+    //   credential: admin.credential.cert(serviceAccount),
+    // }
+);
 
 //  const db = admin.firestore();
 
@@ -40,6 +47,30 @@ exports.schedulerReminder = functions.pubsub
       // response.send(EDDtoSend);
     });
 
+exports.adminSetUp = functions.https.onRequest((_, response) => {
+  admin.auth()
+      .createCustomToken("OEzhiCyMEFb3AECvlEWhGBAnkii1", {superAdmin: true})
+      .then((customToken) => {
+        response.send(customToken);
+      })
+      .catch((err) => {
+        response.send(err);
+      });
+});
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+exports.userSearchByEmail = functions.https.onCall((data, context) => {
+  try {
+    const searchEmail = data.text;
+    let userUID = "Didn't Update :(";
+    admin.auth().getUserByEmail(searchEmail).then((userRecord) => {
+      userUID = userRecord.uid;
+    });
+    return userUID;
+  } catch (err) {
+    return err;
+  }
+});
 // // Exports app to firebase functions
 // exports.app = functions.https.onRequest(app);
 

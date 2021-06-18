@@ -19,6 +19,7 @@ export class LandingInfoComponent implements OnInit {
   registrationInfo: Observable<IRegistration | undefined>;
   gravidasDetails!: Observable<IGravidasDetails[] | undefined>;
   recentGravidas!: IGravidasDetails;
+  isAdmin = false;
 
   constructor(private regService: RegistrationService, private logAuth: AuthService, private afs: AngularFirestore,) {
     this.registrationInfo = this.user.pipe(
@@ -39,6 +40,20 @@ export class LandingInfoComponent implements OnInit {
       if(gravidas){
         const lastIndex = gravidas.length - 1;
         this.recentGravidas = gravidas[lastIndex]
+      }
+    })
+
+    this.user.subscribe((x) => {
+      if(x) {
+        x.getIdTokenResult().then((res) => {
+          if(res.claims.superAdmin){
+            console.log("User is Super Admin");
+            this.isAdmin = true;
+          }
+          else{
+            console.log(res.claims);
+          }
+        })
       }
     })
   }

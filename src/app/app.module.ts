@@ -53,6 +53,7 @@ import { GraphDataComponent } from './graph-data/graph-data.component';
 import { DataTableComponent } from './data-table/data-table.component';
 import { GravidasDetailEditorComponent } from './gravidas-detail-editor/gravidas-detail-editor.component';
 import { GravidasViewerComponent } from './gravidas-viewer/gravidas-viewer.component';
+import { PatientSearchComponent } from './patient-search/patient-search.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import { GravidasViewerComponent } from './gravidas-viewer/gravidas-viewer.compo
     DataTableComponent,
     GravidasDetailEditorComponent,
     GravidasViewerComponent,
+    PatientSearchComponent,
   ],
   imports: [
     BrowserModule,
