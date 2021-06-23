@@ -1,14 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
-import { LoginComponent } from '../login/login.component';
 import {FhirAuthService} from "../fhir-auth.service";
-import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
-import { filter, first, map, switchMap } from 'rxjs/operators';
-import { LandingInfoComponent } from '../landing-info/landing-info.component';
-import {AngularFirestore} from "@angular/fire/firestore";
-import {IRegistration} from "../../Interfaces/IRegistration";
 import {Observable} from "rxjs";
+import { RegistrationService } from '../registration.service';
+import { IGravidasDetails } from 'src/Interfaces/IGravidasDetails';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-landing',
@@ -16,59 +13,60 @@ import {Observable} from "rxjs";
   styleUrls: ['./landing.component.scss']
 })
 export class LandingComponent implements OnInit {
+
+  gravidasDetails!: Observable<IGravidasDetails[] | undefined>;
+  hasBirthed: boolean = false;
+
   isAuthorized = this.fhirAuth.authorized;
-  patientData: Observable<IRegistration | undefined>;
   loggedIn = this.RegAuth.getLoginAuth();
   email = '';
 
   user = this.auth.user;
 
   constructor(
-    private dialog: MatDialog,
     private fhirAuth: FhirAuthService,
-    private router: Router,
     private RegAuth: AuthService,
-    private afs: AngularFirestore,
     private auth: AuthService,
-  ) {
-    // this.patientData = this.afs
-    //   .collection('patients')
-    //   .doc<IRegistration>('TsYOnFQmEq4TQWr0eOnO')
-    //   .get().pipe(map(doc => doc.data()));
-    this.patientData = this.user.pipe(
-      filter(u => u != null),
-      switchMap( u => this.afs
-        .collection('patients')
-        .doc<IRegistration>(u?.uid)
-        .get().pipe(map(doc => doc.data()))
-      )
-    )
-  }
+    private regService: RegistrationService,
+    public dialog: MatDialog,
+  ) {}
 
   ngOnInit(): void {
-    // this.user.pipe(map(x => x.))
-    // if(this.patientData){
-
-    // }
-    // else{
-
-    // }
-
-    // if(this.loggedIn == 'false'){
-    //   this.loginModal();
-    // }
+    this.gravidasDetails = this.regService.getGravidas();
+    this.gravidasDetails.subscribe(gravidas => {
+      if(gravidas){
+        const lastIndex = gravidas.length - 1;
+        this.hasBirthed = gravidas[lastIndex].givenBirth;
+      }
+    })
   }
 
-  loginModal(){
-    // const dialogRef = this.dialog.open(LoginComponent, {
-    //   width: '400px',
-    //   data: {},
-    //   disableClose: true
-    // });
+  openDialog() {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '300px',
+      data: false
+    });
 
-
-    // dialogRef.afterClosed().subscribe(result => {
-    //   this.email = result;
-    // });
+    dialogRef.afterClosed().subscribe(res => {
+      if(res) {
+        this.changeBirthStatus();
+        this.submitBasicInfo(res);
+      }
+    })
   }
+
+  changeBirthStatus() {
+    this.gravidasDetails.subscribe(grav => {
+      if(grav) {
+        grav[grav.length - 1].givenBirth = true;
+        this.regService.changeGravidasBirth(grav[grav.length - 1]);
+      }
+    });
+  }
+
+  // Takes in the first data received about the birth!
+  submitBasicInfo(info): void {
+    console.log("🚀 ~ file: landing.component.ts ~ line 66 ~ LandingComponent ~ submitBasicInfo ~ info", info)
+  }
+
 }

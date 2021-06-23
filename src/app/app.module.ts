@@ -54,6 +54,8 @@ import { DataTableComponent } from './data-table/data-table.component';
 import { GravidasDetailEditorComponent } from './gravidas-detail-editor/gravidas-detail-editor.component';
 import { GravidasViewerComponent } from './gravidas-viewer/gravidas-viewer.component';
 import { PatientSearchComponent } from './patient-search/patient-search.component';
+import { NewMomResourceComponent } from './new-mom-resource/new-mom-resource.component';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +82,8 @@ import { PatientSearchComponent } from './patient-search/patient-search.componen
     GravidasDetailEditorComponent,
     GravidasViewerComponent,
     PatientSearchComponent,
+    NewMomResourceComponent,
+    ConfirmationDialogComponent,
   ],
   imports: [
     BrowserModule,

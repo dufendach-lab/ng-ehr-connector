@@ -61,6 +61,17 @@ export class RegistrationService {
     })
   }
 
+  async changeGravidasBirth(gravidas: IGravidasDetails) : Promise<void> {
+    const docName = new Date(gravidas.EstDueDate.seconds * 1000);
+    const docNameString = docName.toISOString().substr(0,10);
+    this.patient.subscribe((user) => {
+      if (user) {
+        const uniqueID = user.uid;
+        this.patientInfo.collection('patients').doc(uniqueID).collection('gravidas').doc(docNameString).update({givenBirth: gravidas.givenBirth})
+      }
+    })
+  }
+
   // async getGravidas(): Observable<IGravidasDetails[]> {
   //   let uID = "";
   //   this.patient.subscribe(user => {

@@ -6,6 +6,7 @@
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="(isHandset$ | async) === false">
+    <mat-card-title *ngIf="isHandset$|async" class="app-title-nav">[App Name]</mat-card-title>
     <mat-nav-list>
       <a mat-list-item (click)="closeSideNav()" routerLink="landing">Home</a>
       <a mat-list-item (click)="closeSideNav()" routerLink="authorize">Connect to Hospital</a>
@@ -32,32 +33,11 @@
         </div>
       </div>
     </mat-toolbar>
-
-    <div class="bg-img">
+    <div class="bg-img" [ngStyle]="{'height': (isHandset$ | async) ? '980px' : '94%'}">
       <div class="outlet">
       <router-outlet></router-outlet>
       </div>
     </div>
-
-    <!-- <div class="outlet">
-      <router-outlet></router-outlet>
-    </div> -->
-
-
-
-
-
-<!--    <mat-toolbar color="primary">-->
-<!--      <button-->
-<!--        type="button"-->
-<!--        aria-label="Toggle sidenav"-->
-<!--        mat-icon-button-->
-<!--        (click)="drawer.toggle()"-->
-<!--        *ngIf="isHandset$ | async">-->
-<!--        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>-->
-<!--      </button>-->
-<!--      <span>Share to Care</span>-->
-<!--    </mat-toolbar>-->
   </mat-sidenav-content>
 </mat-sidenav-container>
 

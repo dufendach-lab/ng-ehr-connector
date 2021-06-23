@@ -12,17 +12,19 @@ import Observation = fhirclient.FHIR.Observation;
 export class ObservationService {
   constructor(private auth: FhirAuthService) { }
 
-  async getObservation(code: string): Promise<Observation | Bundle> {
+  async getObservation(): Promise<Observation | Bundle> {
     const client = await this.auth.client.pipe(first(c => c !== null)).toPromise();
     if (client) {
       const patientID = client.getPatientId();
       // console.log(`PID: ${patientID}`);
 
-      const res = await client.request(`/Observation?patient=${patientID}&code=${code}`);
-      // console.log(`RESULT: ${res}`);
-      // console.log(res);
+      const res = await client.request(`/Observation?patient=${patientID}&code=8302-2`);
+      console.log(`RESULT: ${res}`);
+      console.log(res);
       return res;
-
+      // Not working: 89269-5, 85353-1, 76689-9, 76516-4
+      // Empty: 52482-7, 8339-4, 3137-7, 11984-2, 11502-2, 73761-9, 57129-9, 73757-7, 72147-2, 63893-2, 64710-7, 68328-4
+      // Fully working: 8302-2 (body height)
     } else {
       return Promise.reject('client is null');
     }
