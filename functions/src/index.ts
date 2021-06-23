@@ -1,3 +1,5 @@
+/* eslint-disable indent */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-var-requires */
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
@@ -58,15 +60,29 @@ exports.adminSetUp = functions.https.onRequest((_, response) => {
       });
 });
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-exports.userSearchByEmail = functions.https.onCall((data, context) => {
+exports.userSearchByEmail = functions.https.onCall((data, _) => {
+  // let userUID = "Didn't Update :(, Email is set";
   try {
-    const searchEmail = data.text;
-    let userUID = "Didn't Update :(";
-    admin.auth().getUserByEmail(searchEmail).then((userRecord) => {
-      userUID = userRecord.uid;
+    // const searchEmail = data.text;
+    const user = admin.auth().getUserByEmail("admin@example.com");
+    user.then((userRecord) => {
+      if (userRecord) {
+        // userUID = userRecord.uid;
+        return userRecord.uid;
+      } else {
+        return "Entered the then, record did not exist";
+      }
     });
-    return userUID;
+        // .then((userRecord) => {
+        //   if (userRecord) {
+        //     userUID = userRecord.uid;
+        //     return userUID;
+        //   } else {
+        //     return "Entered the then, record did not exist";
+        //   }
+        // });
+    // return userUID;
+    return "Function skipped over the function";
   } catch (err) {
     return err;
   }
