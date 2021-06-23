@@ -8,6 +8,10 @@ admin.initializeApp();
 
 const REMINDER_OFFSET = 1000 * 60 * 60 * 24 * 14;
 
+// exports.schedulerReminder = functions.https.onRequest(() => {
+
+// })
+
 exports.schedulerReminder = functions.pubsub
     .schedule("every 24 hours")
     .onRun(() => {
@@ -21,12 +25,21 @@ exports.schedulerReminder = functions.pubsub
             const dbRef = firestore()
                 .collection("patients").doc(userRecord.uid)
                 .collection("gravidas").doc(EDDtoSend);
+            const phone = firestore()
+                .collection("patients")
+                .doc(userRecord.uid).get();
             dbRef.get().then((context) => {
               if (context.exists) {
-                firestore().collection("reminder").doc(userRecord.uid).set({
-                  reminderSentFor: EDDtoSend,
-                  reminderSentOn: curDate,
-                });
+                firestore().collection("messages")
+                .doc()
+                .create({
+                  channelId: "1dbe4caa9c2e43e48315c8f9b6416ecd",
+                  type: "text",
+                  content: {
+                    text: "TEST TEST TEST TEST",
+                  },
+                  to: `${phone.phoneNum}`
+                })
                 // response.send(context.data());
               } else {
                 // response.send("Loop not working");
