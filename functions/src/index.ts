@@ -1,8 +1,17 @@
+/* eslint-disable indent */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-var-requires */
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import {firestore} from "firebase-admin";
 
-admin.initializeApp();
+// eslint-disable-next-line max-len
+// const serviceAccount = require("/Users/calr5u/Projects/FHIR-APP/functions/serviceAccountKey.json");
+admin.initializeApp(
+    // {
+    //   credential: admin.credential.cert(serviceAccount),
+    // }
+);
 
 //  const db = admin.firestore();
 
@@ -40,6 +49,44 @@ exports.schedulerReminder = functions.pubsub
       // response.send(EDDtoSend);
     });
 
+exports.adminSetUp = functions.https.onRequest((_, response) => {
+  admin.auth()
+      .createCustomToken("OEzhiCyMEFb3AECvlEWhGBAnkii1", {superAdmin: true})
+      .then((customToken) => {
+        response.send(customToken);
+      })
+      .catch((err) => {
+        response.send(err);
+      });
+});
+
+exports.userSearchByEmail = functions.https.onCall((data, _) => {
+  // let userUID = "Didn't Update :(, Email is set";
+  try {
+    // const searchEmail = data.text;
+    const user = admin.auth().getUserByEmail("admin@example.com");
+    user.then((userRecord) => {
+      if (userRecord) {
+        // userUID = userRecord.uid;
+        return userRecord.uid;
+      } else {
+        return "Entered the then, record did not exist";
+      }
+    });
+        // .then((userRecord) => {
+        //   if (userRecord) {
+        //     userUID = userRecord.uid;
+        //     return userUID;
+        //   } else {
+        //     return "Entered the then, record did not exist";
+        //   }
+        // });
+    // return userUID;
+    return "Function skipped over the function";
+  } catch (err) {
+    return err;
+  }
+});
 // // Exports app to firebase functions
 // exports.app = functions.https.onRequest(app);
 
