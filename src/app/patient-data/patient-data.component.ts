@@ -30,7 +30,9 @@ export class PatientDataComponent implements OnInit {
   medBundle: Subject<Bundle | Observation> = new Subject();
   conditionBundle: Subject<Bundle | Observation> = new Subject();
   procedureBundle: Subject<Bundle | Observation> = new Subject();
+
   testBundle: Subject<Bundle | Observation> = new Subject();
+
 
   task: Task = {
     name: 'Authorize All',
