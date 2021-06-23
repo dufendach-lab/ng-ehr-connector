@@ -31,6 +31,9 @@ export class PatientDataComponent implements OnInit {
   conditionBundle: Subject<Bundle | Observation> = new Subject();
   procedureBundle: Subject<Bundle | Observation> = new Subject();
 
+  testBundle: Subject<Bundle | Observation> = new Subject();
+
+
   task: Task = {
     name: 'Authorize All',
     completed: true,
@@ -55,6 +58,7 @@ export class PatientDataComponent implements OnInit {
     this.obsService.getData('MedicationStatement').then(b => this.medBundle.next(b));
     this.obsService.getData('Condition').then(b => this.conditionBundle.next(b));
     this.obsService.getData('Procedure').then(b => this.procedureBundle.next(b));
+    this.obsService.getObservation().then(b => this.testBundle.next(b));
   }
 
   allComplete: boolean = false;

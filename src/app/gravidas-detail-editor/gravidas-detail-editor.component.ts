@@ -65,6 +65,7 @@ export class GravidasDetailEditorComponent implements OnInit {
   })
 
   submit() {
+    this.gravidasDetails.givenBirth = false;
     this.gravidasDetails.hospital = this.selectedHospitals;
     this.regService.createGravidas(this.gravidasDetails);
 
