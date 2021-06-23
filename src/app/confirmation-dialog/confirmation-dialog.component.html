@@ -1,5 +1,49 @@
-<h1 mat-dialog-title>This action is irreversible</h1>
+<h1 mat-dialog-title>Confirm</h1>
+
+<mat-dialog-content>
+  <form [formGroup]="dialogForm" fxLayout="column">
+
+    <mat-form-field>
+      <mat-label>Baby's Birth Date</mat-label>
+      <input type="date" matInput formControlName="birthDate" [(ngModel)]="this.formVals.bday">
+    </mat-form-field>
+    <br>
+
+    <mat-form-field class="form-field">
+      <mat-label>Baby's Birth Time</mat-label>
+      <input type="time" matInput formControlName="birthTime" [(ngModel)]="this.formVals.btime">
+    </mat-form-field>
+    <br>
+
+
+    <mat-form-field>
+      <mat-label>Baby's Sex</mat-label>
+      <mat-select formControlName="birthSex" [(ngModel)]="this.formVals.bsex">
+        <mat-option value="male">Male</mat-option>
+        <mat-option value="female">Female</mat-option>
+        <mat-option value="other">Unknown</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
+
+    <mat-form-field class="form-field">
+      <mat-label>Baby's Name</mat-label>
+      <input type="text" matInput formControlName="babyName" [(ngModel)]="this.formVals.baby">
+    </mat-form-field>
+
+
+  </form>
+</mat-dialog-content>
+
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Confirm</button>
+  <button mat-button
+  type="submit"
+  (click)="submit()"
+  [disabled]="!dialogForm.valid"
+  >
+  Confirm</button>
 </div>
+
+
+

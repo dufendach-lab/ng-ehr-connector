@@ -1,10 +1,10 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FhirAuthService} from "../fhir-auth.service";
 import { AuthService } from '../auth.service';
 import {Observable} from "rxjs";
 import { RegistrationService } from '../registration.service';
 import { IGravidasDetails } from 'src/Interfaces/IGravidasDetails';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
@@ -36,19 +36,21 @@ export class LandingComponent implements OnInit {
     this.gravidasDetails.subscribe(gravidas => {
       if(gravidas){
         const lastIndex = gravidas.length - 1;
-        this.hasBirthed = gravidas[lastIndex].givenBirth
+        this.hasBirthed = gravidas[lastIndex].givenBirth;
       }
     })
   }
 
   openDialog() {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '300px',
       data: false
     });
 
     dialogRef.afterClosed().subscribe(res => {
-      if(res === true) {
+      if(res) {
         this.changeBirthStatus();
+        this.submitBasicInfo(res);
       }
     })
   }
@@ -59,9 +61,12 @@ export class LandingComponent implements OnInit {
         grav[grav.length - 1].givenBirth = true;
         this.regService.changeGravidasBirth(grav[grav.length - 1]);
       }
-    })
+    });
+  }
 
-    console.log('Changed birth status');
+  // Takes in the first data received about the birth!
+  submitBasicInfo(info): void {
+    console.log("🚀 ~ file: landing.component.ts ~ line 66 ~ LandingComponent ~ submitBasicInfo ~ info", info)
   }
 
 }

@@ -6,7 +6,8 @@ import * as d3 from "d3";
 
 interface DialogData {
   value: string,
-  date: Date
+  date: Date,
+  value2?: string,
 }
 
 interface IncData {
@@ -24,14 +25,16 @@ interface IncData {
 })
 export class GraphDataComponent implements OnInit {
   userData: DialogData[] = [];
+  isExtraData: boolean = false;
 
   private svg;
   private margin = 60;
-  private width = 400 - (this.margin * 2);
+  private width = 600 - (this.margin * 2);
   private height = 400 - (this.margin * 2);
   private xScale;
   private yScale;
   private lineGroup;
+  private lineGroup2;
 
   constructor(public dialogRef: MatDialogRef<GraphDataComponent>,
     @Inject(MAT_DIALOG_DATA) public data: IncData) { this.getData(); }
@@ -43,10 +46,25 @@ export class GraphDataComponent implements OnInit {
 
 
   private getData() {
-    this.data.values.forEach(element => {
-      let temp: DialogData = {value: element.value, date: new Date(element.date)}
-      this.userData.push(temp)
-    })
+
+    if(this.data.name === 'Blood Pressure') {
+      this.isExtraData = true;
+
+      this.data.values.forEach(element => {
+        let res = element.value.split("/");
+        console.log("🚀 ~ file: graph-data.component.ts ~ line 56 ~ GraphDataComponent ~ getData ~ res", res)
+
+        let temp1: DialogData = {value: res[0], date: new Date(element.date), value2: res[1]}
+        this.userData.push(temp1)
+      });
+
+    } else {
+      this.data.values.forEach(element => {
+        let temp: DialogData = {value: element.value, date: new Date(element.date)}
+        this.userData.push(temp)
+      })
+    }
+
   }
 
   private createSvg(): void {
@@ -69,13 +87,19 @@ export class GraphDataComponent implements OnInit {
 
         // Add Y axis
       this.yScale = d3.scaleLinear()
-      .domain([0, 150])
+      .domain([0, 100])
       .range([ this.height, 0]);
 
       // Add Line
       this.lineGroup = d3.line()
                         .x( (d: any) => this.xScale(d.date))
                         .y( (d: any) => this.yScale(d.value));
+
+      if(this.isExtraData) {
+        this.lineGroup2 = d3.line()
+                        .x( (d: any) => this.xScale(d.date))
+                        .y( (d: any) => this.yScale(d.value2));
+      }
 
   }
 
@@ -91,7 +115,7 @@ export class GraphDataComponent implements OnInit {
 
     this.svg.append("g")
       .attr("transform", "translate(0," + this.height + ")")
-      .call(d3.axisBottom(this.xScale).ticks(d3.timeMonth.every(3)))
+      .call(d3.axisBottom(this.xScale).ticks(d3.timeMonth.every(2)))
       .selectAll("text")
       .attr("transform", "translate(-10,10)rotate(-45)")
       .style("text-anchor", "end")
@@ -123,6 +147,15 @@ export class GraphDataComponent implements OnInit {
       .attr('stroke', '#ca5699')
       .attr('d', this.lineGroup)
 
+    if(this.isExtraData) {
+      this.svg.append('path')
+        .datum(this.userData)
+        .attr('class', 'line')
+        .attr('fill', 'none')
+        .attr('stroke', '#00aac8')
+        .attr('d', this.lineGroup2)
+    }
+
     // Tooltip
     const tooltip = d3.select("#scatter-plot")
     .append("div")
@@ -151,7 +184,6 @@ export class GraphDataComponent implements OnInit {
       .style("fill", "#ffffff")
 
       .on('mouseover', (e, d) => {
-
         d3.select(e.currentTarget).transition()
           .duration(100)
           .attr("r", 7)
@@ -168,20 +200,51 @@ export class GraphDataComponent implements OnInit {
       .on('mousemove', (e,d) => {
         let date = formatDate(d.date, "shortDate", "en-US")
         tooltip.style('top', (e.pageY-70)+"px").style('left', (e.pageX-60)+"px")
-                    .html(`${this.data.name}: ${d.value} ${this.data.unit}</br>Date:  ${date}`);
+                  .html(`${this.data.name}: ${d.value} ${this.data.unit}</br>Date:  ${date}`);
       });
+
+      if(this.isExtraData) {
+        const dots2 = this.svg.append('g');
+        dots2.selectAll("dot")
+          .data(this.userData)
+          .enter()
+          .append("circle")
+          .attr("id", "dotsTooltip")
+          .attr("cx", d => this.xScale(d.date))
+          .attr("cy", d => this.yScale(d.value2))
+          .attr("r", 5)
+          .attr("stroke", "#00aac8")
+          .attr("stroke-width", 1.5)
+          .style("fill", "#ffffff")
+
+          .on('mouseover', (e, d) => {
+            d3.select(e.currentTarget).transition()
+              .duration(100)
+              .attr("r", 7)
+              .style("fill", "#00aac8");
+              tooltip.style('visibility', 'visible');
+          })
+          .on('mouseout', (e, d) => {
+            d3.select(e.currentTarget).transition()
+              .duration(400)
+              .attr("r", 5)
+              .style("fill", "#ffffff");
+              tooltip.style('visibility', 'hidden')
+          })
+          .on('mousemove', (e,d) => {
+            let date = formatDate(d.date, "shortDate", "en-US")
+            tooltip.style('top', (e.pageY-70)+"px").style('left', (e.pageX-60)+"px")
+                      .html(`${this.data.name}: ${d.value}/${d.value2} ${this.data.unit}</br>Date:  ${date}`);
+          });
+      }
 
   }
 
-}
+  // newVitalName: string[] = [];
+  // newVitalDate: number[] = [];
+  // vitalVal: string[] = [];
+  // vitalUnit: string[] = [];
 
-
-//   newVitalName: string[] = [];
-//   newVitalDate: number[] = [];
-//   vitalVal: string[] = [];
-//   vitalUnit: string[] = [];
-
-// Filters out same vital signs by picking one with most recent date
   //  getRecentVitals() {
   //   if(this.obsList[0]?.resource.category.text !== "Vital Signs") { return; }
 
@@ -204,3 +267,4 @@ export class GraphDataComponent implements OnInit {
   //   console.warn(this.newVitalDate);
   //   console.warn(this.newVitalName);
   // }
+}

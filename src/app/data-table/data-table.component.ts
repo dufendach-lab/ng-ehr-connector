@@ -7,13 +7,6 @@ import { fhirclient }from 'fhirclient/lib/types';
 import Bundle = fhirclient.FHIR.Bundle;
 import Observation = fhirclient.FHIR.Observation;
 
-/**
- * TODO:
- * - Fix blood pressure graph
- * - Confirm units and conversions
- * - Adjust graph for each vital
- */
-
 interface Data {
   name: string,
   values: [
@@ -66,49 +59,41 @@ export class DataTableComponent implements OnInit, OnChanges {
       let datum: Data = {name: '', unit: '', values: [{value: '', date: ''}]}
 
       if(this.isNameInThere(this.data, d.resource.code.text) === false) {
-        if(d.resource.code.text === "Blood Pressure") {
-          datum.name = d.resource.code.text
-          datum.unit = d.resource.component[0].valueQuantity.unit;
-          datum.values[0] = (
-            {value: d.resource.component[0].valueQuantity.value + " / " + d.resource.component[1].valueQuantity.value, date: formatDate(d.resource.effectiveDateTime, 'shortDate', 'en-US')}
-          )
-        } else if(d.resource.code.text === "Temperature") {
-          datum.name = d.resource.code.text
-          datum.unit = "*F";
-          datum.values[0] = {value: (d.resource.valueQuantity.value * (9/5) + 32).toFixed(2).toString(), date: formatDate(d.resource.effectiveDateTime, 'shortDate', 'en-US')}
-        } else if(d.resource.code.text === "Height") {
-          datum.name = d.resource.code.text
-          datum.unit = "Inches";
-          datum.values[0] = {value: (d.resource.valueQuantity.value / 2.54).toFixed(2).toString(), date: formatDate(d.resource.effectiveDateTime, 'shortDate', 'en-US')}
-        } else if(d.resource.code.text === "R BMI") {
-          datum.name = d.resource.code.text
-          datum.unit = "";
-          datum.values[0] = {value: (d.resource.valueQuantity.value).toString(), date: formatDate(d.resource.effectiveDateTime, 'shortDate', 'en-US')}
-        }
-         else {
+        if(d.resource.code.text === "Weight") {
           datum.name = d.resource.code.text
           datum.unit = d.resource.valueQuantity.unit;
           datum.values[0] = (
             {value: d.resource.valueQuantity.value, date: formatDate(d.resource.effectiveDateTime, 'shortDate', 'en-US')}
           )
+        } else if (d.resource.code.text === "Head Cir"){
+            datum.name = d.resource.code.text
+            datum.unit = d.resource.valueQuantity.unit;
+            datum.values[0] = (
+              {value: d.resource.valueQuantity.value, date: formatDate(d.resource.effectiveDateTime, 'shortDate', 'en-US')}
+            )
         }
-        if(!this.isInArray(this.displayColumns, datum.values[0].date)) {
+        else if(d.resource.code.text === "Height") {
+            datum.name = d.resource.code.text
+            datum.unit = "Inches";
+            datum.values[0] = {value: (d.resource.valueQuantity.value / 2.54).toFixed(2).toString(), date: formatDate(d.resource.effectiveDateTime, 'shortDate', 'en-US')}
+        }
+        if(!this.isInArray(this.displayColumns, datum.values[0].date) && (datum.values[0].date !== '')) {
           this.displayColumns.push(datum.values[0].date)
         }
-        this.data.push(datum)
+        if((datum.name !== '') && (datum.unit !== '')) {
+          this.data.push(datum)
+        }
       } else {
         for(let i = 0; i < this.data.length; i++) {
-          if(this.data[i].name === d.resource.code.text) {
-            if(d.resource.code.text === "Blood Pressure") {
-              datum.values[0] = {value: d.resource.component[0].valueQuantity.value + " / " + d.resource.component[1].valueQuantity.value, date: formatDate(d.resource.effectiveDateTime, 'shortDate', 'en-US')}
-            } else if(d.resource.code.text === "Temperature") {
-              datum.values[0] = {value: (d.resource.valueQuantity.value * (9/5) + 32).toFixed(2).toString(), date: formatDate(d.resource.effectiveDateTime, 'shortDate', 'en-US')}
-            } else if(d.resource.code.text === "Height") {
+          if(this.data[i].name === d.resource.code.text ) {
+            if(d.resource.code.text === "Height") {
               datum.values[0] = {value: (d.resource.valueQuantity.value / 2.54).toFixed(2).toString(), date: formatDate(d.resource.effectiveDateTime, 'shortDate', 'en-US')}
-            } else {
+            } else if(d.resource.code.text === "Weight"){
+              datum.values[0] = {value: d.resource.valueQuantity.value, date: formatDate(d.resource.effectiveDateTime, 'shortDate', 'en-US')}
+            } else if (d.resource.code.text === "Head Cir"){
               datum.values[0] = {value: d.resource.valueQuantity.value, date: formatDate(d.resource.effectiveDateTime, 'shortDate', 'en-US')}
             }
-            if(!this.isInArray(this.displayColumns, datum.values[0].date)) {
+            if(!this.isInArray(this.displayColumns, datum.values[0].date) && (datum.values[0].date !== '')) {
               this.displayColumns.push(datum.values[0].date)
             }
             this.data[i].values.push(datum.values[0])
@@ -116,13 +101,18 @@ export class DataTableComponent implements OnInit, OnChanges {
         }
       }
     })
+
     let temp2: string[] = ["name"]
-    this.columnsToDisplay = temp2.concat(this.displayColumns.reverse())
+    this.columnsToDisplay = temp2.concat(this.displayColumns.sort((a,b) => {
+      a = a.split('/').reverse().join('');
+      b = b.split('/').reverse().join('');
+      return a.localeCompare(b);
+    }))
+
 
     for(let d of this.data) {
       d.values.reverse();
     }
-
   }
 
   /**
@@ -153,38 +143,21 @@ export class DataTableComponent implements OnInit, OnChanges {
   openDialog(name: string) {
     let num: number = 99;
     switch (name) {
-      case 'Blood Pressure':
+      case 'Height':
         num = 0;
         break;
-      case 'Temperature':
+      case 'Weight':
         num = 1;
         break;
-      case 'Pulse':
-        num = 2;
-        break;
-      case 'Respirations':
-        num = 3;
-        break;
-      case 'SpO2':
-        num = 4;
-        break;
-      case 'Height':
-        num = 5;
-        break;
-      case 'Weight':
-        num = 6;
-        break;
       case 'Head Cir':
-        num = 7;
-        break;
-      case 'R BMI':
-        num = 8;
+        num = 2;
         break;
       default:
         break;
     }
+
     this.dialog.open(graph.GraphDataComponent, {
-      data: this.data[num],
+      data: this.data[num]
     });
   }
 

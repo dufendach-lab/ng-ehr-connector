@@ -1,10 +1,11 @@
+@import 'src/cchmc';
+
 .sidenav-container {
   height: 100%;
 }
 
 .sidenav {
   width: 200px;
-  padding-top: 2rem;
 }
 
 .sidenav .mat-toolbar {
@@ -18,9 +19,8 @@
 }
 
 .outlet {
-  padding: 20px;
+  padding: 0 7px;
 }
-
 
 .bg-img {
   background: url("../../assets/img/cchmc-pattern.PNG") repeat center center fixed;
@@ -31,4 +31,12 @@
 
   z-index: -10;
   flex: 1 1 auto;
+}
+
+.app-title-nav {
+  background-color: $cchmc-pink;
+  padding-top: 10px;
+  padding-left: 14px;
+  padding-bottom: 16.5px;
+  color: white;
 }

@@ -3,9 +3,10 @@ import { FormBuilder, Validators } from '@angular/forms';
 
 // Interface to hold form data that will be put in DB
 export interface patientData {
-  babyName: string,
+  babyFirstName: string,
+  babyLastName: string,
   DOB: string,
-  birthTime: string,
+  TOB: string,
   birthWeightLbs: string,
   birthWeightOs: string,
   sexOfChild: string,
@@ -14,6 +15,11 @@ export interface patientData {
   typeOfBirth: string,
   babyStatus: string,
   typeEquipment: string,
+  diagnosis: string,
+  wasTransfered: string,
+  transferedTo: string,
+  DOD: string,
+  dateOfDischarge: string,
 }
 
 @Component({
@@ -23,9 +29,10 @@ export interface patientData {
 })
 export class MainFormComponent implements OnInit {
   userDataForm = this.fb.group({
-    babyName: ['', Validators.required],
+    babyFirstName: ['', Validators.required],
+    babyLastName: ['', Validators.required],
     DOB: ['', Validators.required], // Date
-    birthTime: ['', Validators.required],
+    TOB: ['', Validators.required],
     birthWeightLbs: ['', Validators.required],
     birthWeightOs: ['', Validators.required],
     sexOfChild: ['', Validators.required], // M/F
@@ -33,7 +40,12 @@ export class MainFormComponent implements OnInit {
     otherDesc: [''],
     typeOfBirth: ['', Validators.required], // Cesarea or Vaginal / Natural or C-section
     babyStatus: ['', Validators.required], // Y/N to recieving equipment on discharge
-    typeEquipment: ['', Validators.required],
+    typeEquipment: [''],
+    diagnosis: [''],
+    wasTransfered: [''],
+    transferedTo: [''],
+    DOD: [''],
+    dateOfDischarge: [''],
   });
 
   newData = { } as patientData;
