@@ -39,7 +39,13 @@
       "port": 5000
     },
     "ui": {
-      "enabled": false
+      "enabled": true
+    },
+    "firestore": {
+      "port": 8080
+    },
+    "pubsub": {
+      "port": 8085
     }
   },
   "firestore": {

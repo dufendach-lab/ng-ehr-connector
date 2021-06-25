@@ -1,11 +1,12 @@
 /* eslint-disable indent */
+/* eslint-disable max-len */
+
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-var-requires */
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import {firestore} from "firebase-admin";
 
-// eslint-disable-next-line max-len
 // const serviceAccount = require("/Users/calr5u/Projects/FHIR-APP/functions/serviceAccountKey.json");
 admin.initializeApp(
     // {
@@ -17,10 +18,6 @@ admin.initializeApp(
 
 const REMINDER_OFFSET = 1000 * 60 * 60 * 24 * 14;
 
-// exports.schedulerReminder = functions.https.onRequest(() => {
-
-// })
-
 exports.schedulerReminder = functions.pubsub
     .schedule("every 24 hours")
     .onRun(() => {
@@ -28,30 +25,36 @@ exports.schedulerReminder = functions.pubsub
       const reminderDate = new Date(curDate.getTime() + REMINDER_OFFSET);
       const EDDtoSend = (reminderDate.toISOString().substr(0, 10));
 
+      let number: string;
+
       admin.auth().listUsers().then((res) => {
         res.users.forEach((userRecord) => {
           try {
             const dbRef = firestore()
                 .collection("patients").doc(userRecord.uid)
                 .collection("gravidas").doc(EDDtoSend);
-            const phone = firestore()
-                .collection("patients")
-                .doc(userRecord.uid).get();
             dbRef.get().then((context) => {
               if (context.exists) {
-                firestore().collection("messages")
-                .doc()
-                .create({
-                  channelId: "1dbe4caa9c2e43e48315c8f9b6416ecd",
-                  type: "text",
-                  content: {
-                    text: "TEST TEST TEST TEST",
-                  },
-                  to: `${phone.phoneNum}`
-                })
-                // response.send(context.data());
+                firestore()
+                  .collection("patients")
+                  .doc(userRecord.uid).get()
+                  .then(async (doc) => {
+                    number = await doc.data()?.phoneNum;
+                    console.log("Sending message to: " + number);
+
+                    firestore().collection("messages")
+                      .doc()
+                      .create({
+                        channelId: "1dbe4caa9c2e43e48315c8f9b6416ecd",
+                        type: "text",
+                        content: {
+                          text: "TEST TEST TEST TEST",
+                        },
+                        to: `${number.toString()}`,
+                      });
+                  });
               } else {
-                // response.send("Loop not working");
+                // console.log("**Unviable user**");
               }
             });
           } catch (error) {
@@ -59,19 +62,9 @@ exports.schedulerReminder = functions.pubsub
           }
         });
       });
-      // response.send(EDDtoSend);
+      return null;
     });
 
-exports.adminSetUp = functions.https.onRequest((_, response) => {
-  admin.auth()
-      .createCustomToken("OEzhiCyMEFb3AECvlEWhGBAnkii1", {superAdmin: true})
-      .then((customToken) => {
-        response.send(customToken);
-      })
-      .catch((err) => {
-        response.send(err);
-      });
-});
 
 exports.userSearchByEmail = functions.https.onCall((data, _) => {
   // let userUID = "Didn't Update :(, Email is set";
