@@ -1,11 +1,9 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
 import {FhirAuthService} from "../fhir-auth.service";
 import {IRegistration} from '../../Interfaces/IRegistration';
-import {MatChipInputEvent} from '@angular/material/chips';
-import {MatAutocomplete, MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
+import {MatAutocomplete} from '@angular/material/autocomplete';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { Router } from '@angular/router';
 import { RegistrationService } from '../registration.service';
@@ -41,6 +39,7 @@ export class RegistrationComponent implements OnInit {
     firstname: ['' , Validators.required],
     lastname: ['', Validators.required],
     MotherDoB: ['', Validators.required],
+    phone: ['', Validators.required],
     email: ['', Validators.required],
     password1: ['', Validators.required],
     password2: ['', Validators.required],
@@ -74,6 +73,7 @@ export class RegistrationComponent implements OnInit {
             this.EmailInUse = true;
           }
           else{
+            this.registrationInfo.phone = ("+1" + this.registrationInfo.phone);
             this.regService.createPatientInfo(this.registrationInfo)
           }
         })

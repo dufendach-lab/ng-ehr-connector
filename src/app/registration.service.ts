@@ -16,6 +16,7 @@ export class RegistrationService {
     firstName: 'Jane',
     lastName: 'Doe',
     MotherDoB: new Date(),
+    phone: '+11111111111'
   }
   uid: string = '';
   userInfo = {} as Observable<IRegistration>
