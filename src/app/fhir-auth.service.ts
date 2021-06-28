@@ -31,20 +31,11 @@ export class FhirAuthService {
 
     from(oauth2.ready()).subscribe(client => this._client.next(client));
   }
-  //
-  // testAuth(val: string): void {
-  //   if (val == 'SmartHealthIT') {
-  //     this.authorize(smartHealthIt);
-  //   } else if (val == 'epicHealthService') {
-  //     this.authorize(epicConfig);
-  //   }
-  // }
 
   //Uses Epic's provided Epic Endpoint to create a list of all te endpoints, then returns as a list of all endpoints
   private getEndpoints(): FhirEndpoint[] {
     const endpoints: EpicEndpoint[] = (endpointData as any).default;
     const res: FhirEndpoint[] = []
-    console.log(endpoints);
     endpoints.forEach(element => {
       let entry = {} as FhirEndpoint;
       entry.FHIRPatientFacingURI = element.FHIRPatientFacingURI;

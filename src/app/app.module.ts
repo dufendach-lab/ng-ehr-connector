@@ -41,7 +41,6 @@ import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { TestPatientDataComponent } from './test-patient-data/test-patient-data.component';
-import { RegistrationOtherComponent } from './registration-other/registration-other.component'
 import { ObsValueDisplayComponent } from './obs-value-display/obs-value-display.component';
 import { LaunchComponent } from './launch/launch.component';
 import { NavContainerComponent } from './nav-container/nav-container.component';
@@ -73,7 +72,6 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
     LoginComponent,
     LandingInfoComponent,
     TestPatientDataComponent,
-    RegistrationOtherComponent,
     ObsValueDisplayComponent,
     LaunchComponent,
     NavContainerComponent,

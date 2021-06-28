@@ -70,7 +70,6 @@ export class FhirPatientService {
   getLanguage(pt: Patient | null | undefined): string {
     if(pt?.communication) {
       const res: string = pt?.communication[0].language.coding[0].display;
-      //console.log(res);
       return res;
     } else {
       return 'N/A';
