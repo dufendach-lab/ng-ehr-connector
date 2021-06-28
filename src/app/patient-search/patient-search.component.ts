@@ -16,11 +16,13 @@ export class PatientSearchComponent implements OnInit {
   searchResultShow = false;
   searchQuery = "";
   patUID = "";
-  patientInfo: Observable<IRegistration | undefined> | undefined;
+  patientInfo!: Observable<IRegistration | undefined>;
   isEditMode = false;
   isFirstNameEdit = false;
   isLastNameEdit = false;
   isDoBEdit = false;
+  isAccessLevelEdit = false;
+  patientUserInfo = {} as IRegistration;
 
   Search = this.fb.group({
     EmailInput: ['', Validators.required],
@@ -29,9 +31,14 @@ export class PatientSearchComponent implements OnInit {
   constructor( private fb: FormBuilder, private func: AngularFireFunctions, private afs: AngularFirestore) { }
 
   ngOnInit(): void {
+
   }
 
   onSearch_Click(){
+    this.isEditMode = false;
+
+    //TODO: Change input from uID to email
+
     // const curEmail = this.Search.get('EmailInput')?.value.toString();
     // console.log(curEmail);
     // let resu = "not updated";
@@ -54,6 +61,17 @@ export class PatientSearchComponent implements OnInit {
         .collection('patients')
         .doc<IRegistration>(this.patUID)
         .get().pipe(map(doc => doc.data()))
+
+    this.patientInfo.subscribe((info) => {
+      if(info){
+        this.patientUserInfo = {
+          firstName: info.firstName,
+          lastName: info.lastName,
+          MotherDoB: info.MotherDoB.toDate(),
+          role: (info.role == '') ? "User" : info.role,
+        } as IRegistration;
+      }
+    })
   }
 
   Clicked_EditUserInfo(){
@@ -64,6 +82,11 @@ export class PatientSearchComponent implements OnInit {
   }
   Clicked_DeleteUser(){
     console.log("Delete User");
+  }
+  Clicked_ChangePrivilege(){
+    //OPEN Modal
+
+    //Update User's patient document from role:"User" to role:"Moderator"
   }
 
   editFirstNameClick(){
@@ -78,7 +101,20 @@ export class PatientSearchComponent implements OnInit {
     this.isDoBEdit = !this.isDoBEdit;
     console.log("DoB Icon clicked");
   }
+  editAccessLevel(){
+    this.isAccessLevelEdit = !this.isAccessLevelEdit;
+    console.log("DoB Icon clicked");
+  }
   submitUserEdits() {
-
+    this.afs.collection('patients').doc(this.searchQuery).update(this.patientUserInfo);
+    this.isEditMode = false;
+    this.isFirstNameEdit = false;
+    this.isLastNameEdit = false;
+    this.isDoBEdit = false;
+    this.isAccessLevelEdit = false;
+    this.patientInfo = this.afs
+        .collection('patients')
+        .doc<IRegistration>(this.patUID)
+        .get().pipe(map(doc => doc.data()))
   }
 }

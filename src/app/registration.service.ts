@@ -6,6 +6,7 @@ import { filter, map, pluck, switchMap } from 'rxjs/operators';
 import { IRegistration } from 'src/Interfaces/IRegistration';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { IGravidasDetails } from 'src/Interfaces/IGravidasDetails'
+import { Timestamp } from 'rxjs/internal/operators/timestamp';
 
 @Injectable({
   providedIn: 'root'
@@ -61,6 +62,12 @@ export class RegistrationService {
     })
   }
 
+  async createOtherGravidas(gravidas: IGravidasDetails, patID: string) : Promise<void> {
+    const docName = new Date(gravidas.EstDueDate);
+    const docNameString = docName.toISOString().substr(0,10);
+    this.patientInfo.collection('patients').doc(patID).collection('gravidas').doc(docNameString).set(gravidas)
+  }
+
   async changeGravidasBirth(gravidas: IGravidasDetails) : Promise<void> {
     const docName = new Date(gravidas.EstDueDate.seconds * 1000);
     const docNameString = docName.toISOString().substr(0,10);
@@ -112,6 +119,47 @@ export class RegistrationService {
         return exercises;
       })
     )
+  }
+
+  getOtherGravidas(patID: string): Observable<IGravidasDetails[]> {
+    return this.afa.user.pipe(
+      switchMap((user) => {
+        if(user) {
+          return this.afs
+            .collection('patients')
+            .doc(patID)
+            .collection<IGravidasDetails>('gravidas')
+            .valueChanges()
+      }
+      return Promise.reject(new Error('User not defined'));
+      }),
+        map(gravidas => {
+          const pregs: IGravidasDetails[] = [];
+            gravidas.forEach(gravida => {
+              if(gravida.EstDueDate){
+                const gravDate = gravida.EstDueDate.toDate();
+                gravida.EstDueDate = gravDate;
+                gravida.gravidasTitle = gravDate.toISOString().substr(0,10);
+              }
+              pregs.push(gravida);
+            });
+            return pregs;
+        })
+    )
+    // return this.afs
+    //         .collection('patients')
+    //         .doc(patID) // User ID is obtained from the piped user
+    //         .collection<IGravidasDetails>('gravidas')
+    //         .valueChanges() // This is the Observable that can be returned
+
+    //   map(gravidas => { // This map converts a Firestore Timestamp to a JavaScript Date object
+    //     const exercises: IGravidasDetails[] = [];
+    //     gravidas.forEach(gravida => {
+    //       exercises.push(gravida);
+    //     });
+    //     return exercises;
+    //   })
+    // )
   }
 
   //FIXME: Finish this function

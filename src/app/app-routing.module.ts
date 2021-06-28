@@ -53,6 +53,16 @@ const routes: Routes = [
         path: 'patient/search',
         component: PatientSearchComponent
       },
+      // TODO: Only allow admin access for search
+      {
+        path: 'patient/edit/:id',
+        component: GravidasViewerComponent
+      },
+      // TODO: Only allow admin access for search
+      {
+        path: 'patient/gravida/add/:id',
+        component: GravidasDetailEditorComponent
+      },
       {
         path: 'resources',
         component: NewMomResourceComponent
