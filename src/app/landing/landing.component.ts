@@ -6,6 +6,7 @@ import { RegistrationService } from '../registration.service';
 import { IGravidasDetails } from 'src/Interfaces/IGravidasDetails';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { GravidasService } from '../gravidas.service';
 
 @Component({
   selector: 'app-landing',
@@ -29,10 +30,11 @@ export class LandingComponent implements OnInit {
     private auth: AuthService,
     private regService: RegistrationService,
     public dialog: MatDialog,
+    private gravService: GravidasService,
   ) {}
 
   ngOnInit(): void {
-    this.gravidasDetails = this.regService.getGravidas();
+    this.gravidasDetails = this.gravService.getGravidas();
     this.gravidasDetails.subscribe(gravidas => {
       if(gravidas){
         const lastIndex = gravidas.length - 1;
@@ -59,7 +61,7 @@ export class LandingComponent implements OnInit {
     this.gravidasDetails.subscribe(grav => {
       if(grav) {
         grav[grav.length - 1].givenBirth = true;
-        this.regService.changeGravidasBirth(grav[grav.length - 1]);
+        this.gravService.changeGravidasBirth(grav[grav.length - 1]);
       }
     });
   }

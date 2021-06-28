@@ -6,6 +6,7 @@ import { AuthService } from '../auth.service';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { GravidasService } from '../gravidas.service';
 
 @Component({
   selector: 'app-landing-info',
@@ -21,7 +22,11 @@ export class LandingInfoComponent implements OnInit {
   recentGravidas!: IGravidasDetails;
   isIt: boolean = false;
 
-  constructor(private regService: RegistrationService, private logAuth: AuthService, private afs: AngularFirestore,) {
+  constructor(
+    private regService: RegistrationService,
+    private logAuth: AuthService,
+    private afs: AngularFirestore,
+    private gravService: GravidasService,) {
     this.registrationInfo = this.user.pipe(
     filter(u => u != null),
     switchMap( u => this.afs
@@ -35,7 +40,7 @@ export class LandingInfoComponent implements OnInit {
   ngOnInit(): void {
     this.registrationInfo.subscribe((user) => { })
 
-    this.gravidasDetails = this.regService.getGravidas();
+    this.gravidasDetails = this.gravService.getGravidas();
     this.gravidasDetails.subscribe(gravidas => {
       if(gravidas){
         const lastIndex = gravidas.length - 1;
@@ -47,7 +52,7 @@ export class LandingInfoComponent implements OnInit {
 
   gestationalAgeCalc(EstDD: any): string{
     const today = new Date();
-    const DD = new Date(EstDD.toDate().getUTCFullYear(), EstDD.toDate().getUTCMonth(), EstDD.toDate().getUTCDay());
+    const DD = new Date(EstDD.getUTCFullYear(), EstDD.getUTCMonth(), EstDD.getUTCDay());
     const daysUntilDD = (DD.getTime()-today.getTime()) / (1000 * 60 * 60 * 24 );
     const iGestationalAgeInDays = 280 - daysUntilDD;
 	  const fGestationalAgeInWeeks = iGestationalAgeInDays / 7;

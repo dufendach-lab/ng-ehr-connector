@@ -6,8 +6,6 @@ import {LandingComponent} from './landing/landing.component';
 import {LoginComponent} from './login/login.component';
 import {MainFormComponent} from './main-form/main-form.component';
 import {RegistrationComponent} from './registration/registration.component';
-import {RegistrationOtherComponent} from './registration-other/registration-other.component';
-import {LaunchComponent} from "./launch/launch.component";
 import {NavContainerComponent} from "./nav-container/nav-container.component";
 import { GravidasDetailEditorComponent } from './gravidas-detail-editor/gravidas-detail-editor.component';
 import { GravidasViewerComponent } from './gravidas-viewer/gravidas-viewer.component';
@@ -77,10 +75,6 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
-  },
-  {
-    path: 'registration/admin',
-    component: RegistrationOtherComponent
   },
 ];
 
