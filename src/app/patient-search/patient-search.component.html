@@ -1,3 +1,4 @@
+<br/>
 <div fxLayout="row">
   <span fxFlex></span>
   <mat-card fxFlex="600px">
@@ -43,12 +44,12 @@
             </button>
             <div style="font-weight: bold">First Name: &nbsp;</div>
             <span *ngIf="!isFirstNameEdit">
-              <div>{{ pt.firstName }}</div>
+              <div>{{ patientUserInfo.firstName }}</div>
             </span>
             <span *ngIf="isFirstNameEdit">
               <mat-form-field>
-                <input matInput type="text" [(ngModel)]="pt.firstName" />
-                <button matSuffix mat-icon-button aria-label="Clear">
+                <input matInput type="text" [(ngModel)]="patientUserInfo.firstName" />
+                <button matSuffix mat-icon-button aria-label="Clear" (click)="isFirstNameEdit = false">
                   <mat-icon>check</mat-icon>
                 </button>
               </mat-form-field>
@@ -66,12 +67,12 @@
             </button>
             <div style="font-weight: bold">Last Name: &nbsp;</div>
             <span *ngIf="!isLastNameEdit">
-              <div>{{ pt.lastName }}</div>
+              <div>{{ patientUserInfo.lastName }}</div>
             </span>
             <span *ngIf="isLastNameEdit">
               <mat-form-field>
-                <input matInput type="text" [(ngModel)]="pt.lastName" />
-                <button matSuffix mat-icon-button aria-label="Clear">
+                <input matInput type="text" [(ngModel)]="patientUserInfo.lastName" />
+                <button matSuffix mat-icon-button aria-label="Clear" (click)="isLastNameEdit = false">
                   <mat-icon>check</mat-icon>
                 </button>
               </mat-form-field>
@@ -91,7 +92,7 @@
           </button>
           <div style="font-weight: bold">Date of Birth: &nbsp;</div>
           <span *ngIf="!isDoBEdit">
-            <div>{{ pt.MotherDoB.toDate() | date: "yyyy/MM/dd" }}</div>
+            <div>{{ patientUserInfo.MotherDoB | date: "MM/dd/yyyy" }}</div>
           </span>
           <span *ngIf="isDoBEdit">
             <mat-form-field>
@@ -99,18 +100,49 @@
                 matInput
                 [matDatepicker]="DoBpicker"
                 placeholder="Birthday"
-                [(ngModel)]="pt.MotherDoB"/>
+                [(ngModel)]="patientUserInfo.MotherDoB"/>
               <mat-datepicker-toggle
                 matSuffix
                 [for]="DoBpicker">
               </mat-datepicker-toggle>
               <mat-datepicker #DoBpicker disabled="false"></mat-datepicker>
-              <button matSuffix mat-icon-button aria-label="Clear">
+              <button matSuffix mat-icon-button aria-label="Clear" (click)="isDoBEdit = false">
                 <mat-icon>check</mat-icon>
               </button>
             </mat-form-field>
           </span>
         </div>
+
+        <span *ngIf="isEditMode">
+          <div fxLayout="row">
+            <button mat-icon-button *ngIf="isEditMode">
+              <mat-icon
+                *ngIf="isEditMode"
+                matSuffix
+                (click)="editAccessLevel()"
+                class="material-icons">edit
+              </mat-icon>
+            </button>
+            <div style="font-weight: bold">Access Level: &nbsp;</div>
+            <span *ngIf="!isAccessLevelEdit">
+              <div>{{ patientUserInfo.role }}</div>
+            </span>
+            <span *ngIf="isAccessLevelEdit">
+              <mat-form-field>
+                <mat-label>Choose Access Level</mat-label>
+                <mat-select [(ngModel)]="patientUserInfo.role">
+                  <mat-option value="User">User</mat-option>
+                  <mat-option value="Moderator">Moderator</mat-option>
+                  <mat-option value="Admin">Admin</mat-option>
+                </mat-select>
+                <button matSuffix mat-icon-button aria-label="Clear" (click)="isAccessLevelEdit = false">
+                  <mat-icon>check</mat-icon>
+                </button>
+              </mat-form-field>
+            </span>
+          </div>
+        </span>
+
         <span *ngIf="isEditMode">
           <br/>
           <button
@@ -124,7 +156,6 @@
         <br />
 
         <div>
-          <!-- <button mat-raised-button class="mat-primary" [routerLink]="['/patient/edit',patUID]"> -->
           <button
             mat-raised-button
             class="mat-primary"
@@ -134,7 +165,7 @@
           <button
             mat-raised-button
             class="mat-primary"
-            (click)="Clicked_EditPregInfo()">Edit Pregnancy Info
+            [routerLink]="['/patient/edit', searchQuery]">Edit Pregnancy Info
           </button>
           &nbsp;
           <button

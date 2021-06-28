@@ -7,7 +7,7 @@ import {IRegistration} from '../../Interfaces/IRegistration';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {MatAutocomplete, MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RegistrationService } from '../registration.service';
 import { IGravidasDetails } from '../../Interfaces/IGravidasDetails'
 
@@ -22,6 +22,8 @@ export class GravidasDetailEditorComponent implements OnInit {
   hospitalList: Observable<string[]> | any;
   hospitalOptions: string[] = []
 
+  isAdminNav = false;
+  adminNavID: string| null = "";
   //Initializes a new interface to store the data
   registrationInfo = {} as IRegistration;
   gravidasDetails = {} as IGravidasDetails;
@@ -36,7 +38,8 @@ export class GravidasDetailEditorComponent implements OnInit {
     private fb: FormBuilder,
     private fhirService: FhirAuthService,
     private router: Router,
-    private regService: RegistrationService
+    private regService: RegistrationService,
+    private actRoute: ActivatedRoute,
   ) { }
 
   //Uses the Endpoints function to retrieve a list of all the available epic endpoints
@@ -52,6 +55,16 @@ export class GravidasDetailEditorComponent implements OnInit {
       startWith(''),
       map(value => this._filter(value))
     );
+
+    this.actRoute.paramMap.subscribe((routeParams) => {
+      const nav = (routeParams.get('id') == '' || routeParams.get('id')==null) ? "" : routeParams.get('id');
+      if(nav != ""){
+        this.isAdminNav = true;
+      }
+      this.adminNavID = nav;
+      console.log(this.adminNavID);
+      console.log(this.isAdminNav);
+    })
   }
 
   registration = this.fb.group({
@@ -65,11 +78,19 @@ export class GravidasDetailEditorComponent implements OnInit {
   })
 
   submit() {
-    this.gravidasDetails.givenBirth = false;
-    this.gravidasDetails.hospital = this.selectedHospitals;
-    this.regService.createGravidas(this.gravidasDetails);
-
-    this.router.navigateByUrl('/landing');
+    if(!this.isAdminNav){
+      this.gravidasDetails.givenBirth = false;
+      this.gravidasDetails.hospital = this.selectedHospitals;
+      this.regService.createGravidas(this.gravidasDetails);
+      this.router.navigateByUrl('/landing');
+    }
+    else{
+      this.gravidasDetails.givenBirth = false;
+      this.gravidasDetails.hospital = this.selectedHospitals;
+      const patID = (this.adminNavID?.toString()) ? this.adminNavID : ""
+      this.regService.createOtherGravidas(this.gravidasDetails, patID);
+      this.router.navigateByUrl('/landing');
+    }
   }
 
   addChip(event: MatChipInputEvent) {
