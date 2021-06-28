@@ -49,7 +49,6 @@ export class LandingComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(res => {
       if(res) {
-        this.changeBirthStatus();
         this.submitBasicInfo(res);
       }
     })
@@ -59,14 +58,33 @@ export class LandingComponent implements OnInit {
     this.gravidasDetails.subscribe(grav => {
       if(grav) {
         grav[grav.length - 1].givenBirth = true;
-        this.regService.changeGravidasBirth(grav[grav.length - 1]);
+        this.regService.changeGravidasStatus(grav[grav.length - 1]);
+      }
+    });
+  }
+
+  changeEDD() {
+    this.gravidasDetails.subscribe(grav => {
+      if(grav) {
+        const lgt = grav.length-1;
+        this.regService.changeDocDate(grav[lgt]);
+        this.regService.deleteDocDate(grav[lgt-1]);
       }
     });
   }
 
   // Takes in the first data received about the birth!
   submitBasicInfo(info): void {
-    console.log("🚀 ~ file: landing.component.ts ~ line 66 ~ LandingComponent ~ submitBasicInfo ~ info", info)
+    console.log(info);
+    switch (info.status) {
+      case "born" || "died":
+        this.changeBirthStatus();
+        break;
+      case "notborn":
+        this.changeEDD();
+        break;
+      default:
+        break;
+    }
   }
-
 }

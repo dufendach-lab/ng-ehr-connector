@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { getPatientParam } from 'fhirclient/lib/lib';
 import { Observable } from 'rxjs';
 import { filter, map, pluck, switchMap } from 'rxjs/operators';
 import { IRegistration } from 'src/Interfaces/IRegistration';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { IGravidasDetails } from 'src/Interfaces/IGravidasDetails'
-import { Timestamp } from 'rxjs/internal/operators/timestamp';
+import { formatDate } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -69,15 +68,47 @@ export class RegistrationService {
     this.patientInfo.collection('patients').doc(patID).collection('gravidas').doc(docNameString).set(gravidas)
   }
 
-  async changeGravidasBirth(gravidas: IGravidasDetails) : Promise<void> {
-    const docName = new Date(gravidas.EstDueDate.seconds * 1000);
-    const docNameString = docName.toISOString().substr(0,10);
+  async changeGravidasStatus(gravidas: IGravidasDetails) : Promise<void> {
+    const docName = gravidas.gravidasTitle;
+    console.log(docName);
     this.patient.subscribe((user) => {
       if (user) {
         const uniqueID = user.uid;
-        this.patientInfo.collection('patients').doc(uniqueID).collection('gravidas').doc(docNameString).update({givenBirth: gravidas.givenBirth})
+        this.patientInfo.collection('patients').doc(uniqueID).collection('gravidas').doc(docName).update({givenBirth: gravidas.givenBirth})
       }
     })
+  }
+
+  async changeDocDate(gravidas: IGravidasDetails): Promise<void> {
+    const name = new Date(gravidas.EstDueDate.seconds * 1000);
+    const docNameString = name.toISOString().substr(0,10);
+    const now = new Date(Date.now() + (1.8144e9));
+    const newName = now.toISOString().substr(0,10);
+
+    this.patient.subscribe((user) => {
+      if(user) {
+        const id = user.uid;
+        this.patientInfo.collection('patients').doc(id).collection('gravidas').doc(docNameString).get().subscribe(d => {
+          const data = d.data();
+          if(d && data) {
+            this.patientInfo.collection('patients').doc(id).collection('gravidas').doc(newName).set(data);
+          }
+        });
+      }
+    })
+  }
+
+  async deleteDocDate(gravidas: IGravidasDetails): Promise<void> {
+    if(gravidas) {
+      const name = new Date(gravidas.EstDueDate.seconds * 1000);
+      const docNameString = name.toISOString().substr(0,10);
+      this.patient.subscribe((user) => {
+        if(user) {
+          const id = user.uid;
+          this.patientInfo.collection('patients').doc(id).collection('gravidas').doc(docNameString).delete();
+        }
+      })
+    }
   }
 
   // async getGravidas(): Observable<IGravidasDetails[]> {

@@ -18,7 +18,7 @@ export class ObservationService {
       const patientID = client.getPatientId();
       // console.log(`PID: ${patientID}`);
 
-      const res = await client.request(`/Observation?patient=${patientID}&code=8302-2`);
+      const res = await client.request(`/Observation?patient=${patientID}&code=46582-3`);
       console.log(`RESULT: ${res}`);
       console.log(res);
       return res;
