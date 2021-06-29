@@ -2,10 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {FhirAuthService} from "../fhir-auth.service";
 import { AuthService } from '../auth.service';
 import {Observable} from "rxjs";
-import { RegistrationService } from '../registration.service';
 import { IGravidasDetails } from 'src/Interfaces/IGravidasDetails';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { GravidasService } from '../gravidas.service';
 
 @Component({
   selector: 'app-landing',
@@ -18,21 +18,21 @@ export class LandingComponent implements OnInit {
   hasBirthed: boolean = false;
 
   isAuthorized = this.fhirAuth.authorized;
-  loggedIn = this.RegAuth.getLoginAuth();
+  loggedIn = this.gravAuth.getLoginAuth();
   email = '';
 
   user = this.auth.user;
 
   constructor(
     private fhirAuth: FhirAuthService,
-    private RegAuth: AuthService,
+    private gravAuth: AuthService,
     private auth: AuthService,
-    private regService: RegistrationService,
     public dialog: MatDialog,
+    private gravService: GravidasService,
   ) {}
 
   ngOnInit(): void {
-    this.gravidasDetails = this.regService.getGravidas();
+    this.gravidasDetails = this.gravService.getGravidas();
     this.gravidasDetails.subscribe(gravidas => {
       if(gravidas){
         const lastIndex = gravidas.length - 1;
@@ -57,8 +57,9 @@ export class LandingComponent implements OnInit {
   changeBirthStatus() {
     this.gravidasDetails.subscribe(grav => {
       if(grav) {
-        grav[grav.length - 1].givenBirth = true;
-        this.regService.changeGravidasStatus(grav[grav.length - 1]);
+        const ltg = grav.length - 1;
+        grav[ltg].givenBirth = true;
+        this.gravService.changeGravidasStatus(grav[ltg]);
       }
     });
   }
@@ -67,8 +68,8 @@ export class LandingComponent implements OnInit {
     this.gravidasDetails.subscribe(grav => {
       if(grav) {
         const lgt = grav.length-1;
-        this.regService.changeDocDate(grav[lgt]);
-        this.regService.deleteDocDate(grav[lgt-1]);
+        this.gravService.changeDocDate(grav[lgt]);
+        this.gravService.deleteDocDate(grav[lgt-1]);
       }
     });
   }

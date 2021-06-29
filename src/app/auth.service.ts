@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import {from, Observable, Subject} from "rxjs";
-import {map, shareReplay} from "rxjs/operators";
-import { IRegistration } from 'src/Interfaces/IRegistration';
 
 @Injectable({
   providedIn: 'root'

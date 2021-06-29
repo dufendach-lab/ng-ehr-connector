@@ -8,8 +8,8 @@ import {MatChipInputEvent} from '@angular/material/chips';
 import {MatAutocomplete, MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RegistrationService } from '../registration.service';
 import { IGravidasDetails } from '../../Interfaces/IGravidasDetails'
+import { GravidasService } from '../gravidas.service';
 
 @Component({
   selector: 'app-gravidas-detail-editor',
@@ -24,6 +24,7 @@ export class GravidasDetailEditorComponent implements OnInit {
 
   isAdminNav = false;
   adminNavID: string| null = "";
+
   //Initializes a new interface to store the data
   registrationInfo = {} as IRegistration;
   gravidasDetails = {} as IGravidasDetails;
@@ -38,7 +39,7 @@ export class GravidasDetailEditorComponent implements OnInit {
     private fb: FormBuilder,
     private fhirService: FhirAuthService,
     private router: Router,
-    private regService: RegistrationService,
+    private gravService: GravidasService,
     private actRoute: ActivatedRoute,
   ) { }
 
@@ -62,15 +63,10 @@ export class GravidasDetailEditorComponent implements OnInit {
         this.isAdminNav = true;
       }
       this.adminNavID = nav;
-      console.log(this.adminNavID);
-      console.log(this.isAdminNav);
     })
   }
 
   registration = this.fb.group({
-    // firstname: [''],
-    // lastname: [''],
-    // MotherDoB: [''],
     EstDueDate: ['', Validators.required],
     Diagnosis: ['', Validators.required],
     Hospital: ['', Validators.required],
@@ -78,18 +74,17 @@ export class GravidasDetailEditorComponent implements OnInit {
   })
 
   submit() {
+    this.gravidasDetails.givenBirth = false;
+    this.gravidasDetails.hospital = this.selectedHospitals;
+
     if(!this.isAdminNav){
-      this.gravidasDetails.givenBirth = false;
-      this.gravidasDetails.hospital = this.selectedHospitals;
-      this.regService.createGravidas(this.gravidasDetails);
+      this.gravService.createGravidas(this.gravidasDetails);
       this.router.navigateByUrl('/landing');
     }
     else{
-      this.gravidasDetails.givenBirth = false;
-      this.gravidasDetails.hospital = this.selectedHospitals;
       const patID = (this.adminNavID?.toString()) ? this.adminNavID : ""
-      this.regService.createOtherGravidas(this.gravidasDetails, patID);
-      this.router.navigateByUrl('/landing');
+      this.gravService.createOtherGravidas(this.gravidasDetails, patID);
+      this.router.navigate(['patient','edit', this.adminNavID]);
     }
   }
 
