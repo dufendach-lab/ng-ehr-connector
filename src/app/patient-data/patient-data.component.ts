@@ -58,7 +58,7 @@ export class PatientDataComponent implements OnInit {
     this.obsService.getData('MedicationStatement').then(b => this.medBundle.next(b));
     this.obsService.getData('Condition').then(b => this.conditionBundle.next(b));
     this.obsService.getData('Procedure').then(b => this.procedureBundle.next(b));
-    this.obsService.getObservation().then(b => this.testBundle.next(b));
+    // this.obsService.getObservation().then(b => this.testBundle.next(b));
   }
 
   allComplete: boolean = false;

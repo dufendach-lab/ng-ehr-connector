@@ -77,15 +77,10 @@ export class LandingComponent implements OnInit {
   // Takes in the first data received about the birth!
   submitBasicInfo(info): void {
     console.log(info);
-    switch (info.status) {
-      case "born" || "died":
-        this.changeBirthStatus();
-        break;
-      case "notborn":
-        this.changeEDD();
-        break;
-      default:
-        break;
+    if(info.status === "born" || info.status === "died") {
+      this.changeBirthStatus();
+    } else {
+      this.changeEDD();
     }
   }
 }
