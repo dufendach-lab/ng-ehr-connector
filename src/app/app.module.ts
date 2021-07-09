@@ -55,6 +55,8 @@ import { GravidasViewerComponent } from './gravidas-viewer/gravidas-viewer.compo
 import { PatientSearchComponent } from './patient-search/patient-search.component';
 import { NewMomResourceComponent } from './new-mom-resource/new-mom-resource.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { PdfViewComponent } from './pdf-view/pdf-view.component';
+import { PdfViewerModule }from 'ng2-pdf-viewer';
 
 @NgModule({
   declarations: [
@@ -82,6 +84,7 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
     PatientSearchComponent,
     NewMomResourceComponent,
     ConfirmationDialogComponent,
+    PdfViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -92,6 +95,8 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
     ReactiveFormsModule,
 
     FlexLayoutModule,
+
+    PdfViewerModule,
 
     // Material imports
     MatButtonModule,

@@ -5,6 +5,7 @@ import { first, map } from 'rxjs/operators';
 import { Observable, pipe } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { IRegistration } from 'src/Interfaces/IRegistration';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-patient-search',
@@ -28,7 +29,7 @@ export class PatientSearchComponent implements OnInit {
     EmailInput: ['', Validators.required],
   })
 
-  constructor( private fb: FormBuilder, private func: AngularFireFunctions, private afs: AngularFirestore) { }
+  constructor( private fb: FormBuilder, private func: AngularFireFunctions, private afs: AngularFirestore, private afa: AngularFireAuth,) { }
 
   ngOnInit(): void {
 
@@ -81,12 +82,8 @@ export class PatientSearchComponent implements OnInit {
     console.log("Edit Preg Page");
   }
   Clicked_DeleteUser(){
-    console.log("Delete User");
-  }
-  Clicked_ChangePrivilege(){
-    //OPEN Modal
 
-    //Update User's patient document from role:"User" to role:"Moderator"
+    // console.log("Delete User");
   }
 
   editFirstNameClick(){
