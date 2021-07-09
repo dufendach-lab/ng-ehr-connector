@@ -93,6 +93,17 @@ exports.userSearchByEmail = functions.https.onCall((data, _) => {
     return err;
   }
 });
+
+exports.deleteUser = functions.https.onCall((data, _) => {
+  admin.auth().deleteUser(data.text)
+  .then(function() {
+    console.log("Successfully deleted user");
+    firestore().collection("patients").doc(data.text).delete();
+  })
+  .catch(function(error) {
+    console.log("Error deleting user:", error);
+  });
+});
 // // Exports app to firebase functions
 // exports.app = functions.https.onRequest(app);
 
