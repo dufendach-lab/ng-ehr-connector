@@ -1,11 +1,7 @@
-<!-- <a>Click Here to Download</a>
-<pdf-viewer src="assets/pdfs/CongenitalDiaphragmaticHernia_KN1190.pdf"></pdf-viewer> -->
-
 <a mat-button style="text-decoration: underline; color: blue;" (click)="download_Clicked()">Click Here to Download This Document</a>
 <br>
 <div *ngIf="isLoaded" style="text-align: center;">
   <button mat-button (click)="prevPage()" [disabled]="page === 1">Prev</button>
-  <!-- <span class="material-icons">remove_circle</span> -->
   <span>{{ page }} / {{ totalPages }}</span>
   <button mat-button (click)="nextPage()" [disabled]="page === totalPages">Next</button>
 </div>
