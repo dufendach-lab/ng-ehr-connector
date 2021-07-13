@@ -15,8 +15,6 @@ export class ObsValueListComponent implements OnChanges {
 
   obsList: Observation[] = [];
 
-  // isValueThere: boolean = false;
-
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {

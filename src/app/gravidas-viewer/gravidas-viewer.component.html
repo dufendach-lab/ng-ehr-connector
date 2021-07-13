@@ -110,13 +110,11 @@
       <span *ngIf="!isAdminNav">
         <button mat-button [routerLink]="['/gravidas/edit']">
           <mat-icon>add</mat-icon>&nbsp;&nbsp;Add a pregnancy
-          <!-- <span>Add a pregnancy</span> -->
         </button>
       </span>
       <span *ngIf="isAdminNav">
         <button mat-button [routerLink]="['/patient/gravida/add', adminNavID]">
           <mat-icon>add</mat-icon>&nbsp;&nbsp;Add a pregnancy
-          <!-- <span>Add a pregnancy</span> -->
         </button>
       </span>
     </mat-card-content>

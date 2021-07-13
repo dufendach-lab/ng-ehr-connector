@@ -17,6 +17,7 @@ export class GravidasService {
     private afa: AngularFireAuth,
     private afs: AngularFirestore) { }
 
+    // Create a new pregnancy for the currently signed in user
   async createGravidas(gravidas: IGravidasDetails) : Promise<void> {
     const docName = new Date(gravidas.EstDueDate);
     const docNameString = docName.toISOString().substr(0,10);
@@ -28,6 +29,7 @@ export class GravidasService {
     })
   }
 
+  // Create a new pregnancy for a user based off their firebase uID
   async createOtherGravidas(gravidas: IGravidasDetails, patID: string) : Promise<void> {
     if(patID == ""){
       this.afs.collection('Errors').doc('Gravidas').collection('OtherGravidas').doc(Date()).set({message: "Something wrong"});
@@ -39,6 +41,7 @@ export class GravidasService {
     }
   }
 
+  // Gets all pregnancies for other user based on their firebase uID
   getOtherGravidas(patID: string): Observable<IGravidasDetails[]> {
     return this.afa.user.pipe(
       switchMap((user) => {
@@ -66,6 +69,7 @@ export class GravidasService {
     )
   }
 
+  //Gets all pregnancies for currently signed in user
   getGravidas(): Observable<IGravidasDetails[]> {
     return this.afa.user.pipe( // Pipe from the "user" object because first need a signed-in user
       switchMap((user) => {
@@ -93,6 +97,7 @@ export class GravidasService {
     )
   }
 
+  // Updates pregnancy birthday for the currently signed in user
   async changeGravidasBirth(gravidas: IGravidasDetails) : Promise<void> {
     const docName = new Date(gravidas.EstDueDate.seconds * 1000);
     const docNameString = docName.toISOString().substr(0,10);
@@ -104,6 +109,7 @@ export class GravidasService {
     })
   }
 
+  // Updates pregnancy information for another user based on their firebase uID
   async EditOtherGravidas(preg: IGravidasDetails, patID: string | undefined) : Promise<void>{
     if(patID){
       this.afs.collection('patients').doc(patID).collection('gravidas').doc(preg.gravidasTitle).update(preg);
@@ -113,6 +119,7 @@ export class GravidasService {
     }
   }
 
+  // Deletes pregnancy information for another user based on their firebase uID
   async DeleteOtherGravidas(preg: IGravidasDetails, patID: string | undefined) : Promise<void>{
     if(patID){
       this.afs.collection('patients').doc(patID).collection('gravidas').doc(preg.gravidasTitle).delete();

@@ -85,20 +85,5 @@ export class RegistrationComponent implements OnInit {
     else{
       this.passwordsMatch = false;
     }
-    // this.router.navigateByUrl('/m/landing');
-  }
-
-  pageChange(){
-    this.isPage2 = !this.isPage2;
-    if(this.isPage2 == false){
-      this.pageButtonText = "Next Page";
-    }
-    else{
-      this.pageButtonText = "Previous Page";
-    }
-  }
-
-  onLogin(){
-
   }
 }

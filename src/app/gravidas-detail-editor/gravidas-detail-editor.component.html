@@ -1,38 +1,5 @@
 <form class="registration-form" [formGroup]="registration" fxLayout="column" (ngSubmit)="submit()">
-  <!-- Mother's First Name input -->
-  <!--    <div fxLayout="row" fxLayoutGap="15px">-->
   <ng-container>
-
-    <!-- <ng-container *ngIf="firstDetail">
-  <mat-form-field class="form-field" fxFlex>
-    <mat-label>First Name</mat-label>
-    <input type="text"
-           matInput
-           formControlName="firstname"
-           [(ngModel)]="registrationInfo.firstName"/>
-  </mat-form-field>
-
-  <!-- Mother's Last Name Input Field >
-  <mat-form-field class="form-field" fxFlex>
-    <mat-label>Last Name</mat-label>
-    <input type="text"
-           matInput
-           formControlName="lastname"
-           [(ngModel)]="registrationInfo.lastName"/>
-  </mat-form-field>
-  <!--    </div>-->
-  <!-- Mother's Date of Birth Input Field >
-  <mat-form-field class="form-field">
-    <input matInput
-           [matDatepicker]="DoBpicker"
-           placeholder="Birthday"
-           formControlName="MotherDoB"
-           [(ngModel)]="registrationInfo.MotherDoB"/>
-    <mat-datepicker-toggle matSuffix [for]="DoBpicker"></mat-datepicker-toggle>
-    <mat-datepicker #DoBpicker disabled="false"></mat-datepicker>
-  </mat-form-field>
-</ng-container> -->
-
   <!-- Mother's Expected Deliver Input Field -->
   <mat-form-field class="form-field">
     <input matInput

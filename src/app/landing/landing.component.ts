@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {FhirAuthService} from "../fhir-auth.service";
 import { AuthService } from '../auth.service';
 import {Observable} from "rxjs";
-import { RegistrationService } from '../registration.service';
 import { IGravidasDetails } from 'src/Interfaces/IGravidasDetails';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
@@ -19,16 +18,13 @@ export class LandingComponent implements OnInit {
   hasBirthed: boolean = false;
 
   isAuthorized = this.fhirAuth.authorized;
-  loggedIn = this.RegAuth.getLoginAuth();
   email = '';
 
   user = this.auth.user;
 
   constructor(
     private fhirAuth: FhirAuthService,
-    private RegAuth: AuthService,
     private auth: AuthService,
-    private regService: RegistrationService,
     public dialog: MatDialog,
     private gravService: GravidasService,
   ) {}
