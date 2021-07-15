@@ -12,13 +12,14 @@ import Observation = fhirclient.FHIR.Observation;
 export class ObservationService {
   constructor(private auth: FhirAuthService) { }
 
+  // Used for loinc code testing - Ready for actual use when real patients are acquired
   async getObservation(): Promise<Observation | Bundle> {
     const client = await this.auth.client.pipe(first(c => c !== null)).toPromise();
     if (client) {
       const patientID = client.getPatientId();
       // console.log(`PID: ${patientID}`);
 
-      const res = await client.request(`/Observation?patient=${patientID}&code=8302-2`);
+      const res = await client.request(`/Observation?patient=${patientID}&code=46582-3`);
       console.log(`RESULT: ${res}`);
       console.log(res);
       return res;
@@ -30,6 +31,7 @@ export class ObservationService {
     }
   }
 
+  // Used to get observations based on category name (vitals, laboratory)
   async getObservationByCategory(category: string): Promise<Observation | Bundle> {
     const client = await this.auth.client.pipe(first(c => c !== null)).toPromise();
     if (client) {
@@ -46,7 +48,7 @@ export class ObservationService {
     }
   }
 
-  // ALL OLD BELOW
+  // Used to retrieve different patient data types (Medication, Procedures, Conditions)
   async getData(type: string) : Promise<Observation | Bundle> {
     const client = await this.auth.client.pipe(first(c => c !== null)).toPromise();
     if (client) {

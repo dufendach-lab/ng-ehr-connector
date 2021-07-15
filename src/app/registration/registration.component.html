@@ -28,6 +28,16 @@
     <mat-datepicker #DoBpicker disabled="false"></mat-datepicker>
   </mat-form-field>
 
+  <mat-form-field>
+    <mat-label>Phone Number</mat-label>
+    <input matInput
+           type="tel"
+           formControlName="phone"
+           placeholder="Ex: 5139998888"
+           [(ngModel)]="registrationInfo.phone">
+           <mat-hint>No spaces or dashes</mat-hint>
+  </mat-form-field>
+
   <mat-form-field class="form-field">
     <mat-label>Email</mat-label>
     <input type="text"

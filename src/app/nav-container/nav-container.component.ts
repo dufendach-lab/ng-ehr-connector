@@ -59,6 +59,7 @@ export class NavContainerComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
+  // Closes sidenav after selection
   closeSideNav() {
     if(this.drawer._mode==="over"){
       this.drawer.close();

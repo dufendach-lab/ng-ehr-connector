@@ -23,6 +23,7 @@ export class GravidasService {
     const docNameString = docName.toISOString().substr(0,10);
     this.patient.subscribe((user) => {
       if (user) {
+        gravidas.gravidasTitle = docNameString;
         const uniqueID = user.uid;
         this.patientInfo.collection('patients').doc(uniqueID).collection('gravidas').doc(docNameString).set(gravidas)
       }
@@ -37,6 +38,7 @@ export class GravidasService {
     else{
       const docName = new Date(gravidas.EstDueDate);
       const docNameString = docName.toISOString().substr(0,10);
+      gravidas.gravidasTitle = docNameString;
       this.patientInfo.collection('patients').doc(patID).collection('gravidas').doc(docNameString).set(gravidas)
     }
   }
@@ -126,6 +128,47 @@ export class GravidasService {
     }
     else{
       this.afs.collection('Errors').doc('Gravidas').collection('DeleteGravidas').doc(Date()).set({message: "Something wrong"});
+    }
+  }
+
+  async changeGravidasStatus(gravidas: IGravidasDetails) : Promise<void> {
+    const docName = gravidas.gravidasTitle;
+    this.patient.subscribe((user) => {
+      if (user) {
+        const uniqueID = user.uid;
+        this.patientInfo.collection('patients').doc(uniqueID).collection('gravidas').doc(docName).update({givenBirth: gravidas.givenBirth})
+      }
+    })
+  }
+
+  async changeDocDate(gravidas: IGravidasDetails): Promise<void> {
+    const name = gravidas.gravidasTitle;
+    const now = new Date(Date.now() + (1.8144e9));
+    const newName = now.toISOString().substr(0,10);
+
+    this.patient.subscribe((user) => {
+      if(user) {
+        const id = user.uid;
+        this.patientInfo.collection('patients').doc(id).collection('gravidas').doc(name).get().subscribe(d => {
+          let data = d.data();
+          if(d && data) {
+            data.gravidasTitle = newName;
+            this.patientInfo.collection('patients').doc(id).collection('gravidas').doc(newName).set(data);
+          }
+        });
+      }
+    })
+  }
+
+  async deleteDocDate(gravidas: IGravidasDetails): Promise<void> {
+    if(gravidas) {
+      const name = gravidas.gravidasTitle;
+      this.patient.subscribe((user) => {
+        if(user) {
+          const id = user.uid;
+          this.patientInfo.collection('patients').doc(id).collection('gravidas').doc(name).delete();
+        }
+      })
     }
   }
 }

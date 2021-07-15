@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { IRegistration } from 'src/Interfaces/IRegistration';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { IGravidasDetails } from 'src/Interfaces/IGravidasDetails'
+import { formatDate } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'

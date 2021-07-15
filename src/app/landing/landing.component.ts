@@ -18,12 +18,14 @@ export class LandingComponent implements OnInit {
   hasBirthed: boolean = false;
 
   isAuthorized = this.fhirAuth.authorized;
+  // loggedIn = this.gravAuth.getLoginAuth();
   email = '';
 
   user = this.auth.user;
 
   constructor(
     private fhirAuth: FhirAuthService,
+    private gravAuth: AuthService,
     private auth: AuthService,
     public dialog: MatDialog,
     private gravService: GravidasService,
@@ -47,7 +49,6 @@ export class LandingComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(res => {
       if(res) {
-        this.changeBirthStatus();
         this.submitBasicInfo(res);
       }
     })
@@ -56,15 +57,33 @@ export class LandingComponent implements OnInit {
   changeBirthStatus() {
     this.gravidasDetails.subscribe(grav => {
       if(grav) {
-        grav[grav.length - 1].givenBirth = true;
-        this.gravService.changeGravidasBirth(grav[grav.length - 1]);
+        const ltg = grav.length - 1;
+        grav[ltg].givenBirth = true;
+        this.gravService.changeGravidasStatus(grav[ltg]);
+      }
+    });
+  }
+
+  changeEDD() {
+    this.gravidasDetails.subscribe(grav => {
+      if(grav) {
+        const lgt = grav.length-1;
+        this.gravService.changeDocDate(grav[lgt]);
+        this.gravService.deleteDocDate(grav[lgt-1]);
       }
     });
   }
 
   // Takes in the first data received about the birth!
   submitBasicInfo(info): void {
-    console.log("🚀 ~ file: landing.component.ts ~ line 66 ~ LandingComponent ~ submitBasicInfo ~ info", info)
+    console.log(info);
+    if(info.status === "born" && info.inHospital === "yes") {
+      this.changeEDD();
+      this.changeBirthStatus();
+    } else if(info.status === "born" || info.status === "died") {
+      this.changeBirthStatus();
+    } else {
+      this.changeEDD();
+    }
   }
-
 }

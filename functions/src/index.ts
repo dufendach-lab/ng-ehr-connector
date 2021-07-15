@@ -1,5 +1,8 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable max-len */
 /* eslint-disable indent */
+/* eslint-disable max-len */
+
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-var-requires */
 import * as functions from "firebase-functions";
@@ -20,6 +23,8 @@ exports.schedulerReminder = functions.pubsub
       const reminderDate = new Date(curDate.getTime() + REMINDER_OFFSET);
       const EDDtoSend = (reminderDate.toISOString().substr(0, 10));
 
+      let number: string;
+
       admin.auth().listUsers().then((res) => {
         res.users.forEach((userRecord) => {
           try {
@@ -28,6 +33,26 @@ exports.schedulerReminder = functions.pubsub
                 .collection("gravidas").doc(EDDtoSend);
             dbRef.get().then((context) => {
               if (context.exists) {
+                firestore()
+                  .collection("patients")
+                  .doc(userRecord.uid).get()
+                  .then(async (doc) => {
+                    number = await doc.data()?.phoneNum;
+                    console.log("Sending message to: " + number);
+
+                    firestore().collection("messages")
+                      .doc()
+                      .create({
+                        channelId: "1dbe4caa9c2e43e48315c8f9b6416ecd",
+                        type: "text",
+                        content: {
+                          text: "TEST TEST TEST TEST",
+                        },
+                        to: `${number.toString()}`,
+                      });
+                  });
+              } else {
+                // console.log("**Unviable user**");
                 firestore().collection("reminder").doc(userRecord.uid).set({
                   reminderSentFor: EDDtoSend,
                   reminderSentOn: curDate,
