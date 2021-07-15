@@ -9,7 +9,8 @@ interface formData {
   bday: string,
   btime: string,
   bsex: string,
-  baby: string
+  baby: string,
+  hospital: string
 }
 
 const validatorz = [Validators.required];
@@ -30,13 +31,16 @@ export class ConfirmationDialogComponent implements OnInit {
     birthDate: [''],
     birthTime: [''],
     birthSex: [''],
-    babyName: ['']
+    babyName: [''],
+    inHospital: ['']
   });
 
   constructor(
     public dialogRef: MatDialogRef<ConfirmationDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: boolean,
     private fb: FormBuilder) {
+
+      // FORM VALIDATORS
       this.dialogForm.controls['status'].valueChanges.subscribe(result => {
         if(result === "born") {
           this.dialogForm.controls['birthDate'].setValidators(validatorz);
@@ -47,6 +51,8 @@ export class ConfirmationDialogComponent implements OnInit {
           this.dialogForm.controls['birthSex'].updateValueAndValidity();
           this.dialogForm.controls['babyName'].setValidators(validatorz);
           this.dialogForm.controls['babyName'].updateValueAndValidity();
+          this.dialogForm.controls['inHospital'].setValidators(validatorz);
+          this.dialogForm.controls['inHospital'].updateValueAndValidity();
           this.dialogForm.controls['DOD'].setValidators(null);
           this.dialogForm.controls['DOD'].updateValueAndValidity();
           this.dialogForm.controls['stillbirth'].setValidators(null);
@@ -60,6 +66,8 @@ export class ConfirmationDialogComponent implements OnInit {
           this.dialogForm.controls['birthSex'].updateValueAndValidity();
           this.dialogForm.controls['babyName'].setValidators(null);
           this.dialogForm.controls['babyName'].updateValueAndValidity();
+          this.dialogForm.controls['inHospital'].setValidators(null);
+          this.dialogForm.controls['inHospital'].updateValueAndValidity();
           this.dialogForm.controls['DOD'].setValidators(validatorz);
           this.dialogForm.controls['DOD'].updateValueAndValidity();
           this.dialogForm.controls['stillbirth'].setValidators(validatorz);

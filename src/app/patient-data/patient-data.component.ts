@@ -52,28 +52,26 @@ export class PatientDataComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void { // Calls to grab data from EHR
     this.obsService.getObservationByCategory("vital-signs").then(b => this.vitalsBundle.next(b));;
     this.obsService.getObservationByCategory("laboratory").then(b => this.labBundle.next(b));
     this.obsService.getData('MedicationStatement').then(b => this.medBundle.next(b));
     this.obsService.getData('Condition').then(b => this.conditionBundle.next(b));
     this.obsService.getData('Procedure').then(b => this.procedureBundle.next(b));
-    // this.obsService.getObservation().then(b => this.testBundle.next(b));
+    // this.obsService.getObservation().then(b => this.testBundle.next(b)); THIS STATEMENT USED FOR LOINC TESTING
   }
 
   allComplete: boolean = false;
-
+  // These three functions handle checkbox selections
   updateAllComplete() {
     this.allComplete = this.task.subtasks != null && this.task.subtasks.every(t => t.completed);
   }
-
   someComplete(): boolean {
     if (this.task.subtasks == null) {
       return false;
     }
     return this.task.subtasks.filter(t => t.completed).length > 0 && !this.allComplete;
   }
-
   setAll(completed: boolean) {
     this.allComplete = completed;
     if (this.task.subtasks == null) {

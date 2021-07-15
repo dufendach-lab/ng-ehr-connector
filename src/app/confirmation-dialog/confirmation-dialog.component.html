@@ -62,6 +62,16 @@
         <input type="text" matInput formControlName="babyName" [(ngModel)]="this.formVals.baby">
       </mat-form-field>
       <br>
+
+      <mat-form-field>
+        <mat-label>Baby still in hospital?</mat-label>
+        <mat-select formControlName="inHospital" [(ngModel)]="this.formVals.hospital">
+          <mat-option value="yes">Yes</mat-option>
+          <mat-option value="no">No</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br>
+
       <p>Congratulations!❤️</p>
       <br>
     </ng-container>

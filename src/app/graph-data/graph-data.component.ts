@@ -44,9 +44,8 @@ export class GraphDataComponent implements OnInit {
     this.drawPlot();
   }
 
-
+  // Places data into structured userData array
   private getData() {
-
     if(this.data.name === 'Blood Pressure') {
       this.isExtraData = true;
 
@@ -67,8 +66,9 @@ export class GraphDataComponent implements OnInit {
 
   }
 
+  // Creates the graph
   private createSvg(): void {
-    this.svg = d3.select("#scatter-plot")
+    this.svg = d3.select("#scatter-plot") // Selects html attribute
       .append("svg")
       .attr("width", this.width + (this.margin * 2))
       .attr("height", this.height + (this.margin * 2))
@@ -103,16 +103,8 @@ export class GraphDataComponent implements OnInit {
 
   }
 
+  // Draws the graph
   private drawPlot(): void {
-
-    // this.svg.append("text")
-    //   .attr("x", (this.width / 2))
-    //   .attr("y", 0 - (this.margin / 2))
-    //   .attr("text-anchor", "middle")
-    //   .style("font-size", "16px")
-    //   .style("text-decoration", "underline")
-    //   .text("Weight vs Time Graph");
-
     this.svg.append("g")
       .attr("transform", "translate(0," + this.height + ")")
       .call(d3.axisBottom(this.xScale).ticks(d3.timeMonth.every(2)))
@@ -182,7 +174,7 @@ export class GraphDataComponent implements OnInit {
       .attr("stroke", "#ca5699")
       .attr("stroke-width", 1.5)
       .style("fill", "#ffffff")
-
+      // Hovering dot tooltips
       .on('mouseover', (e, d) => {
         d3.select(e.currentTarget).transition()
           .duration(100)
