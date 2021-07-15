@@ -57,6 +57,7 @@ import { NewMomResourceComponent } from './new-mom-resource/new-mom-resource.com
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { PdfViewComponent } from './pdf-view/pdf-view.component';
 import { PdfViewerModule }from 'ng2-pdf-viewer';
+import { YouTubePlayerModule } from '@angular/youtube-player';
 
 @NgModule({
   declarations: [
@@ -97,6 +98,7 @@ import { PdfViewerModule }from 'ng2-pdf-viewer';
     FlexLayoutModule,
 
     PdfViewerModule,
+    YouTubePlayerModule,
 
     // Material imports
     MatButtonModule,
