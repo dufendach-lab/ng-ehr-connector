@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewMomResourceComponent implements OnInit {
 
+  selectedResource = "";
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  openPDF(pdfFile: string): void {
+    const fileName = pdfFile + '.pdf';
+    const fileDir = '../../assets/pdfs/' + fileName;
+    window.open(fileDir);
   }
 
 }

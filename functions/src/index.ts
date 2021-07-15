@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable indent */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-var-requires */
@@ -9,7 +10,6 @@ admin.initializeApp();
 
 //  const db = admin.firestore();
 
-// eslint-disable-next-line max-len
 // This is how many days to create the a reminder. 1000millisec * 60sec * 60min * 24hours * 14days
 const REMINDER_OFFSET = 1000 * 60 * 60 * 24 * 14;
 
@@ -41,6 +41,7 @@ exports.schedulerReminder = functions.pubsub
       });
     });
 
+// The function recieves a patients uID, which it then uses to delete the user
 exports.deleteUser = functions.https.onCall((data, _) => {
   admin.auth().deleteUser(data.text)
   .then(function() {
