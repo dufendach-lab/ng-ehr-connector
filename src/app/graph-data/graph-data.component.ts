@@ -231,32 +231,4 @@ export class GraphDataComponent implements OnInit {
       }
 
   }
-
-  // newVitalName: string[] = [];
-  // newVitalDate: number[] = [];
-  // vitalVal: string[] = [];
-  // vitalUnit: string[] = [];
-
-  //  getRecentVitals() {
-  //   if(this.obsList[0]?.resource.category.text !== "Vital Signs") { return; }
-
-  //   this.obsList.forEach(data => {
-  //     if(data.resource.issue) { return; }
-  //     if(!this.newVitalName.includes(data.resource.code.text)) {
-  //       this.newVitalName.push(data.resource.code.text);
-  //       this.newVitalDate.push(data.resource.effectiveDateTime);
-  //     }
-  //     else {
-  //       for(let i = 0; i < this.newVitalName.length; i++) {
-  //         if(this.newVitalName[i] == data.resource.code.text) {
-  //           if(data.resource.effectiveDateTime > this.newVitalDate[i]) {
-  //             this.newVitalDate[i] = data.resource.effectiveDateTime;
-  //           }
-  //         }
-  //       }
-  //     }
-  //   });
-  //   console.warn(this.newVitalDate);
-  //   console.warn(this.newVitalName);
-  // }
 }

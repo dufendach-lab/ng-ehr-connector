@@ -9,7 +9,6 @@ import {fhirclient} from "fhirclient/lib/types";
 import AuthorizeParams = fhirclient.AuthorizeParams;
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AuthService } from '../auth.service';
-import { IRegistration } from 'src/Interfaces/IRegistration';
 import { IGravidasDetails } from 'src/Interfaces/IGravidasDetails';
 
 @Component({
@@ -21,11 +20,9 @@ export class AuthorizeComponent implements OnInit {
 
   client = this.auth.client;
   user = this.logAuth.user;
-  //registrationInfo: Observable<IRegistration | undefined>;
   gravidasDetails: Observable<IGravidasDetails | undefined>;
 
   stateCtrl = new FormControl();
-  // options: string[] = ['SmartHealthIT', 'epicHealthService'];
   readonly options: string[];
   readonly endpoints: FhirEndpoint[];
 
@@ -52,7 +49,6 @@ export class AuthorizeComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.check();
     this.filteredOptions = this.stateCtrl.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value))
@@ -92,15 +88,6 @@ export class AuthorizeComponent implements OnInit {
   authorize(params: AuthorizeParams) {
     this.auth.authorize(params);
   }
-
-  // // Triggers page reload in ngOnInit
-  // check(): void {
-  //   if (!sessionStorage.getItem('foo')) {
-  //     sessionStorage.setItem('foo', 'no reload');
-  //     location.reload();
-  //   }
-  // }
-
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
     return this.options.filter(option => option.toLowerCase().includes(filterValue));

@@ -1,3 +1,5 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable max-len */
 /* eslint-disable indent */
 /* eslint-disable max-len */
 
@@ -7,15 +9,11 @@ import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import {firestore} from "firebase-admin";
 
-// const serviceAccount = require("/Users/calr5u/Projects/FHIR-APP/functions/serviceAccountKey.json");
-admin.initializeApp(
-    // {
-    //   credential: admin.credential.cert(serviceAccount),
-    // }
-);
+admin.initializeApp();
 
 //  const db = admin.firestore();
 
+// This is how many days to create the a reminder. 1000millisec * 60sec * 60min * 24hours * 14days
 const REMINDER_OFFSET = 1000 * 60 * 60 * 24 * 14;
 
 exports.schedulerReminder = functions.pubsub
@@ -55,6 +53,10 @@ exports.schedulerReminder = functions.pubsub
                   });
               } else {
                 // console.log("**Unviable user**");
+                firestore().collection("reminder").doc(userRecord.uid).set({
+                  reminderSentFor: EDDtoSend,
+                  reminderSentOn: curDate,
+                });
               }
             });
           } catch (error) {
@@ -62,38 +64,9 @@ exports.schedulerReminder = functions.pubsub
           }
         });
       });
-      return null;
     });
 
-
-exports.userSearchByEmail = functions.https.onCall((data, _) => {
-  // let userUID = "Didn't Update :(, Email is set";
-  try {
-    // const searchEmail = data.text;
-    const user = admin.auth().getUserByEmail("admin@example.com");
-    user.then((userRecord) => {
-      if (userRecord) {
-        // userUID = userRecord.uid;
-        return userRecord.uid;
-      } else {
-        return "Entered the then, record did not exist";
-      }
-    });
-        // .then((userRecord) => {
-        //   if (userRecord) {
-        //     userUID = userRecord.uid;
-        //     return userUID;
-        //   } else {
-        //     return "Entered the then, record did not exist";
-        //   }
-        // });
-    // return userUID;
-    return "Function skipped over the function";
-  } catch (err) {
-    return err;
-  }
-});
-
+// The function recieves a patients uID, which it then uses to delete the user
 exports.deleteUser = functions.https.onCall((data, _) => {
   admin.auth().deleteUser(data.text)
   .then(function() {
@@ -104,9 +77,3 @@ exports.deleteUser = functions.https.onCall((data, _) => {
     console.log("Error deleting user:", error);
   });
 });
-// // Exports app to firebase functions
-// exports.app = functions.https.onRequest(app);
-
-// export const helloWorld = functions.https.onRequest((request, response) => {
-//   response.send("Hello from Firebase!");
-// });

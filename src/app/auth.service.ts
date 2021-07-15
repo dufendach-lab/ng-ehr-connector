@@ -9,45 +9,15 @@ export class AuthService {
   constructor(private afa: AngularFireAuth) { }
 
   user = this.afa.user
-  //Register new users
-  registration(userName: string, passWord:string) :void{
 
-  }
-
-  //Check creditionals against backend
+  //Check creditionals against backend to see if account exist
   checkCreditionals(email: string, pword: string) {
     return this.afa.signInWithEmailAndPassword(email, pword);
   }
 
-  //Makes Login Auth True after it hasben verfied
-  setLoginAuth(val: string) :void{
-    //this.LoginAuth = val;
-    sessionStorage.setItem('LoginAuth', val)
-  }
-
-  getLoginAuth() :string | null{
-    const status = (sessionStorage.getItem('LoginAuth')? sessionStorage.getItem('LoginAuth') : 'false')
-    //Done for data validation
-    if((status != 'true')&&(status == 'false')){
-      return 'false';
-    }
-    else{
-      return status;
-    }
-    //return this.LoginAuth;
-  }
-
+  //Signs user out of firebase authenication
   signout(){
     this.afa.signOut();
-  }
-
-  //If authenticated then allow for own information
-  authorizeInfo() :void{
-  }
-
-  //Allow authentication as admin
-  adminAuth() :void{
-
   }
 
 }

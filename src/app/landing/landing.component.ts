@@ -18,7 +18,7 @@ export class LandingComponent implements OnInit {
   hasBirthed: boolean = false;
 
   isAuthorized = this.fhirAuth.authorized;
-  loggedIn = this.gravAuth.getLoginAuth();
+  // loggedIn = this.gravAuth.getLoginAuth();
   email = '';
 
   user = this.auth.user;
@@ -77,7 +77,10 @@ export class LandingComponent implements OnInit {
   // Takes in the first data received about the birth!
   submitBasicInfo(info): void {
     console.log(info);
-    if(info.status === "born" || info.status === "died") {
+    if(info.status === "born" && info.inHospital === "yes") {
+      this.changeEDD();
+      this.changeBirthStatus();
+    } else if(info.status === "born" || info.status === "died") {
       this.changeBirthStatus();
     } else {
       this.changeEDD();

@@ -32,7 +32,7 @@ export class FhirAuthService {
     from(oauth2.ready()).subscribe(client => this._client.next(client));
   }
 
-  //Uses Epic's provided Epic Endpoint to create a list of all te endpoints, then returns as a list of all endpoints
+  //Uses Epic's provided Epic Endpoint to create a list of all the endpoints, then returns as a list of all endpoints
   private getEndpoints(): FhirEndpoint[] {
     const endpoints: EpicEndpoint[] = (endpointData as any).default;
     const res: FhirEndpoint[] = []
@@ -40,7 +40,6 @@ export class FhirAuthService {
       let entry = {} as FhirEndpoint;
       entry.FHIRPatientFacingURI = element.FHIRPatientFacingURI;
       entry.OrganizationName = element.OrganizationName;
-      //entry.clientId = EPIC_CLIENT_ID;
       res.push(entry)
     });
     return res;

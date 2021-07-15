@@ -21,8 +21,6 @@ export class GravidasViewerComponent implements OnInit {
   user = this.logAuth.user;
   gravidasDetails: Observable<IGravidasDetails | undefined>;
   allGravidas: Observable<IGravidasDetails[]> | undefined;
-  gravTest: any;
-  test1: IGravidasDetails[] = [];
   isAdminNav = false;
   adminNavID!: string | null;
   dueDateEdit = false;
