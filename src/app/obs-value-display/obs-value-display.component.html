@@ -54,11 +54,6 @@
         <p>Practioner: {{ obs.resource.asserter?.display }}</p>
         <p>Date Recorded: {{ (obs.resource.dateRecorded) | date: 'short'}} EST</p>
       </ng-container>
-      <!-- <ng-container *ngIf="(obs.resource.resourceType == 'Condition') && (!obs.resource.serverity)">
-        <span style="font-weight: bolder;">{{ obs.resource.code.text }}</span>
-        <p>Severity: N/A</p>
-        <p>Date Recorded: {{ (obs.resource.dateRecorded) | date: 'short'}} EST</p>
-      </ng-container> -->
 
       <ng-container *ngIf="obs.resource.resourceType == 'Procedure'">
         <span style="font-weight: bolder;">{{ obs.resource.code.text }}</span>
