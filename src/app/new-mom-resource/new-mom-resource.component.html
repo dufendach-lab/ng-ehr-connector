@@ -1,7 +1,7 @@
 <div class="resource-container">
   <mat-card>
     <mat-card-header>
-      <mat-card-title>We're here for you.</mat-card-title>
+      <mat-card-title>We're here for you and your {{diagnosis}}.</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <h2>
@@ -18,37 +18,37 @@
       </a>
       <br />
       <br>
-      <mat-form-field>
+      <!-- <mat-form-field>
         <mat-select placeholder="Condition" [(value)]="selectedResource">
           <mat-option value="CDH">Congenital Diaphragmatic Hernia (CDH)</mat-option>
           <mat-option value="SpinaBifida">Spina Bifida</mat-option>
           <mat-option value="TTS">Twin-Twin Transfusion Syndrome(TTS)</mat-option>
           <mat-option value="BOO">Bladder Outlet Obstruction</mat-option>
         </mat-select>
-      </mat-form-field>
+      </mat-form-field> -->
 
       <mat-accordion>
-        <ng-container *ngIf="selectedResource == 'TTS'">
+        <ng-container *ngIf="diagnosis == 'TTS'">
             <mat-expansion-panel (opened)="isPanelOpen = true" (closed)="isPanelOpen = false">
               <mat-expansion-panel-header>
                 <mat-panel-title>Twin-Twin Transfusion Syndrome (TTS)</mat-panel-title>
               </mat-expansion-panel-header>
 
               <ng-container *ngIf="isPanelOpen">
-                <app-yt-player [vidToGet]="selectedResource"></app-yt-player>
+                <app-yt-player [vidToGet]="diagnosis"></app-yt-player>
               </ng-container>
 
             </mat-expansion-panel>
         </ng-container>
 
-        <ng-container *ngIf="selectedResource == 'CDH'">
+        <ng-container *ngIf="diagnosis == 'CDH'">
             <mat-expansion-panel (opened)="isPanelOpen = true" (closed)="isPanelOpen = false">
               <mat-expansion-panel-header>
                 <mat-panel-title>Congenital Diaphragmatic Hernia (CDH)</mat-panel-title>
               </mat-expansion-panel-header>
 
               <ng-container *ngIf="isPanelOpen">
-                <app-yt-player [vidToGet]="selectedResource"></app-yt-player>
+                <app-yt-player [vidToGet]="diagnosis"></app-yt-player>
               </ng-container>
 
               <ul>
@@ -61,7 +61,7 @@
             </mat-expansion-panel>
         </ng-container>
 
-        <ng-container *ngIf="selectedResource == 'SpinaBifida'">
+        <ng-container *ngIf="diagnosis == 'SpinaBifida'">
           <br />
             <mat-expansion-panel (opened)="isPanelOpen = true" (closed)="isPanelOpen = false">
               <mat-expansion-panel-header>
@@ -69,7 +69,7 @@
               </mat-expansion-panel-header>
 
               <ng-container *ngIf="isPanelOpen">
-                <app-yt-player [vidToGet]="selectedResource"></app-yt-player>
+                <app-yt-player [vidToGet]="diagnosis"></app-yt-player>
               </ng-container>
 
               <ul>
@@ -86,14 +86,14 @@
             </mat-expansion-panel>
         </ng-container>
 
-        <ng-container *ngIf="selectedResource == 'BOO'">
+        <ng-container *ngIf="diagnosis == 'BOO'">
             <mat-expansion-panel (opened)="isPanelOpen = true" (closed)="isPanelOpen = false">
               <mat-expansion-panel-header>
                 <mat-panel-title>Bladder Outlet Obstruction</mat-panel-title>
               </mat-expansion-panel-header>
 
               <ng-container *ngIf="isPanelOpen">
-                <app-yt-player [vidToGet]="selectedResource"></app-yt-player>
+                <app-yt-player [vidToGet]="diagnosis"></app-yt-player>
               </ng-container>
 
             </mat-expansion-panel>
