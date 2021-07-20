@@ -11,13 +11,16 @@
     <mat-datepicker #EDDpicker disabled="false"></mat-datepicker>
   </mat-form-field>
   <!-- Diagnosis Input Field -->
-  <mat-form-field class="form-field">
-    <mat-label>Diagnosis</mat-label>
-    <input type="text"
-           matInput
-           formControlName="Diagnosis"
-           [(ngModel)]="gravidasDetails.Diagnosis"/>
+  <mat-form-field>
+    <mat-select placeholder="Diagnosis" formControlName="Diagnosis" [(ngModel)]="gravidasDetails.Diagnosis">
+      <mat-option value="TTS">Twin-Twin Transfusion Syndrome (TTS)</mat-option>
+      <mat-option value="CDH">Congenital Diaphragmatic Hernia (CDH)</mat-option>
+      <mat-option value="BOO">Bladder Outlet Obstruction</mat-option>
+      <mat-option value="SpinaBifida">Spina Bifida</mat-option>
+    </mat-select>
   </mat-form-field>
+
+
   <mat-form-field class="form-field">
     <mat-label>Parity</mat-label>
     <input type="text"
