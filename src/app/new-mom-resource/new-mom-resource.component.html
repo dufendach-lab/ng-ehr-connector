@@ -1,7 +1,7 @@
 <div class="resource-container">
   <mat-card>
     <mat-card-header>
-      <mat-card-title>We're here for you.</mat-card-title>
+      <mat-card-title>We're here for you and your {{diagnosis}}.</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <h2>
@@ -18,17 +18,122 @@
       </a>
       <br />
       <br>
-      <mat-form-field>
+      <!-- <mat-form-field>
         <mat-select placeholder="Condition" [(value)]="selectedResource">
-          <mat-option value="All">All</mat-option>
           <mat-option value="CDH">Congenital Diaphragmatic Hernia (CDH)</mat-option>
           <mat-option value="SpinaBifida">Spina Bifida</mat-option>
           <mat-option value="TTS">Twin-Twin Transfusion Syndrome(TTS)</mat-option>
           <mat-option value="BOO">Bladder Outlet Obstruction</mat-option>
         </mat-select>
-      </mat-form-field>
+      </mat-form-field> -->
 
       <mat-accordion>
+        <ng-container *ngIf="diagnosis == 'TTS'">
+            <mat-expansion-panel (opened)="isPanelOpen = true" (closed)="isPanelOpen = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>Twin-Twin Transfusion Syndrome (TTS)</mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <ng-container *ngIf="isPanelOpen">
+                <app-yt-player [vidToGet]="diagnosis"></app-yt-player>
+              </ng-container>
+
+            </mat-expansion-panel>
+        </ng-container>
+
+        <ng-container *ngIf="diagnosis == 'CDH'">
+            <mat-expansion-panel (opened)="isPanelOpen = true" (closed)="isPanelOpen = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>Congenital Diaphragmatic Hernia (CDH)</mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <ng-container *ngIf="isPanelOpen">
+                <app-yt-player [vidToGet]="diagnosis"></app-yt-player>
+              </ng-container>
+
+              <ul>
+                <li>
+                  <a mat-raised-button color="accent" (click)="openPDF('CDH')">PDF CDH</a>
+                  <p>"CDH PDF"</p>
+                </li>
+              </ul>
+
+            </mat-expansion-panel>
+        </ng-container>
+
+        <ng-container *ngIf="diagnosis == 'SpinaBifida'">
+          <br />
+            <mat-expansion-panel (opened)="isPanelOpen = true" (closed)="isPanelOpen = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>Spina Bifida</mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <ng-container *ngIf="isPanelOpen">
+                <app-yt-player [vidToGet]="diagnosis"></app-yt-player>
+              </ng-container>
+
+              <ul>
+                <li>
+                  <a
+                    mat-raised-button
+                    color="accent"
+                    (click)="openPDF('SpinaBifida')"
+                    >PDF SpinaBifida
+                  </a>
+                  <p>"SpinaBifida PDF"</p>
+                </li>
+              </ul>
+            </mat-expansion-panel>
+        </ng-container>
+
+        <ng-container *ngIf="diagnosis == 'BOO'">
+            <mat-expansion-panel (opened)="isPanelOpen = true" (closed)="isPanelOpen = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>Bladder Outlet Obstruction</mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <ng-container *ngIf="isPanelOpen">
+                <app-yt-player [vidToGet]="diagnosis"></app-yt-player>
+              </ng-container>
+
+            </mat-expansion-panel>
+        </ng-container>
+
+        <ng-container>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>Coping</mat-panel-title>
+              </mat-expansion-panel-header>
+              <ul>
+                <li>
+                  <a mat-raised-button color="accent" (click)="openPDF('Coping')">PDF Coping</a>
+                  <p>"Coping PDF"</p>
+                </li>
+                <mat-divider></mat-divider>
+              </ul>
+            </mat-expansion-panel>
+        </ng-container>
+
+        <ng-container>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>Explaining</mat-panel-title>
+              </mat-expansion-panel-header>
+              <ul>
+                <li>
+                  <a
+                    mat-raised-button
+                    color="accent"
+                    (click)="openPDF('Explaining')"
+                    >PDF Explaining
+                  </a>
+                  <p>"Explaining PDF"</p>
+                </li>
+                <mat-divider></mat-divider>
+              </ul>
+            </mat-expansion-panel>
+        </ng-container>
+
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title> General Resources </mat-panel-title>
@@ -187,179 +292,8 @@
             </li>
           </ul>
         </mat-expansion-panel>
+
       </mat-accordion>
-      <br />
-      <mat-divider></mat-divider>
-
-      <span *ngIf="selectedResource == 'TTS' || selectedResource == 'All'">
-        <br />
-        <mat-accordion>
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>Twin-Twin Transfusion Syndrome (TTS)</mat-panel-title>
-            </mat-expansion-panel-header>
-
-            <ng-container *ngIf="(isHandset$ | async)">
-              <youtube-player
-              videoId="JW-_L5aBQew"
-              [width]="275"
-              [height]="200"
-              ></youtube-player>
-            </ng-container>
-            <ng-container *ngIf="!(isHandset$ | async)">
-              <youtube-player
-              videoId="JW-_L5aBQew"
-              ></youtube-player>
-            </ng-container>
-
-          </mat-expansion-panel>
-        </mat-accordion>
-        <br />
-        <mat-divider></mat-divider>
-      </span>
-
-      <span *ngIf="selectedResource == 'CDH' || selectedResource == 'All'">
-        <br />
-        <mat-accordion>
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>Congenital Diaphragmatic Hernia (CDH)</mat-panel-title>
-            </mat-expansion-panel-header>
-
-            <ng-container *ngIf="(isHandset$ | async)">
-              <youtube-player
-              videoId="4jVs_PYxCao"
-              [width]="275"
-              [height]="200"
-              ></youtube-player>
-            </ng-container>
-            <ng-container *ngIf="!(isHandset$ | async)">
-              <youtube-player
-              videoId="4jVs_PYxCao"
-              ></youtube-player>
-            </ng-container>
-
-            <ul>
-              <li>
-                <a mat-raised-button color="accent" (click)="openPDF('CDH')">PDF CDH</a>
-                <p>"CDH PDF"</p>
-              </li>
-            </ul>
-          </mat-expansion-panel>
-        </mat-accordion>
-        <br />
-        <mat-divider></mat-divider>
-      </span>
-
-      <span *ngIf="selectedResource == 'SpinaBifida' || selectedResource == 'All'">
-        <br />
-        <mat-accordion>
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>Spina Bifida</mat-panel-title>
-            </mat-expansion-panel-header>
-
-            <ng-container *ngIf="(isHandset$ | async)">
-              <youtube-player
-              videoId="0Gf6o2ZEQkc"
-              [width]="275"
-              [height]="200"
-              ></youtube-player>
-            </ng-container>
-            <ng-container *ngIf="!(isHandset$ | async)">
-              <youtube-player
-              videoId="0Gf6o2ZEQkc"
-              ></youtube-player>
-            </ng-container>
-
-            <ul>
-              <li>
-                <a
-                  mat-raised-button
-                  color="accent"
-                  (click)="openPDF('SpinaBifida')"
-                  >PDF SpinaBifida
-                </a>
-                <p>"SpinaBifida PDF"</p>
-              </li>
-            </ul>
-          </mat-expansion-panel>
-        </mat-accordion>
-        <br />
-        <mat-divider></mat-divider>
-      </span>
-
-      <span *ngIf="selectedResource == 'BOO' || selectedResource == 'All'">
-        <br />
-        <mat-accordion>
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>Bladder Outlet Obstruction</mat-panel-title>
-            </mat-expansion-panel-header>
-
-            <ng-container *ngIf="(isHandset$ | async)">
-              <youtube-player
-              videoId="QmRPm_HjZVU"
-              [width]="275"
-              [height]="200"
-              ></youtube-player>
-            </ng-container>
-            <ng-container *ngIf="!(isHandset$ | async)">
-              <youtube-player
-              videoId="QmRPm_HjZVU"
-              ></youtube-player>
-            </ng-container>
-
-          </mat-expansion-panel>
-        </mat-accordion>
-        <br />
-        <mat-divider></mat-divider>
-      </span>
-
-      <span>
-        <br />
-        <mat-accordion>
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>Coping</mat-panel-title>
-            </mat-expansion-panel-header>
-            <ul>
-              <li>
-                <a mat-raised-button color="accent" (click)="openPDF('Coping')">PDF Coping</a>
-                <p>"Coping PDF"</p>
-              </li>
-              <mat-divider></mat-divider>
-            </ul>
-          </mat-expansion-panel>
-        </mat-accordion>
-        <br />
-        <mat-divider></mat-divider>
-      </span>
-
-      <span>
-        <br />
-        <mat-accordion>
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>Explaining</mat-panel-title>
-            </mat-expansion-panel-header>
-            <ul>
-              <li>
-                <a
-                  mat-raised-button
-                  color="accent"
-                  (click)="openPDF('Explaining')"
-                  >PDF Explaining
-                </a>
-                <p>"Explaining PDF"</p>
-              </li>
-              <mat-divider></mat-divider>
-            </ul>
-          </mat-expansion-panel>
-        </mat-accordion>
-        <br />
-        <mat-divider></mat-divider>
-      </span>
 
     </mat-card-content>
   </mat-card>
