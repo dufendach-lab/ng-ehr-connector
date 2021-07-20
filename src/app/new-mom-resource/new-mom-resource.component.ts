@@ -1,9 +1,5 @@
 
 import { Component } from '@angular/core';
-import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
-
 
 @Component({
   selector: 'app-new-mom-resource',
@@ -12,20 +8,13 @@ import { map, shareReplay } from 'rxjs/operators';
 })
 export class NewMomResourceComponent {
   selectedResource = "";
+  isPanelOpen: boolean = false;
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches),
-      shareReplay()
-    );
-
-  constructor(private breakpointObserver: BreakpointObserver) { }
+  constructor() { }
 
   openPDF(pdfFile: string): void {
     const fileName = pdfFile + '.pdf';
     const fileDir = '../../assets/pdfs/' + fileName;
     window.open(fileDir);
   }
-
-
 }

@@ -58,6 +58,7 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
 import { PdfViewComponent } from './pdf-view/pdf-view.component';
 import { PdfViewerModule }from 'ng2-pdf-viewer';
 import { YouTubePlayerModule } from '@angular/youtube-player';
+import { YtPlayerComponent } from './yt-player/yt-player.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +87,7 @@ import { YouTubePlayerModule } from '@angular/youtube-player';
     NewMomResourceComponent,
     ConfirmationDialogComponent,
     PdfViewComponent,
+    YtPlayerComponent,
   ],
   imports: [
     BrowserModule,
