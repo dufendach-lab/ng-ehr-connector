@@ -1,5 +1,5 @@
 <br/>
-<div fxLayout="row">
+<!-- <div fxLayout="row">
   <span fxFlex></span>
   <mat-card fxFlex="600px">
     <form [formGroup]="Search" (ngSubmit)="onSearch_Click()" fxLayout="column">
@@ -15,18 +15,18 @@
   </mat-card>
   <span fxFlex></span>
 </div>
-&nbsp;
+&nbsp; -->
 
-<div *ngIf="searchResultShow">
+<div *ngIf="patUID != ''">
   <mat-card style="margin: auto">
     <ng-container style="margin-top: 3rem">
-      <div fxLayout="row">
-        <div style="font-weight: bold">
-          Showing Search Results For: {{ searchQuery }} &nbsp;
-        </div>
-      </div>
-      <br />
       <div *ngIf="patientInfo | async as pt; else elseTemplate">
+        <div fxLayout="row">
+          <div style="font-weight: bold">
+            Displaying Info For: {{ pt.firstName }} {{ pt.lastName }}
+          </div>
+        </div>
+        <br />
         <div fxLayout="row">
           <div style="font-weight: bold">Name: &nbsp;</div>
           <div>{{ pt.firstName }} {{ pt.lastName }}</div>

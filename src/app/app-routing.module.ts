@@ -12,6 +12,7 @@ import { GravidasViewerComponent } from './gravidas-viewer/gravidas-viewer.compo
 import { PatientSearchComponent } from './patient-search/patient-search.component';
 import { NewMomResourceComponent } from './new-mom-resource/new-mom-resource.component';
 import { PdfViewComponent } from './pdf-view/pdf-view.component';
+import { AdminListComponent } from './admin-list/admin-list.component';
 
 const routes: Routes = [
   {
@@ -49,8 +50,13 @@ const routes: Routes = [
       },
       // TODO: Only allow admin access for search
       {
-        path: 'patient/search',
+        path: 'patient/:id',
         component: PatientSearchComponent
+      },
+      // TODO: Only allow admin access for search
+      {
+        path: 'adminlist',
+        component: AdminListComponent
       },
       // TODO: Only allow admin access for search
       {
