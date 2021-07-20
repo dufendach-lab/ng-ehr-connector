@@ -6,6 +6,7 @@ import { Observable, pipe } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { IRegistration } from 'src/Interfaces/IRegistration';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-patient-search',
@@ -29,10 +30,32 @@ export class PatientSearchComponent implements OnInit {
     EmailInput: ['', Validators.required],
   })
 
-  constructor( private fb: FormBuilder, private func: AngularFireFunctions, private afs: AngularFirestore, private afa: AngularFireAuth,) { }
+  constructor( private fb: FormBuilder, private func: AngularFireFunctions, private afs: AngularFirestore, private afa: AngularFireAuth, private actRoute: ActivatedRoute,) { }
 
   ngOnInit(): void {
 
+    this.actRoute.paramMap.subscribe((routeParams) => {
+      const nav = (routeParams.get('id') == '' || routeParams.get('id')==null) ? "" : routeParams.get('id');
+      if(nav != "" && nav){
+        this.patUID = nav;
+      }
+    })
+
+    this.patientInfo = this.afs
+        .collection('patients')
+        .doc<IRegistration>(this.patUID)
+        .get().pipe(map(doc => doc.data()))
+
+    this.patientInfo.subscribe((info) => {
+      if(info){
+        this.patientUserInfo = {
+          firstName: info.firstName,
+          lastName: info.lastName,
+          MotherDoB: info.MotherDoB.toDate(),
+          role: (info.role == '') ? "User" : info.role,
+        } as IRegistration;
+      }
+    })
   }
 
   onSearch_Click(){

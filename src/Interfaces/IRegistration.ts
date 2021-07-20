@@ -3,5 +3,6 @@ export interface IRegistration {
   lastName: string;
   MotherDoB: any;
   phone: string;
-  role?: string;
+  role: string;
+  docName: string;
 }
