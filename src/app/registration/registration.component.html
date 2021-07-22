@@ -1,4 +1,4 @@
-<form class="registration-form" [formGroup]="registration" fxLayout="column" (ngSubmit)="submit()">
+<form class="registration-form" [formGroup]="registration" fxLayout="column"> <!--(ngSubmit)="submit()"-->
   <!-- Mother's First Name input -->
   <ng-container>
   <mat-form-field class="form-field" fxFlex>
@@ -74,7 +74,14 @@
   <button mat-raised-button
           class="submit-button"
           color="primary"
-          [disabled]="!registration.valid">Register
+          [disabled]="!registration.valid"
+          (click)="openDialog()">Register
   </button>
+<!--
+  &nbsp;
+  <button mat-raised-button
+          (click)="openDialog()"
+          color="primary">Privacy Policy
+  </button> -->
 </form>
 

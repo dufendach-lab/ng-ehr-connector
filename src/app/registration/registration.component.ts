@@ -7,6 +7,8 @@ import {MatAutocomplete} from '@angular/material/autocomplete';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { Router } from '@angular/router';
 import { RegistrationService } from '../registration.service';
+import { MatDialog } from '@angular/material/dialog';
+import { PrivacyDialogComponent } from '../privacy-dialog/privacy-dialog.component';
 
 @Component({
   selector: 'app-registration',
@@ -16,6 +18,7 @@ import { RegistrationService } from '../registration.service';
 export class RegistrationComponent implements OnInit {
 
   passwordsMatch = true;
+  privacyPolicy = false;
   isPage2 = false;
   pageButtonText = "Next Page";
   EmailInUse = false;
@@ -49,7 +52,8 @@ export class RegistrationComponent implements OnInit {
     private fb: FormBuilder,
     private fhirService: FhirAuthService,
     private router: Router,
-    private regService: RegistrationService) {
+    private regService: RegistrationService,
+    private dialog: MatDialog) {
   }
 
   //Uses the Endpoints function to retrieve a list of all the available epic endpoints
@@ -86,5 +90,19 @@ export class RegistrationComponent implements OnInit {
     else{
       this.passwordsMatch = false;
     }
+  }
+
+  openDialog(): void{
+    const dialogRef = this.dialog.open(PrivacyDialogComponent, {
+      width: '40%',
+      data: { privacyPolicy: this.privacyPolicy }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.privacyPolicy = result;
+      if(this.privacyPolicy){
+        this.submit();
+      }
+    });
   }
 }
