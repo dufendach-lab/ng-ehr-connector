@@ -126,7 +126,7 @@ export class PatientSearchComponent implements OnInit {
     console.log("DoB Icon clicked");
   }
   submitUserEdits() {
-    this.afs.collection('patients').doc(this.searchQuery).update(this.patientUserInfo);
+    this.afs.collection('patients').doc(this.patUID).update(this.patientUserInfo);
     this.isEditMode = false;
     this.isFirstNameEdit = false;
     this.isLastNameEdit = false;
