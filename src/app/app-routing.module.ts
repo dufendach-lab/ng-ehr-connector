@@ -13,6 +13,7 @@ import { PatientSearchComponent } from './patient-search/patient-search.componen
 import { NewMomResourceComponent } from './new-mom-resource/new-mom-resource.component';
 import { PdfViewComponent } from './pdf-view/pdf-view.component';
 import { AdminListComponent } from './admin-list/admin-list.component';
+import { ContactFormComponent } from './contact-form/contact-form.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
       {
         path: 'survey',
         component: MainFormComponent
+      },
+      {
+        path: 'contact',
+        component: ContactFormComponent
       },
       {
         path: 'authorize',

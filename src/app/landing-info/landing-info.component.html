@@ -1,7 +1,7 @@
 <div *ngIf="registrationInfo | async as pt">
   <div *ngIf="isIt; else noInfo">
     <mat-card style="margin: auto;">
-      <ng-container style="margin-top: 3rem">
+      <ng-container>
         <div fxLayout="row">
           <div style="font-weight: bold;">Date of Birth: &nbsp;</div>
           <div>{{ pt.MotherDoB.toDate() | date: "yyyy/MM/dd" }}</div>

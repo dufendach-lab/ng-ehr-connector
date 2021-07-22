@@ -1,5 +1,5 @@
 <div *ngIf="user | async; else Login">
-  <div style="padding-top: 1rem;" fxLayout="row" fxLayoutGap="15px" fxLayout.lt-sm="column" >
+  <div fxLayout="row" fxLayoutGap="15px" fxLayout.lt-sm="column" >
     <ng-container *ngIf="!hasBirthed">
       <mat-card fxFlex class="woah-card">
         <mat-card-header>
