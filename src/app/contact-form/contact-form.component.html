@@ -1,1 +1,52 @@
-<h1>Welcome to the contact page</h1>
+<div class="contactpage-container">
+  <mat-card class="card">
+    <mat-card-header>
+      <mat-card-title>Please submit issues with [App Name] below.</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <p>If you are seeking medical attention send questions to the fetal care center.</p>
+      <a
+        mat-raised-button
+        color="accent"
+        href="https://www.cincinnatichildrens.org/service/f/fetal-care"
+        target="_blank"
+        >Cincinnati Childrens Fetal Care Center
+      </a>
+
+      <br>
+      <br>
+      <br>
+      <mat-divider></mat-divider>
+      <br>
+
+      <form class="contact-form" fxLayout="column">
+        <mat-form-field class="form-field">
+          <mat-label>Name</mat-label>
+          <input type="text"
+                  matInput>
+        </mat-form-field>
+
+        <mat-form-field class="form-field">
+          <mat-label>Email</mat-label>
+          <input type="email"
+                  matInput>
+        </mat-form-field>
+
+        <mat-form-field class="form-field">
+          <mat-label>Subject</mat-label>
+          <input type="text"
+                  matInput>
+        </mat-form-field>
+
+        <mat-form-field class="form-field">
+          <mat-label>Concerns</mat-label>
+          <textarea matInput cols="100"></textarea>
+        </mat-form-field>
+      </form>
+
+      <button mat-raised-button>Submit</button>
+
+    </mat-card-content>
+  </mat-card>
+</div>
