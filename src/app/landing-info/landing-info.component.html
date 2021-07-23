@@ -1,6 +1,9 @@
 <div *ngIf="registrationInfo | async as pt">
   <div *ngIf="isIt; else noInfo">
     <mat-card style="margin: auto;">
+      <mat-card-header>
+        <mat-card-title>Patient Info</mat-card-title>
+      </mat-card-header>
       <ng-container>
         <div fxLayout="row">
           <div style="font-weight: bold;">Date of Birth: &nbsp;</div>
