@@ -36,10 +36,9 @@
         </div>
       </div>
     </mat-toolbar>
-    <div class="bg-img" [ngStyle]="{'height': (isHandset$ | async) ? '100%' : '100%'}">
-      <div class="content">
+
+    <div class="content">
       <router-outlet></router-outlet>
-      </div>
     </div>
 
   </mat-sidenav-content>

@@ -38,16 +38,16 @@
   flex: 1;
   padding: 7px 7px;
 }
-.bg-img {
-  background: url("../../assets/img/cchmc-pattern.PNG") repeat center center fixed;
-  -webkit-background-size: repeat;
-  -moz-background-size: repeat;
-  -o-background-size: repeat;
-  background-size: repeat;
+// .bg-img {
+//   background: url("../../assets/img/cchmc-pattern.PNG") repeat center center fixed;
+//   -webkit-background-size: repeat;
+//   -moz-background-size: repeat;
+//   -o-background-size: repeat;
+//   background-size: repeat;
 
-  z-index: -10;
-  flex: 1 1 auto;
-}
+//   z-index: -10;
+//   flex: 1 1 auto;
+// }
 
 .app-title-nav {
   background-color: $cchmc-pink;
