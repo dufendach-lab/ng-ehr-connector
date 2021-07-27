@@ -1,5 +1,11 @@
 @import "src/cchmc";
 
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(max(320px,40vw), 1fr));
+  gap: 15px 15px;
+}
+
 .woah-card {
   background-color: $cchmc-pink;
   color: white;

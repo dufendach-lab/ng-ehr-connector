@@ -1,35 +1,35 @@
 <div *ngIf="registrationInfo | async as pt">
   <div *ngIf="isIt; else noInfo">
-    <mat-card style="margin: auto;">
+    <mat-card>
       <mat-card-header>
         <mat-card-title>Patient Info</mat-card-title>
       </mat-card-header>
       <ng-container>
-        <div fxLayout="row">
+        <div>
           <div style="font-weight: bold;">Date of Birth: &nbsp;</div>
-          <div>{{ pt.MotherDoB.toDate() | date: "yyyy/MM/dd" }}</div>
+          <div>{{ pt.MotherDoB.toDate() | date: "MM/dd/yyyy" }}</div>
         </div>
         <br/>
 
-        <div fxLayout="row">
+        <div>
           <div style="font-weight: bold;">Estimated Due Date: &nbsp;</div>
-          <div>{{ recentGravidas.EstDueDate | date: "yyyy/MM/dd" }}</div>
+          <div>{{ recentGravidas.EstDueDate | date: "MM/dd/yyyy" }}</div>
         </div>
         <br/>
 
-        <div fxLayout="row">
+        <div>
           <div style="font-weight: bold;">Diagnosis: &nbsp;</div>
           <div>{{ recentGravidas.Diagnosis }}</div>
         </div>
         <br/>
 
-        <div fxLayout="row">
+        <div>
           <div style="font-weight: bold;">Gestational Age: &nbsp;</div>
           <div>{{ gestationalAgeCalc(recentGravidas.EstDueDate) }}</div>
         </div>
         <br />
 
-        <div fxLayout="row">
+        <div>
           <div style="font-weight: bold;">Parity: &nbsp;</div>
           <div>{{ recentGravidas.parity }}</div>
         </div>
