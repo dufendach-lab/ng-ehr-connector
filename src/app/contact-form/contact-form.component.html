@@ -5,7 +5,7 @@
     </mat-card-header>
 
     <mat-card-content>
-      <p>If you are seeking medical attention send questions to the fetal care center.</p>
+      <p>If you are seeking medical attention, please send questions to the fetal care center.</p>
       <a
         mat-raised-button
         color="accent"
@@ -19,33 +19,33 @@
       <br>
       <mat-divider></mat-divider>
       <br>
+      <ng-container [formGroup]="cForm">
+        <div class="contact-form" fxLayout="column">
+          <mat-form-field class="form-field">
+            <mat-label>Name</mat-label>
+            <input type="text"
+                    matInput
+                    formControlName="name"
+                    [(ngModel)]="emailInfo.name">
+          </mat-form-field>
 
-      <form class="contact-form" fxLayout="column">
-        <mat-form-field class="form-field">
-          <mat-label>Name</mat-label>
-          <input type="text"
-                  matInput>
-        </mat-form-field>
+          <mat-form-field class="form-field">
+            <mat-label>Email</mat-label>
+            <input type="text"
+                    matInput
+                    formControlName="email"
+                    [(ngModel)]="emailInfo.email">
+          </mat-form-field>
 
-        <mat-form-field class="form-field">
-          <mat-label>Email</mat-label>
-          <input type="email"
-                  matInput>
-        </mat-form-field>
+          <mat-form-field class="form-field">
+            <mat-label>Describe your issue here</mat-label>
+            <textarea matInput cols="100" formControlName="concerns" [(ngModel)]="emailInfo.content"></textarea>
+          </mat-form-field>
+        </div>
+        <button mat-raised-button (click)="sendEmail()">Send Email</button>
+      </ng-container>
 
-        <mat-form-field class="form-field">
-          <mat-label>Subject</mat-label>
-          <input type="text"
-                  matInput>
-        </mat-form-field>
 
-        <mat-form-field class="form-field">
-          <mat-label>Concerns</mat-label>
-          <textarea matInput cols="100"></textarea>
-        </mat-form-field>
-      </form>
-
-      <button mat-raised-button>Submit</button>
 
     </mat-card-content>
   </mat-card>
