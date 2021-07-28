@@ -60,6 +60,7 @@ import { PdfViewerModule }from 'ng2-pdf-viewer';
 import { YouTubePlayerModule } from '@angular/youtube-player';
 import { YtPlayerComponent } from './yt-player/yt-player.component';
 import { AdminListComponent } from './admin-list/admin-list.component';
+import { PrivacyDialogComponent } from './privacy-dialog/privacy-dialog.component';
 import { ContactFormComponent } from './contact-form/contact-form.component';
 import { FooterComponent } from './footer/footer.component';
 
@@ -92,6 +93,7 @@ import { FooterComponent } from './footer/footer.component';
     PdfViewComponent,
     YtPlayerComponent,
     AdminListComponent,
+    PrivacyDialogComponent,
     ContactFormComponent,
     FooterComponent,
   ],
