@@ -15,10 +15,12 @@
       <!-- patient/search -->
       <a mat-list-item (click)="closeSideNav()" routerLink="adminlist">Patient List</a>
       <a mat-list-item (click)="logout()">Logout</a>
+      <a mat-list-item (click)="closeSideNav()" routerLink="contact" class="content-button">Issues with our site?</a>
     </mat-nav-list>
 
   </mat-sidenav>
-  <mat-sidenav-content>
+
+  <mat-sidenav-content class="content-container">
     <mat-toolbar color="primary" role="heading">
       <button mat-icon-button (click)="drawer.toggle()" *ngIf="(isHandset$ | async)">
         <mat-icon>menu</mat-icon>
@@ -34,11 +36,11 @@
         </div>
       </div>
     </mat-toolbar>
-    <div class="bg-img" [ngStyle]="{'height': (isHandset$ | async) ? '980px' : '94%'}">
-      <div class="outlet">
+
+    <div class="content">
       <router-outlet></router-outlet>
-      </div>
     </div>
+
   </mat-sidenav-content>
 </mat-sidenav-container>
 

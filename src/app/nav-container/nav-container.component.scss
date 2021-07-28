@@ -1,15 +1,24 @@
 
 @import 'src/cchmc';
 .sidenav-container {
-  height: 100%;
+  min-height: 100vh;
 }
 
 .sidenav {
+  height: 100vh;
   width: 200px;
 }
 
 .sidenav .mat-toolbar {
   background: inherit;
+}
+
+.content-button {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  opacity: 0.6;
+  font-size: 13px;
 }
 
 .mat-toolbar.mat-primary {
@@ -19,19 +28,26 @@
 
 }
 
-.outlet {
-  padding: 0 7px;
+.content-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
-.bg-img {
-  background: url("../../assets/img/cchmc-pattern.PNG") repeat center center fixed;
-  -webkit-background-size: repeat;
-  -moz-background-size: repeat;
-  -o-background-size: repeat;
-  background-size: repeat;
 
-  z-index: -10;
-  flex: 1 1 auto;
+.content {
+  flex: 1;
+  padding: 10px 10px;
 }
+// .bg-img {
+//   background: url("../../assets/img/cchmc-pattern.PNG") repeat center center fixed;
+//   -webkit-background-size: repeat;
+//   -moz-background-size: repeat;
+//   -o-background-size: repeat;
+//   background-size: repeat;
+
+//   z-index: -10;
+//   flex: 1 1 auto;
+// }
 
 .app-title-nav {
   background-color: $cchmc-pink;

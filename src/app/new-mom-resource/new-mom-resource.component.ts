@@ -1,9 +1,5 @@
 
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
-import { filter, map, switchMap } from 'rxjs/operators';
-import { IRegistration } from 'src/Interfaces/IRegistration';
 import { AuthService } from '../auth.service';
 import { GravidasService } from '../gravidas.service';
 
@@ -15,21 +11,12 @@ import { GravidasService } from '../gravidas.service';
 export class NewMomResourceComponent implements OnInit{
   selectedResource = "";
   isPanelOpen: boolean = false;
-  regInfo: Observable<IRegistration | undefined>;
   user = this.logAuth.user;
   diagnosis: string = '';
 
-  constructor(private afs: AngularFirestore,
-              private logAuth: AuthService,
+  constructor(private logAuth: AuthService,
               private gravService: GravidasService
   ) {
-    this.regInfo = this.user.pipe(
-      filter(u => u != null),
-      switchMap(u => this.afs
-        .collection('patients')
-        .doc<IRegistration>(u?.uid)
-        .get().pipe(map(doc => doc.data())))
-    )
   }
   ngOnInit(): void {
     this.gravService.getGravidas().subscribe(grav => {
