@@ -2,7 +2,8 @@
 
 .wrapper {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(max(270px,40vw), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(max(300px,40vw), 1fr));
+  height: 50px;
   gap: 15px 15px;
 }
 

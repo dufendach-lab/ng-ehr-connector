@@ -61,6 +61,7 @@ import { YouTubePlayerModule } from '@angular/youtube-player';
 import { YtPlayerComponent } from './yt-player/yt-player.component';
 import { AdminListComponent } from './admin-list/admin-list.component';
 import { ContactFormComponent } from './contact-form/contact-form.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -92,6 +93,7 @@ import { ContactFormComponent } from './contact-form/contact-form.component';
     YtPlayerComponent,
     AdminListComponent,
     ContactFormComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

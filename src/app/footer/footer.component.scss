@@ -1,0 +1,27 @@
+@import 'src/cchmc.scss';
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: #ca5699;
+
+  height: 60px;
+  line-height: 60px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.content {
+  a {
+    margin-right: 20px;
+    text-decoration: none;
+    color: #eecbdf;
+  }
+  a:hover {
+    color: #ee9fcc;
+  }
+}
