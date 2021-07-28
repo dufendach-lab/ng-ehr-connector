@@ -1,7 +1,8 @@
 <div *ngIf="user | async; else Login">
-  <div fxLayout="row" fxLayoutGap="15px" fxLayout.lt-sm="column" >
+  <div class="wrapper">
+
     <ng-container *ngIf="!hasBirthed">
-      <mat-card fxFlex class="woah-card">
+      <mat-card class="woah-card">
         <mat-card-header>
           <mat-card-title>Pregnancy Status</mat-card-title>
         </mat-card-header>
@@ -13,11 +14,10 @@
     </ng-container>
 
     <ng-container *ngIf="hasBirthed">
-
       <ng-container *ngIf="isAuthorized | async">
-        <mat-card fxFlex >
+        <mat-card>
           <mat-card-header>
-            <mat-card-title>Babys Information</mat-card-title>
+            <mat-card-title>Baby's Information</mat-card-title>
           </mat-card-header>
           <mat-card-content>
             <p>Data pulled from the EHR is shown here</p>
@@ -33,7 +33,7 @@
       </ng-container>
 
       <ng-container *ngIf="!(isAuthorized | async)">
-        <mat-card fxFlex  class="woah-card">
+        <mat-card class="woah-card">
           <mat-card-header>
             <mat-card-title>Authorize</mat-card-title>
           </mat-card-header>
@@ -49,49 +49,52 @@
           </button>
         </mat-card>
       </ng-container>
-
     </ng-container>
-    <app-landing-info fxFlex></app-landing-info>
+
+    <ng-container>
+      <app-landing-info></app-landing-info>
+    </ng-container>
+
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          New Mom Resources for {{diagnosis}}
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Helpful resources to assist you in the next stage of your life.</p>
+      </mat-card-content>
+      <ng-container *ngIf="diagnosis !== null">
+        <app-yt-player [vidToGet]="diagnosis"></app-yt-player>
+      </ng-container>
+      <br>
+      <button mat-raised-button color="accent" routerLink="/resources">More Resources</button>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          Contact Us
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <h3>Fetal Care Center</h3>
+        <h4>Phone: </h4>
+        <p>1-888-338-2559</p>
+        <h4>Mailing Address: </h4>
+        <p>Cincinnati Children's Fetal Care Center<br>
+          MLC 11020<br>
+          3333 Burnet Ave.<br>
+          Cincinnati, OH 45229-3039</p>
+      </mat-card-content>
+      <a mat-raised-button color="accent" href="https://www.cincinnatichildrens.org/service/f/fetal-care/contact/form" target="_blank">
+        Contact Form
+      </a>
+    </mat-card>
 
   </div>
   <br>
 
-    <div fxLayout="row" fxLayoutGap="15px" fxLayout.lt-sm="column">
-      <mat-card fxFlex>
-        <mat-card-header>
-          <mat-card-title>
-            New Mom Resources
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <p>Helpful resources to assist you in the next stage of your life.</p>
-        </mat-card-content>
-        <button mat-raised-button color="accent" routerLink="/resources">Resources</button>
-      </mat-card>
-
-      <mat-card fxFlex>
-        <mat-card-header>
-          <mat-card-title>
-            Contact Us
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <h3>Fetal Care Center</h3>
-          <h4>Phone: </h4>
-          <p>1-888-338-2559</p>
-          <h4>Mailing Address: </h4>
-          <p>Cincinnati Children's Fetal Care Center<br>
-            MLC 11020<br>
-            3333 Burnet Ave.<br>
-            Cincinnati, OH 45229-3039</p>
-        </mat-card-content>
-        <a mat-raised-button color="accent" href="https://www.cincinnatichildrens.org/service/f/fetal-care/contact/form" target="_blank">
-          Contact Form
-        </a>
-      </mat-card>
-
-
-    </div>
 </div>
 
 <ng-template #Login>

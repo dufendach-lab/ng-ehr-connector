@@ -1,1 +1,52 @@
-<h1>Welcome to the contact page</h1>
+<div class="contactpage-container">
+  <mat-card class="card">
+    <mat-card-header>
+      <mat-card-title>Please submit issues with [App Name] below.</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <p>If you are seeking medical attention, please send questions to the fetal care center.</p>
+      <a
+        mat-raised-button
+        color="accent"
+        href="https://www.cincinnatichildrens.org/service/f/fetal-care"
+        target="_blank"
+        >Cincinnati Childrens Fetal Care Center
+      </a>
+
+      <br>
+      <br>
+      <br>
+      <mat-divider></mat-divider>
+      <br>
+      <ng-container [formGroup]="cForm">
+        <div class="contact-form" fxLayout="column">
+          <mat-form-field class="form-field">
+            <mat-label>Name</mat-label>
+            <input type="text"
+                    matInput
+                    formControlName="name"
+                    [(ngModel)]="emailInfo.name">
+          </mat-form-field>
+
+          <mat-form-field class="form-field">
+            <mat-label>Email</mat-label>
+            <input type="text"
+                    matInput
+                    formControlName="email"
+                    [(ngModel)]="emailInfo.email">
+          </mat-form-field>
+
+          <mat-form-field class="form-field">
+            <mat-label>Describe your issue here</mat-label>
+            <textarea matInput cols="100" formControlName="concerns" [(ngModel)]="emailInfo.content"></textarea>
+          </mat-form-field>
+        </div>
+        <button mat-raised-button (click)="sendEmail()">Send Email</button>
+      </ng-container>
+
+
+
+    </mat-card-content>
+  </mat-card>
+</div>

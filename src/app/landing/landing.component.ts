@@ -22,23 +22,25 @@ export class LandingComponent implements OnInit {
   email = '';
 
   user = this.auth.user;
+  diagnosis: string | null = null;
 
   constructor(
     private fhirAuth: FhirAuthService,
-    private gravAuth: AuthService,
     private auth: AuthService,
     public dialog: MatDialog,
     private gravService: GravidasService,
-  ) {}
-
-  ngOnInit(): void {
-    this.gravidasDetails = this.gravService.getGravidas();
-    this.gravidasDetails.subscribe(gravidas => {
+  ) {
+    this.gravService.getGravidas().subscribe(gravidas => {
       if(gravidas){
         const lastIndex = gravidas.length - 1;
         this.hasBirthed = gravidas[lastIndex].givenBirth;
+        this.diagnosis = gravidas[lastIndex].Diagnosis;
       }
     })
+  }
+
+  ngOnInit(): void {
+
   }
 
   openDialog() {

@@ -8,7 +8,6 @@ import { Component, Input, OnInit } from '@angular/core';
 export class YtPlayerComponent implements OnInit {
   @Input('vidToGet') vidId: string | undefined = undefined;
   id: string = '';
-  width: number = 0;
 
   constructor() {
    }
