@@ -61,7 +61,11 @@ import { YouTubePlayerModule } from '@angular/youtube-player';
 import { YtPlayerComponent } from './yt-player/yt-player.component';
 import { AdminListComponent } from './admin-list/admin-list.component';
 import { PrivacyDialogComponent } from './privacy-dialog/privacy-dialog.component';
+<<<<<<< HEAD
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+=======
 import { ContactFormComponent } from './contact-form/contact-form.component';
+>>>>>>> bbbfb0983c86d02ee427e98babd7ae17875d86b2
 
 @NgModule({
   declarations: [
@@ -93,7 +97,11 @@ import { ContactFormComponent } from './contact-form/contact-form.component';
     YtPlayerComponent,
     AdminListComponent,
     PrivacyDialogComponent,
+<<<<<<< HEAD
+    ResetPasswordComponent,
+=======
     ContactFormComponent,
+>>>>>>> bbbfb0983c86d02ee427e98babd7ae17875d86b2
   ],
   imports: [
     BrowserModule,
