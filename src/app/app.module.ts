@@ -61,6 +61,7 @@ import { YouTubePlayerModule } from '@angular/youtube-player';
 import { YtPlayerComponent } from './yt-player/yt-player.component';
 import { AdminListComponent } from './admin-list/admin-list.component';
 import { PrivacyDialogComponent } from './privacy-dialog/privacy-dialog.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ContactFormComponent } from './contact-form/contact-form.component';
 import { FooterComponent } from './footer/footer.component';
 
@@ -94,6 +95,7 @@ import { FooterComponent } from './footer/footer.component';
     YtPlayerComponent,
     AdminListComponent,
     PrivacyDialogComponent,
+    ResetPasswordComponent,
     ContactFormComponent,
     FooterComponent,
   ],

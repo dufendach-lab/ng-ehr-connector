@@ -1,8 +1,8 @@
 <!--<mat-card style="margin: auto; width: 70%">-->
 <!--  <mat-card-title>Login</mat-card-title>-->
-<form class="registration-form" [formGroup]="login" (ngSubmit)="onSubmit()" fxLayout="column">
+<form class="registration-form" [formGroup]="login" fxLayout="column"> <!--(ngSubmit)="onSubmit()"-->
   <mat-form-field class="form-field">
-    <mat-label>Username</mat-label>
+    <mat-label>Email</mat-label>
     <input type="text"
            matInput
            formControlName="username"
@@ -18,16 +18,14 @@
       hide ? "visibility_off" : "visibility"
       }}</mat-icon>
   </mat-form-field>
+  <a (click)="forgotPassword()" style="text-align: right;" href="javascript:;"> Forgot password? </a>
   <button mat-raised-button
           color="primary"
           class="action-button"
-          [disabled]="!login.valid">Log in
+          [disabled]="!login.valid"
+          (click)="onSubmit()">Log in
   </button>
   <div *ngIf="incorrectLogin" style="color: red">
     Username or Password are incorrect
   </div>
-<!--  <mat-divider></mat-divider>-->
-<!--  <button mat-button role="button" class="action-button"-->
-<!--          routerLink="/registration"-->
-<!--          (click)="registerEnabled = true">Register</button>-->
 </form>

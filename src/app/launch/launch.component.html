@@ -23,7 +23,7 @@
       <app-login></app-login>
       <mat-divider></mat-divider>
       <p class="center-horizontal">New here?</p>
-      <button mat-button (click)="registerEnabled = true">Create an account</button>
+      <button mat-button (click)="registerEnabled = true" mat-raised-button color="primary" class="action-button">Create an account</button>
     </ng-container>
   </div>
 </div>
@@ -34,7 +34,7 @@
 
   <mat-divider></mat-divider>
   <p>Already have an account?</p>
-  <button mat-button (click)="registerEnabled = false">Log In Instead</button>
+  <button mat-button (click)="registerEnabled = false"  mat-raised-button color="primary" class="action-button">Log In Instead</button>
 </ng-template>
 
 <ng-template #phone>
@@ -61,7 +61,7 @@
           <app-login></app-login>
           <mat-divider></mat-divider>
           <p class="center-horizontal">New here?</p>
-          <button mat-button (click)="registerEnabled = true">Create an account</button>
+          <button mat-button (click)="registerEnabled = true"  mat-raised-button color="primary" class="action-button">Create an account</button>
         </ng-container>
       </div>
   </div>

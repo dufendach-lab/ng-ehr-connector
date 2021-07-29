@@ -8,6 +8,28 @@
 }
 
 .woah-card {
-  background-color: $cchmc-pink;
+  background-color: $cchmc-green;
   color: white;
+}
+.woah-card:hover {
+  background-color: $cchmc-lightgreen;
+}
+
+.resource-card {
+  background-color: $cchmc-blue;
+  color: white;
+}
+.resource-card:hover {
+  background-color: $cchmc-lightblue;
+}
+
+.contact-card {
+  background-color:  $cchmc-semiLightGray;
+  color: white;
+  a:hover {
+    background-color: $cchmc-lightblue;
+  }
+}
+.contact-card:hover {
+  background-color:  $cchmc-lightgray;
 }

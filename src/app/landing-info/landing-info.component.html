@@ -1,6 +1,6 @@
 <div *ngIf="registrationInfo | async as pt">
   <div *ngIf="isIt; else noInfo">
-    <mat-card>
+    <mat-card class="data-card">
       <mat-card-header>
         <mat-card-title>Patient Info</mat-card-title>
       </mat-card-header>
@@ -40,7 +40,7 @@
 </div>
 
 <ng-template #noInfo>
-  <mat-card>
+  <mat-card class="data-card">
     <mat-card-header>
       <mat-card-title>No info to show</mat-card-title>
     </mat-card-header>

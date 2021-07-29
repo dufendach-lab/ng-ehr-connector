@@ -14,6 +14,7 @@ import { NewMomResourceComponent } from './new-mom-resource/new-mom-resource.com
 import { PdfViewComponent } from './pdf-view/pdf-view.component';
 import { AdminListComponent } from './admin-list/admin-list.component';
 import { ContactFormComponent } from './contact-form/contact-form.component';
+import { PrivacyDialogComponent } from './privacy-dialog/privacy-dialog.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,10 @@ const routes: Routes = [
       {
         path: 'contact',
         component: ContactFormComponent
+      },
+      {
+        path: 'privacy',
+        component: PrivacyDialogComponent
       },
       {
         path: 'authorize',

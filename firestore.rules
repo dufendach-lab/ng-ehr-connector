@@ -2,16 +2,48 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /{everything=**} {
-      allow read, write: if request.auth.token.superAdmin == true;
+      allow update, read, write, delete: if get(/databases/{database}/documents/patients).data.role[request.auth.uid] == ["Admin", "Moderator"]
     }
     match /patients/{patientID} {
       allow read, write: if
-          request.auth != null;
+        request.auth != null &&
+        request.auth.uid == patientID;
+      allow create: if
+        request.resource.data.MotherDoB is timestamp &&
+        request.resource.data.MotherDoB < request.resource.data.date() &&
+        request.resource.data.firstName is string &&
+        request.resource.data.firstName.matches('[-A-Za-z_ ]+') &&
+        request.resource.data.lastName is string &&
+        request.resource.data.lastName.matches('[-A-Za-z_ ]+') &&
+        request.resource.data.phone is string &&
+        request.resource.data.phone.matches('[-1-9+]+') &&
+        request.resource.data.role is string &&
+        request.resource.data.role == ["User", "Admin", "Moderator"] &&
+        request.resource.data.patientID == request.auth.uid;
+      match /gravidas/{gravidasID} {
+        allow create: if
+          request.resource.data.parity is number &&
+          request.resource.data.parity > 0 &&
+          request.resource.data.givenBirth is bool &&
+          request.resource.data.givenBirth == false &&
+          request.resource.data.EstDueDate is timestamp &&
+          request.resource.data.EstDueDate > request.resource.data.date() &&
+          request.resource.data.Diagnosis is string &&
+          request.resource.data.Diagnosis.matches('[A-Za-z_ ]+') &&
+          request.resource.data.gravidasTitle is string &&
+          request.resource.data.gravidasTitle.size() == 10 &&
+          request.resource.data.gravidasTitle.matches('[-1-9]+') &&
+          request.resource.data.hospital is list &&
+          request.resource.data.hospital.size() >= 1 &&
+          request.resource.data.gravidasID == request.resource.data.gravidasTitle;
+      }
     }
-    match /patients/{patientID}/gravidas/{gravidasID} {
-      allow read, write: if
-          request.auth != null &&
-          request.auth.uid == patientID;
+    match /reminder/{patientID} {
+      allow create: if
+        request.resource.data.reminderSentFor is string &&
+        request.resource.data.reminderSentFor.size() == 10 &&
+        request.resource.data.reminderSentFor.matches('[-1-9]+') &&
+        request.resource.data.reminderSentOn is timestamp;
     }
   }
 }
@@ -19,6 +51,3 @@ service cloud.firestore {
 // function isAuth(p1, p2){
 //   return request.auth != null;
 // }
-
-admin.auth().setCustomUserClaims(uid,
-{superAdmin: true})

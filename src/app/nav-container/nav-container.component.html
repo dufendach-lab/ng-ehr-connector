@@ -1,8 +1,8 @@
 <!-- <mat-toolbar color="primary" role="heading" style="position: fixed; z-index: 10;"> -->
 
-  <mat-sidenav-container class="sidenav-container">
+<mat-sidenav-container class="sidenav-container">
 
-    <mat-sidenav #drawer class="sidenav" fixedInViewport
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="(isHandset$ | async) === false">
@@ -20,29 +20,29 @@
 
   </mat-sidenav>
 
-  <mat-sidenav-content class="content-container">
-    <mat-toolbar color="primary" role="heading">
-      <button mat-icon-button (click)="drawer.toggle()" *ngIf="(isHandset$ | async)">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <button mat-button routerLink="/" *ngIf="!(isHandset$ | async)">
-        <h1 class="text-tag" >[ App Name ]</h1>
-      </button>
+  <mat-sidenav-content>
+    <div class="content-container">
+      <mat-toolbar color="primary" role="heading">
+        <button mat-icon-button (click)="drawer.toggle()" *ngIf="(isHandset$ | async)">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <button mat-button routerLink="/" *ngIf="!(isHandset$ | async)">
+          <h1 class="text-tag" >[ App Name ]</h1>
+        </button>
 
-      <span fxFlex></span>
-      <div *ngIf="(isAuth | async) || (isAuth2 | async)" class="button-container">
-        <div class="welcome-name">
-          <h1 class="text-tag">Hello, {{nameConcat}}</h1>
+        <span fxFlex></span>
+        <div *ngIf="(isAuth | async) || (isAuth2 | async)" class="button-container">
+          <div class="welcome-name">
+            <h1 class="text-tag">Hello, {{nameConcat}}</h1>
+          </div>
         </div>
+      </mat-toolbar>
+
+      <div class="content">
+        <router-outlet></router-outlet>
       </div>
-    </mat-toolbar>
 
-    <div class="content">
-      <router-outlet></router-outlet>
+      <app-footer class="footer"></app-footer>
     </div>
-
-    <app-footer></app-footer>
-
   </mat-sidenav-content>
 </mat-sidenav-container>
-
