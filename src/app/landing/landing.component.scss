@@ -1,35 +1,59 @@
+@use '~@angular/material' as mat;
 @import "src/cchmc";
 
 .wrapper {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(max(300px,40vw), 1fr));
-  height: 50px;
   gap: 15px 15px;
+  padding-bottom: 10px;
+}
+
+mat-icon {
+  vertical-align: middle;
 }
 
 .woah-card {
-  background-color: $cchmc-green;
-  color: white;
-}
-.woah-card:hover {
-  background-color: $cchmc-lightgreen;
+  mat-card-header {
+    background-color: $cchmc-green;
+  }
+  &:hover {
+    @include mat.elevation-transition();
+    @include mat.elevation(15);
+  }
 }
 
 .resource-card {
-  background-color: $cchmc-blue;
-  color: white;
-}
-.resource-card:hover {
-  background-color: $cchmc-lightblue;
+  mat-card-header {
+    background-color: $cchmc-blue;
+  }
+  &:hover {
+    @include mat.elevation-transition();
+    @include mat.elevation(15);
+  }
 }
 
 .contact-card {
-  background-color:  $cchmc-semiLightGray;
-  color: white;
-  a:hover {
-    background-color: $cchmc-lightblue;
+  mat-card-header {
+    background-color: $cchmc-semiLightGray;
+  }
+  &:hover {
+    @include mat.elevation-transition();
+    @include mat.elevation(15);
   }
 }
-.contact-card:hover {
-  background-color:  $cchmc-lightgray;
+
+mat-card-header {
+  border-radius: 10px 10px 0 0;
+  color: white;
+  padding: 10px 1px;
+}
+mat-card-subtitle {
+  color: white;
+}
+mat-card-content {
+  padding: 10px;
+}
+mat-card {
+  border-radius: 10px;
+  padding: 0;
 }

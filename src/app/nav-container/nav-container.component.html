@@ -15,34 +15,40 @@
       <!-- patient/search -->
       <a mat-list-item (click)="closeSideNav()" routerLink="adminlist">Patient List</a>
       <a mat-list-item (click)="logout()">Logout</a>
-      <a mat-list-item (click)="closeSideNav()" routerLink="contact" class="content-button">Issues with our site?</a>
     </mat-nav-list>
 
   </mat-sidenav>
 
   <mat-sidenav-content>
     <div class="content-container">
-      <mat-toolbar color="primary" role="heading">
-        <button mat-icon-button (click)="drawer.toggle()" *ngIf="(isHandset$ | async)">
-          <mat-icon>menu</mat-icon>
-        </button>
-        <button mat-button routerLink="/" *ngIf="!(isHandset$ | async)">
-          <h1 class="text-tag" >[ App Name ]</h1>
-        </button>
 
-        <span fxFlex></span>
-        <div *ngIf="(isAuth | async) || (isAuth2 | async)" class="button-container">
-          <div class="welcome-name">
-            <h1 class="text-tag">Hello, {{nameConcat}}</h1>
+      <div class="toolbar">
+        <mat-toolbar color="primary" role="heading">
+          <button mat-icon-button (click)="drawer.toggle()" *ngIf="(isHandset$ | async)">
+            <mat-icon>menu</mat-icon>
+          </button>
+          <button mat-button routerLink="/" *ngIf="!(isHandset$ | async)">
+            <h1 class="text-tag" >[ App Name ]</h1>
+          </button>
+
+          <span fxFlex></span>
+          <div *ngIf="(isAuth | async) || (isAuth2 | async)" class="button-container">
+            <div class="welcome-name">
+              <h1 class="text-tag">Hello, {{nameConcat}}</h1>
+
+            </div>
           </div>
-        </div>
-      </mat-toolbar>
+        </mat-toolbar>
+      </div>
 
       <div class="content">
         <router-outlet></router-outlet>
       </div>
 
-      <app-footer class="footer"></app-footer>
+      <div class="footer">
+        <app-footer></app-footer>
+      </div>
+
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

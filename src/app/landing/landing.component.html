@@ -1,13 +1,21 @@
-<div *ngIf="user | async; else Login">
-  <div class="wrapper">
-
+<div *ngIf="user | async; else Login" class="wrapper">
     <ng-container *ngIf="!hasBirthed">
       <mat-card class="woah-card" (click)="openDialog()">
         <mat-card-header>
-          <mat-card-title>Pregnancy Status</mat-card-title>
+          <mat-card-title>
+            Pregnancy Status
+          </mat-card-title>
+          <mat-card-subtitle>Click here to update the status of your pregnancy</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-          <p>Click here to update the status of your pregnancy</p>
+          <h3>Status: Pregnant<mat-icon>pregnant_woman</mat-icon></h3>
+          <p>Update your pregnancy status to indicate:</p>
+          <ul>
+            <li>Baby has been born</li>
+            <li>Baby has not been born</li>
+            <li>Baby is deceased</li>
+          </ul>
+          <p style="bottom: 0;">For resources pertaining to your pregnancy, please see resource card below.</p>
         </mat-card-content>
       </mat-card>
     </ng-container>
@@ -16,10 +24,11 @@
       <ng-container *ngIf="isAuthorized | async">
         <mat-card routerLink="/dashboard">
           <mat-card-header>
-            <mat-card-title>Baby's Information</mat-card-title>
+            <mat-card-title>Dashboard</mat-card-title>
+            <mat-card-subtitle>Data pulled from the EHR is shown here</mat-card-subtitle>
           </mat-card-header>
           <mat-card-content>
-            <p>Data pulled from the EHR is shown here</p>
+            <p>Your baby's information is shown here on the dashboard. </p>
           </mat-card-content>
         </mat-card>
       </ng-container>
@@ -45,13 +54,13 @@
         <mat-card-title>
           Resources for {{diagnosis}}
         </mat-card-title>
+        <mat-card-subtitle>Helpful resources to assist you in the next stage of your life</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
-        <p>Helpful resources to assist you in the next stage of your life.</p>
+        <ng-container *ngIf="diagnosis !== null">
+          <app-yt-player [vidToGet]="diagnosis"></app-yt-player>
+        </ng-container>
       </mat-card-content>
-      <ng-container *ngIf="diagnosis !== null">
-        <app-yt-player [vidToGet]="diagnosis"></app-yt-player>
-      </ng-container>
     </mat-card>
 
     <mat-card class="contact-card">
@@ -59,6 +68,7 @@
         <mat-card-title>
           Contact Us
         </mat-card-title>
+        <mat-card-subtitle>Contact the fetal care center for information regarding your pregnancy</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
         <h3>Fetal Care Center</h3>
@@ -69,15 +79,11 @@
           MLC 11020<br>
           3333 Burnet Ave.<br>
           Cincinnati, OH 45229-3039</p>
+          <a mat-raised-button color="accent" href="https://www.cincinnatichildrens.org/service/f/fetal-care/contact/form" target="_blank">
+            Contact Form
+          </a>
       </mat-card-content>
-      <a mat-raised-button color="accent" href="https://www.cincinnatichildrens.org/service/f/fetal-care/contact/form" target="_blank">
-        Contact Form
-      </a>
     </mat-card>
-
-  </div>
-  <br>
-
 </div>
 
 <ng-template #Login>
