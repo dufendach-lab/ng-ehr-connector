@@ -1,21 +1,4 @@
 <br/>
-<!-- <div fxLayout="row">
-  <span fxFlex></span>
-  <mat-card fxFlex="600px">
-    <form [formGroup]="Search" (ngSubmit)="onSearch_Click()" fxLayout="column">
-      <mat-form-field class="form-field">
-        <mat-label>Enter Patient Email Address</mat-label>
-        <input type="text" matInput formControlName="EmailInput" />
-      </mat-form-field>
-
-      <button mat-raised-button class="mat-primary" [disabled]="!Search.valid">
-        Search for Patient
-      </button>
-    </form>
-  </mat-card>
-  <span fxFlex></span>
-</div>
-&nbsp; -->
 
 <div *ngIf="patUID != ''">
   <mat-card style="margin: auto">
@@ -125,12 +108,12 @@
             </button>
             <div style="font-weight: bold">Access Level: &nbsp;</div>
             <span *ngIf="!isAccessLevelEdit">
-              <div>{{ patientUserInfo.role }}</div>
+              <div>{{ patientRoleInfo.role }}</div>
             </span>
             <span *ngIf="isAccessLevelEdit">
               <mat-form-field>
                 <mat-label>Choose Access Level</mat-label>
-                <mat-select [(ngModel)]="patientUserInfo.role">
+                <mat-select [(ngModel)]="patientRoleInfo.role">
                   <mat-option value="User">User</mat-option>
                   <mat-option value="Moderator">Moderator</mat-option>
                   <mat-option value="Admin">Admin</mat-option>
