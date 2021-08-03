@@ -63,6 +63,7 @@ import { AdminListComponent } from './admin-list/admin-list.component';
 import { PrivacyDialogComponent } from './privacy-dialog/privacy-dialog.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ContactFormComponent } from './contact-form/contact-form.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -96,6 +97,7 @@ import { ContactFormComponent } from './contact-form/contact-form.component';
     PrivacyDialogComponent,
     ResetPasswordComponent,
     ContactFormComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

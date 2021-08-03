@@ -1,0 +1,28 @@
+@use '~@angular/material' as mat;
+@import 'src/cchmc';
+
+.data-card {
+  mat-card-header {
+    border-radius: 10px 10px 0 0;
+    background-color: $cchmc-purple;
+    color: white;
+    padding: 10px 1px;
+  }
+
+  mat-card-subtitle {
+    color: white;
+  }
+
+  mat-card-content {
+    padding: 10px;
+  }
+
+  &:hover {
+    @include mat.elevation-transition();
+    @include mat.elevation(15);
+  }
+}
+mat-card {
+  border-radius: 10px;
+  padding: 0;
+}

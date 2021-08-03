@@ -1,12 +1,59 @@
+@use '~@angular/material' as mat;
 @import "src/cchmc";
 
 .wrapper {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(max(270px,40vw), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(max(300px,40vw), 1fr));
   gap: 15px 15px;
+  padding-bottom: 10px;
+}
+
+mat-icon {
+  vertical-align: middle;
 }
 
 .woah-card {
-  background-color: $cchmc-pink;
+  mat-card-header {
+    background-color: $cchmc-green;
+  }
+  &:hover {
+    @include mat.elevation-transition();
+    @include mat.elevation(15);
+  }
+}
+
+.resource-card {
+  mat-card-header {
+    background-color: $cchmc-blue;
+  }
+  &:hover {
+    @include mat.elevation-transition();
+    @include mat.elevation(15);
+  }
+}
+
+.contact-card {
+  mat-card-header {
+    background-color: $cchmc-semiLightGray;
+  }
+  &:hover {
+    @include mat.elevation-transition();
+    @include mat.elevation(15);
+  }
+}
+
+mat-card-header {
+  border-radius: 10px 10px 0 0;
   color: white;
+  padding: 10px 1px;
+}
+mat-card-subtitle {
+  color: white;
+}
+mat-card-content {
+  padding: 10px;
+}
+mat-card {
+  border-radius: 10px;
+  padding: 0;
 }
