@@ -42,6 +42,11 @@ export class RegistrationService {
         if (user) {
           const uniqueID = user.uid;
           this.patientInfo.collection('patients').doc(uniqueID).set(newPatient)
+
+          const accessLevel = {
+            role: "User",
+          };
+          this.afs.collection('users').doc(uniqueID).set(accessLevel);
         }
       })
   }

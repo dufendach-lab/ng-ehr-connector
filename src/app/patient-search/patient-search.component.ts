@@ -8,29 +8,38 @@ import { IRegistration } from 'src/Interfaces/IRegistration';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { ActivatedRoute } from '@angular/router';
 
+interface IRoleLevel {
+  role:string;
+}
+
 @Component({
   selector: 'app-patient-search',
   templateUrl: './patient-search.component.html',
   styleUrls: ['./patient-search.component.scss']
 })
+
 export class PatientSearchComponent implements OnInit {
 
   searchResultShow = false;
   searchQuery = "";
   patUID = "";
   patientInfo!: Observable<IRegistration | undefined>;
+  patientRole!: Observable<IRoleLevel | undefined>;
+  curPatientRole: string = '';
   isEditMode = false;
   isFirstNameEdit = false;
   isLastNameEdit = false;
   isDoBEdit = false;
   isAccessLevelEdit = false;
   patientUserInfo = {} as IRegistration;
+  patientRoleInfo = {} as IRoleLevel;
 
   Search = this.fb.group({
     EmailInput: ['', Validators.required],
   })
 
-  constructor( private fb: FormBuilder, private func: AngularFireFunctions, private afs: AngularFirestore, private afa: AngularFireAuth, private actRoute: ActivatedRoute,) { }
+
+  constructor( private fb: FormBuilder, private func: AngularFireFunctions, private afs: AngularFirestore, private afa: AngularFireAuth, private actRoute: ActivatedRoute,) {   }
 
   ngOnInit(): void {
 
@@ -46,45 +55,24 @@ export class PatientSearchComponent implements OnInit {
         .doc<IRegistration>(this.patUID)
         .get().pipe(map(doc => doc.data()))
 
-    this.patientInfo.subscribe((info) => {
-      if(info){
-        this.patientUserInfo = {
-          firstName: info.firstName,
-          lastName: info.lastName,
-          MotherDoB: info.MotherDoB.toDate(),
-          role: (info.role == '') ? "User" : info.role,
-        } as IRegistration;
+    this.patientRole = this.afs
+        .collection('users')
+        .doc<IRoleLevel>(this.patUID)
+        .get().pipe(map(doc => doc.data()))
+
+    this.patientRole.subscribe((role) => {
+      if(role){
+        this.patientRoleInfo = {
+          role: (role.role == '') ? "User" : role.role,
+        } as IRoleLevel
+      }
+      else{
+        this.patientRoleInfo = {
+          role: "User",
+        } as IRoleLevel;
+        this.afs.collection('users').doc(this.patUID).set(this.patientRoleInfo);
       }
     })
-  }
-
-  onSearch_Click(){
-    this.isEditMode = false;
-
-    //TODO: Change input from uID to email
-
-    // const curEmail = this.Search.get('EmailInput')?.value.toString();
-    // console.log(curEmail);
-    // let resu = "not updated";
-    // this.func.httpsCallable('userSearchByEmail').call({ text: curEmail }, { text: curEmail })
-    // .toPromise().then((res) => {
-    //   console.log("This should be correct result");
-    //   console.log(res);
-    // })
-    // .catch ((err) => {
-    //   console.log("An error occured");
-    //   console.log(err);
-    // });
-    // console.log("This shouldnt be the only message");
-
-    this.searchResultShow = true;
-    this.searchQuery = this.Search.get('EmailInput')?.value.toString();
-    this.patUID = this.searchQuery;
-
-    this.patientInfo = this.afs
-        .collection('patients')
-        .doc<IRegistration>(this.patUID)
-        .get().pipe(map(doc => doc.data()))
 
     this.patientInfo.subscribe((info) => {
       if(info){
@@ -106,7 +94,6 @@ export class PatientSearchComponent implements OnInit {
   }
   Clicked_DeleteUser(){
 
-    // console.log("Delete User");
   }
 
   editFirstNameClick(){
@@ -126,6 +113,7 @@ export class PatientSearchComponent implements OnInit {
     console.log("DoB Icon clicked");
   }
   submitUserEdits() {
+    this.afs.collection('users').doc(this.patUID).update(this.patientRoleInfo);
     this.afs.collection('patients').doc(this.patUID).update(this.patientUserInfo);
     this.isEditMode = false;
     this.isFirstNameEdit = false;
@@ -135,6 +123,11 @@ export class PatientSearchComponent implements OnInit {
     this.patientInfo = this.afs
         .collection('patients')
         .doc<IRegistration>(this.patUID)
+        .get().pipe(map(doc => doc.data()));
+
+    this.patientRole = this.afs
+        .collection('users')
+        .doc<IRoleLevel>(this.patUID)
         .get().pipe(map(doc => doc.data()))
   }
 }
