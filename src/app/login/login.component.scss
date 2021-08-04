@@ -1,4 +1,15 @@
-//.action-button {
-//  margin-top: 20px;
-//  margin-bottom: 20px;
-//}
+@import "../../cchmc-theme";
+
+.forgot-password {
+  margin-bottom: 15px;
+  text-align: right;
+  color: $dark-accent-text;
+
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+    color: $dark-primary-text;
+  }
+}
+

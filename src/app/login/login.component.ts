@@ -56,15 +56,15 @@ export class LoginComponent implements OnInit {
     this.auth.checkCreditionals(this.loginData.username, this.loginData.password);
   }
 
-  resetPassword(): void{
-    let dialogRef = this.dialog.open(ResetPasswordComponent, {
-      width: '40%',
-    });
-  }
+  // resetPassword(): void{
+  //   let dialogRef = this.dialog.open(ResetPasswordComponent, {
+  //     width: '40%',
+  //   });
+  // }
 
   forgotPassword(): void{
     this.forgotPass = true;
-    let dialogRef = this.dialog.open(ResetPasswordComponent, {
+    this.dialog.open(ResetPasswordComponent, {
       width: '40%',
     });
   }
