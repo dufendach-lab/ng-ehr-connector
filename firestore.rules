@@ -1,53 +1,99 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /{everything=**} {
-      allow update, read, write, delete: if get(/databases/{database}/documents/patients).data.role[request.auth.uid] == ["Admin", "Moderator"]
+    match /{document=**} {
+      allow read, write: if get(/databases/{database}/documents/users).data.role[request.auth.uid] == ["Admin", "Moderator"];
     }
+
     match /patients/{patientID} {
-      allow read, write: if
+      // Limit how patients can read the data
+      allow read: if
+        // Patient must be authenticated to read data
         request.auth != null &&
+        // Patient's ID must be the same as the patient's document name
         request.auth.uid == patientID;
-      allow create: if
+
+      //Limit ability for normal patients to write.
+      allow write: if
+        // Patient must be authenticated to write
+      	request.auth != null &&
+        // Patient uID from firebase must match the patient document name
+        request.auth.uid == patientID &&
+        // Ensure the patient's date of birth is a timestamp, which occurs before the current day
         request.resource.data.MotherDoB is timestamp &&
         request.resource.data.MotherDoB < request.resource.data.date() &&
+        // Ensures patient's last name is a string that only contains alphabet characters, dashes, and spaces
         request.resource.data.firstName is string &&
         request.resource.data.firstName.matches('[-A-Za-z_ ]+') &&
+        // Ensures patient's last name is a string that only contains alphabet characters, dashes, and spaces
         request.resource.data.lastName is string &&
         request.resource.data.lastName.matches('[-A-Za-z_ ]+') &&
+        // Ensures patients phone number is a string that only contains numbers, dashes, and plus symbol
         request.resource.data.phone is string &&
         request.resource.data.phone.matches('[-1-9+]+') &&
+        // Ensures the patient role is a string and can only be a User, Admin, or Moderator
         request.resource.data.role is string &&
         request.resource.data.role == ["User", "Admin", "Moderator"] &&
+        // Ensures the document name for the patient matches their firebase user ID
         request.resource.data.patientID == request.auth.uid;
+
       match /gravidas/{gravidasID} {
-        allow create: if
+        // Limit how patients can read the data
+      	allow read: if
+          // Patient must be authenticated to read data
+          request.auth != null &&
+          // Patient's ID must be the same as the patient's document name
+          request.auth.uid == patientID;
+
+          //Limit ability for normal patients to write.
+        allow write: if
+          // Patient must be authenticated to write
+        	request.auth != null &&
+          // Patient uID from firebase must match the patient document name
+          request.auth.uid == patientID &&
+          // Ensure parity is a number value, which can not be zero
           request.resource.data.parity is number &&
           request.resource.data.parity > 0 &&
+          // A patient can not submit a pregnancy if they already gave birth for that pregnancy
           request.resource.data.givenBirth is bool &&
           request.resource.data.givenBirth == false &&
+          // Require estimated due to to be a timestamp. Also ensure estimated due date is in the future
           request.resource.data.EstDueDate is timestamp &&
           request.resource.data.EstDueDate > request.resource.data.date() &&
+          // Ensures diagnosis is a string which only contains letters of the alphabet and spaces
           request.resource.data.Diagnosis is string &&
           request.resource.data.Diagnosis.matches('[A-Za-z_ ]+') &&
+          // Ensures gravidastitle is a string of length 10, which can only contain a dash and numbers
           request.resource.data.gravidasTitle is string &&
           request.resource.data.gravidasTitle.size() == 10 &&
           request.resource.data.gravidasTitle.matches('[-1-9]+') &&
+          // Ensures hospital is a list, which contains at least one element in it
           request.resource.data.hospital is list &&
           request.resource.data.hospital.size() >= 1 &&
+          // Ensures that the actual document name matches the gravidasTitle field
           request.resource.data.gravidasID == request.resource.data.gravidasTitle;
       }
     }
     match /reminder/{patientID} {
       allow create: if
+      // Ensures reminderSentFor is a string of length 10, which can only contain a dash and numbers
         request.resource.data.reminderSentFor is string &&
         request.resource.data.reminderSentFor.size() == 10 &&
         request.resource.data.reminderSentFor.matches('[-1-9]+') &&
-        request.resource.data.reminderSentOn is timestamp;
+      // Ensures reminderSentOn is a timestamp of the current day
+        request.resource.data.reminderSentOn is timestamp &&
+        request.resource.data.reminderSentOn == request.resource.data.date();
+    }
+
+    match /users/{patID} {
+      allow create: if
+      // Patient must be authenticated to write
+        request.auth != null &&
+      // Ensures the patient role is a string and can only be a User, Admin, or Moderator
+        request.resource.data.role is string &&
+        request.resource.data.role == ["User", "Admin", "Moderator"] &&
+      // Patient uID from firebase must match the patient document name
+        request.resource.data.patientID == request.auth.uid;
     }
   }
 }
-
-// function isAuth(p1, p2){
-//   return request.auth != null;
-// }

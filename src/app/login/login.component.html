@@ -1,31 +1,32 @@
-<!--<mat-card style="margin: auto; width: 70%">-->
-<!--  <mat-card-title>Login</mat-card-title>-->
-<form class="registration-form" [formGroup]="login" fxLayout="column"> <!--(ngSubmit)="onSubmit()"-->
+<form [formGroup]="login" fxLayout="column" (ngSubmit)="onSubmit()">
   <mat-form-field class="form-field">
     <mat-label>Email</mat-label>
     <input type="text"
            matInput
-           formControlName="username"
-           [(ngModel)]="loginData.username"/>
+           formControlName="username"/>
+    <mat-error *ngIf="login.get('username')?.hasError('email') && !(login.get('username')?.hasError('required'))">
+      Please enter a valid email address
+    </mat-error>
+    <mat-error *ngIf="login.get('username')?.hasError('required')">
+      Email is <strong>required</strong>
+    </mat-error>
   </mat-form-field>
   <mat-form-field class="form-field">
     <mat-label>Password</mat-label>
-    <input [type]="hide ? 'password' : 'text'"
-           matInput
-           formControlName="password"
-           [(ngModel)]="loginData.password"/>
-    <mat-icon matSuffix (click)="hide = !hide" class="material-icons">{{
-      hide ? "visibility_off" : "visibility"
-      }}</mat-icon>
+    <input type="password" matInput formControlName="password"/>
+    <mat-error *ngIf="login.get('password')?.hasError('required')">
+      Password is <strong>required</strong>
+    </mat-error>
   </mat-form-field>
-  <a (click)="forgotPassword()" style="text-align: right;" href="javascript:;"> Forgot password? </a>
+  <a (click)="forgotPassword()" class="forgot-password" routerLink=""> Forgot password? </a>
+
   <button mat-raised-button
+          type="submit"
           color="primary"
           class="action-button"
-          [disabled]="!login.valid"
-          (click)="onSubmit()">Log in
+          [disabled]="!login.valid">Log in
   </button>
-  <div *ngIf="incorrectLogin" style="color: red">
-    Username or Password are incorrect
-  </div>
+  <p *ngIf="incorrectLogin" class="mat-error" style="text-align: center">
+    Invalid username or password
+  </p>
 </form>
