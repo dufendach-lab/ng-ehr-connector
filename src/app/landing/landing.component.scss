@@ -21,6 +21,32 @@ mat-icon {
     @include mat.elevation(15);
   }
 }
+.woah-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  a {
+    background-color: $cchmc-lightgray;
+    color: white;
+  }
+}
+.active-status {
+  a {
+    width: 100%;
+    background-color: $cchmc-green!important;
+  }
+}
+
+.raised {
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  button {
+    width: 80%;
+    background-color: $cchmc-green;
+    color: white;
+  }
+}
 
 .resource-card {
   mat-card-header {

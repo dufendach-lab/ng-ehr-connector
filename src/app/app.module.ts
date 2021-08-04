@@ -19,6 +19,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTableModule} from '@angular/material/table';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 import {FlexLayoutModule} from '@angular/flex-layout';
 
@@ -133,6 +134,7 @@ import { FooterComponent } from './footer/footer.component';
     MatListModule,
     LayoutModule,
     MatTableModule,
+    MatTooltipModule,
 
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,

@@ -1,11 +1,29 @@
 <div *ngIf="registrationInfo | async as pt">
   <div *ngIf="isIt; else noInfo">
     <mat-card class="data-card">
-      <mat-card-header>
-        <mat-card-title>Pregnancy Info</mat-card-title>
-        <mat-card-subtitle>Information on your current pregnancy is shown here</mat-card-subtitle>
+      <mat-card-header
+      matTooltip="Information on your current pregnancy is shown here"
+      [matTooltipPosition]="position"
+      matTooltipShowDelay="700"
+      matTooltipHideDelay="100">
+        <mat-card-title>
+          <mat-icon>info</mat-icon>  Pregnancy Info
+        </mat-card-title>
       </mat-card-header>
       <mat-card-content>
+
+        <div>
+          <div style="font-weight: bold;">
+            Status:
+            <ng-container *ngIf="hasBeenBorn">
+              <mat-icon>child_friendly</mat-icon>
+            </ng-container>
+            <ng-container *ngIf="!hasBeenBorn">
+              <mat-icon>pregnant_woman</mat-icon>
+            </ng-container>
+          </div>
+        </div>
+        <br/>
 
         <div>
           <div style="font-weight: bold;">Estimated Due Date: &nbsp;</div>
@@ -25,19 +43,24 @@
         </div>
         <br />
 
-        <div>
+        <ng-container *ngIf="parity > 1">
           <div style="font-weight: bold;">Parity: &nbsp;</div>
-          <div>{{ recentGravidas.parity }}</div>
-        </div>
+          <div>{{ parityView[recentGravidas.parity] }}</div>
+          <br/>
+        </ng-container>
 
-        <br/>
+
       </mat-card-content>
     </mat-card>
   </div>
 </div>
 
 <ng-template #noInfo>
-  <mat-card class="data-card">
+  <mat-card class="data-card"
+  matTooltip="Add a pregnancy and the information will be displayed here"
+  [matTooltipPosition]="position"
+  matTooltipShowDelay="700"
+  matTooltipHideDelay="100">
     <mat-card-header>
       <mat-card-title>No info to show</mat-card-title>
     </mat-card-header>
