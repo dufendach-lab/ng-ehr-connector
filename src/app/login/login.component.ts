@@ -6,10 +6,10 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { MatDialog } from '@angular/material/dialog';
 import { ResetPasswordComponent } from '../reset-password/reset-password.component';
 
-interface DialogData {
-  username: string;
-  password: string
-}
+// interface DialogData {
+//   username: string;
+//   password: string
+// }
 
 @Component({
   selector: 'app-login',
@@ -19,10 +19,11 @@ interface DialogData {
 export class LoginComponent implements OnInit {
   hide = true;
   forgotPass = false;
-  loginData = {} as DialogData;
+  // loginData = {} as DialogData;
   incorrectLogin = false;
+
   login = this.fb.group({
-    username: ['', Validators.required],
+    username: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
   })
 
@@ -53,7 +54,11 @@ export class LoginComponent implements OnInit {
   //   }
 
   onSubmit(): void {
-    this.auth.checkCreditionals(this.loginData.username, this.loginData.password);
+    this.auth.checkCreditionals(this.login.value['username'], this.login.value['password'])
+      .then(user => {
+        this.incorrectLogin = user !== null;
+      })
+      .catch(_ => this.incorrectLogin = true);
   }
 
   // resetPassword(): void{
