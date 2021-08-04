@@ -7,6 +7,7 @@ import { filter, map, switchMap } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { GravidasService } from '../gravidas.service';
+import { TooltipPosition } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-landing-info',
@@ -21,6 +22,7 @@ export class LandingInfoComponent implements OnInit {
   gravidasDetails!: Observable<IGravidasDetails[] | undefined>;
   recentGravidas!: IGravidasDetails;
   isIt: boolean = false;
+  position: TooltipPosition = "below";
   hasBeenBorn: boolean = false;
   parity: number = 0;
   parityView: string[] = ['', '', 'Twins', 'Triplets', 'Quadruplets', 'Quintuplets', 'Sextuplets', 'Septuplets', 'Octuplets', 'Nonuplets']

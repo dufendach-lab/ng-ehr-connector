@@ -6,6 +6,7 @@ import { IGravidasDetails } from 'src/Interfaces/IGravidasDetails';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 import { GravidasService } from '../gravidas.service';
+import { TooltipPosition } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-landing',
@@ -16,6 +17,7 @@ export class LandingComponent implements OnInit {
 
   gravidasDetails!: Observable<IGravidasDetails[] | undefined>;
   hasBirthed: boolean = false;
+  position: TooltipPosition = "below";
 
   isAuthorized = this.fhirAuth.authorized;
   // loggedIn = this.gravAuth.getLoginAuth();
