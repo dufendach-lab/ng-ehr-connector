@@ -57,7 +57,7 @@ export class LandingComponent implements OnInit {
   }
 
   changeBirthStatus() {
-    this.gravidasDetails.subscribe(grav => {
+    this.gravService.getGravidas().subscribe(grav => {
       if(grav) {
         const ltg = grav.length - 1;
         grav[ltg].givenBirth = true;
@@ -67,7 +67,7 @@ export class LandingComponent implements OnInit {
   }
 
   changeEDD() {
-    this.gravidasDetails.subscribe(grav => {
+    this.gravService.getGravidas().subscribe(grav => {
       if(grav) {
         const lgt = grav.length-1;
         this.gravService.changeDocDate(grav[lgt]);

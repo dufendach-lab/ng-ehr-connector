@@ -21,6 +21,9 @@ export class LandingInfoComponent implements OnInit {
   gravidasDetails!: Observable<IGravidasDetails[] | undefined>;
   recentGravidas!: IGravidasDetails;
   isIt: boolean = false;
+  hasBeenBorn: boolean = false;
+  parity: number = 0;
+  parityView: string[] = ['', '', 'Twins', 'Triplets', 'Quadruplets', 'Quintuplets', 'Sextuplets', 'Septuplets', 'Octuplets', 'Nonuplets']
 
   constructor(
     private regService: RegistrationService,
@@ -46,6 +49,8 @@ export class LandingInfoComponent implements OnInit {
         const lastIndex = gravidas.length - 1;
         this.recentGravidas = gravidas[lastIndex]
         if(lastIndex === -1) { this.isIt = false; } else { this.isIt = true; }
+        this.hasBeenBorn = gravidas[lastIndex].givenBirth;
+        this.parity = gravidas[lastIndex].parity
       }
     })
   }
