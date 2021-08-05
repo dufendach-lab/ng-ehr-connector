@@ -4,11 +4,11 @@
 
 // git update-index --assume-unchanged .\src\environments\environment.prod.ts
 
-import * as data from '../assets/test-epic-endpoints.json';
+import * as epicEndpoints from '../assets/test-epic-endpoints.json';
 
 export const environment = {
   production: false,
-  epicEnv: data,
+  epicEnv: epicEndpoints,
 
   firebase: {
     apiKey: '',
