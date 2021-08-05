@@ -1,120 +1,134 @@
 <div *ngIf="user | async; else Login" class="wrapper">
-    <ng-container *ngIf="!hasBirthed">
-      <mat-card class="woah-card"
-      (click)="openDialog()">
-        <mat-card-header
+  <ng-container *ngIf="!hasBirthed">
+    <mat-card class="woah-card"
+              (click)="openDialog()">
+      <mat-card-header
         matTooltip="Click here to update the status of your pregnancy"
         [matTooltipPosition]="position"
         matTooltipShowDelay="700"
         matTooltipHideDelay="100">
-          <mat-card-title>
-            <mat-icon>update</mat-icon>  Pregnancy Status
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <div class="woah-content">
-            <div class="active-status">
-              <a mat-button>Pregnant <mat-icon>pregnant_woman</mat-icon></a>
-            </div>
-            <a mat-button>Postpartum <mat-icon>child_friendly</mat-icon></a>
+        <mat-card-title>
+          <mat-icon>update</mat-icon>
+          Pregnancy Status
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="woah-content">
+          <div class="active-status">
+            <a mat-button>Pregnant
+              <mat-icon>pregnant_woman</mat-icon>
+            </a>
           </div>
-          <div class="raised">
-            <button mat-raised-button>Update status of pregnancy</button>
-          </div>
-        </mat-card-content>
-      </mat-card>
-    </ng-container>
+          <a mat-button>Delivered
+            <mat-icon>child_friendly</mat-icon>
+          </a>
+        </div>
+        <div class="raised">
+          <button mat-raised-button>Update status of pregnancy</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </ng-container>
 
-    <ng-container *ngIf="hasBirthed">
-      <ng-container *ngIf="isAuthorized | async">
-        <mat-card class="woah-card"
-        routerLink="/dashboard">
-          <mat-card-header
+  <ng-container *ngIf="hasBirthed">
+    <ng-container *ngIf="isAuthorized | async">
+      <mat-card class="woah-card"
+                routerLink="/dashboard">
+        <mat-card-header
           matTooltip="Data pulled from the EHR is shown here"
           [matTooltipPosition]="position"
           matTooltipShowDelay="700"
           matTooltipHideDelay="100">
-            <mat-card-title>
-              <mat-icon>space_dashboard</mat-icon>  Dashboard
-            </mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <p>Your baby's information is shown here on the dashboard. </p>
-          </mat-card-content>
-        </mat-card>
-      </ng-container>
+          <mat-card-title>
+            <mat-icon>space_dashboard</mat-icon>
+            Dashboard
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Your baby's information is shown here on the dashboard. </p>
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
 
-      <ng-container *ngIf="!(isAuthorized | async)">
-        <mat-card class="woah-card"
-        routerLink="/authorize">
-          <mat-card-header
+    <ng-container *ngIf="!(isAuthorized | async)">
+      <mat-card class="woah-card"
+                routerLink="/authorize">
+        <mat-card-header
           matTooltip="Click here to connect with your home hospital"
           [matTooltipPosition]="position"
           matTooltipShowDelay="700"
           matTooltipHideDelay="100">
-            <mat-card-title>
-              <mat-icon>tap_and_play</mat-icon>  Connect to your hospital
-            </mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <div class="woah-content">
-              <a mat-button>Pregnant <mat-icon>pregnant_woman</mat-icon></a>
-              <div class="active-status">
-                <a mat-button>Postpartum <mat-icon>child_friendly</mat-icon></a>
-              </div>
+          <mat-card-title>
+            <mat-icon>tap_and_play</mat-icon>
+            Connect to your hospital
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="woah-content">
+            <a mat-button>Pregnant
+              <mat-icon>pregnant_woman</mat-icon>
+            </a>
+            <div class="active-status">
+              <a mat-button>Delivered
+                <mat-icon>child_friendly</mat-icon>
+              </a>
             </div>
-            <p>Click here to connect with your hospital and authorize the EHR</p>
-          </mat-card-content>
-        </mat-card>
-      </ng-container>
+          </div>
+          <p>Click here to connect with your hospital and authorize the EHR</p>
+        </mat-card-content>
+      </mat-card>
     </ng-container>
+  </ng-container>
 
-    <ng-container>
-      <app-landing-info></app-landing-info>
-    </ng-container>
+  <ng-container>
+    <app-landing-info></app-landing-info>
+  </ng-container>
 
-    <mat-card routerLink="/resources"
-    class="resource-card">
-      <mat-card-header
+  <mat-card routerLink="/resources"
+            class="resource-card">
+    <mat-card-header
       matTooltip="Helpful resources to assist you in the next stage of your life"
       [matTooltipPosition]="position"
       matTooltipShowDelay="700"
       matTooltipHideDelay="100">
-        <mat-card-title>
-          <mat-icon>menu_book</mat-icon>  Resources for {{diagnosis}}
-        </mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <ng-container *ngIf="diagnosis !== null">
-          <app-yt-player [vidToGet]="diagnosis"></app-yt-player>
-        </ng-container>
-      </mat-card-content>
-    </mat-card>
+      <mat-card-title>
+        <mat-icon>menu_book</mat-icon>
+        Resources for {{diagnosis}}
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <ng-container *ngIf="diagnosis !== null">
+        <app-yt-player [vidToGet]="diagnosis"></app-yt-player>
+      </ng-container>
+    </mat-card-content>
+  </mat-card>
 
-    <mat-card class="contact-card">
-      <mat-card-header
+  <mat-card class="contact-card">
+    <mat-card-header
       matTooltip="Contact the fetal care center for information regarding your pregnancy"
       [matTooltipPosition]="position"
       matTooltipShowDelay="700"
       matTooltipHideDelay="100">
-        <mat-card-title>
-          <mat-icon>contact_support</mat-icon>  Contact Us
-        </mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <h3>Fetal Care Center</h3>
-        <h4>Phone: </h4>
-        <p>1-888-338-2559</p>
-        <h4>Mailing Address: </h4>
-        <p>Cincinnati Children's Fetal Care Center<br>
-          MLC 11020<br>
-          3333 Burnet Ave.<br>
-          Cincinnati, OH 45229-3039</p>
-          <a mat-raised-button color="accent" href="https://www.cincinnatichildrens.org/service/f/fetal-care/contact/form" target="_blank">
-            Contact Form
-          </a>
-      </mat-card-content>
-    </mat-card>
+      <mat-card-title>
+        <mat-icon>contact_support</mat-icon>
+        Contact Us
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <h3>Fetal Care Center</h3>
+      <h4>Phone: </h4>
+      <p>1-888-338-2559</p>
+      <h4>Mailing Address: </h4>
+      <p>Cincinnati Children's Fetal Care Center<br>
+        MLC 11020<br>
+        3333 Burnet Ave.<br>
+        Cincinnati, OH 45229-3039</p>
+      <a mat-raised-button color="accent" href="https://www.cincinnatichildrens.org/service/f/fetal-care/contact/form"
+         target="_blank">
+        Contact Form
+      </a>
+    </mat-card-content>
+  </mat-card>
 </div>
 
 <ng-template #Login>
