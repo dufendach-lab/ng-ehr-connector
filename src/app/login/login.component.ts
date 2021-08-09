@@ -3,7 +3,7 @@ import {FormBuilder, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from '../auth.service';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ResetPasswordComponent } from '../reset-password/reset-password.component';
 
 // interface DialogData {
@@ -71,6 +71,9 @@ export class LoginComponent implements OnInit {
     this.forgotPass = true;
     this.dialog.open(ResetPasswordComponent, {
       width: '40%',
+      data: {
+        userName: this.login.value['username']
+      }
     });
   }
 }
