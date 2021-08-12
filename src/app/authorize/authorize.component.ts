@@ -64,6 +64,7 @@ export class AuthorizeComponent implements OnInit {
         iss: endpoint.FHIRPatientFacingURI,
         clientId: 'f7cfa009-58a4-4de2-8437-3b77306faedd',
         scope: 'launch/patient',
+        redirectUri: 'http://localhost:4200/dashboard',
       }
 
       this.authorize(params);
@@ -80,6 +81,7 @@ export class AuthorizeComponent implements OnInit {
         iss: endpoint.FHIRPatientFacingURI,
         clientId: 'f7cfa009-58a4-4de2-8437-3b77306faedd',
         scope: 'launch/patient',
+        redirectUri: 'http://localhost:4200/dashboard',
       }
       this.authorize(params);
     }
