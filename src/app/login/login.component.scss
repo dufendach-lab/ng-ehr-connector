@@ -1,14 +1,15 @@
-@import "../../cchmc-theme";
+//@use "../../cchmc-theme" as cchmc;
+//@import '~@angular/material/theming';
 
 .forgot-password {
   margin-bottom: 15px;
   text-align: right;
-  color: $dark-accent-text;
+  color: var(--accent-darker-color);
 
   text-decoration: none;
 
   &:hover {
     text-decoration: underline;
-    color: $dark-primary-text;
+    color: var(--primary-darker-color);
   }
 }
