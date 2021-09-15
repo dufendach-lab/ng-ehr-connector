@@ -15,6 +15,7 @@ import { PdfViewComponent } from './pdf-view/pdf-view.component';
 import { AdminListComponent } from './admin-list/admin-list.component';
 import { ContactFormComponent } from './contact-form/contact-form.component';
 import { PrivacyDialogComponent } from './privacy-dialog/privacy-dialog.component';
+import { AboutComponent } from './about/about.component';
 
 const routes: Routes = [
   {
@@ -86,6 +87,10 @@ const routes: Routes = [
         path: 'resources/pdf/:file',
         component: PdfViewComponent
       },
+
+      
+      
+
     ]
   },
   {
@@ -97,6 +102,12 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent
   },
+
+  {
+    path: 'about',
+    component: AboutComponent
+  },
+ 
 ];
 
 @NgModule({
