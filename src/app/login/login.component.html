@@ -20,12 +20,34 @@
   </mat-form-field>
   <a (click)="forgotPassword()" class="forgot-password" routerLink=""> Forgot password? </a>
 
+  <div *ngIf="checkUser(); then user else admin" ></div>
+  
+
+  <ng-template #admin >
+  <button mat-raised-button
+          
+          type="submit"
+          color="primary"
+          class="action-button"
+          [disabled]="!login.valid"
+          routerLink = 'admin'>
+
+          Log in
+  </button>
+</ng-template>
+
+  <ng-template #user >
   <button mat-raised-button
           type="submit"
           color="primary"
           class="action-button"
-          [disabled]="!login.valid">Log in
+          [disabled]="!login.valid"
+          routerLink= 'u'>
+
+          Log in
   </button>
+</ng-template>
+
   <p *ngIf="incorrectLogin" class="mat-error" style="text-align: center">
     Invalid username or password
   </p>

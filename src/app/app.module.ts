@@ -66,6 +66,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { ContactFormComponent } from './contact-form/contact-form.component';
 import { FooterComponent } from './footer/footer.component';
 import { AboutComponent } from './about/about.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
 
 @NgModule({
   declarations: [
@@ -101,6 +102,7 @@ import { AboutComponent } from './about/about.component';
     ContactFormComponent,
     FooterComponent,
     AboutComponent,
+    ContactUsComponent,
   ],
   imports: [
     BrowserModule,

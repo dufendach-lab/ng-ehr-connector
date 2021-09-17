@@ -16,76 +16,118 @@ import { AdminListComponent } from './admin-list/admin-list.component';
 import { ContactFormComponent } from './contact-form/contact-form.component';
 import { PrivacyDialogComponent } from './privacy-dialog/privacy-dialog.component';
 import { AboutComponent } from './about/about.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
+import { UserRouteGuard } from './user-route.guard';
+import { RouteGuardService } from './route-guard.service';
+import { normalize } from 'path';
+import { LaunchComponent } from './launch/launch.component';
+
+/**
+ * base: {
+ *   landing
+ *   about
+ *   contactUs
+ *   user { [ route guard ]
+ *     dashboard
+ *     preg_info
+ *   }
+ *   admin { [ route guard protected ]
+ *     edit-users
+ *   }
+ * }
+ */
+
+// ehr-connector.web.app/ {}
+
 
 const routes: Routes = [
   {
     path: '',
+    pathMatch : 'full', 
+    component : LaunchComponent
+  },
+
+ 
+
+  {
+    path: 'about',
+    component: AboutComponent , 
+    
+    
+    
+  },
+
+  {
+    path: 'contactUs',
+    component: ContactUsComponent , 
+    
+    
+  },
+
+
+  {
+    path: 'u',
     component: NavContainerComponent,
+    canActivate : [UserRouteGuard],
+
     children: [
       {
         path: '',
         redirectTo: 'landing',
-        pathMatch: 'full',
+        pathMatch: 'full' , 
+        
+       
       },
       {
         path: 'dashboard',
         component: DashboardComponent,
+        
       },
       {
         path: 'survey',
-        component: MainFormComponent
+        component: MainFormComponent , 
+        
       },
       {
         path: 'contact',
-        component: ContactFormComponent
+        component: ContactFormComponent , 
+        
       },
       {
         path: 'privacy',
-        component: PrivacyDialogComponent
+        component: PrivacyDialogComponent,
+        
       },
       {
         path: 'authorize',
-        component: AuthorizeComponent
+        component: AuthorizeComponent,
+        
       },
       {
         path: 'landing',
-        component: LandingComponent
+        component: LandingComponent,
+        
       },
       {
         path: 'gravidas',
-        component: GravidasViewerComponent
+        component: GravidasViewerComponent,
+        
       },
       {
         path: 'gravidas/edit',
-        component: GravidasDetailEditorComponent
+        component: GravidasDetailEditorComponent,
+       
       },
-      // TODO: Only allow admin access for search
-      {
-        path: 'patient/:id',
-        component: PatientSearchComponent
-      },
-      // TODO: Only allow admin access for search
-      {
-        path: 'adminlist',
-        component: AdminListComponent
-      },
-      // TODO: Only allow admin access for search
-      {
-        path: 'patient/edit/:id',
-        component: GravidasViewerComponent
-      },
-      // TODO: Only allow admin access for search
-      {
-        path: 'patient/gravida/add/:id',
-        component: GravidasDetailEditorComponent
-      },
+     
       {
         path: 'resources',
-        component: NewMomResourceComponent
+        component: NewMomResourceComponent ,
+        
       },
       {
         path: 'resources/pdf/:file',
-        component: PdfViewComponent
+        component: PdfViewComponent,
+        
       },
 
       
@@ -93,20 +135,50 @@ const routes: Routes = [
 
     ]
   },
-  {
-    path: 'registration',
-    component: RegistrationComponent
-  },
 
-  {
-    path: 'login',
-    component: LoginComponent
-  },
+// Admin routes 
 
-  {
-    path: 'about',
-    component: AboutComponent
-  },
+{
+  path: 'admin',
+  component: NavContainerComponent,
+  canActivate : [RouteGuardService],
+  children : [
+     // TODO: Only allow admin access for search
+     {
+      path: 'patient/:id',
+      component: PatientSearchComponent,
+      
+    },
+    // TODO: Only allow admin access for search
+    {
+      path: 'adminlist',
+      component: AdminListComponent,
+      
+    },
+    // TODO: Only allow admin access for search
+    {
+      path: 'patient/edit/:id',
+      component: GravidasViewerComponent,
+      
+    },
+    // TODO: Only allow admin access for search
+    {
+      path: 'patient/gravida/add/:id',
+      component: GravidasDetailEditorComponent,
+      
+    },
+  ]
+
+},
+
+
+
+
+
+
+
+
+  
  
 ];
 
