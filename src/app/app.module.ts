@@ -40,7 +40,8 @@ import { LandingInfoComponent } from './landing-info/landing-info.component';
 import {environment} from '../environments/environment';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
-import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireAuthModule, } from '@angular/fire/auth';
+
 import { TestPatientDataComponent } from './test-patient-data/test-patient-data.component';
 import { ObsValueDisplayComponent } from './obs-value-display/obs-value-display.component';
 import { LaunchComponent } from './launch/launch.component';
@@ -67,6 +68,9 @@ import { ContactFormComponent } from './contact-form/contact-form.component';
 import { FooterComponent } from './footer/footer.component';
 import { AboutComponent } from './about/about.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
+import { AdminNavComponent } from './admin-nav/admin-nav.component';
+import { UserNavComponent } from './user-nav/user-nav.component';
+
 
 @NgModule({
   declarations: [
@@ -103,6 +107,8 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
     FooterComponent,
     AboutComponent,
     ContactUsComponent,
+    AdminNavComponent,
+    UserNavComponent,
   ],
   imports: [
     BrowserModule,

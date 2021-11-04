@@ -163,7 +163,7 @@ const routes: Routes = [
     },
     // TODO: Only allow admin access for search
     {
-      path: 'patient/gravida/add/:id',
+      path: 'patient/gravida/',
       component: GravidasDetailEditorComponent,
       
     },

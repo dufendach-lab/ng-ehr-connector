@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.auth.user.pipe(first()).subscribe();
+    //  this.auth.user.pipe(first()).subscribe();
   }
 
   //
@@ -82,7 +82,9 @@ export class LoginComponent implements OnInit {
   checkAdmin() : Observable<boolean> { 
     return this.afa.user.pipe(switchMap((user) => {
       // If there is no user (i.e. no one is logged in), return an observable of "false" - i.e. not allowed to activate
-      if (!user) return of(false);
+      if (!user) return of(false)
+      
+     
 
       // Otherwise, get the user details (TODO: Change this to User Service)
       // If the user has the role admin, then return true otherwise return false again

@@ -1,11 +1,12 @@
+
 <div class="launch-container" *ngIf="!(isHandset$ | async); else phone">
   <div class="app-start-header">
-    <img src="assets/img/CC%20Logo%20-%20With%20Tagline.png" alt="cchmc logo" class="cchmc-logo">
+    <img src="assets/img/CC%20Logo%20-%20With%20Tagline.png" alt="cchmc logo" class="cchmc-logo $$ ss" >
     <span fxFlex></span>
-    <h1 class="app-title">Connect 4 Care</h1>
+    <h1 class="app-title $$ ss">Connect 4 Care</h1>
     <span fxFlex></span>
 
-    <div fxLayout="column">
+    <div fxLayout="column" class ="ss">
       <span fxFlex></span>
       <div>
         <button mat-button routerLink = "about" >About</button>
@@ -15,9 +16,9 @@
     </div>
 
   </div>
-  <div class="main-area"></div>
+  <div class="main-area" ></div>
 
-  <div class="login-area mat-elevation-z3" fxLayout="column" fxLayoutGap="15px" fxLayout.lt-sm="column">
+  <div class="login-area mat-elevation-z3 $$ ss" fxLayout="column" fxLayoutGap="15px" fxLayout.lt-sm="column">
     <ng-container *ngIf="!registerEnabled else register" class="register-phone">
       <h2 class="center-horizontal">Log In</h2>
       <app-login></app-login>
@@ -46,7 +47,7 @@
       <span fxFlex></span>
     </div>
 
-    <div fxLayout="row" fxFlexAlign="left">
+    <div fxLayout="row" fxFlexAlign="left" >
       <span fxFlex></span>
       <div>
         <button mat-button >About</button>
@@ -55,7 +56,7 @@
     </div>
     <div class="main-area" style="filter:blur(2px)"></div>
 
-      <div class="login-area-phone mat-elevation-z3" fxLayout="column" fxLayoutGap="15px">
+      <div class="login-area-phone mat-elevation-z3" fxLayout="column" fxLayoutGap="15px" >
         <ng-container *ngIf="!registerEnabled else register">
           <h2 class="center-horizontal">Log In</h2>
           <app-login></app-login>
@@ -66,3 +67,4 @@
       </div>
   </div>
 </ng-template>
+
