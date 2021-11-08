@@ -35,6 +35,7 @@ export class NavContainerComponent implements OnInit {
               private ehrAuth: AuthService,
               private afs: AngularFirestore,
               private afa: AngularFireAuth,
+              
   ) {
     this.userInfo = this.ehrAuth.user.pipe(
       filter(u => u != null),
@@ -69,25 +70,17 @@ export class NavContainerComponent implements OnInit {
     }
   }
 
-  checkAdmin(){
-    return this.afa.user.pipe(switchMap((user) => {
-      // If there is no user (i.e. no one is logged in), return an observable of "false" - i.e. not allowed to activate
-      if (!user) return of(false)
-      
-     
 
-      // Otherwise, get the user details (TODO: Change this to User Service)
-      // If the user has the role admin, then return true otherwise return false again
-      return this.afs
-        .collection('patients')
-        .doc<IRegistration>(user.uid)
-        .valueChanges()
-        .pipe(
-          first(),
-          map(iReg => iReg !== undefined && iReg.role === 'Admin')
-        )
-    }))   
-  } 
 
+
+  checkParams() : boolean{ 
+    if((this.router.url).includes('admin')){
+      return true;
+    }
+    else {
+      return false
+    }
+    
+  }
 
 }

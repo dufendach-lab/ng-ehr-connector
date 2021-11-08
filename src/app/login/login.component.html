@@ -22,23 +22,23 @@
 
  
 
-<div *ngIf="checkAdmin()  then admin " ></div>
 
 
 
 
-<ng-template #admin>
+
+
 <button mat-raised-button
           
   type="submit"
   color="primary"
   class="action-button"
   [disabled]="!login.valid"
-  routerLink= 'admin'>
-
+  (click)="checkTypeOfUser()"
+  >
   Log in
 </button> 
-</ng-template>
+
 
 
 

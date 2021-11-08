@@ -6,10 +6,10 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { MatDialog } from '@angular/material/dialog';
 import { ResetPasswordComponent } from '../reset-password/reset-password.component';
 import { first, map, switchMap } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { Observable, of, pipe } from 'rxjs';
 import { IRegistration } from 'src/Interfaces/IRegistration';
 import { AngularFirestore } from '@angular/fire/firestore';
-
+import { customClaims } from '@angular/fire/auth-guard';
 // interface DialogData {
 //   username: string;
 //   password: string
@@ -116,4 +116,29 @@ export class LoginComponent implements OnInit {
         )
     }))
   }
+
+   async checkTypeOfUser(){ 
+    if(await this.AdminsOnly()){
+      this.router.navigate(['admin']);
+      console.log('true')
+    }
+    if(await this.UsersOnly()){
+      this.router.navigate(['/u']);
+      console.log('User')
+    }
+  }
+
+
+ UsersOnly(){
+  return pipe(customClaims, map(claims => {
+    console.log(claims.role)
+    
+    claims.role === 'User'
+
+  }))
+ } 
+
+ AdminsOnly = () => pipe(customClaims, map(claims => claims.role === 'Admin'));
+
+
 }

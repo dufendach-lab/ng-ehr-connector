@@ -9,7 +9,7 @@
     <div >
       <app-user-nav></app-user-nav>
     </div>
-    <div *ngIf="checkAdmin()   ; "> 
+    <div *ngIf="checkParams(); "> 
       <app-admin-nav></app-admin-nav>
     </div>
     
@@ -31,8 +31,6 @@
           <div *ngIf="(isAuth | async) || (isAuth2 | async)" class="button-container">
             <div class="welcome-name">
               <h1 class="text-tag">Hello, {{nameConcat}}</h1>
-              
-
             </div>
           </div>
         </mat-toolbar>
