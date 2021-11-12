@@ -56,14 +56,18 @@ export class NavContainerComponent implements OnInit {
     
   }
 
-  // Clears session storage and redirects to simulate logout
+  /**
+   * Clears session storage and redirects to simulate logout
+   */
   logout(): void {
     this.ehrAuth.signout();
     this.auth.logOut();
     this.router.navigate(['/']);
   }
 
-  // Closes sidenav after selection
+  /**
+   * Closes sidenav after selection
+   */
   closeSideNav() {
     if(this.drawer._mode==="over"){
       this.drawer.close();
@@ -73,7 +77,7 @@ export class NavContainerComponent implements OnInit {
 
 
 
-  checkParams() : boolean{ 
+  checkAdmin() : boolean{ 
     if((this.router.url).includes('admin')){
       return true;
     }
@@ -81,6 +85,15 @@ export class NavContainerComponent implements OnInit {
       return false
     }
     
+  } 
+
+  checkUser(){
+    if((this.router.url).includes('u')){
+      return true;
+    }
+    else {
+      return false
+    }   
   }
 
 }

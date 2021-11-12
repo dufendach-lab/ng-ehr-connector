@@ -6,10 +6,10 @@
   [mode]="(isHandset$ | async) ? 'over' : 'side'"
   [opened]="(isHandset$ | async) === false">
     <mat-card-title *ngIf="isHandset$|async" class="app-title-nav">Connect 4 Care</mat-card-title>
-    <div >
+    <div *ngIf="checkUser();">
       <app-user-nav></app-user-nav>
     </div>
-    <div *ngIf="checkParams(); "> 
+    <div *ngIf="checkAdmin(); "> 
       <app-admin-nav></app-admin-nav>
     </div>
     

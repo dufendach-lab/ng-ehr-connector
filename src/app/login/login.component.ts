@@ -103,7 +103,7 @@ export class LoginComponent implements OnInit {
     return this.afa.user.pipe(switchMap((user) => {
       // If there is no user (i.e. no one is logged in), return an observable of "false" - i.e. not allowed to activate
       if (!user) return of(false);
-
+      
       // Otherwise, get the user details (TODO: Change this to User Service)
       // If the user has the role admin, then return true otherwise return false again
       return this.afs
@@ -117,15 +117,14 @@ export class LoginComponent implements OnInit {
     }))
   }
 
-   async checkTypeOfUser(){ 
-    if(await this.AdminsOnly()){
-      this.router.navigate(['admin']);
-      console.log('true')
+ checkTypeOfUser(){ 
+    if(this.checkUser()){
+        this.router.navigate(['/u']); 
+      }
+    if(this.checkAdmin()){
+      this.router.navigate(['/admin']);
     }
-    if(await this.UsersOnly()){
-      this.router.navigate(['/u']);
-      console.log('User')
-    }
+
   }
 
 
@@ -139,6 +138,7 @@ export class LoginComponent implements OnInit {
  } 
 
  AdminsOnly = () => pipe(customClaims, map(claims => claims.role === 'Admin'));
+
 
 
 }
