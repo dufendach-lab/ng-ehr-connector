@@ -70,6 +70,7 @@ import { AboutComponent } from './about/about.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { AdminNavComponent } from './admin-nav/admin-nav.component';
 import { UserNavComponent } from './user-nav/user-nav.component';
+import { UserListComponent } from './user-list/user-list.component';
 
 
 @NgModule({
@@ -109,6 +110,7 @@ import { UserNavComponent } from './user-nav/user-nav.component';
     ContactUsComponent,
     AdminNavComponent,
     UserNavComponent,
+    UserListComponent,
   ],
   imports: [
     BrowserModule,

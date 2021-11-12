@@ -21,6 +21,7 @@ import { UserRouteGuard } from './user-route.guard';
 import { RouteGuardService } from './route-guard.service';
 import { normalize } from 'path';
 import { LaunchComponent } from './launch/launch.component';
+import { UserListComponent } from './user-list/user-list.component';
 
 /**
  * base: {
@@ -153,6 +154,11 @@ const routes: Routes = [
     {
       path: 'adminlist',
       component: AdminListComponent,
+      
+    },
+    {
+      path: 'userlist',
+      component: UserListComponent,
       
     },
     // TODO: Only allow admin access for search
