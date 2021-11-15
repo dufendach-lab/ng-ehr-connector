@@ -71,6 +71,10 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
 import { AdminNavComponent } from './admin-nav/admin-nav.component';
 import { UserNavComponent } from './user-nav/user-nav.component';
 import { UserListComponent } from './user-list/user-list.component';
+import { PatientTableComponent } from './patient-table/patient-table.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+
 
 
 @NgModule({
@@ -111,6 +115,9 @@ import { UserListComponent } from './user-list/user-list.component';
     AdminNavComponent,
     UserNavComponent,
     UserListComponent,
+    PatientTableComponent,
+ 
+    
   ],
   imports: [
     BrowserModule,
@@ -151,6 +158,8 @@ import { UserListComponent } from './user-list/user-list.component';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    MatPaginatorModule,
+    MatSortModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

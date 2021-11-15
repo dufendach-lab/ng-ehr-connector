@@ -12,28 +12,20 @@ import { AuthService } from '../auth.service';
 })
 export class UserListComponent implements OnInit {
 
-  allPatients: any
+  allUsers: any
 
   constructor(private authSer: AuthService, private routing: Router, private afs : AngularFirestore) { 
-    this.allPatients = afs.collection('patient').valueChanges({ idField: 'id' })
-    this.allPatients.subscribe(id => {
-      console.log(id.id)
-    })
+    this.allUsers = afs.collection('patients').valueChanges({ idField: 'id' })
+  
   }
 
   ngOnInit(): void {
     
-    console.log(this.allPatients);
+    console.log(this.allUsers.id);
   }
 
-  editPatient(patID: string | undefined): void {
-    if(patID){
-      console.log(patID);
-      this.routing.navigate(['patient', patID])
-    }
-    else{
-      console.log("Something wrong");
-    }
-  }
+onclick(){
+  
+}
 
 }
