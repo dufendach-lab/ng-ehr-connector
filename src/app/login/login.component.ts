@@ -119,10 +119,12 @@ export class LoginComponent implements OnInit {
 
  checkTypeOfUser(){ 
     if(this.checkUser()){
-        this.router.navigate(['/u']); 
+        this.router.navigate(['/u']);
+         
       }
     if(this.checkAdmin()){
       this.router.navigate(['/admin']);
+      
     }
 
   }

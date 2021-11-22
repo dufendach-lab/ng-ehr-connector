@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
+import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { first } from 'rxjs/operators';
 
@@ -17,6 +18,8 @@ export interface Table {
   lastName: string;
   phone: string;
   role: string;
+  id: string
+
 }
 
 
@@ -72,7 +75,7 @@ export class PatientsTableComponent implements AfterViewInit  {
   sort!: MatSort;
   
   patients : Table[] =[]
-  constructor( private afs : AngularFirestore) {
+  constructor( private afs : AngularFirestore , private router: Router,) {
     // // Create 100 users
     // const users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
 
@@ -88,7 +91,7 @@ export class PatientsTableComponent implements AfterViewInit  {
     // console.log('after first value')
     // mySubject.next('Second Value')
 
-    afs.collection<Table>('patients').valueChanges()
+    afs.collection<Table>('patients').valueChanges({ idField: 'id' })
     .subscribe(pts => {
       this.patients = pts
       this.dataSource = new MatTableDataSource(this.patients);
@@ -117,21 +120,28 @@ export class PatientsTableComponent implements AfterViewInit  {
     }
 
   }
+/** takes the user id and redirect to the user editor */
+  edit(id: string){
+    this.router.navigate([`./admin/patient/${id}`])
+  }
 }
 
-/** Builds and returns a new User. */
-function createNewUser(id: number): UserData {
-  const name =
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
-    ' ' +
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) +
-    '.';
 
-  return {
-    id: id.toString(),
-    name: name,
-    progress: Math.round(Math.random() * 100).toString(),
-    fruit: FRUITS[Math.round(Math.random() * (FRUITS.length - 1))],
-  };
 
-}
+// /** Builds and returns a new User. */
+// function createNewUser(id: number): UserData {
+//   const name =
+//     NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
+//     ' ' +
+//     NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) +
+//     '.';
+
+//   return {
+//     id: id.toString(),
+//     name: name,
+//     progress: Math.round(Math.random() * 100).toString(),
+//     fruit: FRUITS[Math.round(Math.random() * (FRUITS.length - 1))],
+//   };
+
+
+// }
