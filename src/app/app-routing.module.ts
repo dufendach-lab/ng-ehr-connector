@@ -22,7 +22,8 @@ import { RouteGuardService } from './route-guard.service';
 import { normalize } from 'path';
 import { LaunchComponent } from './launch/launch.component';
 import { UserListComponent } from './user-list/user-list.component';
-import { PatientTableComponent } from './patient-table/patient-table.component';
+import { PatientsTableComponent } from './patients-table/patients-table.component';
+
 
 /**
  * base: {
@@ -143,12 +144,12 @@ const routes: Routes = [
 {
   path: 'admin',
   component: NavContainerComponent,
-  canActivate : [RouteGuardService], 
+  // canActivate : [RouteGuardService], 
   children : [
 
     {
       path: 'patients',
-      component: PatientTableComponent,
+      component: PatientsTableComponent,
       
     },
      // TODO: Only allow admin access for search

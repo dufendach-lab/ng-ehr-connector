@@ -71,9 +71,10 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
 import { AdminNavComponent } from './admin-nav/admin-nav.component';
 import { UserNavComponent } from './user-nav/user-nav.component';
 import { UserListComponent } from './user-list/user-list.component';
-import { PatientTableComponent } from './patient-table/patient-table.component';
+
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { PatientsTableComponent } from './patients-table/patients-table.component';
 
 
 
@@ -115,7 +116,8 @@ import { MatSortModule } from '@angular/material/sort';
     AdminNavComponent,
     UserNavComponent,
     UserListComponent,
-    PatientTableComponent,
+    PatientsTableComponent,
+
  
     
   ],
