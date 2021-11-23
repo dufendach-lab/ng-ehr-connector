@@ -7,6 +7,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { IRegistration } from 'src/Interfaces/IRegistration';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteUserConfirmationDialogComponent } from '../delete-user-confirmation-dialog/delete-user-confirmation-dialog.component';
 
 interface IRoleLevel {
   role:string;
@@ -39,7 +41,9 @@ export class PatientSearchComponent implements OnInit {
   })
 
 
-  constructor( private fb: FormBuilder, private func: AngularFireFunctions, private afs: AngularFirestore, private afa: AngularFireAuth, private actRoute: ActivatedRoute,) {   }
+  constructor( private fb: FormBuilder, private func: AngularFireFunctions, private afs: AngularFirestore, private afa: AngularFireAuth, private actRoute: ActivatedRoute, public dialog: MatDialog) { 
+
+    }
 
   ngOnInit(): void {
 
@@ -93,7 +97,9 @@ export class PatientSearchComponent implements OnInit {
     console.log("Edit Preg Page");
   }
   Clicked_DeleteUser(){
-
+    const dialogRef = this.dialog.open(DeleteUserConfirmationDialogComponent, {
+      data: {id: this.patUID},
+    });  
   }
 
   editFirstNameClick(){
