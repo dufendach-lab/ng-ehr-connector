@@ -9,6 +9,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteUserConfirmationDialogComponent } from '../delete-user-confirmation-dialog/delete-user-confirmation-dialog.component';
+import { PregnancyEditorDialogComponent } from '../pregnancy-editor-dialog/pregnancy-editor-dialog.component';
 
 interface IRoleLevel {
   role:string;
@@ -94,7 +95,9 @@ export class PatientSearchComponent implements OnInit {
     console.log("Edit User Page");
   }
   Clicked_EditPregInfo(){
-    console.log("Edit Preg Page");
+    const dialogRef = this.dialog.open(PregnancyEditorDialogComponent, {
+      data: {id: this.patUID},
+    });
   }
   Clicked_DeleteUser(){
     const dialogRef = this.dialog.open(DeleteUserConfirmationDialogComponent, {
