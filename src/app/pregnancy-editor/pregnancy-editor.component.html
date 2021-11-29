@@ -1,0 +1,42 @@
+<form [formGroup]="pregnancyForm" (submit)="onSave()" fxLayout="column">
+
+    <mat-form-field>
+        <mat-label>Estimated Due Date</mat-label>
+        <input matInput [matDatepicker]="EstDueDatePicker" formControlName="EstDueDate">
+        <mat-datepicker-toggle matSuffix [for]="EstDueDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #EstDueDatePicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Diagnosis</mat-label>
+        <input matInput formControlName="Diagnosis">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Hospital</mat-label>
+        <input matInput formControlName="hospital">
+    </mat-form-field>
+
+
+
+    <mat-form-field>
+        <mat-label>Parity</mat-label>
+        <input matInput formControlName="parity" id="number" type="number" >
+    </mat-form-field>
+
+
+    <mat-form-field>
+        <mat-label>Given Birth</mat-label>
+        <input matInput formControlName="givenBirth">
+    </mat-form-field>
+
+
+
+
+    <div fxLayout="row" fxLayoutGap="5px" class="action-buttons">
+        <button mat-raised-button fxFlex type="button">Cancel</button>
+        <button mat-raised-button class="mat-primary" fxFlex>Save</button>
+      </div>
+
+
+</form>
