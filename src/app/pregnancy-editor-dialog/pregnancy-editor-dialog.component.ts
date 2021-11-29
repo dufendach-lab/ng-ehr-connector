@@ -7,8 +7,10 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./pregnancy-editor-dialog.component.scss']
 })
 export class PregnancyEditorDialogComponent {
-
-  constructor(@Inject(MAT_DIALOG_DATA) public data: {id: string}) { }
+  readonly patientId: string | undefined
+  constructor(@Inject(MAT_DIALOG_DATA) public data: {id: string}) { 
+    this.patientId = data?.id;
+  }
 
   ngOnInit(): void {
   }

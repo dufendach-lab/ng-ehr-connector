@@ -78,6 +78,8 @@ import { PatientsTableComponent } from './patients-table/patients-table.componen
 import { DeleteUserConfirmationDialogComponent } from './delete-user-confirmation-dialog/delete-user-confirmation-dialog.component';
 import { PregnancyEditorComponent } from './pregnancy-editor/pregnancy-editor.component';
 import { PregnancyEditorDialogComponent } from './pregnancy-editor-dialog/pregnancy-editor-dialog.component';
+import { ConfirmEditDialogComponent } from './confirm-edit-dialog/confirm-edit-dialog.component';
+import { FeedbackDialogComponent } from './feedback-dialog/feedback-dialog.component';
 
 
 
@@ -124,6 +126,8 @@ import { PregnancyEditorDialogComponent } from './pregnancy-editor-dialog/pregna
     DeleteUserConfirmationDialogComponent,
     PregnancyEditorComponent,
     PregnancyEditorDialogComponent,
+    ConfirmEditDialogComponent,
+    FeedbackDialogComponent,
 
  
     

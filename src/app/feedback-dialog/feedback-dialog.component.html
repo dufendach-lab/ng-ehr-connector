@@ -1,0 +1,42 @@
+<form [formGroup]="feebackForm"  fxLayout="column"  (submit)="onSave()">
+    <h1 mat-dialog-title>Feedback Form</h1>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Email</mat-label>
+        <input type="email" matInput [formControl]="emailFormControl" placeholder="Ex. pat@example.com"  formControlName="email">
+        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+          Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('required')">
+          Email is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstName">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastName">
+    </mat-form-field>
+
+
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Leave a comment</mat-label>
+        <textarea matInput placeholder="Ex. I would like the app to..."  formControlName="feedback"></textarea>
+      </mat-form-field>
+
+
+
+
+
+
+
+    <div fxLayout="row" fxLayoutGap="5px" class="action-buttons">
+        <button mat-raised-button class="mat-primary"  fxFlex mat-dialog-close (click)="onSave()" >submit</button>
+      </div>
+
+
+</form>

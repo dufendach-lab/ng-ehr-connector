@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { FeedbackDialogComponent } from '../feedback-dialog/feedback-dialog.component';
 
 @Component({
   selector: 'app-footer',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
-
+ 
+  openFeedbackDialog(){
+    const DialogRef = this.dialog.open(FeedbackDialogComponent);
+  }
 }

@@ -25,17 +25,14 @@
     </mat-form-field>
 
 
-    <mat-form-field>
-        <mat-label>Given Birth</mat-label>
-        <input matInput formControlName="givenBirth">
-    </mat-form-field>
+
 
 
 
 
     <div fxLayout="row" fxLayoutGap="5px" class="action-buttons">
-        <button mat-raised-button fxFlex type="button">Cancel</button>
-        <button mat-raised-button class="mat-primary" fxFlex>Save</button>
+        <button mat-raised-button fxFlex type="button" id="cancel" fxFlex mat-dialog-close> Cancel</button>
+        <button mat-raised-button class="mat-primary"  fxFlex mat-dialog-close  (click)="onSave()">Save</button>
       </div>
 
 
