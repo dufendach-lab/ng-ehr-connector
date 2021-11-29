@@ -76,7 +76,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { PatientsTableComponent } from './patients-table/patients-table.component';
 import { DeleteUserConfirmationDialogComponent } from './delete-user-confirmation-dialog/delete-user-confirmation-dialog.component';
-import { PregnancyEditorComponent } from './pregnancy-editor/pregnancy-editor.component';
+
 
 
 
@@ -120,7 +120,7 @@ import { PregnancyEditorComponent } from './pregnancy-editor/pregnancy-editor.co
     UserListComponent,
     PatientsTableComponent,
     DeleteUserConfirmationDialogComponent,
-    PregnancyEditorComponent,
+   
 
  
     
