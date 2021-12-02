@@ -24,6 +24,7 @@ export class PregnancyEditorComponent implements OnInit {
   ngOnInit(): void {
     if(this.patientId){// getting the array of gravidas , and accessed the first element only (use diffrent logic if needed.) 
       this.gs.getOtherGravidas(this.patientId).subscribe(gr => {
+        console.log(gr)
         this.pregnancyForm.get('EstDueDate')?.setValue(gr[0].EstDueDate);
         this.pregnancyForm.get('Diagnosis')?.setValue(gr[0].Diagnosis);
         this.pregnancyForm.get('hospital')?.setValue(gr[0].hospital);

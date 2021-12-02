@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FeedbackDialogComponent } from '../feedback-dialog/feedback-dialog.component';
+import { PrivacyDialogComponent } from '../privacy-dialog/privacy-dialog.component';
+import { PrivacyPollicyComponent } from '../privacy-pollicy/privacy-pollicy.component';
 
 @Component({
   selector: 'app-footer',
@@ -16,5 +18,8 @@ export class FooterComponent implements OnInit {
  
   openFeedbackDialog(){
     const DialogRef = this.dialog.open(FeedbackDialogComponent);
+  }
+  openPrivacyDialog(){
+    const DialogRef = this.dialog.open(PrivacyPollicyComponent);
   }
 }

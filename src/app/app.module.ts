@@ -80,6 +80,7 @@ import { PregnancyEditorComponent } from './pregnancy-editor/pregnancy-editor.co
 import { PregnancyEditorDialogComponent } from './pregnancy-editor-dialog/pregnancy-editor-dialog.component';
 import { ConfirmEditDialogComponent } from './confirm-edit-dialog/confirm-edit-dialog.component';
 import { FeedbackDialogComponent } from './feedback-dialog/feedback-dialog.component';
+import { PrivacyPollicyComponent } from './privacy-pollicy/privacy-pollicy.component';
 
 
 
@@ -128,6 +129,7 @@ import { FeedbackDialogComponent } from './feedback-dialog/feedback-dialog.compo
     PregnancyEditorDialogComponent,
     ConfirmEditDialogComponent,
     FeedbackDialogComponent,
+    PrivacyPollicyComponent,
 
  
     
