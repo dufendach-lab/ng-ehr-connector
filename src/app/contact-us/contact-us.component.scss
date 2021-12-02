@@ -1,21 +1,99 @@
+@import "src/cchmc";
+
 * {
     box-sizing: border-box;
   }
   
-  div { 
-    display:block;
-  
-    /*set the div in the top-left corner of the screen*/
-    position:absolute;
-    top:0;
-    left:0;
-  
-    /*set the width and height to 100% of the screen*/
-    width:100%;
-    height:100%;
-    
-    background: url("../../assets/img/cchmc-pregnancy-with-device.jpg") no-repeat center center fixed;
+
+.launch-container {
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+}
+
+.app-start-header {
+  flex: 0 1 auto;
+  flex-flow: row;
+  padding-right: 420px;
+}
+
+.cchmc-logo {
+  margin: 20px;
+  height: 80px;
+  width: auto;
+}
+
+.login-area {
+  position: fixed;
+
+  right: 0;
+  top: 0;
+
+  margin: 20px;
+  width: 360px;
+
+  padding: 15px;
+
+  background-color: white;
+
+  border-radius: 10px;
+
+  h2 {
+    color: $cchmc-purple;
   }
+}
+
+.main-area {
+  background: url("../../assets/img/cchmc-pregnancy-with-device.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+  flex: 1 1 auto;
+}
+
+.app-title {
+  color: $cchmc-purple;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.center-horizontal {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.phone-launch {
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+}
+
+.app-start-header-phone {
+  flex: 0 1 auto;
+  flex-flow: row;
+}
+
+.cchmc-logo-phone {
+  margin: 15px;
+  height: 50px;
+  width: auto;
+}
+
+.app-title-phone {
+  color: $cchmc-purple;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+  
+
   
   body {
     font-family: Arial, Helvetica, sans-serif;
@@ -36,7 +114,7 @@
   .art {
     padding: 100px;
     width: 100%;
-    background-color: #f1f1f1;
+   
     
     
   }
@@ -47,23 +125,14 @@
     padding: 100px;
     width: 100%;
    
-    background-color: #f1f1f1;
+    
     opacity: 0.8;
   
     
     
      /* only for demonstration, should be removed */
   }
-  section { 
-   
-    background-color: #99336e;
-    padding: 10px;
-    text-align: center;
-    font-size: 20px;
-    color: rgb(0, 0, 0);
-    background: url("../../assets/img/cchmc-pregnancy-with-device.jpg") no-repeat center center fixed;
-    
-  }
+
   
   /* Clear floats after the columns */
   section::after {
@@ -113,7 +182,9 @@
     text-align: center;
   } 
 
-  .ss{
-    animation: fadeInLeft; /* referring directly to the animation's @keyframe declaration */
-    animation-duration: 1s; /* don't forget to set a duration! */
-  }
+
+
+  // .ss{
+  //   animation: fadeInLeft; /* referring directly to the animation's @keyframe declaration */
+  //   animation-duration: 1s; /* don't forget to set a duration! */
+  // }
