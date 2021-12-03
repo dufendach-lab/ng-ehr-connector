@@ -148,6 +148,21 @@ const routes: Routes = [
         component: PdfViewComponent,
         
       },
+      {
+        path: 'about',
+        component: AboutComponent,
+        
+      },
+      {
+        path: 'team',
+        component: TheTeamComponent,
+        
+      },
+      {
+        path: 'privacy',
+        component: PrivacyPollicyComponent,
+        
+      },
 
       
       
@@ -160,9 +175,15 @@ const routes: Routes = [
 {
   path: 'admin',
   component: NavContainerComponent,
-  // canActivate : [RouteGuardService], 
+  canActivate : [RouteGuardService], 
   children : [
-
+    {
+      path: '',
+      redirectTo: 'dashboard',
+      pathMatch: 'full' , 
+      
+     
+    },
 
     {
       path: 'dashboard',
@@ -207,6 +228,21 @@ const routes: Routes = [
     {
       path: 'registration',
       component: PatinetRegistrationComponent,
+      
+    },
+    {
+      path: 'about',
+      component: AboutComponent,
+      
+    },
+    {
+      path: 'team',
+      component: TheTeamComponent,
+      
+    },
+    {
+      path: 'privacy',
+      component: PrivacyPollicyComponent,
       
     },
 
