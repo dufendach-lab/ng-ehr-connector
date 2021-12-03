@@ -24,6 +24,9 @@ import { LaunchComponent } from './launch/launch.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { PatientsTableComponent } from './patients-table/patients-table.component';
 import { PrivacyPollicyComponent } from './privacy-pollicy/privacy-pollicy.component';
+import { TheTeamComponent } from './the-team/the-team.component';
+import { PatinetRegistrationComponent } from './patinet-registration/patinet-registration.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 
 
 /**
@@ -70,6 +73,12 @@ const routes: Routes = [
   {
     path: 'privacy',
     component: PrivacyPollicyComponent , 
+    
+    
+  },
+  {
+    path: 'team',
+    component: TheTeamComponent , 
     
     
   },
@@ -154,6 +163,13 @@ const routes: Routes = [
   // canActivate : [RouteGuardService], 
   children : [
 
+
+    {
+      path: 'dashboard',
+      component: AdminDashboardComponent,
+      
+    },
+
     {
       path: 'patients',
       component: PatientsTableComponent,
@@ -188,6 +204,12 @@ const routes: Routes = [
       component: GravidasDetailEditorComponent,
       
     },
+    {
+      path: 'registration',
+      component: PatinetRegistrationComponent,
+      
+    },
+
   ]
 
 },

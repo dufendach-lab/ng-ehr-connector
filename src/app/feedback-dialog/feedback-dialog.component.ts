@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {FormBuilder, FormControl, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
-import { Feedback } from 'src/Interfaces/feedback';
+import { Feedback } from 'src/Interfaces/Feedback';
 import { AngularFirestore } from '@angular/fire/firestore';
 @Component({
   selector: 'app-feedback-dialog',

@@ -5,6 +5,7 @@
       [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
+      <a mat-list-item (click)="closeSideNav()" routerLink="dashboard">Dashboard</a>
       <a mat-list-item (click)="closeSideNav()" routerLink="patients">Patients</a>
       <a mat-list-item (click)="closeSideNav()" routerLink="userlist">Users List</a>
       <a mat-list-item (click)="closeSideNav()" routerLink="adminlist">Admins List</a>

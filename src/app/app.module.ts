@@ -81,6 +81,9 @@ import { PregnancyEditorDialogComponent } from './pregnancy-editor-dialog/pregna
 import { ConfirmEditDialogComponent } from './confirm-edit-dialog/confirm-edit-dialog.component';
 import { FeedbackDialogComponent } from './feedback-dialog/feedback-dialog.component';
 import { PrivacyPollicyComponent } from './privacy-pollicy/privacy-pollicy.component';
+import { TheTeamComponent } from './the-team/the-team.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { PatinetRegistrationComponent } from './patinet-registration/patinet-registration.component';
 
 
 
@@ -130,6 +133,9 @@ import { PrivacyPollicyComponent } from './privacy-pollicy/privacy-pollicy.compo
     ConfirmEditDialogComponent,
     FeedbackDialogComponent,
     PrivacyPollicyComponent,
+    TheTeamComponent,
+    AdminDashboardComponent,
+    PatinetRegistrationComponent,
 
  
     

@@ -1,3 +1,5 @@
+@import "src/cchmc";
+
 * {
   box-sizing: border-box;
 } 
@@ -53,7 +55,7 @@ article {
   width: 100%;
  
   background-color: #f1f1f1;
-  // opacity: 0.8;
+  opacity: 0.8;
 
   
   
@@ -120,8 +122,25 @@ footer {
   text-align: center;
 }
 
-.ss{
-  animation: fadeIn; /* referring directly to the animation's @keyframe declaration */
-  animation-duration: 1s; /* don't forget to set a duration! */
+
+.app-start-header {
+  flex: 0 1 auto;
+  flex-flow: row;
+  padding-right: 420px;
+}
+
+.app-title {
+  color: $cchmc-purple;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} 
+
+
+.cchmc-logo {
+  margin: 20px;
+  height: 80px;
+  width: auto;
 }
 
