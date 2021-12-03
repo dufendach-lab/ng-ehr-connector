@@ -6,9 +6,9 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   templateUrl: './privacy-pollicy.component.html',
   styleUrls: ['./privacy-pollicy.component.scss']
 })
-export class PrivacyPollicyComponent  {
+export class PrivacyPollicyComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: {id: string}) { }
+  constructor() { }
 
   ngOnInit(): void {
   }

@@ -20,6 +20,6 @@ export class FooterComponent implements OnInit {
     const DialogRef = this.dialog.open(FeedbackDialogComponent);
   }
   openPrivacyDialog(){
-    const DialogRef = this.dialog.open(PrivacyPollicyComponent);
+    const DialogRef = this.dialog.open(PrivacyPollicyComponent );
   }
 }

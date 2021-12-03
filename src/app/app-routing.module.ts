@@ -23,6 +23,7 @@ import { normalize } from 'path';
 import { LaunchComponent } from './launch/launch.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { PatientsTableComponent } from './patients-table/patients-table.component';
+import { PrivacyPollicyComponent } from './privacy-pollicy/privacy-pollicy.component';
 
 
 /**
@@ -63,6 +64,12 @@ const routes: Routes = [
   {
     path: 'contactUs',
     component: ContactUsComponent , 
+    
+    
+  },
+  {
+    path: 'privacy',
+    component: PrivacyPollicyComponent , 
     
     
   },
