@@ -175,7 +175,7 @@ const routes: Routes = [
 {
   path: 'admin',
   component: NavContainerComponent,
-  canActivate : [RouteGuardService], 
+  // canActivate : [RouteGuardService], 
   children : [
     {
       path: '',
