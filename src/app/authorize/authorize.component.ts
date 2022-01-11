@@ -7,7 +7,7 @@ import {Router} from "@angular/router";
 import {FhirEndpoint} from "../env/endpoints";
 import {fhirclient} from "fhirclient/lib/types";
 import AuthorizeParams = fhirclient.AuthorizeParams;
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AuthService } from '../auth.service';
 import { IGravidasDetails } from 'src/Interfaces/IGravidasDetails';
 

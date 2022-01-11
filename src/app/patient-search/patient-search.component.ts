@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { AngularFireFunctions } from "@angular/fire/functions";
+import { AngularFireFunctions } from "@angular/fire/compat/functions";
 import { first, map } from 'rxjs/operators';
 import { Observable, pipe } from 'rxjs';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { IRegistration } from 'src/Interfaces/IRegistration';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ActivatedRoute } from '@angular/router';
 
 interface IRoleLevel {

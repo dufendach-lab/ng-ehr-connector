@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Observable } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { IRegistration } from 'src/Interfaces/IRegistration';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { IGravidasDetails } from 'src/Interfaces/IGravidasDetails'
 import { formatDate } from '@angular/common';
 
@@ -30,7 +30,7 @@ export class RegistrationService {
     try{
       await this.afa.createUserWithEmailAndPassword(email, password);
     }
-    catch(error){
+    catch(error: any){
       if(error.code == "auth/email-already-in-use"){
         return false;
       }
