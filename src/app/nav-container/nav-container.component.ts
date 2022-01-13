@@ -56,7 +56,8 @@ export class NavContainerComponent implements OnInit {
   logout(): void {
     this.ehrAuth.signout();
     this.auth.logOut();
-    this.router.navigate(['/']);
+    localStorage.clear();
+    this.router.navigateByUrl('/launch');
   }
 
   // Closes sidenav after selection

@@ -18,7 +18,7 @@ mat-icon {
   }
   &:hover {
     @include mat.elevation-transition();
-    @include mat.elevation(15);
+    @include mat.elevation(10);
   }
 }
 .woah-content {

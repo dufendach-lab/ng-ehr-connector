@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AngularFireFunctions } from "@angular/fire/compat/functions";
-import { first, map } from 'rxjs/operators';
-import { Observable, pipe } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { IRegistration } from 'src/Interfaces/IRegistration';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 interface IRoleLevel {
   role:string;
@@ -39,7 +39,12 @@ export class PatientSearchComponent implements OnInit {
   })
 
 
-  constructor( private fb: FormBuilder, private func: AngularFireFunctions, private afs: AngularFirestore, private afa: AngularFireAuth, private actRoute: ActivatedRoute,) {   }
+  constructor( private fb: FormBuilder,
+               private func: AngularFireFunctions,
+               private afs: AngularFirestore,
+               private afa: AngularFireAuth,
+               private actRoute: ActivatedRoute,
+               private router: Router) {   }
 
   ngOnInit(): void {
 
@@ -93,7 +98,8 @@ export class PatientSearchComponent implements OnInit {
     console.log("Edit Preg Page");
   }
   Clicked_DeleteUser(){
-
+    this.afs.collection('patients').doc(this.patUID).delete();
+    this.router.navigate(['admin-list']);
   }
 
   editFirstNameClick(){

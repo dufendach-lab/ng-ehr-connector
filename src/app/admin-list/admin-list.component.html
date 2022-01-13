@@ -1,16 +1,20 @@
 <br/>
+
+
 <div *ngFor="let patient of allPatients | async">
-  <mat-card>
-    <div fxLayout="row" fxLayoutAlign="space-between center">
-      <div>
-        <div>Name: {{patient.firstName}} {{patient.lastName}}</div>
-        <br/>
-        <div>Mother's DoB: {{patient.MotherDoB.toDate() | date: "yyyy/MM/dd"}}</div>
+  <div *ngIf="patient.role == 'User'">
+    <mat-card>
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div>
+          <div>Name: {{patient.firstName}} {{patient.lastName}}</div>
+          <br/>
+          <div>Mother's DoB: {{patient.MotherDoB.toDate() | date: "yyyy/MM/dd"}}</div>
+        </div>
+        <div>
+          <button mat-button (click)="editPatient(patient.docName)">Edit</button>
+        </div>
       </div>
-      <div>
-        <button mat-button (click)="editPatient(patient.docName)">Edit</button>
-      </div>
-    </div>
-  </mat-card>
- <br />
+    </mat-card>
+    <br />
+  </div>
 </div>

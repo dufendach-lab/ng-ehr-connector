@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { IRegistration } from '../../Interfaces/IRegistration'
 import { Observable } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -18,12 +18,10 @@ export class AdminListComponent implements OnInit {
 
   ngOnInit(): void {
     this.allPatients = this.authSer.GetAllPats();
-    console.log(this.allPatients);
   }
 
   editPatient(patID: string | undefined): void {
     if(patID){
-      console.log(patID);
       this.routing.navigate(['patient', patID])
     }
     else{

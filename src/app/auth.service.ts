@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import {filter, map, switchMap} from 'rxjs/operators';
 import { IRegistration } from 'src/Interfaces/IRegistration'
 
 @Injectable({
@@ -10,7 +10,11 @@ import { IRegistration } from 'src/Interfaces/IRegistration'
 })
 export class AuthService {
 
-  constructor(private afa: AngularFireAuth, private afs: AngularFirestore) { }
+  role: string = '';
+
+  constructor(private afa: AngularFireAuth, private afs: AngularFirestore) {
+    this.setRoles();
+  }
 
   user = this.afa.user
 
@@ -52,4 +56,27 @@ export class AuthService {
       })
     )
   }
+
+  setRoles() {
+    let userInfo: Observable<IRegistration | undefined>
+    userInfo = this.user.pipe(
+      filter(u => u != null),
+      switchMap(u => this.afs
+        .collection('patients')
+        .doc<IRegistration>(u?.uid)
+        .get().pipe(map(doc => doc.data()))
+      )
+    )
+    userInfo.subscribe(user => {
+      if (user) {
+        this.role = user.role;
+        if(this.role == 'Admin' || this.role == 'Moderator') {
+          localStorage.setItem('UserRole', 'Admin');
+        } else {
+          localStorage.setItem('UserRole', 'User');
+        }
+      }
+    })
+  }
+
 }

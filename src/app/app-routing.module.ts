@@ -3,9 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {AuthorizeComponent} from './authorize/authorize.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {LandingComponent} from './landing/landing.component';
-import {LoginComponent} from './login/login.component';
 import {MainFormComponent} from './main-form/main-form.component';
-import {RegistrationComponent} from './registration/registration.component';
 import {NavContainerComponent} from "./nav-container/nav-container.component";
 import { GravidasDetailEditorComponent } from './gravidas-detail-editor/gravidas-detail-editor.component';
 import { GravidasViewerComponent } from './gravidas-viewer/gravidas-viewer.component';
@@ -15,6 +13,9 @@ import { PdfViewComponent } from './pdf-view/pdf-view.component';
 import { AdminListComponent } from './admin-list/admin-list.component';
 import { ContactFormComponent } from './contact-form/contact-form.component';
 import { PrivacyDialogComponent } from './privacy-dialog/privacy-dialog.component';
+import {StaffLandingComponent} from "./staff-landing/staff-landing.component";
+import {RouteGuardService} from "./route-guard.service";
+import {LaunchComponent} from "./launch/launch.component";
 
 const routes: Routes = [
   {
@@ -23,8 +24,37 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'landing',
+        redirectTo: 'staff/landing',
         pathMatch: 'full',
+      },
+      {
+        path: 'landing',
+        component: LandingComponent
+      },
+      {
+        path: 'staff/landing',
+        component: StaffLandingComponent,
+        canActivate: [RouteGuardService]
+      },
+      {
+        path: 'patient/:id',
+        component: PatientSearchComponent,
+        canActivate: [RouteGuardService]
+      },
+      {
+        path: 'admin-list',
+        component: AdminListComponent,
+        canActivate: [RouteGuardService]
+      },
+      {
+        path: 'patient/edit/:id',
+        component: GravidasViewerComponent,
+        canActivate: [RouteGuardService]
+      },
+      {
+        path: 'patient/gravida/add/:id',
+        component: GravidasDetailEditorComponent,
+        canActivate: [RouteGuardService]
       },
       {
         path: 'dashboard',
@@ -47,35 +77,11 @@ const routes: Routes = [
         component: AuthorizeComponent
       },
       {
-        path: 'landing',
-        component: LandingComponent
-      },
-      {
         path: 'gravidas',
         component: GravidasViewerComponent
       },
       {
         path: 'gravidas/edit',
-        component: GravidasDetailEditorComponent
-      },
-      // TODO: Only allow admin access for search
-      {
-        path: 'patient/:id',
-        component: PatientSearchComponent
-      },
-      // TODO: Only allow admin access for search
-      {
-        path: 'adminlist',
-        component: AdminListComponent
-      },
-      // TODO: Only allow admin access for search
-      {
-        path: 'patient/edit/:id',
-        component: GravidasViewerComponent
-      },
-      // TODO: Only allow admin access for search
-      {
-        path: 'patient/gravida/add/:id',
         component: GravidasDetailEditorComponent
       },
       {
@@ -89,14 +95,9 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'registration',
-    component: RegistrationComponent
-  },
-
-  {
-    path: 'login',
-    component: LoginComponent
-  },
+    path: 'launch',
+    component: LaunchComponent,
+  }
 ];
 
 @NgModule({

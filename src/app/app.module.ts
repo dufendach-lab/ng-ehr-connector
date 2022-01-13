@@ -65,6 +65,7 @@ import { PrivacyDialogComponent } from './privacy-dialog/privacy-dialog.componen
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ContactFormComponent } from './contact-form/contact-form.component';
 import { FooterComponent } from './footer/footer.component';
+import { StaffLandingComponent } from './staff-landing/staff-landing.component';
 
 @NgModule({
   declarations: [
@@ -99,6 +100,7 @@ import { FooterComponent } from './footer/footer.component';
     ResetPasswordComponent,
     ContactFormComponent,
     FooterComponent,
+    StaffLandingComponent,
   ],
   imports: [
     BrowserModule,
