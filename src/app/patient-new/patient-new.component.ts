@@ -20,6 +20,8 @@ export class PatientNewComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // TODO: Add functionality when staff registration workflow is complete.
+
   onSubmit() {
     this.router.navigate(['/admin-list']);
   }
