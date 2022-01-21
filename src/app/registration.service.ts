@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Observable } from 'rxjs';
-import { filter, map, switchMap } from 'rxjs/operators';
 import { IRegistration } from 'src/Interfaces/IRegistration';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { IGravidasDetails } from 'src/Interfaces/IGravidasDetails'
-import { formatDate } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -22,9 +19,9 @@ export class RegistrationService {
     private afs: AngularFirestore) { }
 
   //Updates User Info above when a registered person is logged in
-  async updatePatient(patient: IRegistration): Promise<void>{
-    this.userInfo.pipe(map(client => client = patient));
-  }
+  // async updatePatient(patient: IRegistration): Promise<void>{
+  //   this.userInfo.pipe(map(client => client = patient));
+  // }
 
   async createPatient(email: string, password: string): Promise<boolean | void>{
     try{
@@ -44,7 +41,11 @@ export class RegistrationService {
           this.patientInfo.collection('patients').doc(uniqueID).set(newPatient)
 
           const accessLevel = {
-            role: "User",
+            role: {
+              Admin: false,
+              Staff: false,
+              Patient: true
+            }
           };
           this.afs.collection('users').doc(uniqueID).set(accessLevel);
         }

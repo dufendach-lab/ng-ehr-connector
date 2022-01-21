@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 import { GravidasService } from '../gravidas.service';
 import { TooltipPosition } from '@angular/material/tooltip';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-landing',
@@ -31,6 +32,7 @@ export class LandingComponent implements OnInit {
     private auth: AuthService,
     public dialog: MatDialog,
     private gravService: GravidasService,
+    private router: Router,
   ) {
     this.gravService.getGravidas().subscribe(gravidas => {
       if(gravidas){
@@ -89,5 +91,10 @@ export class LandingComponent implements OnInit {
     } else {
       this.changeEDD();
     }
+  }
+
+  routeToLaunch() {
+    this.router.navigate(['/launch'])
+    return null;
   }
 }

@@ -78,10 +78,11 @@ export class RegistrationComponent implements OnInit {
           }
           else{
             this.registrationInfo.phone = ("+1" + this.registrationInfo.phone);
-            this.registrationInfo.role = "User";
+            this.registrationInfo.roles = ['Patient']
             this.regService.createPatientInfo(this.registrationInfo)
           }
         })
+        this.router.navigate([''])
       }
       catch(e){
         this.EmailInUse = true;

@@ -32,7 +32,7 @@ export class NavContainerComponent implements OnInit {
               private router: Router,
               private auth: FhirAuthService,
               private ehrAuth: AuthService,
-              private afs: AngularFirestore
+              private afs: AngularFirestore,
   ) {
     this.userInfo = this.ehrAuth.user.pipe(
       filter(u => u != null),
@@ -57,7 +57,7 @@ export class NavContainerComponent implements OnInit {
     this.ehrAuth.signout();
     this.auth.logOut();
     localStorage.clear();
-    this.router.navigateByUrl('/launch');
+    this.router.navigate(['/launch']);
   }
 
   // Closes sidenav after selection

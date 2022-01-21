@@ -31,6 +31,10 @@ export class ObservationService {
     }
   }
 
+  /*
+   TODO: Fix deprecated toPromise(). new func is lastValueForm()
+     Also, combine getObsbyCat() and getData() into one func
+  */
   // Used to get observations based on category name (vitals, laboratory)
   async getObservationByCategory(category: string): Promise<Observation | Bundle> {
     const client = await this.auth.client.pipe(first(c => c !== null)).toPromise();
@@ -39,8 +43,6 @@ export class ObservationService {
       console.log(`PID: ${patientID}`);
 
       const res = await client.request(`/Observation?patient=${patientID}&category=${category}`);
-      // console.log(`RESULT: ${res}`);
-      // console.log(res);
       return res;
 
     } else {
@@ -56,8 +58,6 @@ export class ObservationService {
       console.log(`PID: ${patientID}`);
 
       const res = await client.request(`/${type}?patient=${patientID}`);
-      // console.log(`RESULT: ${res}`);
-      // console.log(res);
       return res;
 
     } else {

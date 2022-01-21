@@ -15,7 +15,9 @@ import { ContactFormComponent } from './contact-form/contact-form.component';
 import { PrivacyDialogComponent } from './privacy-dialog/privacy-dialog.component';
 import {StaffLandingComponent} from "./staff-landing/staff-landing.component";
 import {RouteGuardService} from "./route-guard.service";
+import {PatientGuardService} from "./patient-guard.service";
 import {LaunchComponent} from "./launch/launch.component";
+import {PatientNewComponent} from "./patient-new/patient-new.component";
 
 const routes: Routes = [
   {
@@ -24,12 +26,13 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'staff/landing',
+        redirectTo: 'landing',
         pathMatch: 'full',
       },
       {
         path: 'landing',
-        component: LandingComponent
+        component: LandingComponent,
+        canActivate: [PatientGuardService]
       },
       {
         path: 'staff/landing',
@@ -39,6 +42,11 @@ const routes: Routes = [
       {
         path: 'patient/:id',
         component: PatientSearchComponent,
+        canActivate: [RouteGuardService]
+      },
+      {
+        path: 'new/patient',
+        component: PatientNewComponent,
         canActivate: [RouteGuardService]
       },
       {
@@ -59,6 +67,7 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent,
+        canActivate: [PatientGuardService]
       },
       {
         path: 'survey',

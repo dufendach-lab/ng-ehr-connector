@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
-import {filter, map, switchMap} from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
+import { of } from 'rxjs';
 import { IRegistration } from 'src/Interfaces/IRegistration'
 
 @Injectable({
@@ -10,13 +11,18 @@ import { IRegistration } from 'src/Interfaces/IRegistration'
 })
 export class AuthService {
 
-  role: string = '';
-
   constructor(private afa: AngularFireAuth, private afs: AngularFirestore) {
-    this.setRoles();
+    this.testing$ = this.afa.authState.pipe(switchMap(user => {
+      if(user) {
+        return this.afs.collection<IRegistration>('patients').doc(user.uid).valueChanges()
+      } else {
+        return of(null)
+      }
+    }))
   }
 
   user = this.afa.user
+  testing$: Observable<IRegistration | null | undefined>;
 
   //Check creditionals against backend to see if account exist
   checkCreditionals(email: string, pword: string) {
@@ -25,7 +31,11 @@ export class AuthService {
 
   //Signs user out of firebase authenication
   signout(){
-    this.afa.signOut();
+    this.afa.signOut().then(() => {
+      console.log('Signed out of firebase authentication');
+    }, (error) => {
+      console.error('Error signing out of firebase authentication', error)
+    })
   }
 
   GetAllPats():  Observable<IRegistration[]> {
@@ -57,26 +67,25 @@ export class AuthService {
     )
   }
 
-  setRoles() {
-    let userInfo: Observable<IRegistration | undefined>
-    userInfo = this.user.pipe(
-      filter(u => u != null),
-      switchMap(u => this.afs
-        .collection('patients')
-        .doc<IRegistration>(u?.uid)
-        .get().pipe(map(doc => doc.data()))
-      )
-    )
-    userInfo.subscribe(user => {
-      if (user) {
-        this.role = user.role;
-        if(this.role == 'Admin' || this.role == 'Moderator') {
-          localStorage.setItem('UserRole', 'Admin');
-        } else {
-          localStorage.setItem('UserRole', 'User');
-        }
-      }
-    })
+  /// Role based auth ///
+  isPatient(user: IRegistration): boolean {
+    const allowed = ['Patient']
+    return this.checkAuth(user, allowed);
   }
 
+  isEmployee(user: IRegistration): boolean {
+    const allowed = ['Admin', 'Staff']
+    return this.checkAuth(user, allowed)
+  }
+
+  // determines if user has matching role
+  private checkAuth(user: IRegistration, allowedRoles: string[]): boolean {
+    if(!user) { return false }
+    for(const role of allowedRoles) {
+      if(user.roles[role]) {
+        return true
+      }
+    }
+    return false
+  }
 }

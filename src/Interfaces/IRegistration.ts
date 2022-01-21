@@ -3,6 +3,8 @@ export interface IRegistration {
   lastName: string;
   MotherDoB: any;
   phone: string;
-  role: string;
   docName: string;
+  roles: Role[];
 }
+
+export type Role = "Admin" | "Staff" | "Patient"

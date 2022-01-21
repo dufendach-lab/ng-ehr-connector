@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
     this.auth.checkCreditionals(this.login.value['username'], this.login.value['password'])
       .then(user => {
         this.incorrectLogin = user !== null;
-        this.router.navigateByUrl('');
+        this.router.navigate([''])
       })
       .catch(_ => this.incorrectLogin = true);
   }

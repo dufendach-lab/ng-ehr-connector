@@ -85,18 +85,12 @@ export class PatientSearchComponent implements OnInit {
           firstName: info.firstName,
           lastName: info.lastName,
           MotherDoB: info.MotherDoB.toDate(),
-          role: (info.role == '') ? "User" : info.role,
+          roles: (info.roles['Patient']),
         } as IRegistration;
       }
     })
   }
 
-  Clicked_EditUserInfo(){
-    console.log("Edit User Page");
-  }
-  Clicked_EditPregInfo(){
-    console.log("Edit Preg Page");
-  }
   Clicked_DeleteUser(){
     this.afs.collection('patients').doc(this.patUID).delete();
     this.router.navigate(['admin-list']);

@@ -1,8 +1,38 @@
 <br/>
 
+<button mat-raised-button routerLink="../new/patient">Add Patient</button>
 
+<br/>
+<br/>
+<br/>
+
+<mat-card>
+  <form fxLayout="column">
+    <mat-form-field>
+      <mat-label>Search</mat-label>
+      <input type="text"
+             placeholder="Search by last name"
+             matInput
+             [formControl]="myControl"
+             [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of allPatients | async" [value]="option.docName">
+          {{ option.lastName }}, {{ option.firstName }}
+        </mat-option>
+      </mat-autocomplete>
+
+    </mat-form-field>
+  </form>
+  <button mat-raised-button class="mat-primary" (click)="onSubmit()">Edit patient profile</button>
+</mat-card>
+
+<br/>
+<br/>
+<br/>
+
+<h2 style="color: #ca5699">List of patients: </h2>
 <div *ngFor="let patient of allPatients | async">
-  <div *ngIf="patient.role == 'User'">
+  <div *ngIf="patient.roles.includes('Patient')">
     <mat-card>
       <div fxLayout="row" fxLayoutAlign="space-between center">
         <div>

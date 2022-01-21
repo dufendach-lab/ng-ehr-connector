@@ -14,7 +14,7 @@ mat-icon {
 
 .woah-card {
   mat-card-header {
-    background-color: $cchmc-green;
+    background-color: $cchmc-blue;
   }
   &:hover {
     @include mat.elevation-transition();
@@ -25,7 +25,7 @@ mat-icon {
   display: grid;
   grid-template-columns: 1fr 1fr;
   a {
-    background-color: $cchmc-lightgray;
+    background-color: $cchmc-lightblue;
     color: white;
   }
 }
@@ -33,7 +33,7 @@ mat-icon {
 .active-status {
   a {
     width: 100%;
-    background-color: $cchmc-green!important;
+    background-color: $cchmc-blue!important;
   }
 }
 
@@ -44,14 +44,14 @@ mat-icon {
   align-content: center;
   button {
     width: 80%;
-    background-color: $cchmc-green;
+    background-color: $cchmc-purple;
     color: white;
   }
 }
 
 .resource-card {
   mat-card-header {
-    background-color: $cchmc-blue;
+    background-color: $cchmc-purple;
   }
   &:hover {
     @include mat.elevation-transition();
@@ -61,7 +61,8 @@ mat-icon {
 
 .contact-card {
   mat-card-header {
-    background-color: $cchmc-semiLightGray;
+    background-color: $cchmc-purple
+  ;
   }
   &:hover {
     @include mat.elevation-transition();

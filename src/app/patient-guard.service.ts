@@ -7,23 +7,23 @@ import {Observable} from "rxjs";
 @Injectable({
   providedIn: 'root'
 })
-export class RouteGuardService implements CanActivate{
+export class PatientGuardService implements CanActivate{
 
   constructor(public router: Router, private auth: AuthService) {}
 
-
   canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
+
     return this.auth.testing$.pipe(
       take(1),
-      map(user => !!(user && user.roles.includes("Admin"))),
-      tap(isStaff => {
-        if(!isStaff) {
-          this.router.navigate(['../landing'])
-          console.error('Access denied - staff only')
+      map(user => !!(user && user.roles.includes('Patient'))),
+      tap(isPatient => {
+        if(!isPatient) {
+          console.error('Access denied - patients only')
+          this.router.navigate(['/staff/landing'])
         }
       })
     )
+
   }
 
 }
-
