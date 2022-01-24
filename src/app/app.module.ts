@@ -35,36 +35,37 @@ import {RegistrationComponent} from './registration/registration.component';
 import {AuthorizeComponent} from './authorize/authorize.component';
 import {LandingComponent} from './landing/landing.component';
 import {LoginComponent} from './login/login.component';
-import { LandingInfoComponent } from './landing-info/landing-info.component';
+import {LandingInfoComponent} from './landing-info/landing-info.component';
 
 import {environment} from '../environments/environment';
-import {AngularFireModule} from '@angular/fire/compat';
-import {AngularFirestoreModule} from '@angular/fire/compat/firestore';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { TestPatientDataComponent } from './test-patient-data/test-patient-data.component';
-import { ObsValueDisplayComponent } from './obs-value-display/obs-value-display.component';
-import { LaunchComponent } from './launch/launch.component';
-import { NavContainerComponent } from './nav-container/nav-container.component';
-import { LayoutModule } from '@angular/cdk/layout';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatListModule } from '@angular/material/list'
+import {TestPatientDataComponent} from './test-patient-data/test-patient-data.component';
+import {ObsValueDisplayComponent} from './obs-value-display/obs-value-display.component';
+import {LaunchComponent} from './launch/launch.component';
+import {NavContainerComponent} from './nav-container/nav-container.component';
+import {LayoutModule} from '@angular/cdk/layout';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list'
 import {MatDividerModule} from "@angular/material/divider";
-import { GraphDataComponent } from './graph-data/graph-data.component';
-import { DataTableComponent } from './data-table/data-table.component';
-import { GravidasDetailEditorComponent } from './gravidas-detail-editor/gravidas-detail-editor.component';
-import { GravidasViewerComponent } from './gravidas-viewer/gravidas-viewer.component';
-import { PatientSearchComponent } from './patient-search/patient-search.component';
-import { NewMomResourceComponent } from './new-mom-resource/new-mom-resource.component';
-import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
-import { PdfViewComponent } from './pdf-view/pdf-view.component';
-import { PdfViewerModule }from 'ng2-pdf-viewer';
-import { YouTubePlayerModule } from '@angular/youtube-player';
-import { YtPlayerComponent } from './yt-player/yt-player.component';
-import { AdminListComponent } from './admin-list/admin-list.component';
-import { PrivacyDialogComponent } from './privacy-dialog/privacy-dialog.component';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { ContactFormComponent } from './contact-form/contact-form.component';
-import { FooterComponent } from './footer/footer.component';
+
+import {GraphDataComponent} from './graph-data/graph-data.component';
+import {DataTableComponent} from './data-table/data-table.component';
+import {GravidasDetailEditorComponent} from './gravidas-detail-editor/gravidas-detail-editor.component';
+import {GravidasViewerComponent} from './gravidas-viewer/gravidas-viewer.component';
+import {PatientSearchComponent} from './patient-search/patient-search.component';
+import {NewMomResourceComponent} from './new-mom-resource/new-mom-resource.component';
+import {ConfirmationDialogComponent} from './confirmation-dialog/confirmation-dialog.component';
+import {YouTubePlayerModule} from '@angular/youtube-player';
+import {YtPlayerComponent} from './yt-player/yt-player.component';
+
+import {AdminListComponent} from './admin-list/admin-list.component';
+import {PrivacyDialogComponent} from './privacy-dialog/privacy-dialog.component';
+import {ResetPasswordComponent} from './reset-password/reset-password.component';
+import {ContactFormComponent} from './contact-form/contact-form.component';
+import {FooterComponent} from './footer/footer.component';
+
+import {AngularFireModule} from "@angular/fire/compat";
+import {AngularFirestoreModule} from "@angular/fire/compat/firestore";
+import {AngularFireAuthModule} from "@angular/fire/compat/auth";
 
 @NgModule({
   declarations: [
@@ -92,7 +93,7 @@ import { FooterComponent } from './footer/footer.component';
     PatientSearchComponent,
     NewMomResourceComponent,
     ConfirmationDialogComponent,
-    PdfViewComponent,
+    // PdfViewComponent,
     YtPlayerComponent,
     AdminListComponent,
     PrivacyDialogComponent,
@@ -110,7 +111,7 @@ import { FooterComponent } from './footer/footer.component';
 
     FlexLayoutModule,
 
-    PdfViewerModule,
+    // PdfViewerModule,
     YouTubePlayerModule,
 
     // Material imports

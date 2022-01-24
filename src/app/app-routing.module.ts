@@ -11,7 +11,6 @@ import { GravidasDetailEditorComponent } from './gravidas-detail-editor/gravidas
 import { GravidasViewerComponent } from './gravidas-viewer/gravidas-viewer.component';
 import { PatientSearchComponent } from './patient-search/patient-search.component';
 import { NewMomResourceComponent } from './new-mom-resource/new-mom-resource.component';
-import { PdfViewComponent } from './pdf-view/pdf-view.component';
 import { AdminListComponent } from './admin-list/admin-list.component';
 import { ContactFormComponent } from './contact-form/contact-form.component';
 import { PrivacyDialogComponent } from './privacy-dialog/privacy-dialog.component';
@@ -81,10 +80,6 @@ const routes: Routes = [
       {
         path: 'resources',
         component: NewMomResourceComponent
-      },
-      {
-        path: 'resources/pdf/:file',
-        component: PdfViewComponent
       },
     ]
   },

@@ -1,6 +1,7 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    // Gives admin and moderators access to edit patient data
     match /{document=**} {
       allow read, write: if get(/databases/{database}/documents/users).data.role[request.auth.uid] == ["Admin", "Moderator"];
     }
@@ -85,15 +86,15 @@ service cloud.firestore {
         request.resource.data.reminderSentOn == request.resource.data.date();
     }
 
-    match /users/{patID} {
-      allow create: if
-      // Patient must be authenticated to write
-        request.auth != null &&
-      // Ensures the patient role is a string and can only be a User, Admin, or Moderator
-        request.resource.data.role is string &&
-        request.resource.data.role == ["User", "Admin", "Moderator"] &&
-      // Patient uID from firebase must match the patient document name
-        request.resource.data.patientID == request.auth.uid;
-    }
+//    match /users/{patID} {
+//      allow create: if
+//      // Patient must be authenticated to write
+//        request.auth != null &&
+//      // Ensures the patient role is a string and can only be a User, Admin, or Moderator
+//        request.resource.data.role is string &&
+//        request.resource.data.role == ["User", "Admin", "Moderator"] &&
+//      // Patient uID from firebase must match the patient document name
+//        request.resource.data.patientID == request.auth.uid;
+//    }
   }
 }
