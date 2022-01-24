@@ -66,6 +66,7 @@ import {FooterComponent} from './footer/footer.component';
 import {AngularFireModule} from "@angular/fire/compat";
 import {AngularFirestoreModule} from "@angular/fire/compat/firestore";
 import {AngularFireAuthModule} from "@angular/fire/compat/auth";
+import {WINDOW_PROVIDERS} from "./util/window-provider";
 
 @NgModule({
   declarations: [
@@ -141,7 +142,9 @@ import {AngularFireAuthModule} from "@angular/fire/compat/auth";
     AngularFirestoreModule,
     AngularFireAuthModule,
   ],
-  providers: [],
+  providers: [
+    WINDOW_PROVIDERS
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

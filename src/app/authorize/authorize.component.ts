@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {Observable} from 'rxjs';
+import {Observable, tap} from 'rxjs';
 import {filter, first, map, startWith, switchMap} from 'rxjs/operators';
 import {FhirAuthService} from "../fhir-auth.service";
 import {Router} from "@angular/router";
@@ -51,6 +51,7 @@ export class AuthorizeComponent implements OnInit {
   ngOnInit() {
     this.filteredOptions = this.stateCtrl.valueChanges.pipe(
       startWith(''),
+      tap(value => console.log(this.endpoints.find(v => v.OrganizationName === value))),
       map(value => this._filter(value))
     );
   }
@@ -60,14 +61,7 @@ export class AuthorizeComponent implements OnInit {
     const endpoint = this.endpoints.find(value => value.OrganizationName === orgName);
 
     if (endpoint) {
-      const params: AuthorizeParams = {
-        iss: endpoint.FHIRPatientFacingURI,
-        clientId: 'f7cfa009-58a4-4de2-8437-3b77306faedd',
-        scope: 'launch/patient',
-        redirectUri: 'http://localhost:4200/dashboard',
-      }
-
-      this.authorize(params);
+      this.authorize(this.auth.getAuthParams(endpoint));
     }
 
   }
@@ -94,5 +88,8 @@ export class AuthorizeComponent implements OnInit {
     const filterValue = value.toLowerCase();
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
-
+  //
+  // onHospitalChange() {
+  //
+  // }
 }

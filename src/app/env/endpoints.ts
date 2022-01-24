@@ -17,7 +17,8 @@ export interface FhirEndpoint extends AuthorizeParams {
   // }
 }
 
-const EPIC_CLIENT_ID = 'f7cfa009-58a4-4de2-8437-3b77306faedd';
+// const EPIC_CLIENT_ID = 'f7cfa009-58a4-4de2-8437-3b77306faedd';
+export const EPIC_DEV_CLIENT_ID = '097fea73-581a-4394-babc-942847dadbab';
 
 export const testEndpoints: FhirEndpoint[] = [
   {
@@ -27,22 +28,22 @@ export const testEndpoints: FhirEndpoint[] = [
   },
   {
     OrganizationName: 'Epic DSTU2',
-    clientId: EPIC_CLIENT_ID, // EHR Connector
+    clientId: EPIC_DEV_CLIENT_ID, // EHR Connector
     FHIRPatientFacingURI: 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/DSTU2/', // DSTU2
   },
   {
     OrganizationName: 'Open-ic.Epic',
-    clientId: EPIC_CLIENT_ID, // EHR Connector
+    clientId: EPIC_DEV_CLIENT_ID, // EHR Connector
     FHIRPatientFacingURI: 'https://open-ic.epic.com/argonaut/api/FHIR/Argonaut/', // Open epic
   },
   {
     OrganizationName: 'CCHMC Dev Server',
-    clientId: EPIC_CLIENT_ID,
+    clientId: EPIC_DEV_CLIENT_ID,
     FHIRPatientFacingURI: 'https://boomertest.cchmc.org/fhir/api/FHIR/DSTU2/',
   },
   {
     OrganizationName: 'UC Dev Server',
-    clientId: EPIC_CLIENT_ID,
+    clientId: EPIC_DEV_CLIENT_ID,
     FHIRPatientFacingURI: 'https://epic-soap-test.uchealth.com/FHIRProxy/api/FHIR/DSTU2/',
   },
 ]
@@ -56,7 +57,7 @@ export const smartHealthIt: AuthorizeParams = {
 };
 
 export const epicConfig: AuthorizeParams = {
-  clientId: 'f7cfa009-58a4-4de2-8437-3b77306faedd', // EHR Connector
+  clientId: EPIC_DEV_CLIENT_ID, // EHR Connector
   scope: 'launch/patient',
   iss: 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/DSTU2/', // DSTU2
   // iss: 'https://open-ic.epic.com/argonaut/api/FHIR/Argonaut/', // Open epic
