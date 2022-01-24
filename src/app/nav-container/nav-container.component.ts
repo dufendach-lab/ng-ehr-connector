@@ -6,7 +6,7 @@ import {Router} from "@angular/router";
 import {FhirAuthService} from "../fhir-auth.service";
 import {AuthService} from "../auth.service";
 import { IRegistration } from 'src/Interfaces/IRegistration';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-nav-container',

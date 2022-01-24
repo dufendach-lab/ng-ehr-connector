@@ -38,9 +38,6 @@ import {LoginComponent} from './login/login.component';
 import {LandingInfoComponent} from './landing-info/landing-info.component';
 
 import {environment} from '../environments/environment';
-import {AngularFireModule} from '@angular/fire';
-import {AngularFirestoreModule} from '@angular/fire/firestore';
-import {AngularFireAuthModule} from '@angular/fire/auth';
 import {TestPatientDataComponent} from './test-patient-data/test-patient-data.component';
 import {ObsValueDisplayComponent} from './obs-value-display/obs-value-display.component';
 import {LaunchComponent} from './launch/launch.component';
@@ -65,6 +62,10 @@ import {PrivacyDialogComponent} from './privacy-dialog/privacy-dialog.component'
 import {ResetPasswordComponent} from './reset-password/reset-password.component';
 import {ContactFormComponent} from './contact-form/contact-form.component';
 import {FooterComponent} from './footer/footer.component';
+
+import {AngularFireModule} from "@angular/fire/compat";
+import {AngularFirestoreModule} from "@angular/fire/compat/firestore";
+import {AngularFireAuthModule} from "@angular/fire/compat/auth";
 
 @NgModule({
   declarations: [

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import {AngularFirestore} from '@angular/fire/firestore';
+// import {AngularFirestore} from '@angular/fire/compat/firestore';
 import { IEhrData } from '../Interfaces/IEhrData';
-import { Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +8,7 @@ import { Subscription } from 'rxjs';
 export class EhrDataService {
   patientData: IEhrData = {};
 
-  constructor(private db: AngularFirestore) { }
+  constructor() { }
 
   getEhrData() {
 

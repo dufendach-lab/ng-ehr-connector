@@ -4,7 +4,7 @@ import { IRegistration } from '../../Interfaces/IRegistration'
 import { IGravidasDetails } from '../../Interfaces/IGravidasDetails'
 import { AuthService } from '../auth.service';
 import { filter, map, switchMap } from 'rxjs/operators';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 import { GravidasService } from '../gravidas.service';
 import { TooltipPosition } from '@angular/material/tooltip';
