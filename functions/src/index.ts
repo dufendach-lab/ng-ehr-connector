@@ -11,7 +11,60 @@ import {firestore} from "firebase-admin";
 
 admin.initializeApp();
 
-//  const db = admin.firestore();
+// CREATE NEW USER
+exports.createUser = functions.https.onCall(async (data, context) => {
+  try {
+    admin.auth().createUser({
+      email: data.authStuff.email,
+      emailVerified: true,
+      phoneNumber: data.authStuff.phoneNumber,
+      password: data.authStuff.password,
+    }).then((userRecord) => {
+      firestore().collection("patients").doc(userRecord.uid).create(data.newPat);
+      console.log("Succesfully created new user: ", userRecord.uid);
+    });
+  } catch (e) {
+    console.log("Error creating new user: ", e);
+  }
+});
+
+// RETRIEVE USER DATA
+exports.getOneUser = functions.https.onCall(async (data, context) => {
+  try {
+    admin.auth().getUser(data.uid).then((userRecord) => {
+      console.log("Succesfully fetched user data: ", userRecord.toJSON());
+    });
+  } catch (e) {
+    console.log("Error fetching user data: ", e);
+  }
+});
+
+// UPDATE A USER
+exports.updateUser = functions.https.onCall(async (data, context) => {
+  try {
+    admin.auth().updateUser(data.uid, {
+      email: data.email,
+      emailVerified: true,
+      phoneNumber: data.phoneNumber,
+      password: data.password,
+    }).then((userRecord) => {
+      console.log("Succesfully update user: ", userRecord.toJSON());
+    });
+  } catch (e) {
+    console.log("Error updating user: ", e);
+  }
+});
+
+// DELETE A USER
+exports.deleteUser = functions.https.onCall(async (data, context) => {
+  try {
+    admin.auth().deleteUser(data.uid).then(() => {
+      console.log("Succesfully deleted user.");
+    });
+  } catch (e) {
+    console.log("Error deleting user: ", e);
+  }
+});
 
 // This is how many days to create the a reminder. 1000millisec * 60sec * 60min * 24hours * 14days
 const REMINDER_OFFSET = 1000 * 60 * 60 * 24 * 14;
@@ -40,7 +93,7 @@ exports.schedulerReminder = functions.pubsub
                     number = await doc.data()?.phoneNum;
                     console.log("Sending message to: " + number);
 
-                    firestore().collection("messages")
+                    await firestore().collection("messages")
                       .doc()
                       .create({
                         channelId: "1dbe4caa9c2e43e48315c8f9b6416ecd",
@@ -56,6 +109,8 @@ exports.schedulerReminder = functions.pubsub
                 firestore().collection("reminder").doc(userRecord.uid).set({
                   reminderSentFor: EDDtoSend,
                   reminderSentOn: curDate,
+                }).then(() => {
+                  console.log("Reminder set.");
                 });
               }
             });
@@ -65,15 +120,3 @@ exports.schedulerReminder = functions.pubsub
         });
       });
     });
-
-// The function recieves a patients uID, which it then uses to delete the user
-exports.deleteUser = functions.https.onCall((data, _) => {
-  admin.auth().deleteUser(data.text)
-  .then(function() {
-    console.log("Successfully deleted user");
-    firestore().collection("patients").doc(data.text).delete();
-  })
-  .catch(function(error) {
-    console.log("Error deleting user:", error);
-  });
-});

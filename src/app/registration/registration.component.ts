@@ -1,6 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
-import {Observable} from 'rxjs';
 import {FhirAuthService} from "../fhir-auth.service";
 import {IRegistration} from '../../Interfaces/IRegistration';
 import {MatAutocomplete} from '@angular/material/autocomplete';
@@ -9,6 +8,8 @@ import { Router } from '@angular/router';
 import { RegistrationService } from '../registration.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PrivacyDialogComponent } from '../privacy-dialog/privacy-dialog.component';
+// import { AngularFireFunctionsModule } from "@angular/fire/compat/functions";
+
 
 @Component({
   selector: 'app-registration',
@@ -20,19 +21,19 @@ export class RegistrationComponent implements OnInit {
   passwordsMatch = true;
   privacyPolicy = false;
   isPage2 = false;
-  pageButtonText = "Next Page";
+  // pageButtonText = "Next Page";
   EmailInUse = false;
   hide1 = true;
   hide2 = true;
   //Hospital list, that updates as autocomplete occurs
-  hospitalList: Observable<string[]> | any;
+  // hospitalList: Observable<string[]> | any;
   hospitalOptions: string[] = []
 
   //Initializes a new interface to store the data
   registrationInfo = {} as IRegistration;
 
   //Hoispital selected for the chips seen
-  selectedHospitals: string[] = [];
+  // selectedHospitals: string[] = [];
   separatorKeysCodes: number[] = [ENTER, COMMA];
   @ViewChild('hospitalInput') hospitalInput = {} as ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete = {} as MatAutocomplete;
@@ -53,14 +54,14 @@ export class RegistrationComponent implements OnInit {
     private fhirService: FhirAuthService,
     private router: Router,
     private regService: RegistrationService,
-    private dialog: MatDialog) {
+    private dialog: MatDialog,) {
   }
 
   //Uses the Endpoints function to retrieve a list of all the available epic endpoints
-  getHospitalList() {
-    this.hospitalOptions = this.fhirService.fhirEndpoints.map(v => v.OrganizationName);
-    return
-  }
+  // getHospitalList() {
+  //   this.hospitalOptions = this.fhirService.fhirEndpoints.map(v => v.OrganizationName);
+  //   return
+  // }
 
   //Obtains the list of hospitals, then watches the hospital field value to update list as auto complete occurs
   ngOnInit(): void {
@@ -70,21 +71,24 @@ export class RegistrationComponent implements OnInit {
   //Logs the patients registraion data
   submit() {
     if(this.registration.controls['password1'].value === this.registration.controls['password2'].value){
-      try{
-        this.regService.createPatient(this.registration.controls['email'].value, this.registration.controls['password1'].value).then((result) =>{
+      try {
+        let auth = {
+          email: this.registration.value['email'],
+          phone: ("+1" + this.registration.value['password1']),
+          password: this.registration.value['phone']
+        }
+        let regInfo: IRegistration = {
+          firstName: this.registration.value['firstname'],
+          lastName: this.registration.value['lastname'],
+          MotherDoB: this.registration.value['MotherDoB'],
+          phone: ("+1" + this.registration.value['password1']),
+          roles: ["Patient"],
+          docName: ''
+        }
+        this.regService.createPatient(auth, regInfo).then((result) => {
           console.log(result)
-          if(result === false){
-            this.EmailInUse = true;
-          }
-          else{
-            this.registrationInfo.phone = ("+1" + this.registrationInfo.phone);
-            this.registrationInfo.roles = ['Patient']
-            this.regService.createPatientInfo(this.registrationInfo)
-          }
         })
-        this.router.navigate([''])
-      }
-      catch(e){
+      } catch (e) {
         this.EmailInUse = true;
       }
     }

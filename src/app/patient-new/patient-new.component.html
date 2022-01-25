@@ -1,24 +1,27 @@
 <mat-card>
-  <form fxLayout="column">
+  <form fxLayout="column" [formGroup]="registration">
     <!-- Mother's First Name input -->
     <ng-container>
       <mat-form-field class="form-field" fxFlex>
         <mat-label>First Name</mat-label>
         <input type="text"
-               matInput/>
+               matInput
+               formControlName="firstname"/>
       </mat-form-field>
 
       <!-- Mother's Last Name Input Field -->
       <mat-form-field class="form-field" fxFlex>
         <mat-label>Last Name</mat-label>
         <input type="text"
-               matInput/>
+               matInput
+               formControlName="lastname"/>
       </mat-form-field>
       <!-- Mother's Date of Birth Input Field -->
       <mat-form-field class="form-field">
         <input matInput
                [matDatepicker]="DoBpicker"
-               placeholder="Birthday"/>
+               placeholder="Birthday"
+               formControlName="MotherDoB"/>
         <mat-datepicker-toggle matSuffix [for]="DoBpicker"></mat-datepicker-toggle>
         <mat-datepicker #DoBpicker disabled="false"></mat-datepicker>
       </mat-form-field>
@@ -27,15 +30,16 @@
         <mat-label>Phone Number</mat-label>
         <input matInput
                type="tel"
-               formControlName="phone"
-               placeholder="Ex: 5139998888">
+               placeholder="Ex: 5139998888"
+               formControlName="phone">
         <mat-hint>No spaces or dashes</mat-hint>
       </mat-form-field>
 
       <mat-form-field class="form-field">
         <mat-label>Email</mat-label>
         <input type="text"
-               matInput/>
+               matInput
+               formControlName="email"/>
       </mat-form-field>
       <div *ngIf="emailInUse">
         <span style="color: red;">Email is already in use</span>
@@ -45,7 +49,8 @@
       <mat-form-field class="form-field">
         <mat-label>Password</mat-label>
         <input [type]="hide1 ? 'password' : 'text'"
-               matInput/>
+               matInput
+               formControlName="password1"/>
         <mat-icon matSuffix (click)="hide1 = !hide1"
                   class="material-icons">{{hide1 ? "visibility_off" : "visibility"}}</mat-icon>
       </mat-form-field>
@@ -53,7 +58,8 @@
       <mat-form-field class="form-field">
         <mat-label>Password</mat-label>
         <input [type]="hide2 ? 'password' : 'text'"
-               matInput/>
+               matInput
+               formControlName="password2"/>
         <mat-icon matSuffix (click)="hide2 = !hide2"
                   class="material-icons">{{hide2 ? "visibility_off" : "visibility"}}</mat-icon>
       </mat-form-field>

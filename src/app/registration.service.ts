@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Observable } from 'rxjs';
 import { IRegistration } from 'src/Interfaces/IRegistration';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFireFunctions } from "@angular/fire/compat/functions";
 
 @Injectable({
   providedIn: 'root'
@@ -16,16 +17,18 @@ export class RegistrationService {
 
   constructor(
     private afa: AngularFireAuth,
-    private afs: AngularFirestore) { }
+    private afs: AngularFirestore,
+    private aff: AngularFireFunctions) { }
 
   //Updates User Info above when a registered person is logged in
   // async updatePatient(patient: IRegistration): Promise<void>{
   //   this.userInfo.pipe(map(client => client = patient));
   // }
 
-  async createPatient(email: string, password: string): Promise<boolean | void>{
-    try{
-      await this.afa.createUserWithEmailAndPassword(email, password);
+  async createPatient(authStuff: any, newPat: IRegistration): Promise<boolean | void>{
+    try {
+      let creating = this.aff.httpsCallable('/createUser');
+      creating({authStuff, newPat});
     }
     catch(error: any){
       if(error.code == "auth/email-already-in-use"){
