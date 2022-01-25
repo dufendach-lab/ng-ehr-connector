@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-reset-password',
@@ -14,14 +14,16 @@ export class ResetPasswordComponent implements OnInit {
   emailNotInUse = false;
   enteredEmail = "";
   passwordReset = this.fb.group({
-    email: ['', Validators.required],
+    email: [this.data.userName, Validators.required],
   })
 
   constructor(private afa: AngularFireAuth,
     public dialogRef: MatDialogRef<ResetPasswordComponent>,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
+    console.log(this.data.userName);
   }
 
   onCancelClick(): void{

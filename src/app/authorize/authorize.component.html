@@ -13,10 +13,7 @@
     <form class="login-form" (ngSubmit)="onSubmit()" fxLayout="column">
       <mat-form-field class="form-field">
         <mat-label>Select Hospital</mat-label>
-        <input type="text"
-         matInput
-         [formControl]="stateCtrl"
-         [matAutocomplete]="auto">
+        <input type="text" matInput [formControl]="stateCtrl" [matAutocomplete]="auto">
         <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption>
           <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
             {{option}}

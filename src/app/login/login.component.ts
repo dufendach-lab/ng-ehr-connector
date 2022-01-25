@@ -72,6 +72,9 @@ export class LoginComponent implements OnInit {
     this.forgotPass = true;
     this.dialog.open(ResetPasswordComponent, {
       width: '40%',
+      data: {
+        userName: this.login.value['username']
+      }
     });
   }
 }
