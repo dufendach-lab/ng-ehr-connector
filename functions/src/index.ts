@@ -8,31 +8,34 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import {firestore} from "firebase-admin";
+import {error} from "firebase-functions/lib/logger";
 
 admin.initializeApp();
 
 // CREATE NEW USER
 exports.createUser = functions.https.onCall(async (data, context) => {
-  try {
+  return new Promise((res, rej) => {
+    functions.logger.log(data);
     admin.auth().createUser({
-      email: data.authStuff.email,
+      email: data.email,
       emailVerified: true,
-      phoneNumber: data.authStuff.phoneNumber,
-      password: data.authStuff.password,
+      phoneNumber: data.phoneNumber,
+      password: data.password,
     }).then((userRecord) => {
-      firestore().collection("patients").doc(userRecord.uid).create(data.newPat);
-      console.log("Succesfully created new user: ", userRecord.uid);
+      if (userRecord) {
+        res(userRecord.toJSON());
+      } else {
+        rej(error("Failed to create new user."));
+      }
     });
-  } catch (e) {
-    console.log("Error creating new user: ", e);
-  }
+  });
 });
 
 // RETRIEVE USER DATA
 exports.getOneUser = functions.https.onCall(async (data, context) => {
   try {
     admin.auth().getUser(data.uid).then((userRecord) => {
-      console.log("Succesfully fetched user data: ", userRecord.toJSON());
+      console.log("Successfully fetched user data: ", userRecord.toJSON());
     });
   } catch (e) {
     console.log("Error fetching user data: ", e);
@@ -48,7 +51,7 @@ exports.updateUser = functions.https.onCall(async (data, context) => {
       phoneNumber: data.phoneNumber,
       password: data.password,
     }).then((userRecord) => {
-      console.log("Succesfully update user: ", userRecord.toJSON());
+      console.log("Successfully update user: ", userRecord.toJSON());
     });
   } catch (e) {
     console.log("Error updating user: ", e);
@@ -59,7 +62,7 @@ exports.updateUser = functions.https.onCall(async (data, context) => {
 exports.deleteUser = functions.https.onCall(async (data, context) => {
   try {
     admin.auth().deleteUser(data.uid).then(() => {
-      console.log("Succesfully deleted user.");
+      console.log("Successfully deleted user.");
     });
   } catch (e) {
     console.log("Error deleting user: ", e);

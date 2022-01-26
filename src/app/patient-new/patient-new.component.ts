@@ -25,6 +25,7 @@ export class PatientNewComponent implements OnInit {
   hide1 = true;
   hide2 = true;
   passwordsMatch = true;
+  regInfo = {} as IRegistration;
 
   constructor(private router: Router,
               private fb: FormBuilder,
@@ -42,27 +43,24 @@ export class PatientNewComponent implements OnInit {
   onSubmit() {
     if(this.registration.value['password1'] === this.registration.value['password2']) {
       try {
-        let auth = {
-          email: this.registration.value['email'],
-          phone: ("+1" + this.registration.value['password1']),
-          password: this.registration.value['phone']
-        }
-        let regInfo: IRegistration = {
-          firstName: this.registration.value['firstname'],
-          lastName: this.registration.value['lastname'],
-          MotherDoB: this.registration.value['MotherDoB'],
-          phone: ("+1" + this.registration.value['password1']),
-          roles: ["Patient"],
-          docName: ''
-        }
-        this.reg.createPatient(auth, regInfo).then((result) => {
-          console.log(result)
-        })
+        this.reg.createPatient(this.registration.value['email'], this.registration.value['password1'], ('+1' + this.registration.value['phone'])).then((result) => {
+          if(result) {
+            this.regInfo.firstName = this.registration.value['firstname'];
+            this.regInfo.lastName = this.registration.value['lastname'];
+            this.regInfo.MotherDoB = this.registration.value['MotherDoB'];
+            this.regInfo.phone = ('+1' + this.registration.value['phone']);
+            this.regInfo.roles = ["Patient"];
+            this.reg.createPatientInfo(result, this.regInfo).then(() => {
+              this.router.navigate(['/admin-list']);
+            });
+          }
+        });
       } catch (e) {
         this.emailInUse = true;
       }
+    } else {
+      this.passwordsMatch = false;
     }
-    this.passwordsMatch = false;
   }
 
 }

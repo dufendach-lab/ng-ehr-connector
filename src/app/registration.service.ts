@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { IRegistration } from 'src/Interfaces/IRegistration';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireFunctions } from "@angular/fire/compat/functions";
+import {take} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -25,33 +26,19 @@ export class RegistrationService {
   //   this.userInfo.pipe(map(client => client = patient));
   // }
 
-  async createPatient(authStuff: any, newPat: IRegistration): Promise<boolean | void>{
-    try {
-      let creating = this.aff.httpsCallable('/createUser');
-      creating({authStuff, newPat});
-    }
-    catch(error: any){
-      if(error.code == "auth/email-already-in-use"){
-        return false;
-      }
-    }
+  createPatient(email: string, password: string, phoneNumber: string) {
+    return new Promise( (resolve) => {
+      const creating = this.aff.httpsCallable('createUser');
+      creating({email, password, phoneNumber}).pipe(take(1)).subscribe((val) => {
+        const res = val.uid;
+        resolve(res);
+      });
+    })
   }
 
-  async createPatientInfo(newPatient: IRegistration): Promise<void> {
-    this.patient.subscribe((user) => {
-        if (user) {
-          const uniqueID = user.uid;
-          this.patientInfo.collection('patients').doc(uniqueID).set(newPatient)
-
-          const accessLevel = {
-            role: {
-              Admin: false,
-              Staff: false,
-              Patient: true
-            }
-          };
-          this.afs.collection('users').doc(uniqueID).set(accessLevel);
-        }
-      })
+  async createPatientInfo(uid: any, newPatient: IRegistration): Promise<void> {
+      await this.afs.collection('patients').doc(uid).set(newPatient);
+      const roless = ["Patient"]
+      await this.afs.collection('users').doc(uid).set(roless);
   }
 }

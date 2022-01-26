@@ -17,8 +17,6 @@ export class AdminListComponent implements OnInit {
 
   constructor(private authSer: AuthService, private routing: Router,) {
     this.allPatients = this.authSer.GetAllPats();
-
-
   }
 
   ngOnInit(): void {

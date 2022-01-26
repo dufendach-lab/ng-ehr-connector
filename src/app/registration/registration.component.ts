@@ -72,20 +72,7 @@ export class RegistrationComponent implements OnInit {
   submit() {
     if(this.registration.controls['password1'].value === this.registration.controls['password2'].value){
       try {
-        let auth = {
-          email: this.registration.value['email'],
-          phone: ("+1" + this.registration.value['password1']),
-          password: this.registration.value['phone']
-        }
-        let regInfo: IRegistration = {
-          firstName: this.registration.value['firstname'],
-          lastName: this.registration.value['lastname'],
-          MotherDoB: this.registration.value['MotherDoB'],
-          phone: ("+1" + this.registration.value['password1']),
-          roles: ["Patient"],
-          docName: ''
-        }
-        this.regService.createPatient(auth, regInfo).then((result) => {
+        this.regService.createPatient(this.registration.value['email'], this.registration.value['password1'], ('+1' + this.registration.value['phone'])).then((result) => {
           console.log(result)
         })
       } catch (e) {
