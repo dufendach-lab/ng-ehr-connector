@@ -12,14 +12,14 @@ import { FormControl } from "@angular/forms";
 })
 export class AdminListComponent implements OnInit {
 
-  allPatients: Observable<IRegistration[]>
+  allPatients?: Observable<IRegistration[]>;
   myControl: FormControl = new FormControl()
 
   constructor(private authSer: AuthService, private routing: Router,) {
-    this.allPatients = this.authSer.GetAllPats();
   }
 
   ngOnInit(): void {
+    this.allPatients = this.authSer.GetAllPats();
   }
 
   editPatient(patID: string | undefined): void {
@@ -34,5 +34,4 @@ export class AdminListComponent implements OnInit {
     let dir = this.myControl.value
     this.routing.navigate(['patient', dir])
   }
-
 }

@@ -38,7 +38,17 @@ export class RegistrationService {
 
   async createPatientInfo(uid: any, newPatient: IRegistration): Promise<void> {
       await this.afs.collection('patients').doc(uid).set(newPatient);
-      const roless = ["Patient"]
-      await this.afs.collection('users').doc(uid).set(roless);
+      const role = ["Patient"]
+      await this.afs.collection('users').doc(uid).set({role});
+  }
+
+  deletePatient(uid: string) {
+    this.afs.collection('patients').doc(uid).collection('gravidas').get().pipe(take(1)).subscribe(async (item) => {
+      await this.afs.collection('patients').doc(uid).collection('gravidas').doc(item.docs[0].id).delete();
+    });
+    this.afs.collection('patients').doc(uid).delete();
+    this.afs.collection('users').doc(uid).delete();
+    const deleting = this.aff.httpsCallable('deleteUser');
+    deleting({uid}).pipe().subscribe(() => {});
   }
 }

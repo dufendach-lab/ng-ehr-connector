@@ -1,6 +1,6 @@
 <br/>
 
-<button mat-raised-button routerLink="../new/patient">Add Patient</button>
+<button mat-raised-button routerLink="../add/patient">Add Patient</button>
 
 <br/>
 <br/>
@@ -37,6 +37,8 @@
       <div fxLayout="row" fxLayoutAlign="space-between center">
         <div>
           <div>Name: {{patient.firstName}} {{patient.lastName}}</div>
+          <br>
+          <div>Phone Number: {{ patient.phone }}</div>
           <br/>
           <div>Mother's DoB: {{patient.MotherDoB.toDate() | date: "yyyy/MM/dd"}}</div>
         </div>

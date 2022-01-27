@@ -60,13 +60,11 @@ exports.updateUser = functions.https.onCall(async (data, context) => {
 
 // DELETE A USER
 exports.deleteUser = functions.https.onCall(async (data, context) => {
-  try {
+  return new Promise((res) => {
     admin.auth().deleteUser(data.uid).then(() => {
-      console.log("Successfully deleted user.");
+      res(true);
     });
-  } catch (e) {
-    console.log("Error deleting user: ", e);
-  }
+  });
 });
 
 // This is how many days to create the a reminder. 1000millisec * 60sec * 60min * 24hours * 14days

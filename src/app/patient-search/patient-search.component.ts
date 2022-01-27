@@ -7,10 +7,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { IRegistration } from 'src/Interfaces/IRegistration';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {ActivatedRoute, Router} from '@angular/router';
-
-interface IRoleLevel {
-  role:string;
-}
+import {RegistrationService} from "../registration.service";
 
 @Component({
   selector: 'app-patient-search',
@@ -24,7 +21,6 @@ export class PatientSearchComponent implements OnInit {
   searchQuery = "";
   patUID = "";
   patientInfo!: Observable<IRegistration | undefined>;
-  patientRole!: Observable<IRoleLevel | undefined>;
   curPatientRole: string = '';
   isEditMode = false;
   isFirstNameEdit = false;
@@ -32,7 +28,6 @@ export class PatientSearchComponent implements OnInit {
   isDoBEdit = false;
   isAccessLevelEdit = false;
   patientUserInfo = {} as IRegistration;
-  patientRoleInfo = {} as IRoleLevel;
 
   Search = this.fb.group({
     EmailInput: ['', Validators.required],
@@ -44,10 +39,10 @@ export class PatientSearchComponent implements OnInit {
                private afs: AngularFirestore,
                private afa: AngularFireAuth,
                private actRoute: ActivatedRoute,
+               private regService: RegistrationService,
                private router: Router) {   }
 
   ngOnInit(): void {
-
     this.actRoute.paramMap.subscribe((routeParams) => {
       const nav = (routeParams.get('id') == '' || routeParams.get('id')==null) ? "" : routeParams.get('id');
       if(nav != "" && nav){
@@ -60,39 +55,20 @@ export class PatientSearchComponent implements OnInit {
         .doc<IRegistration>(this.patUID)
         .get().pipe(map(doc => doc.data()))
 
-    this.patientRole = this.afs
-        .collection('users')
-        .doc<IRoleLevel>(this.patUID)
-        .get().pipe(map(doc => doc.data()))
-
-    this.patientRole.subscribe((role) => {
-      if(role){
-        this.patientRoleInfo = {
-          role: (role.role == '') ? "User" : role.role,
-        } as IRoleLevel
-      }
-      else{
-        this.patientRoleInfo = {
-          role: "User",
-        } as IRoleLevel;
-        this.afs.collection('users').doc(this.patUID).set(this.patientRoleInfo);
-      }
-    })
-
     this.patientInfo.subscribe((info) => {
       if(info){
         this.patientUserInfo = {
           firstName: info.firstName,
           lastName: info.lastName,
           MotherDoB: info.MotherDoB.toDate(),
-          roles: (info.roles['Patient']),
+          roles: info.roles,
         } as IRegistration;
       }
     })
   }
 
   Clicked_DeleteUser(){
-    this.afs.collection('patients').doc(this.patUID).delete();
+    this.regService.deletePatient(this.patUID);
     this.router.navigate(['admin-list']);
   }
 
@@ -113,7 +89,8 @@ export class PatientSearchComponent implements OnInit {
     console.log("DoB Icon clicked");
   }
   submitUserEdits() {
-    this.afs.collection('users').doc(this.patUID).update(this.patientRoleInfo);
+    const role = this.patientUserInfo.roles;
+    this.afs.collection('users').doc(this.patUID).update({role});
     this.afs.collection('patients').doc(this.patUID).update(this.patientUserInfo);
     this.isEditMode = false;
     this.isFirstNameEdit = false;
@@ -124,10 +101,5 @@ export class PatientSearchComponent implements OnInit {
         .collection('patients')
         .doc<IRegistration>(this.patUID)
         .get().pipe(map(doc => doc.data()));
-
-    this.patientRole = this.afs
-        .collection('users')
-        .doc<IRoleLevel>(this.patUID)
-        .get().pipe(map(doc => doc.data()))
   }
 }

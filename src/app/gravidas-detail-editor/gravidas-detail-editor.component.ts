@@ -22,8 +22,7 @@ export class GravidasDetailEditorComponent implements OnInit {
   hospitalList: Observable<string[]> | any;
   hospitalOptions: string[] = []
 
-  isAdminNav = false;
-  adminNavID: string| null = "";
+  patID: string | null = '';
 
   //Initializes a new interface to store the data
   registrationInfo = {} as IRegistration;
@@ -34,6 +33,13 @@ export class GravidasDetailEditorComponent implements OnInit {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   @ViewChild('hospitalInput') hospitalInput = {} as ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete = {} as MatAutocomplete;
+
+  registration = this.fb.group({
+    EstDueDate: ['', Validators.required],
+    Diagnosis: ['', Validators.required],
+    Hospital: ['', Validators.required],
+    Parity: ['', Validators.required],
+  })
 
   constructor(
     private fb: FormBuilder,
@@ -58,34 +64,17 @@ export class GravidasDetailEditorComponent implements OnInit {
     );
 
     this.actRoute.paramMap.subscribe((routeParams) => {
-      const nav = (routeParams.get('id') == '' || routeParams.get('id')==null) ? "" : routeParams.get('id');
-      if(nav != ""){
-        this.isAdminNav = true;
-      }
-      this.adminNavID = nav;
-    })
+      this.patID = routeParams.get('id');
+    });
   }
-
-  registration = this.fb.group({
-    EstDueDate: ['', Validators.required],
-    Diagnosis: ['', Validators.required],
-    Hospital: ['', Validators.required],
-    Parity: ['', Validators.required],
-  })
 
   submit() {
     this.gravidasDetails.givenBirth = false;
     this.gravidasDetails.hospital = this.selectedHospitals;
-
-    if(!this.isAdminNav){
-      this.gravService.createGravidas(this.gravidasDetails);
-      this.router.navigateByUrl('/landing');
-    }
-    else{
-      const patID = (this.adminNavID?.toString()) ? this.adminNavID : ""
-      this.gravService.createOtherGravidas(this.gravidasDetails, patID);
-      this.router.navigate(['patient','edit', this.adminNavID]);
-    }
+    this.gravidasDetails.EstDueDate = this.registration.value['EstDueDate'];
+    this.gravidasDetails.Diagnosis = this.registration.value['Diagnosis'];
+    this.gravidasDetails.parity = this.registration.value['Parity'];
+    this.gravService.createPregnancy(this.gravidasDetails, this.patID!);
   }
 
   addChip(event: MatChipInputEvent) {

@@ -44,7 +44,7 @@ const routes: Routes = [
         canActivate: [RouteGuardService]
       },
       {
-        path: 'new/patient',
+        path: 'add/patient',
         component: PatientNewComponent,
         canActivate: [RouteGuardService]
       },
@@ -70,11 +70,13 @@ const routes: Routes = [
       },
       {
         path: 'survey',
-        component: MainFormComponent
+        component: MainFormComponent,
+        canActivate: [PatientGuardService]
       },
       {
         path: 'contact',
-        component: ContactFormComponent
+        component: ContactFormComponent,
+        canActivate: [PatientGuardService]
       },
       {
         path: 'privacy',
@@ -82,7 +84,8 @@ const routes: Routes = [
       },
       {
         path: 'authorize',
-        component: AuthorizeComponent
+        component: AuthorizeComponent,
+        canActivate: [PatientGuardService]
       },
       {
         path: 'gravidas',
@@ -94,7 +97,8 @@ const routes: Routes = [
       },
       {
         path: 'resources',
-        component: NewMomResourceComponent
+        component: NewMomResourceComponent,
+        canActivate: [PatientGuardService]
       },
     ]
   },
