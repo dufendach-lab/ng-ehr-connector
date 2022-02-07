@@ -17,6 +17,7 @@ import {RouteGuardService} from "./route-guard.service";
 import {PatientGuardService} from "./patient-guard.service";
 import {LaunchComponent} from "./launch/launch.component";
 import {PatientNewComponent} from "./patient-new/patient-new.component";
+import {ToolsPageComponent} from "./tools-page/tools-page.component";
 
 const routes: Routes = [
   {
@@ -98,6 +99,11 @@ const routes: Routes = [
       {
         path: 'resources',
         component: NewMomResourceComponent,
+        canActivate: [PatientGuardService]
+      },
+      {
+        path: 'tools',
+        component: ToolsPageComponent,
         canActivate: [PatientGuardService]
       },
     ]

@@ -29,7 +29,7 @@ export class NavContainerComponent implements OnInit {
   nameConcat = '';
 
   constructor(private breakpointObserver: BreakpointObserver,
-              private router: Router,
+              public router: Router,
               private auth: FhirAuthService,
               private ehrAuth: AuthService,
               private afs: AngularFirestore,
@@ -52,7 +52,9 @@ export class NavContainerComponent implements OnInit {
     })
   }
 
-  // Clears session storage and redirects to simulate logout
+  /*
+  * Clears session storage and redirects to completely logout
+  */
   logout(): void {
     this.ehrAuth.signout();
     this.auth.logOut();
@@ -60,7 +62,6 @@ export class NavContainerComponent implements OnInit {
     this.router.navigate(['/launch']);
   }
 
-  // Closes sidenav after selection
   closeSideNav() {
     if(this.drawer._mode==="over"){
       this.drawer.close();

@@ -1,5 +1,7 @@
-//@use "../../cchmc-theme" as cchmc;
-//@import '~@angular/material/theming';
+button {
+  background-color: var(--primary-color);
+  color: #f5f5f5;
+}
 
 .forgot-password {
   margin-bottom: 15px;

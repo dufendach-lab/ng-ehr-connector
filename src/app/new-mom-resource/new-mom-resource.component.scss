@@ -1,8 +1,7 @@
 @import "src/cchmc";
 
 .resource-container {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding: 0 0.5rem 0 0.5rem;
 
   mat-card-title {
     color: $cchmc-pink;
@@ -13,7 +12,21 @@ mat-card-content {
   ul {
     list-style-type: none;
   }
-  p {
-    font-style: italic;
+}
+
+.info-container {
+  margin: 0.5rem;
+  line-height: 30px;
+  font-size: 18px;
+
+  span {
+    font-weight: bolder;
+  }
+}
+
+.dt-resource-container {
+
+  mat-card-title {
+    color: $cchmc-pink;
   }
 }

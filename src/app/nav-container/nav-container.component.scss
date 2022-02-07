@@ -7,6 +7,7 @@
 .sidenav {
   height: 100vh;
   width: 200px;
+  background-color: #f5f5f5;
 }
 
 .sidenav .mat-toolbar {
@@ -17,7 +18,18 @@
   position: sticky;
   top: 0;
   z-index: 5;
-
+  background-color: transparent;
+}
+.mat-icon-button {
+  width: 48px;
+  height: 48px;
+  line-height: 48px;
+  .mat-icon {
+    font-size: 36px;
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+  }
 }
 
 .content-container {
@@ -25,26 +37,19 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background: linear-gradient(rgba(255,255,255,.8), $cchmc-blue), url("../../assets/img/cchmc-pattern.PNG");
+  background-color: #98cbcf;
+  background-blend-mode: multiply;
 }
 
 .content {
   // flex: 1;
   padding: 10px 10px;
-  padding-bottom: 3.5rem;
+  padding-bottom: 1rem;
 }
-// .bg-img {
-//   background: url("../../assets/img/cchmc-pattern.PNG") repeat center center fixed;
-//   -webkit-background-size: repeat;
-//   -moz-background-size: repeat;
-//   -o-background-size: repeat;
-//   background-size: repeat;
-
-//   z-index: -10;
-//   flex: 1 1 auto;
-// }
 
 .app-title-nav {
-  background-color: $cchmc-pink;
+  background-color: $cchmc-blue;
   padding-top: 10px;
   padding-left: 14px;
   padding-bottom: 16.5px;
@@ -56,4 +61,3 @@
   bottom: 0;
   width: 100%;
 }
-

@@ -2,7 +2,7 @@
 
 <mat-sidenav-container class="sidenav-container">
 
-  <mat-sidenav #drawer class="sidenav" fixedInViewport
+  <mat-sidenav #drawer class="sidenav" fixedInViewport position="end"
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="(isHandset$ | async) === false">
@@ -12,8 +12,6 @@
       <a mat-list-item (click)="closeSideNav()" routerLink="authorize">Connect to Hospital</a>
       <a mat-list-item (click)="closeSideNav()" routerLink="dashboard">Dashboard</a>
       <a mat-list-item (click)="closeSideNav()" routerLink="gravidas">Pregnancies</a>
-      <!-- patient/search -->
-<!--      <a mat-list-item (click)="closeSideNav()" routerLink="adminlist">Patient List</a>-->
       <a mat-list-item (click)="logout()">Logout</a>
     </mat-nav-list>
 
@@ -24,29 +22,26 @@
 
       <div class="toolbar">
         <mat-toolbar color="primary" role="heading">
-          <button mat-icon-button (click)="drawer.toggle()" *ngIf="(isHandset$ | async)">
-            <mat-icon>menu</mat-icon>
-          </button>
+          <!-- Back button for mobile phones on every page except for the landing -->
+          <ng-container *ngIf="(router.url != '/landing')">
+            <button mat-icon-button routerLink="/" *ngIf="(isHandset$ | async)">
+              <mat-icon>navigate_before</mat-icon>
+            </button>
+          </ng-container>
+
           <button mat-button routerLink="/" *ngIf="!(isHandset$ | async)">
             <h1 class="text-tag">Connect 4 Quality</h1>
           </button>
 
           <span fxFlex></span>
-          <div *ngIf="(isAuth | async) || (isAuth2 | async)" class="button-container">
-            <div class="welcome-name">
-              <h1 class="text-tag">Hello, {{nameConcat}}</h1>
-
-            </div>
-          </div>
+          <button mat-icon-button (click)="drawer.toggle()" *ngIf="(isHandset$ | async)">
+            <mat-icon>menu</mat-icon>
+          </button>
         </mat-toolbar>
       </div>
 
       <div class="content">
         <router-outlet></router-outlet>
-      </div>
-
-      <div class="footer">
-        <app-footer></app-footer>
       </div>
 
     </div>

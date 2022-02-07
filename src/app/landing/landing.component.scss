@@ -1,75 +1,154 @@
 @use '@angular/material' as mat;
 @import "src/cchmc";
 
+/*
+
+  -- MOBILE VIEW --
+
+*/
 .wrapper {
+  padding-top: 0;
+  margin-top: 0;
+}
+.phone-container {
+  max-width: 100%;
+}
+.welcome-container {
+   color: #f5f5f5;
+   font-size: 36px;
+
+  span {
+    font-weight: bolder;
+  }
+}
+.card-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(max(300px,40vw), 1fr));
-  gap: 15px 15px;
-  padding-bottom: 10px;
+  grid-gap: 10px 15px;
 }
-
 mat-icon {
   vertical-align: middle;
 }
-
 .woah-card {
-  mat-card-header {
-    background-color: $cchmc-blue;
-  }
-  &:hover {
-    @include mat.elevation-transition();
-    @include mat.elevation(10);
-  }
+  background-image: url('/../../assets/img/mom (1).png');
+  background-size: 95%;
+  background-position: 700% 0;
 }
-.woah-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  a {
-    background-color: $cchmc-lightblue;
-    color: white;
-  }
-}
-
-.active-status {
-  a {
-    width: 100%;
-    background-color: $cchmc-blue!important;
-  }
-}
-
-.raised {
-  margin: 20px;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  button {
-    width: 80%;
-    background-color: $cchmc-purple;
-    color: white;
-  }
-}
-
 .resource-card {
-  mat-card-header {
-    background-color: $cchmc-purple;
+  background-image: url('/../../assets/img/ttts.png');
+  background-size: contain;
+  background-position: 0 80%;
+}
+.extras-card {
+  background-image: url('/../../assets/img/tools.png');
+  background-size: contain;
+  background-position: 80% 100%;
+}
+.split-bottom {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(max(100px,40vw), 1fr));
+  gap: 10px 15px;
+}
+.fruit-facts {
+  .fact-state {
+    font-size: 20px!important;
+    span {
+      font-weight: bolder;
+    }
   }
-  &:hover {
-    @include mat.elevation-transition();
-    @include mat.elevation(15);
+  p {
+    font-size: 12px;
+    font-style: italic;
+    text-align: center;
+    color: #f5f5f5;
+  }
+  div {
+    padding: 1rem 5rem 0 5rem;
+    img {
+      max-width: 100%;
+      max-height: 100%;
+    }
   }
 }
 
-.contact-card {
-  mat-card-header {
-    background-color: $cchmc-purple
-  ;
+
+
+/*
+
+  -- DESKTOP VIEW --
+
+*/
+.desktop-container {
+  padding: 0 4rem 0 4rem;
+}
+.dt-welcome-container {
+  color: #f5f5f5;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-gap: 1rem;
+  grid-auto-rows: 1fr;
+  p {
+    font-size: 24px;
   }
-  &:hover {
-    @include mat.elevation-transition();
-    @include mat.elevation(15);
+  span {
+    font-weight: bolder;
+  }
+}
+.dt-card-container {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-gap: 1rem;
+  grid-auto-rows: 1fr;
+}
+.dt-preg-status-card {
+  background-image: linear-gradient(rgba(245,245,245,.5) 55%, $cchmc-pink), url('/../../assets/img/mom (1).png');
+  background-size: contain;
+  background-position: right;
+  background-blend-mode: multiply;
+}
+.dt-auth-card {
+  background-image: linear-gradient(rgba(255,255,255,1) 55%, $cchmc-pink), url('/../../assets/img/pregnancydevice.png');
+  background-size: contain;
+  background-position: right;
+  background-blend-mode: multiply;
+}
+.dt-dashboard-card {
+  background-image: linear-gradient(rgba(255,255,255,1) 65%, $cchmc-pink), url('/../../assets/img/origin.png');
+  background-size: contain;
+  background-position: right;
+  background-blend-mode: multiply;
+}
+.dt-resource-card {
+  background-image:url('/../../assets/img/ttts.png');
+  background-size: contain;
+  background-position: right;
+}
+.dt-extras-card {
+  background-image: url('/../../assets/img/tools.png');
+  background-size: contain;
+  background-position: right;
+}
+.dt-profile-card {
+  background-image: url('/../../assets/img/Blank-profile.png');
+  background-size: contain;
+  background-position: right;
+}
+.dt-edd-container {
+  color: #f5f5f5;
+
+  p {
+    text-align: right;
+    font-size: 40px;
   }
 }
 
+
+
+/*
+
+    CONSTANTS FOR EVERY MAT-CARD
+
+*/
 mat-card-header {
   border-radius: 10px 10px 0 0;
   color: white;
@@ -82,6 +161,13 @@ mat-card-content {
   padding: 10px;
 }
 mat-card {
+  background-color: rgba(245,245,245,0.3);
+  background-repeat: no-repeat;
   border-radius: 10px;
   padding: 0;
+
+  &:hover {
+    @include mat.elevation-transition();
+    @include mat.elevation(18);
+  }
 }

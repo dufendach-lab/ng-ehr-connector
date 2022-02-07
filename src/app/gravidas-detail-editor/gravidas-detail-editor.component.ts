@@ -24,11 +24,9 @@ export class GravidasDetailEditorComponent implements OnInit {
 
   patID: string | null = '';
 
-  //Initializes a new interface to store the data
   registrationInfo = {} as IRegistration;
   gravidasDetails = {} as IGravidasDetails;
 
-  //Hoispital selected for the chips seen
   selectedHospitals: string[] = [];
   separatorKeysCodes: number[] = [ENTER, COMMA];
   @ViewChild('hospitalInput') hospitalInput = {} as ElementRef<HTMLInputElement>;
@@ -49,12 +47,6 @@ export class GravidasDetailEditorComponent implements OnInit {
     private actRoute: ActivatedRoute,
   ) { }
 
-  //Uses the Endpoints function to retrieve a list of all the available epic endpoints
-  getHospitalList() {
-    this.hospitalOptions = this.fhirService.fhirEndpoints.map(v => v.OrganizationName);
-    return
-  }
-
   //Obtains the list of hospitals, then watches the hospital field value to update list as auto complete occurs
   ngOnInit(): void {
     this.getHospitalList();
@@ -68,6 +60,11 @@ export class GravidasDetailEditorComponent implements OnInit {
     });
   }
 
+  getHospitalList() {
+    this.hospitalOptions = this.fhirService.fhirEndpoints.map(v => v.OrganizationName);
+    return
+  }
+
   submit() {
     this.gravidasDetails.givenBirth = false;
     this.gravidasDetails.hospital = this.selectedHospitals;
@@ -75,6 +72,7 @@ export class GravidasDetailEditorComponent implements OnInit {
     this.gravidasDetails.Diagnosis = this.registration.value['Diagnosis'];
     this.gravidasDetails.parity = this.registration.value['Parity'];
     this.gravService.createPregnancy(this.gravidasDetails, this.patID!);
+    this.router.navigate(['admin-list']);
   }
 
   addChip(event: MatChipInputEvent) {

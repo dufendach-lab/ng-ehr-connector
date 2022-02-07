@@ -24,12 +24,23 @@ export class AuthService {
   user = this.afa.user
   testing$: Observable<IRegistration | null | undefined>;
 
-  //Check creditionals against backend to see if account exist
+  /*
+  * Signs in to firebase with email & password
+  */
   checkCreditionals(email: string, pword: string) {
     return this.afa.signInWithEmailAndPassword(email, pword);
   }
 
-  //Signs user out of firebase authenication
+  /*
+  * Signs in to firebase with phone number
+  */
+  phoneLogin (phoneNum: string, appVerifier: any) {
+    return this.afa.signInWithPhoneNumber(phoneNum, appVerifier);
+  }
+
+  /*
+  * Signs user out of firebase auth
+  */
   signout(){
     this.afa.signOut().then(() => {
       console.log('Signed out of firebase authentication');
@@ -38,6 +49,10 @@ export class AuthService {
     })
   }
 
+  /*
+  * Gets all patients from firestore 'patient' collection
+  * Used in admin-list component
+  */
   GetAllPats():  Observable<IRegistration[]> {
     return this.afa.user.pipe( // Pipe from the "user" object because first need a signed-in user
       switchMap((user) => {
@@ -67,7 +82,10 @@ export class AuthService {
     )
   }
 
-  /// Role based auth ///
+  /*
+  * Role based authentication helper functions
+  * Used in route guard services
+  */
   isPatient(user: IRegistration): boolean {
     const allowed = ['Patient']
     return this.checkAuth(user, allowed);

@@ -29,8 +29,6 @@ export class AuthorizeComponent implements OnInit {
   filteredOptions: Observable<string[]> | any;
 
   constructor(private auth: FhirAuthService, private router: Router, private afs: AngularFirestore, private logAuth: AuthService) {
-
-    // If authorized, navigate to dashboard instead
     this.auth.authorized
       .pipe(first(value => value === true))
       .subscribe(_ => router.navigate(['/dashboard']))
@@ -38,14 +36,14 @@ export class AuthorizeComponent implements OnInit {
     this.endpoints = this.auth.fhirEndpoints;
     this.options = this.endpoints.map(v => v.OrganizationName);
 
-      this.gravidasDetails = this.user.pipe(
-        filter(u => u != null),
-        switchMap( u => this.afs
-          .collection('patients')
-          .doc<IGravidasDetails>(u?.uid)
-          .get().pipe(map(doc => doc.data()))
-          )
-        )
+    this.gravidasDetails = this.user.pipe(
+      filter(u => u != null),
+      switchMap( u => this.afs
+        .collection('patients')
+        .doc<IGravidasDetails>(u?.uid)
+        .get().pipe(map(doc => doc.data()))
+      )
+    );
   }
 
   ngOnInit() {
@@ -56,6 +54,9 @@ export class AuthorizeComponent implements OnInit {
     );
   }
 
+  /*
+  * Redirects to selected hospitals auth provider
+  */
   onSubmit() {
     const orgName = this.stateCtrl.value;
     const endpoint = this.endpoints.find(value => value.OrganizationName === orgName);
@@ -63,33 +64,34 @@ export class AuthorizeComponent implements OnInit {
     if (endpoint) {
       this.authorize(this.auth.getAuthParams(endpoint));
     }
-
   }
 
-  onSubmitSelected(val: string) {
-    const orgName = val;
-    const endpoint = this.endpoints.find(value => value.OrganizationName === orgName);
-
-    if (endpoint) {
-      const params: AuthorizeParams = {
-        iss: endpoint.FHIRPatientFacingURI,
-        clientId: 'f7cfa009-58a4-4de2-8437-3b77306faedd',
-        scope: 'launch/patient',
-        redirectUri: 'http://localhost:4200/dashboard',
-      }
-      this.authorize(params);
-    }
-  }
-
+  /*
+  * Accepts auth parameters and authorizes the user with the fhir interface
+  */
   authorize(params: AuthorizeParams) {
     this.auth.authorize(params);
   }
+
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
+
+  // This was to be used for the auto generated hospital chips
+  // Not working so commented out for now
+  // onSubmitSelected(val: string) {
+  //   const orgName = val;
+  //   const endpoint = this.endpoints.find(value => value.OrganizationName === orgName);
   //
-  // onHospitalChange() {
-  //
+  //   if (endpoint) {
+  //     const params: AuthorizeParams = {
+  //       iss: endpoint.FHIRPatientFacingURI,
+  //       clientId: 'f7cfa009-58a4-4de2-8437-3b77306faedd',
+  //       scope: 'launch/patient',
+  //       redirectUri: 'http://localhost:4200/dashboard',
+  //     }
+  //     this.authorize(params);
+  //   }
   // }
 }

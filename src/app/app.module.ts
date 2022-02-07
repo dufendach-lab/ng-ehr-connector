@@ -70,6 +70,7 @@ import {AngularFireModule} from "@angular/fire/compat";
 import {AngularFirestoreModule} from "@angular/fire/compat/firestore";
 import {AngularFireAuthModule} from "@angular/fire/compat/auth";
 import {WINDOW_PROVIDERS} from "./util/window-provider";
+import { ToolsPageComponent } from './tools-page/tools-page.component';
 
 @NgModule({
   declarations: [
@@ -106,6 +107,7 @@ import {WINDOW_PROVIDERS} from "./util/window-provider";
     FooterComponent,
     StaffLandingComponent,
     PatientNewComponent,
+    ToolsPageComponent,
   ],
   imports: [
     BrowserModule,

@@ -6,8 +6,9 @@
 <br/>
 <br/>
 
+<!--  Patient Search Card - Autocomplete fills last name  -->
 <mat-card>
-  <form fxLayout="column">
+  <form fxLayout="column" (ngSubmit)="onSubmit()">
     <mat-form-field>
       <mat-label>Search</mat-label>
       <input type="text"
@@ -16,11 +17,10 @@
              [formControl]="myControl"
              [matAutocomplete]="auto">
       <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let option of allPatients | async" [value]="option.docName">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option.lastName">
           {{ option.lastName }}, {{ option.firstName }}
         </mat-option>
       </mat-autocomplete>
-
     </mat-form-field>
   </form>
   <button mat-raised-button class="mat-primary" (click)="onSubmit()">Edit patient profile</button>
@@ -30,6 +30,7 @@
 <br/>
 <br/>
 
+<!--  Generates every patient in the firestore  -->
 <h2 style="color: #ca5699">List of patients: </h2>
 <div *ngFor="let patient of allPatients | async">
   <div *ngIf="patient.roles.includes('Patient')">
@@ -40,7 +41,7 @@
           <br>
           <div>Phone Number: {{ patient.phone }}</div>
           <br/>
-          <div>Mother's DoB: {{patient.MotherDoB.toDate() | date: "yyyy/MM/dd"}}</div>
+          <div>Mother's DoB: {{patient.MotherDoB.toDate() | date: "MM/dd/yyyy"}}</div>
         </div>
         <div>
           <button mat-button (click)="editPatient(patient.docName)">Edit</button>

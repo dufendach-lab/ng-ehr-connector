@@ -1,141 +1,175 @@
 <!--  Switch between login and landing  -->
 <div *ngIf="user | async; else Login" class="wrapper">
-    <ng-container *ngIf="!hasBirthed">
-      <mat-card class="woah-card"
-                (click)="openDialog()">
-        <mat-card-header
-          matTooltip="Click here to update the status of your pregnancy"
-          [matTooltipPosition]="position"
-          matTooltipShowDelay="700"
-          matTooltipHideDelay="100">
-          <mat-card-title>
-            <mat-icon>update</mat-icon>
-            Pregnancy Status
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <div class="woah-content">
-            <div class="active-status">
-              <a mat-button>Pregnant
-                <mat-icon>pregnant_woman</mat-icon>
-              </a>
-            </div>
-            <a mat-button>Delivered
-              <mat-icon>child_friendly</mat-icon>
-            </a>
-          </div>
-          <div class="raised">
-            <button mat-raised-button>Update status of pregnancy</button>
-          </div>
-        </mat-card-content>
-      </mat-card>
-    </ng-container>
+  <!-- Mobile view -->
+  <ng-container *ngIf="isHandset$ | async; else Desktop" class="phone-container">
+    <div class="welcome-container">
+      <p style="font-size: 48px"><span>Hello,</span> <br>{{ name }}</p>
+      <p><span>You are</span><br> {{ gestationalAgeCalc(eDD) }} pregnant</p>
+    </div>
 
-    <ng-container *ngIf="hasBirthed">
-      <ng-container *ngIf="isAuthorized | async">
+    <!--  Main card - Preg status if mom has not birthed  -->
+    <div class="card-container">
+      <ng-container *ngIf="!hasBirthed">
         <mat-card class="woah-card"
-                  routerLink="/dashboard">
-          <mat-card-header
-            matTooltip="Data pulled from the EHR is shown here"
-            [matTooltipPosition]="position"
-            matTooltipShowDelay="700"
-            matTooltipHideDelay="100">
-            <mat-card-title>
-              <mat-icon>space_dashboard</mat-icon>
-              Dashboard
-            </mat-card-title>
-          </mat-card-header>
+                  (click)="openDialog()">
           <mat-card-content>
-            <p>Your baby's information is shown here on the dashboard. </p>
+            <h2>Pregnancy<br> Status</h2>
+            <br>
+            <p>Click here to update <br> the status of your pregnancy <br> </p>
+            <br><br><br>
           </mat-card-content>
         </mat-card>
       </ng-container>
 
-      <ng-container *ngIf="!(isAuthorized | async)">
-        <mat-card class="woah-card"
-                  routerLink="/authorize">
-          <mat-card-header
-            matTooltip="Click here to connect with your home hospital"
-            [matTooltipPosition]="position"
-            matTooltipShowDelay="700"
-            matTooltipHideDelay="100">
-            <mat-card-title>
-              <mat-icon>tap_and_play</mat-icon>
-              Connect to your hospital
-            </mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <div class="woah-content">
-              <a mat-button>Pregnant
-                <mat-icon>pregnant_woman</mat-icon>
-              </a>
-              <div class="active-status">
-                <a mat-button>Delivered
-                  <mat-icon>child_friendly</mat-icon>
-                </a>
-              </div>
-            </div>
-            <p>Click here to connect with your hospital and authorize the EHR</p>
-          </mat-card-content>
-        </mat-card>
-      </ng-container>
-    </ng-container>
-
-    <ng-container>
-      <app-landing-info></app-landing-info>
-    </ng-container>
-
-    <mat-card routerLink="/resources"
-              class="resource-card">
-      <mat-card-header
-        matTooltip="Helpful resources to assist you in the next stage of your life"
-        [matTooltipPosition]="position"
-        matTooltipShowDelay="700"
-        matTooltipHideDelay="100">
-        <mat-card-title>
-          <mat-icon>menu_book</mat-icon>
-          Resources for {{diagnosis}}
-        </mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <ng-container *ngIf="diagnosis !== null">
-          <app-yt-player [vidToGet]="diagnosis"></app-yt-player>
+      <!--  Main card - Mom has birthed but needs to authorize to access dashboard  -->
+      <ng-container *ngIf="hasBirthed">
+        <ng-container *ngIf="!(isAuthorized | async)">
+          <mat-card routerLink="/authorize">
+            <mat-card-content>
+              <h2>Authorize EHR<br>Connection</h2>
+            </mat-card-content>
+          </mat-card>
         </ng-container>
-      </mat-card-content>
-    </mat-card>
 
-    <mat-card class="contact-card">
-      <mat-card-header
-        matTooltip="Contact the fetal care center for information regarding your pregnancy"
-        [matTooltipPosition]="position"
-        matTooltipShowDelay="700"
-        matTooltipHideDelay="100">
-        <mat-card-title>
-          <mat-icon>contact_support</mat-icon>
-          Contact Us
-        </mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <h3>Fetal Care Center</h3>
-        <h4>Phone: </h4>
-        <p>1-888-338-2559</p>
-        <h4>Mailing Address: </h4>
-        <p>Cincinnati Children's Fetal Care Center<br>
-          MLC 11020<br>
-          3333 Burnet Ave.<br>
-          Cincinnati, OH 45229-3039</p>
-        <a mat-raised-button color="accent" href="https://www.cincinnatichildrens.org/service/f/fetal-care/contact/form"
-           target="_blank">
-          Contact Form
-        </a>
-      </mat-card-content>
-    </mat-card>
+        <!--  Main card - Mom has birthed & Authed - direct to dashboard  -->
+        <ng-container *ngIf="(isAuthorized | async)">
+          <mat-card routerLink="/dashboard">
+            <mat-card-content>
+              <h2>Dashboard</h2>
+              <button mat-button style="background-color: #73b44a">Authorized</button>
+            </mat-card-content>
+          </mat-card>
+        </ng-container>
+      </ng-container>
 
+      <div class="split-bottom">
+        <ng-container>
+          <mat-card class="resource-card"
+                    routerLink="/resources">
+            <mat-card-content>
+              <h2>Resources</h2>
+              <br><br><br>
+              <br><br><br>
+              <br><br><br>
+            </mat-card-content>
+          </mat-card>
+        </ng-container>
+
+        <ng-container>
+          <mat-card class="extras-card"
+                    routerLink="/tools">
+            <mat-card-content>
+              <h2>Tools</h2>
+              <br><br><br>
+              <br><br><br>
+              <br><br><br>
+            </mat-card-content>
+          </mat-card>
+        </ng-container>
+      </div>
+
+      <ng-container>
+        <mat-card class="dt-profile-card">
+          <mat-card-content>
+            <h2>Edit your profile</h2>
+            <br><br>
+          </mat-card-content>
+        </mat-card>
+      </ng-container>
+    </div>
+
+    <div class="fruit-facts">
+      <p class="fact-state">Your babies are the {{ this.momsFruits.type }} of <span>{{ this.momsFruits.fruit }}s</span></p>
+      <div>
+        <img src="{{ this.momsFruits.imgUrl }}" alt="{{ this.momsFruits.fruit }}">
+      </div>
+      <p id="stats">Weight: ~{{ this.momsFruits.weight }} &nbsp;&nbsp; Length: ~{{ this.momsFruits.length }}</p>
+    </div>
+
+  </ng-container>
 </div>
+
+<!-- Desktop view -->
+<ng-template #Desktop>
+  <div class="desktop-container">
+    <div class="dt-welcome-container">
+      <p style="font-size: 48px;"><span style="font-weight: bolder">Hello,</span> <br>{{ name }}</p>
+
+      <div class="dt-edd-container">
+        <p><span style="font-weight: bolder">You are</span><br>{{ gestationalAgeCalc(eDD) }} pregnant</p>
+      </div>
+    </div>
+
+    <div class="dt-card-container">
+      <ng-container *ngIf="!hasBirthed">
+        <mat-card (click)="openDialog()" class="dt-preg-status-card">
+          <mat-card-content>
+            <h2>Pregnancy<br> Status</h2>
+            <br>
+            <p>Click here to update <br> the status of your pregnancy <br> </p>
+            <br><br><br>
+          </mat-card-content>
+        </mat-card>
+      </ng-container>
+
+      <ng-container *ngIf="hasBirthed">
+        <ng-container *ngIf="!(isAuthorized | async)">
+          <mat-card routerLink="/authorize" class="dt-auth-card">
+            <mat-card-content>
+              <h2>Authorize</h2>
+              <p>the EHR to transfer birth info to Cincinnati Children's</p>
+              <br><br><br>
+            </mat-card-content>
+          </mat-card>
+        </ng-container>
+
+        <ng-container *ngIf="(isAuthorized | async)">
+          <mat-card routerLink="/dashboard" class="dt-dashboard-card">
+            <mat-card-content>
+              <h2>Dashboard</h2>
+              <p>to view and send information from your <br> birth to Cincinnati Children's</p>
+              <br><br><br>
+            </mat-card-content>
+          </mat-card>
+        </ng-container>
+      </ng-container>
+
+      <ng-container>
+        <mat-card class="dt-resource-card"
+                  routerLink="/resources">
+          <mat-card-content>
+            <h2>Resources</h2>
+            <p>to help you through your pregnancy</p>
+          </mat-card-content>
+        </mat-card>
+      </ng-container>
+
+      <ng-container>
+        <mat-card class="dt-extras-card"
+                  routerLink="/tools">
+          <mat-card-content>
+            <h2>Tools</h2>
+            <p>to help you through your pregnancy</p>
+          </mat-card-content>
+        </mat-card>
+      </ng-container>
+
+      <ng-container>
+        <mat-card class="dt-profile-card">
+          <mat-card-content>
+            <h2>Edit your profile</h2>
+          </mat-card-content>
+        </mat-card>
+      </ng-container>
+    </div>
+
+  </div>
+</ng-template>
+
+
 
 <ng-template #Login>
   <app-launch></app-launch>
   <br>
   <!-- <app-registration></app-registration> -->
 </ng-template>
-
