@@ -15,7 +15,6 @@ admin.initializeApp();
 // CREATE NEW USER
 exports.createUser = functions.https.onCall(async (data, context) => {
   return new Promise((res, rej) => {
-    functions.logger.log(data);
     admin.auth().createUser({
       email: data.email,
       emailVerified: true,
@@ -44,18 +43,17 @@ exports.getOneUser = functions.https.onCall(async (data, context) => {
 
 // UPDATE A USER
 exports.updateUser = functions.https.onCall(async (data, context) => {
-  try {
+  return new Promise((res, rej) => {
     admin.auth().updateUser(data.uid, {
-      email: data.email,
-      emailVerified: true,
       phoneNumber: data.phoneNumber,
-      password: data.password,
     }).then((userRecord) => {
-      console.log("Successfully update user: ", userRecord.toJSON());
+      if (userRecord) {
+        res(userRecord.toJSON());
+      } else {
+        rej(error("Failed to update user."));
+      }
     });
-  } catch (e) {
-    console.log("Error updating user: ", e);
-  }
+  });
 });
 
 // DELETE A USER

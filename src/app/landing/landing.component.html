@@ -69,7 +69,8 @@
       </div>
 
       <ng-container>
-        <mat-card class="dt-profile-card">
+        <mat-card class="dt-profile-card"
+                  routerLink="/edit/profile">
           <mat-card-content>
             <h2>Edit your profile</h2>
             <br><br>
@@ -79,7 +80,7 @@
     </div>
 
     <div class="fruit-facts">
-      <p class="fact-state">Your babies are the {{ this.momsFruits.type }} of <span>{{ this.momsFruits.fruit }}s</span></p>
+      <p class="fact-state">Your babies are approximately the {{ this.momsFruits.type }} of <span>{{ this.momsFruits.fruit }}s</span></p>
       <div>
         <img src="{{ this.momsFruits.imgUrl }}" alt="{{ this.momsFruits.fruit }}">
       </div>
@@ -93,22 +94,33 @@
 <ng-template #Desktop>
   <div class="desktop-container">
     <div class="dt-welcome-container">
-      <p style="font-size: 48px;"><span style="font-weight: bolder">Hello,</span> <br>{{ name }}</p>
-
-      <div class="dt-edd-container">
-        <p><span style="font-weight: bolder">You are</span><br>{{ gestationalAgeCalc(eDD) }} pregnant</p>
+      <div>
+        <p style="font-size: 48px;"><span style="font-weight: bolder">Hello,</span> <br>{{ name }}</p>
       </div>
+
+      <div class="fruit-card-container">
+        <mat-card class="fruit-card">
+          <mat-card-title-group>
+            <mat-card-title>You are {{ gestationalAgeCalc(eDD) }} pregnant</mat-card-title>
+            <mat-card-subtitle>Your babies are about the {{ this.momsFruits.type }} of {{ this.momsFruits.fruit }}'s</mat-card-subtitle>
+            <img mat-card-md-image src="{{this.momsFruits.imgUrl}}" alt="fruit">
+          </mat-card-title-group>
+          <mat-card-content>
+            <p id="stat">Weight: ~{{ this.momsFruits.weight }} &nbsp;&nbsp; Length: ~{{ this.momsFruits.length }}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
     </div>
 
     <div class="dt-card-container">
       <ng-container *ngIf="!hasBirthed">
         <mat-card (click)="openDialog()" class="dt-preg-status-card">
-          <mat-card-content>
-            <h2>Pregnancy<br> Status</h2>
-            <br>
-            <p>Click here to update <br> the status of your pregnancy <br> </p>
-            <br><br><br>
-          </mat-card-content>
+          <mat-card-title-group>
+            <mat-card-title>Pregnancy Status</mat-card-title>
+            <mat-card-subtitle>Click here to upgrade the status of your pregnancy</mat-card-subtitle>
+            <img mat-card-lg-image src="/../../assets/img/mom (1).png" alt="mom">
+          </mat-card-title-group>
         </mat-card>
       </ng-container>
 
@@ -137,28 +149,36 @@
       <ng-container>
         <mat-card class="dt-resource-card"
                   routerLink="/resources">
-          <mat-card-content>
-            <h2>Resources</h2>
-            <p>to help you through your pregnancy</p>
-          </mat-card-content>
+          <mat-card-title-group>
+            <mat-card-title>TTTS Information</mat-card-title>
+            <mat-card-subtitle>to help you better understand</mat-card-subtitle>
+            <img mat-card-lg-image src="/../../assets/img/ttts.png" alt="ttts">
+          </mat-card-title-group>
         </mat-card>
       </ng-container>
 
       <ng-container>
         <mat-card class="dt-extras-card"
                   routerLink="/tools">
-          <mat-card-content>
-            <h2>Tools</h2>
-            <p>to help you through your pregnancy</p>
-          </mat-card-content>
+          <mat-card-title-group>
+            <mat-card-title>Resources</mat-card-title>
+            <mat-card-subtitle>to help you through your pregnancy</mat-card-subtitle>
+            <img mat-card-lg-image src="/../../assets/img/tools.png" alt="tools">
+          </mat-card-title-group>
+<!--          <mat-card-content>-->
+<!--            <h2>Tools</h2>-->
+<!--            <p>to help you through your pregnancy</p>-->
+<!--          </mat-card-content>-->
         </mat-card>
       </ng-container>
 
       <ng-container>
-        <mat-card class="dt-profile-card">
-          <mat-card-content>
-            <h2>Edit your profile</h2>
-          </mat-card-content>
+        <mat-card class="dt-profile-card"
+                  routerLink="/edit/profile">
+          <mat-card-title-group>
+            <mat-card-title>Edit Profile</mat-card-title>
+            <img mat-card-lg-image src="/../../assets/img/Blank-profile.png" alt="profile">
+          </mat-card-title-group>
         </mat-card>
       </ng-container>
     </div>

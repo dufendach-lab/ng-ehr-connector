@@ -27,6 +27,7 @@ export class NavContainerComponent implements OnInit {
   readonly isAuth2 = this.ehrAuth.user;
   userInfo: Observable<IRegistration | undefined>;
   nameConcat = '';
+  isPat = true;
 
   constructor(private breakpointObserver: BreakpointObserver,
               public router: Router,
@@ -48,6 +49,7 @@ export class NavContainerComponent implements OnInit {
     this.userInfo.subscribe(user => {
       if (user) {
         this.nameConcat = user.firstName + ' ' + user.lastName
+        this.isPat = user.roles.includes('Patient');
       }
     })
   }

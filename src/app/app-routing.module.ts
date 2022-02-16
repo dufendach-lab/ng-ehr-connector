@@ -18,6 +18,7 @@ import {PatientGuardService} from "./patient-guard.service";
 import {LaunchComponent} from "./launch/launch.component";
 import {PatientNewComponent} from "./patient-new/patient-new.component";
 import {ToolsPageComponent} from "./tools-page/tools-page.component";
+import {PatientEditComponent} from "./patient-edit/patient-edit.component";
 
 const routes: Routes = [
   {
@@ -86,6 +87,11 @@ const routes: Routes = [
       {
         path: 'authorize',
         component: AuthorizeComponent,
+        canActivate: [PatientGuardService]
+      },
+      {
+        path: 'edit/profile',
+        component: PatientEditComponent,
         canActivate: [PatientGuardService]
       },
       {

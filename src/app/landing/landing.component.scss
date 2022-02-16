@@ -32,7 +32,7 @@ mat-icon {
 .woah-card {
   background-image: url('/../../assets/img/mom (1).png');
   background-size: 95%;
-  background-position: 700% 0;
+  background-position: 650% 0;
 }
 .resource-card {
   background-image: url('/../../assets/img/ttts.png');
@@ -67,6 +67,7 @@ mat-icon {
     img {
       max-width: 100%;
       max-height: 100%;
+      border-radius: 50%;
     }
   }
 }
@@ -80,18 +81,43 @@ mat-icon {
 */
 .desktop-container {
   padding: 0 4rem 0 4rem;
+  max-width: 100%!important;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .dt-welcome-container {
   color: #f5f5f5;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-gap: 1rem;
+  //grid-gap: 1rem;
   grid-auto-rows: 1fr;
   p {
     font-size: 24px;
   }
   span {
     font-weight: bolder;
+  }
+
+  .fruit-card {
+    background-color: rgba(245,245,245,0.3);
+
+    mat-card-title-group {
+      color: #f5f5f5;
+      padding: 10px;
+    }
+    p {
+      font-size: 12px;
+      text-align: right;
+      font-style: italic;
+      color: #f5f5f5;
+    }
+    span {
+      font-weight: bolder;
+    }
+    img {
+      border-radius: 50%;
+    }
   }
 }
 .dt-card-container {
@@ -101,52 +127,46 @@ mat-icon {
   grid-auto-rows: 1fr;
 }
 .dt-preg-status-card {
-  background-image: linear-gradient(rgba(245,245,245,.5) 55%, $cchmc-pink), url('/../../assets/img/mom (1).png');
-  background-size: contain;
-  background-position: right;
+  background-image: linear-gradient(rgba(245,245,245,.3) 55%, $cchmc-pink);
   background-blend-mode: multiply;
+  img {
+    object-fit: cover;
+    border-top-right-radius: 10px;
+  }
 }
 .dt-auth-card {
-  background-image: linear-gradient(rgba(255,255,255,1) 55%, $cchmc-pink), url('/../../assets/img/pregnancydevice.png');
+  background-image: linear-gradient(rgba(245,245,245,.5) 55%, $cchmc-pink), url('/../../assets/img/pregnancydevice.png');
   background-size: contain;
   background-position: right;
   background-blend-mode: multiply;
 }
 .dt-dashboard-card {
-  background-image: linear-gradient(rgba(255,255,255,1) 65%, $cchmc-pink), url('/../../assets/img/origin.png');
+  background-image: linear-gradient(rgba(245,245,245,.5) 65%, $cchmc-pink), url('/../../assets/img/origin.png');
   background-size: contain;
   background-position: right;
   background-blend-mode: multiply;
 }
 .dt-resource-card {
-  background-image:url('/../../assets/img/ttts.png');
-  background-size: contain;
-  background-position: right;
+  img {
+    object-fit: cover;
+  }
 }
 .dt-extras-card {
-  background-image: url('/../../assets/img/tools.png');
-  background-size: contain;
-  background-position: right;
 }
 .dt-profile-card {
-  background-image: url('/../../assets/img/Blank-profile.png');
-  background-size: contain;
-  background-position: right;
 }
 .dt-edd-container {
   color: #f5f5f5;
 
   p {
-    text-align: right;
-    font-size: 40px;
+    font-size: 36px;
   }
 }
 
 
-
 /*
 
-    CONSTANTS FOR EVERY MAT-CARD
+   -- CONSTANTS FOR EVERY MAT-CARD --
 
 */
 mat-card-header {
@@ -157,6 +177,13 @@ mat-card-header {
 mat-card-subtitle {
   color: white;
 }
+mat-card-title-group {
+  color: #f5f5f5;
+
+  mat-card-title, mat-card-subtitle {
+    padding: 10px 0 0 10px;
+  }
+}
 mat-card-content {
   padding: 10px;
 }
@@ -165,6 +192,7 @@ mat-card {
   background-repeat: no-repeat;
   border-radius: 10px;
   padding: 0;
+  margin: 0;
 
   &:hover {
     @include mat.elevation-transition();
