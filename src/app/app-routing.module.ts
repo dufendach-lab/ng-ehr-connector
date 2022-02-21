@@ -11,7 +11,6 @@ import { PatientSearchComponent } from './patient-search/patient-search.componen
 import { NewMomResourceComponent } from './new-mom-resource/new-mom-resource.component';
 import { AdminListComponent } from './admin-list/admin-list.component';
 import { ContactFormComponent } from './contact-form/contact-form.component';
-import { PrivacyDialogComponent } from './privacy-dialog/privacy-dialog.component';
 import {StaffLandingComponent} from "./staff-landing/staff-landing.component";
 import {RouteGuardService} from "./route-guard.service";
 import {PatientGuardService} from "./patient-guard.service";
@@ -79,10 +78,6 @@ const routes: Routes = [
         path: 'contact',
         component: ContactFormComponent,
         canActivate: [PatientGuardService]
-      },
-      {
-        path: 'privacy',
-        component: PrivacyDialogComponent
       },
       {
         path: 'authorize',

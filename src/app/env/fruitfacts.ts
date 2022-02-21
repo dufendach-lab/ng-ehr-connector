@@ -71,7 +71,7 @@ export const facts: FruitFacts[] = [
     imgUrl: '../../assets/img/fruits/mango.jpg'
   },
   {
-    fruit: 'Corn',
+    fruit: 'Corn Cob',
     weight: '20oz',
     length: '12in.',
     type: 'length',

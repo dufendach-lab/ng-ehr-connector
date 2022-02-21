@@ -135,16 +135,18 @@ mat-icon {
   }
 }
 .dt-auth-card {
-  background-image: linear-gradient(rgba(245,245,245,.5) 55%, $cchmc-pink), url('/../../assets/img/pregnancydevice.png');
-  background-size: contain;
-  background-position: right;
+  background-image: linear-gradient(rgba(245,245,245,.5) 55%, $cchmc-pink);
   background-blend-mode: multiply;
+  img {
+    object-fit: cover;
+  }
 }
 .dt-dashboard-card {
-  background-image: linear-gradient(rgba(245,245,245,.5) 65%, $cchmc-pink), url('/../../assets/img/origin.png');
-  background-size: contain;
-  background-position: right;
+  background-image: linear-gradient(rgba(245,245,245,.5) 65%, $cchmc-pink);
   background-blend-mode: multiply;
+  img {
+    object-fit: cover;
+  }
 }
 .dt-resource-card {
   img {

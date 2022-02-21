@@ -77,21 +77,4 @@ export class AuthorizeComponent implements OnInit {
     const filterValue = value.toLowerCase();
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
-
-  // This was to be used for the auto generated hospital chips
-  // Not working so commented out for now
-  // onSubmitSelected(val: string) {
-  //   const orgName = val;
-  //   const endpoint = this.endpoints.find(value => value.OrganizationName === orgName);
-  //
-  //   if (endpoint) {
-  //     const params: AuthorizeParams = {
-  //       iss: endpoint.FHIRPatientFacingURI,
-  //       clientId: 'f7cfa009-58a4-4de2-8437-3b77306faedd',
-  //       scope: 'launch/patient',
-  //       redirectUri: 'http://localhost:4200/dashboard',
-  //     }
-  //     this.authorize(params);
-  //   }
-  // }
 }

@@ -40,7 +40,6 @@ export class ObservationService {
     const client = await this.auth.client.pipe(first(c => c !== null)).toPromise();
     if (client) {
       const patientID = client.getPatientId();
-      console.log(`PID: ${patientID}`);
 
       const res = await client.request(`/Observation?patient=${patientID}&category=${category}`);
       return res;
@@ -55,7 +54,6 @@ export class ObservationService {
     const client = await this.auth.client.pipe(first(c => c !== null)).toPromise();
     if (client) {
       const patientID = client.getPatientId();
-      console.log(`PID: ${patientID}`);
 
       const res = await client.request(`/${type}?patient=${patientID}`);
       return res;

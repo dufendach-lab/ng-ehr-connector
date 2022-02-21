@@ -69,12 +69,11 @@
       </div>
 
       <ng-container>
-        <mat-card class="dt-profile-card"
-                  routerLink="/edit/profile">
-          <mat-card-content>
-            <h2>Edit your profile</h2>
-            <br><br>
-          </mat-card-content>
+        <mat-card routerLink="/edit/profile">
+          <mat-card-title-group>
+            <mat-card-title style="color: black;"><br>&nbsp;Edit Profile</mat-card-title>
+            <img mat-card-md-image src="/../../assets/img/Blank-profile.png" alt="profile">
+          </mat-card-title-group>
         </mat-card>
       </ng-container>
     </div>
@@ -127,21 +126,21 @@
       <ng-container *ngIf="hasBirthed">
         <ng-container *ngIf="!(isAuthorized | async)">
           <mat-card routerLink="/authorize" class="dt-auth-card">
-            <mat-card-content>
-              <h2>Authorize</h2>
-              <p>the EHR to transfer birth info to Cincinnati Children's</p>
-              <br><br><br>
-            </mat-card-content>
+            <mat-card-title-group>
+              <mat-card-title>Authorize</mat-card-title>
+              <mat-card-subtitle>the EHR to transfer birth info to Cincinnati Children's</mat-card-subtitle>
+              <img mat-card-lg-image src="/../../assets/img/pregnancydevice.png" alt="mom">
+            </mat-card-title-group>
           </mat-card>
         </ng-container>
 
         <ng-container *ngIf="(isAuthorized | async)">
           <mat-card routerLink="/dashboard" class="dt-dashboard-card">
-            <mat-card-content>
-              <h2>Dashboard</h2>
-              <p>to view and send information from your <br> birth to Cincinnati Children's</p>
-              <br><br><br>
-            </mat-card-content>
+            <mat-card-title-group>
+              <mat-card-title>Dashboard</mat-card-title>
+              <mat-card-subtitle>to view and send information from your birth to Cincinnati Children's</mat-card-subtitle>
+              <img mat-card-lg-image src="/../../assets/img/origin.png" alt="mom">
+            </mat-card-title-group>
           </mat-card>
         </ng-container>
       </ng-container>
