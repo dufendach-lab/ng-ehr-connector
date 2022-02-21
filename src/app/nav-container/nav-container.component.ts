@@ -27,12 +27,13 @@ export class NavContainerComponent implements OnInit {
   readonly isAuth2 = this.ehrAuth.user;
   userInfo: Observable<IRegistration | undefined>;
   nameConcat = '';
+  isPat = true;
 
   constructor(private breakpointObserver: BreakpointObserver,
-              private router: Router,
+              public router: Router,
               private auth: FhirAuthService,
               private ehrAuth: AuthService,
-              private afs: AngularFirestore
+              private afs: AngularFirestore,
   ) {
     this.userInfo = this.ehrAuth.user.pipe(
       filter(u => u != null),
@@ -48,18 +49,21 @@ export class NavContainerComponent implements OnInit {
     this.userInfo.subscribe(user => {
       if (user) {
         this.nameConcat = user.firstName + ' ' + user.lastName
+        this.isPat = user.roles.includes('Patient');
       }
     })
   }
 
-  // Clears session storage and redirects to simulate logout
+  /*
+  * Clears session storage and redirects to completely logout
+  */
   logout(): void {
     this.ehrAuth.signout();
     this.auth.logOut();
-    this.router.navigate(['/']);
+    localStorage.clear();
+    this.router.navigate(['/launch']);
   }
 
-  // Closes sidenav after selection
   closeSideNav() {
     if(this.drawer._mode==="over"){
       this.drawer.close();

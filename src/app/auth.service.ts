@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+import { of } from 'rxjs';
 import { IRegistration } from 'src/Interfaces/IRegistration'
 
 @Injectable({
@@ -10,20 +11,48 @@ import { IRegistration } from 'src/Interfaces/IRegistration'
 })
 export class AuthService {
 
-  constructor(private afa: AngularFireAuth, private afs: AngularFirestore) { }
+  constructor(private afa: AngularFireAuth, private afs: AngularFirestore) {
+    this.testing$ = this.afa.authState.pipe(switchMap(user => {
+      if(user) {
+        return this.afs.collection<IRegistration>('patients').doc(user.uid).valueChanges()
+      } else {
+        return of(null)
+      }
+    }))
+  }
 
   user = this.afa.user
+  testing$: Observable<IRegistration | null | undefined>;
 
-  //Check creditionals against backend to see if account exist
+  /*
+  * Signs in to firebase with email & password
+  */
   checkCreditionals(email: string, pword: string) {
     return this.afa.signInWithEmailAndPassword(email, pword);
   }
 
-  //Signs user out of firebase authenication
-  signout(){
-    this.afa.signOut();
+  /*
+  * Signs in to firebase with phone number
+  */
+  phoneLogin (phoneNum: string, appVerifier: any) {
+    return this.afa.signInWithPhoneNumber(phoneNum, appVerifier);
   }
 
+  /*
+  * Signs user out of firebase auth
+  */
+  signout(){
+    this.afa.signOut().then(() => {
+      console.log('Signed out of firebase authentication');
+    }, (error) => {
+      console.error('Error signing out of firebase authentication', error)
+    })
+  }
+
+  /*
+  * Gets all patients from firestore 'patient' collection
+  * Used in admin-list component
+  */
   GetAllPats():  Observable<IRegistration[]> {
     return this.afa.user.pipe( // Pipe from the "user" object because first need a signed-in user
       switchMap((user) => {
@@ -51,5 +80,30 @@ export class AuthService {
         return patients;
       })
     )
+  }
+
+  /*
+  * Role based authentication helper functions
+  * Used in route guard services
+  */
+  isPatient(user: IRegistration): boolean {
+    const allowed = ['Patient']
+    return this.checkAuth(user, allowed);
+  }
+
+  isEmployee(user: IRegistration): boolean {
+    const allowed = ['Admin', 'Staff']
+    return this.checkAuth(user, allowed)
+  }
+
+  // determines if user has matching role
+  private checkAuth(user: IRegistration, allowedRoles: string[]): boolean {
+    if(!user) { return false }
+    for(const role of allowedRoles) {
+      if(user.roles[role]) {
+        return true
+      }
+    }
+    return false
   }
 }

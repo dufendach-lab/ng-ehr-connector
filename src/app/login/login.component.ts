@@ -1,15 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from '../auth.service';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { MatDialog } from '@angular/material/dialog';
-import { ResetPasswordComponent } from '../reset-password/reset-password.component';
-
-// interface DialogData {
-//   username: string;
-//   password: string
-// }
+import { getAuth, RecaptchaVerifier } from 'firebase/auth';
+import {WINDOW} from "../util/window-provider";
 
 @Component({
   selector: 'app-login',
@@ -17,63 +11,53 @@ import { ResetPasswordComponent } from '../reset-password/reset-password.compone
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  hide = true;
-  forgotPass = false;
-  // loginData = {} as DialogData;
-  incorrectLogin = false;
+  needAuth = getAuth();
+  codeSent: boolean = false;
+  winRef: any;
 
   login = this.fb.group({
-    username: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required],
-  })
+    phoneNum: ['', Validators.required],
+  });
 
-  passwordReset = this.fb.group({
-    email: ['', Validators.required],
-  })
-  user = this.auth.user;
-  registerEnabled = false;
+  verify = this.fb.group({
+    code: ['', Validators.required]
+  });
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private auth: AuthService,
-    private afa: AngularFireAuth,
-    private dialog: MatDialog) {
-  }
+    @Inject(WINDOW) private win: Window
+  ) { }
 
+  /*
+  * Sets the window reference and creates the Recaptcha
+  */
   ngOnInit(): void {
-    // this.auth.user.pipe(first()).subscribe();
+    this.winRef = this.win;
+    this.winRef.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {}, this.needAuth);
+    this.winRef.recaptchaVerifier.render()
   }
 
-  //
-  // @HostListener('window:keyup', ['$event'])
-  // keyEvent(event: KeyboardEvent) {
-  //   // console.log(event);
-  //   if (event.key === "Enter") {
-  //     this.onSubmit();
-  //   }
-
+  /*
+  * Sends number to auth for phone login
+  */
   onSubmit(): void {
-    this.auth.checkCreditionals(this.login.value['username'], this.login.value['password'])
-      .then(user => {
-        this.incorrectLogin = user !== null;
+    const appVerif = this.winRef.recaptchaVerifier;
+    this.codeSent = true;
+    this.auth.phoneLogin(('+1' + this.login.value['phoneNum']), appVerif)
+      .then(success => {
+        this.winRef.confirmationResult = success;
       })
-      .catch(_ => this.incorrectLogin = true);
   }
 
-  // resetPassword(): void{
-  //   let dialogRef = this.dialog.open(ResetPasswordComponent, {
-  //     width: '40%',
-  //   });
-  // }
-
-  forgotPassword(): void{
-    this.forgotPass = true;
-    this.dialog.open(ResetPasswordComponent, {
-      width: '40%',
-      data: {
-        userName: this.login.value['username']
-      }
-    });
+  /*
+  * Confirms the SMS code and redirects to landing
+  */
+  confirmCode() {
+    this.winRef.confirmationResult.confirm(this.verify.value['code']).then(() => {
+      this.router.navigate([''])
+    })
   }
+
 }

@@ -1,300 +1,206 @@
-<div class="resource-container">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>We're here for you.</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <h2>
-        We know it can be hard, so we have collected excellent resources to
-        assist you in these trying times.
-      </h2>
-      <br />
-      <a
-        mat-raised-button
-        color="accent"
-        href="https://www.cincinnatichildrens.org/service/f/fetal-care"
-        target="_blank"
-        >Cincinnati Childrens Fetal Care Center
-      </a>
-      <br />
-      <br>
-      <!-- <mat-form-field>
-        <mat-select placeholder="Condition" [(value)]="selectedResource">
-          <mat-option value="CDH">Congenital Diaphragmatic Hernia (CDH)</mat-option>
-          <mat-option value="SpinaBifida">Spina Bifida</mat-option>
-          <mat-option value="TTS">Twin-Twin Transfusion Syndrome(TTS)</mat-option>
-          <mat-option value="BOO">Bladder Outlet Obstruction</mat-option>
-        </mat-select>
-      </mat-form-field> -->
 
-      <mat-accordion>
-        <ng-container *ngIf="diagnosis == 'TTS'">
-            <mat-expansion-panel (opened)="isPanelOpen = true" (closed)="isPanelOpen = false">
-              <mat-expansion-panel-header>
-                <mat-panel-title>Twin-Twin Transfusion Syndrome (TTS)</mat-panel-title>
-              </mat-expansion-panel-header>
+<!-- Mobile View -->
+<ng-container *ngIf="(isHandset$ | async); else Desktop">
+  <div class="resource-container">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>We're here for you.</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
 
-              <ng-container *ngIf="isPanelOpen">
-                <app-yt-player [vidToGet]="diagnosis"></app-yt-player>
-              </ng-container>
+        <div class="info-container">
 
-            </mat-expansion-panel>
-        </ng-container>
+  <!--          WHAT IS TWIN TWIN TRANS SYNDROME                -->
+          <h3>What is TTTS?</h3>
+          <p>
+            &nbsp;&nbsp; Twin to Twin Transfusion Syndrome (TTTS) is a prenatal condition affecting 15-20% of twin births. The twins share
+            an unequal amount of the placenta's blood supply resulting in the two fetuses growing at different rates. It is unrelated to anything
+            the mother did or did not do during pregnancy.
+          </p>
+          <p>
+            &nbsp;&nbsp; In TTTS, the twins share the placenta (monochorionic). Abnormal blood vessel connections form in the placenta and allow blood to flow
+            un-evenly between the fetuses. One twin, called the donor, becomes dehydrated. The other twin, called the recipient, develops high blood pressure and
+            produces too much urine, overfilling the amniotic sac.
+          </p>
+          <p>
+            &nbsp;&nbsp; Getting a diagnosis of twin-twin transfusion syndrome is an emotional experience. Without treatment, this condition can be fatal
+            for one or both twins. Sometimes decisions about treatment need to be made quickly. At the Cincinnati Children's Fetal Care Center, we are here
+            to help.
+          </p>
 
-        <ng-container *ngIf="diagnosis == 'CDH'">
-            <mat-expansion-panel (opened)="isPanelOpen = true" (closed)="isPanelOpen = false">
-              <mat-expansion-panel-header>
-                <mat-panel-title>Congenital Diaphragmatic Hernia (CDH)</mat-panel-title>
-              </mat-expansion-panel-header>
+  <!--             TREATMENT SECTION             -->
+          <h3>TTTS Treatment</h3>
+          <p>
+            &nbsp;&nbsp; The treatment plan we recommend depends on the severity of the condition and how far along the pregnancy is.
+          </p>
+          <p>
+            <span>Expectant Management<br>(Monitoring the Pregnancy)</span>
+            <br>
+            &nbsp;&nbsp; In less severe cases, surgery may not be needed. If that is the case, we will use ultrasound and fetal echocardiography to
+            monitor the fetuses during the pregnancy. If their condition worsens, our team will work with the patient, the patient’s family
+            and referring doctor to decide what treatment is best. Sometimes, early delivery is the best option.
+          </p>
+          <p>
+            <span>Amnioreduction<br>(Draining Excess Amniotic Fluid)</span>
+            <br>
+            &nbsp;&nbsp; When the fetuses are only mildly affected by TTTS, we may recommend amnioreduction to drain the excess amniotic fluid from
+            the recipient twin’s sac. If amnioreduction does not work, patients may be given the option to move forward with selective fetoscopic laser
+            photocoagulation (SFLP), known as laser surgery.
+          </p>
+          <p>
+            <span>Selective Fetoscopic Laser Photocoagulation<br>(Laser Surgery)</span>
+            <br>
+            &nbsp;&nbsp; When the pregnancy is more severely affected by TTTS, the team may recommend selective fetoscopic laser photocoagulation, or
+            laser surgery. This procedure involves making a small incision in the mother’s abdomen and inserting a trocar, or small metal tube, into the uterus.
+            The surgeon then passes a fetoscope (a kind of medical telescope) through the metal tube to see all the blood vessel connections on the surface of the
+            placenta shared by the twins.
+          </p>
+          <p>
+            &nbsp;&nbsp; After all the abnormal blood vessel connections are found, the laser is used to treat these vessels. The laser disconnects them permanently.
+            Afterward, the surgeon drains the extra amniotic fluid around the recipient fetus through the trocar. The surgery is then complete.
+          </p>
+          <p>
+            &nbsp;&nbsp; The location of the placenta will help decide the type of anesthesia used for the laser surgery. If the placenta is “posterior,” or located
+            on the back wall of the uterus, we recommend intravenous (IV) sedation and a local anesthetic. However, if the placenta is “anterior,” or located on the
+            front wall of the uterus, we recommend IV sedation, a local anesthetic, and possibly an epidural.
+          </p>
+          <p>
+            &nbsp;&nbsp; After laser surgery, most patients stay in the hospital for one day. Post-operative ultrasound and fetal echocardiography are then repeated
+            five days after the laser surgery to reassess the fetal condition. We will work with the patients’ maternal-fetal medicine specialist and obstetrician
+            to make sure they have followed up care at home.
+          </p>
+          <app-yt-player [vidToGet]="'TTS'"></app-yt-player>
 
-              <ng-container *ngIf="isPanelOpen">
-                <app-yt-player [vidToGet]="diagnosis"></app-yt-player>
-              </ng-container>
+          <h3>Long-Term Prognosis for TTTS</h3>
+          <p>
+            &nbsp;&nbsp; Twin-twin transfusion syndrome often causes premature birth. In this case, babies need care in a neonatal intensive care unit.
+          </p>
+          <p>
+            &nbsp;&nbsp; Most babies who are successfully treated for twin-twin transfusion syndrome live normal, healthy lives. However, some experience mild complications,
+            such as anemia. This can be easily treated. More serious problems include brain injury and heart failure. If local specialists are not available, specialists at
+            Cincinnati Children’s can help by providing long-term, expert care for these children.
+          </p>
 
-              <ul>
-                <li>
-                  <a mat-raised-button color="accent" (click)="openPDF('CDH')">PDF CDH</a>
-                  <p>"CDH PDF"</p>
-                </li>
-              </ul>
+        </div>
 
-            </mat-expansion-panel>
-        </ng-container>
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>More resources</mat-panel-title>
+            </mat-expansion-panel-header>
+            <a href="https://www.cincinnatichildrens.org/service/f/fetal-care/contact">Contact Fetal Care Center</a>
+            <br><br>
+            <a href="https://www.cincinnatichildrens.org/service/f/fetal-care/services/surgical/expect">Fetal Surgery - What to Expect</a>
+            <br><br>
+            <a href="https://www.cincinnatichildrens.org/health/t/twin-twin-transfusion-syndrome" target="_blank">Fetal Care Center - TTTS</a>
+            <br><br>
+            <a href="https://www.cincinnatichildrens.org/service/f/fetal-care/patient-stories/doty-ttts">Similar Patient Experience</a>
+          </mat-expansion-panel>
+        </mat-accordion>
 
-        <ng-container *ngIf="diagnosis == 'SpinaBifida'">
-          <br />
-            <mat-expansion-panel (opened)="isPanelOpen = true" (closed)="isPanelOpen = false">
-              <mat-expansion-panel-header>
-                <mat-panel-title>Spina Bifida</mat-panel-title>
-              </mat-expansion-panel-header>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</ng-container>
 
-              <ng-container *ngIf="isPanelOpen">
-                <app-yt-player [vidToGet]="diagnosis"></app-yt-player>
-              </ng-container>
+<ng-template #Desktop>
+  <div class="dt-resource-container">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>We're here for you.</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
 
-              <ul>
-                <li>
-                  <a
-                    mat-raised-button
-                    color="accent"
-                    (click)="openPDF('SpinaBifida')"
-                    >PDF SpinaBifida
-                  </a>
-                  <p>"SpinaBifida PDF"</p>
-                </li>
-              </ul>
-            </mat-expansion-panel>
-        </ng-container>
+        <div class="info-container">
 
-        <ng-container *ngIf="diagnosis == 'BOO'">
-            <mat-expansion-panel (opened)="isPanelOpen = true" (closed)="isPanelOpen = false">
-              <mat-expansion-panel-header>
-                <mat-panel-title>Bladder Outlet Obstruction</mat-panel-title>
-              </mat-expansion-panel-header>
+          <!--          WHAT IS TWIN TWIN TRANS SYNDROME                -->
+          <h3>What is TTTS?</h3>
+          <p>
+            &nbsp;&nbsp; Twin to Twin Transfusion Syndrome (TTTS) is a prenatal condition affecting 15-20% of twin births. The twins share
+            an unequal amount of the placenta's blood supply resulting in the two fetuses growing at different rates. It is unrelated to anything
+            the mother did or did not do during pregnancy.
+          </p>
+          <p>
+            &nbsp;&nbsp; In TTTS, the twins share the placenta (monochorionic). Abnormal blood vessel connections form in the placenta and allow blood to flow
+            un-evenly between the fetuses. One twin, called the donor, becomes dehydrated. The other twin, called the recipient, develops high blood pressure and
+            produces too much urine, overfilling the amniotic sac.
+          </p>
+          <p>
+            &nbsp;&nbsp; Getting a diagnosis of twin-twin transfusion syndrome is an emotional experience. Without treatment, this condition can be fatal
+            for one or both twins. Sometimes decisions about treatment need to be made quickly. At the Cincinnati Children's Fetal Care Center, we are here
+            to help.
+          </p>
 
-              <ng-container *ngIf="isPanelOpen">
-                <app-yt-player [vidToGet]="diagnosis"></app-yt-player>
-              </ng-container>
+          <!--             TREATMENT SECTION             -->
+          <h3>TTTS Treatment</h3>
+          <p>
+            &nbsp;&nbsp; The treatment plan we recommend depends on the severity of the condition and how far along the pregnancy is.
+          </p>
+          <p>
+            <span>Expectant Management<br>(Monitoring the Pregnancy)</span>
+            <br>
+            &nbsp;&nbsp; In less severe cases, surgery may not be needed. If that is the case, we will use ultrasound and fetal echocardiography to
+            monitor the fetuses during the pregnancy. If their condition worsens, our team will work with the patient, the patient’s family
+            and referring doctor to decide what treatment is best. Sometimes, early delivery is the best option.
+          </p>
+          <p>
+            <span>Amnioreduction<br>(Draining Excess Amniotic Fluid)</span>
+            <br>
+            &nbsp;&nbsp; When the fetuses are only mildly affected by TTTS, we may recommend amnioreduction to drain the excess amniotic fluid from
+            the recipient twin’s sac. If amnioreduction does not work, patients may be given the option to move forward with selective fetoscopic laser
+            photocoagulation (SFLP), known as laser surgery.
+          </p>
+          <p>
+            <span>Selective Fetoscopic Laser Photocoagulation<br>(Laser Surgery)</span>
+            <br>
+            &nbsp;&nbsp; When the pregnancy is more severely affected by TTTS, the team may recommend selective fetoscopic laser photocoagulation, or
+            laser surgery. This procedure involves making a small incision in the mother’s abdomen and inserting a trocar, or small metal tube, into the uterus.
+            The surgeon then passes a fetoscope (a kind of medical telescope) through the metal tube to see all the blood vessel connections on the surface of the
+            placenta shared by the twins.
+          </p>
+          <p>
+            &nbsp;&nbsp; After all the abnormal blood vessel connections are found, the laser is used to treat these vessels. The laser disconnects them permanently.
+            Afterward, the surgeon drains the extra amniotic fluid around the recipient fetus through the trocar. The surgery is then complete.
+          </p>
+          <p>
+            &nbsp;&nbsp; The location of the placenta will help decide the type of anesthesia used for the laser surgery. If the placenta is “posterior,” or located
+            on the back wall of the uterus, we recommend intravenous (IV) sedation and a local anesthetic. However, if the placenta is “anterior,” or located on the
+            front wall of the uterus, we recommend IV sedation, a local anesthetic, and possibly an epidural.
+          </p>
+          <p>
+            &nbsp;&nbsp; After laser surgery, most patients stay in the hospital for one day. Post-operative ultrasound and fetal echocardiography are then repeated
+            five days after the laser surgery to reassess the fetal condition. We will work with the patients’ maternal-fetal medicine specialist and obstetrician
+            to make sure they have followed up care at home.
+          </p>
+          <app-yt-player [vidToGet]="'TTS'"></app-yt-player>
 
-            </mat-expansion-panel>
-        </ng-container>
+          <h3>Long-Term Prognosis for TTTS</h3>
+          <p>
+            &nbsp;&nbsp; Twin-twin transfusion syndrome often causes premature birth. In this case, babies need care in a neonatal intensive care unit.
+          </p>
+          <p>
+            &nbsp;&nbsp; Most babies who are successfully treated for twin-twin transfusion syndrome live normal, healthy lives. However, some experience mild complications,
+            such as anemia. This can be easily treated. More serious problems include brain injury and heart failure. If local specialists are not available, specialists at
+            Cincinnati Children’s can help by providing long-term, expert care for these children.
+          </p>
+        </div>
 
-        <ng-container>
-            <mat-expansion-panel>
-              <mat-expansion-panel-header>
-                <mat-panel-title>Coping</mat-panel-title>
-              </mat-expansion-panel-header>
-              <ul>
-                <li>
-                  <a mat-raised-button color="accent" (click)="openPDF('Coping')">PDF Coping</a>
-                  <p>"Coping PDF"</p>
-                </li>
-                <mat-divider></mat-divider>
-              </ul>
-            </mat-expansion-panel>
-        </ng-container>
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>More resources</mat-panel-title>
+            </mat-expansion-panel-header>
+            <a href="https://www.cincinnatichildrens.org/service/f/fetal-care/contact" target="_blank">Contact Fetal Care Center</a>
+            <br><br>
+            <a href="https://www.cincinnatichildrens.org/service/f/fetal-care/services/surgical/expect" target="_blank">Fetal Surgery - What to Expect</a>
+            <br><br>
+            <a href="https://www.cincinnatichildrens.org/health/t/twin-twin-transfusion-syndrome" target="_blank">Fetal Care Center - TTTS</a>
+            <br><br>
+            <a href="https://www.cincinnatichildrens.org/service/f/fetal-care/patient-stories/doty-ttts" target="_blank">Similar Patient Experience</a>
+          </mat-expansion-panel>
+        </mat-accordion>
 
-        <ng-container>
-            <mat-expansion-panel>
-              <mat-expansion-panel-header>
-                <mat-panel-title>Explaining</mat-panel-title>
-              </mat-expansion-panel-header>
-              <ul>
-                <li>
-                  <a
-                    mat-raised-button
-                    color="accent"
-                    (click)="openPDF('Explaining')"
-                    >PDF Explaining
-                  </a>
-                  <p>"Explaining PDF"</p>
-                </li>
-                <mat-divider></mat-divider>
-              </ul>
-            </mat-expansion-panel>
-        </ng-container>
-
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title> General Resources </mat-panel-title>
-          </mat-expansion-panel-header>
-          <ul>
-            <br />
-            <li>
-              <a
-                mat-raised-button
-                color="accent"
-                href="https://healthcare.utah.edu/womenshealth/pregnancy-birth/yomingo.php"
-                target="_blank"
-                >University of Utah YoMingo
-              </a>
-              <p>
-                "University of Utah Health offers anytime, anywhere education
-                for expectant mothers through YoMingo®, a program designed to
-                give you convenient access to valuable information. It includes
-                the tools and support you need at every stage of your health
-                care journey and beyond."
-              </p>
-            </li>
-            <br />
-            <mat-divider></mat-divider>
-            <br />
-            <li>
-              <a
-                mat-raised-button
-                color="accent"
-                href="https://www.facebook.com/MommiesofMiracles"
-                target="_blank"
-                >Mommies of Miracles
-              </a>
-              <p>
-                A facebook community of like parents who are going through, and
-                have been through, the same thing as you.
-              </p>
-            </li>
-            <br />
-            <mat-divider></mat-divider>
-            <br />
-            <li>
-              <a
-                mat-raised-button
-                color="accent"
-                href="https://handtohold.org/nicu-family-support/"
-                target="_blank"
-                >Hand to Hold
-              </a>
-              <p>
-                "Our mission is to help families like yours during a NICU stay
-                and through the years to come. As NICU parents ourselves, we
-                know first-hand that the impact of the NICU can persist for many
-                years. Our resources are designed to help you through every
-                phase of your journey."
-              </p>
-            </li>
-            <br />
-            <mat-divider></mat-divider>
-            <br />
-            <li>
-              <a
-                mat-raised-button
-                color="accent"
-                href="https://www.highriskhope.org/"
-                target="_blank"
-                >High Risk Hope
-              </a>
-              <p>
-                "High Risk Hope® is a for purpose organization that provides
-                support, encouragement, information and resources to women and
-                families who are experiencing a high risk pregnancy resulting in
-                hospital bed rest, potential premature birth and neonatal
-                intensive care after delivery. 100% of Online Donations Go to
-                HRH Programs."
-              </p>
-            </li>
-            <br />
-            <mat-divider></mat-divider>
-            <br />
-            <li>
-              <a
-                mat-raised-button
-                color="accent"
-                href="https://grahamsfoundation.org/"
-                target="_blank"
-                >Grahams Foundation
-              </a>
-              <p>
-                "You found us because you or someone you care about is facing
-                the uncertainty that comes with a premature birth. We know the
-                roller coaster. Our twins, Graham and Reece, where born 15 weeks
-                prematurely on Thanksgiving Day 2006. We lost Graham after 45
-                days and our daughter spent 4 months in the hospital before
-                finally coming home and as we know, bringing your premature baby
-                home presents an entirely new set of challenges."
-              </p>
-            </li>
-            <br />
-            <mat-divider></mat-divider>
-            <br />
-            <li>
-              <a
-                mat-raised-button
-                color="accent"
-                href="https://www.verywellfamily.com/things-nicu-nurses-wish-you-knew-2748402"
-                target="_blank"
-                >10 Things NICU Nurses Wish You Knew
-              </a>
-              <p>
-                "Parents who first enter the neonatal intensive care unit, or
-                NICU, may feel shocked, nervous, afraid, and yet yearning to be
-                near their baby. It’s a normal reaction—one that most parents
-                have when they..."
-              </p>
-            </li>
-            <br />
-            <mat-divider></mat-divider>
-            <br />
-            <li>
-              <a
-                mat-raised-button
-                color="accent"
-                href="https://www.feedingtubeawareness.org/"
-                target="_blank"
-                >Feeding Tube Awareness Foundation
-              </a>
-              <p>
-                "Being told your child needs a feeding tube can be overwhelming.
-                We understand. We have been in your shoes. You may not know
-                anyone else who has a child with a feeding tube. And the unknown
-                can be frightening, especially when it concerns your child. You
-                may have mixed emotions. It is a lot to take in, particularly if
-                your child is experiencing other medical issues."
-              </p>
-            </li>
-            <br />
-            <mat-divider></mat-divider>
-            <br />
-            <li>
-              <a
-                mat-raised-button
-                color="accent"
-                href="https://oley.org/?"
-                target="_blank"
-                >Oley Foundation
-              </a>
-              <p>
-                "Being told your child needs a feeding tube can be overwhelming.
-                We understand. We have been in your shoes. You may not know
-                anyone else who has a child with a feeding tube. And the unknown
-                can be frightening, especially when it concerns your child. You
-                may have mixed emotions. It is a lot to take in, particularly if
-                your child is experiencing other medical issues."
-              </p>
-            </li>
-          </ul>
-        </mat-expansion-panel>
-
-      </mat-accordion>
-
-    </mat-card-content>
-  </mat-card>
-</div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</ng-template>

@@ -5,14 +5,13 @@
     <input matInput
            [matDatepicker]="EDDpicker"
            placeholder="Estimated Due Date"
-           formControlName="EstDueDate"
-           [(ngModel)]="gravidasDetails.EstDueDate"/>
+           formControlName="EstDueDate"/>
     <mat-datepicker-toggle matSuffix [for]="EDDpicker"></mat-datepicker-toggle>
     <mat-datepicker #EDDpicker disabled="false"></mat-datepicker>
   </mat-form-field>
   <!-- Diagnosis Input Field -->
   <mat-form-field>
-    <mat-select placeholder="Diagnosis" formControlName="Diagnosis" [(ngModel)]="gravidasDetails.Diagnosis">
+    <mat-select placeholder="Diagnosis" formControlName="Diagnosis">
       <mat-option value="TTS">Twin-Twin Transfusion Syndrome (TTS)</mat-option>
       <mat-option value="CDH">Congenital Diaphragmatic Hernia (CDH)</mat-option>
       <mat-option value="BOO">Bladder Outlet Obstruction</mat-option>
@@ -21,7 +20,7 @@
   </mat-form-field>
 
   <mat-form-field class="form-field">
-    <mat-label>Parity</mat-label>
+    <mat-label>Number of Babies</mat-label>
     <input type="text"
            matInput
            formControlName="Parity"

@@ -1,32 +1,22 @@
-<form [formGroup]="login" fxLayout="column" (ngSubmit)="onSubmit()">
-  <mat-form-field class="form-field">
-    <mat-label>Email</mat-label>
-    <input type="text"
-           matInput
-           formControlName="username"/>
-    <mat-error *ngIf="login.get('username')?.hasError('email') && !(login.get('username')?.hasError('required'))">
-      Please enter a valid email address
-    </mat-error>
-    <mat-error *ngIf="login.get('username')?.hasError('required')">
-      Email is <strong>required</strong>
-    </mat-error>
+<!-- Phone num entry for login -->
+<form [formGroup]="login" fxLayout="column">
+  <mat-form-field>
+    <mat-label>Enter Phone Number</mat-label>
+    <input matInput type="text" formControlName="phoneNum">
   </mat-form-field>
-  <mat-form-field class="form-field">
-    <mat-label>Password</mat-label>
-    <input type="password" matInput formControlName="password"/>
-    <mat-error *ngIf="login.get('password')?.hasError('required')">
-      Password is <strong>required</strong>
-    </mat-error>
-  </mat-form-field>
-  <a (click)="forgotPassword()" class="forgot-password" routerLink=""> Forgot password? </a>
-
-  <button mat-raised-button
-          type="submit"
-          color="primary"
-          class="action-button"
-          [disabled]="!login.valid">Log in
-  </button>
-  <p *ngIf="incorrectLogin" class="mat-error" style="text-align: center">
-    Invalid username or password
-  </p>
+  <div id="recaptcha-container"></div>
+  <br>
+  <button mat-button (click)="onSubmit()">Submit</button>
 </form>
+
+<!-- SMS Code Input -->
+<div *ngIf="codeSent">
+  <form [formGroup]="verify">
+    <mat-form-field>
+      <mat-label>Enter Verification Code</mat-label>
+      <input matInput type="text" formControlName="code">
+    </mat-form-field>
+    <br>
+    <button mat-button (click)="confirmCode()">Verify</button>
+  </form>
+</div>

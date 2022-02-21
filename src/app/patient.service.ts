@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { from, Observable, of, Subject } from 'rxjs';
 import { FhirAuthService } from './fhir-auth.service';
-import { filter, switchMap } from 'rxjs/operators';
+import {filter, switchMap, take} from 'rxjs/operators';
 import {fhirclient} from 'fhirclient/lib/types';
 import Patient = fhirclient.FHIR.Patient;
+import {AngularFireFunctions} from "@angular/fire/compat/functions";
+import {AngularFirestore} from "@angular/fire/compat/firestore";
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +18,8 @@ export class PatientService {
 
   constructor(
     private auth: FhirAuthService,
+    private aff: AngularFireFunctions,
+    private afs: AngularFirestore
   ) {
     this.patient = auth.client.pipe(
       filter(client => client !== null),
@@ -31,4 +35,23 @@ export class PatientService {
       })
     )
    }
+
+  updatePatientInfo(uid: string, phoneNumber: string) {
+   return new Promise( (resolve, reject) => {
+     const updating = this.aff.httpsCallable('updateUser');
+     updating({uid, phoneNumber}).pipe(take(1)).subscribe((val) => {
+       if(val.uid) {
+         resolve('Success');
+       } else {
+         reject('Failed to update');
+       }
+     });
+   })
+  }
+  async updateStoreNumber(uid: any, phoneNum: string, fName: string, lName: string) {
+    const phone = phoneNum;
+    const firstName = fName;
+    const lastName = lName;
+    await this.afs.collection('patients').doc(uid).update({phone, firstName, lastName});
+  }
 }

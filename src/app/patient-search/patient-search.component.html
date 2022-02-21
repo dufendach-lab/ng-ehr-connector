@@ -108,13 +108,13 @@
             </button>
             <div style="font-weight: bold">Access Level: &nbsp;</div>
             <span *ngIf="!isAccessLevelEdit">
-              <div>{{ patientRoleInfo.role }}</div>
+              <div>{{ patientUserInfo.roles }}</div>
             </span>
             <span *ngIf="isAccessLevelEdit">
               <mat-form-field>
                 <mat-label>Choose Access Level</mat-label>
-                <mat-select [(ngModel)]="patientRoleInfo.role">
-                  <mat-option value="User">User</mat-option>
+                <mat-select [(ngModel)]="patientUserInfo.roles">
+                  <mat-option value="Patient">Patient</mat-option>
                   <mat-option value="Moderator">Moderator</mat-option>
                   <mat-option value="Admin">Admin</mat-option>
                 </mat-select>
@@ -148,7 +148,7 @@
           <button
             mat-raised-button
             class="mat-primary"
-            [routerLink]="['/patient/edit', searchQuery]">Edit Pregnancy Info
+            [routerLink]="['/patient/edit', patUID]">Edit Pregnancy Info
           </button>
           &nbsp;
           <button

@@ -35,10 +35,8 @@ import {RegistrationComponent} from './registration/registration.component';
 import {AuthorizeComponent} from './authorize/authorize.component';
 import {LandingComponent} from './landing/landing.component';
 import {LoginComponent} from './login/login.component';
-import {LandingInfoComponent} from './landing-info/landing-info.component';
 
 import {environment} from '../environments/environment';
-import {TestPatientDataComponent} from './test-patient-data/test-patient-data.component';
 import {ObsValueDisplayComponent} from './obs-value-display/obs-value-display.component';
 import {LaunchComponent} from './launch/launch.component';
 import {NavContainerComponent} from './nav-container/nav-container.component';
@@ -57,16 +55,20 @@ import {ConfirmationDialogComponent} from './confirmation-dialog/confirmation-di
 import {YouTubePlayerModule} from '@angular/youtube-player';
 import {YtPlayerComponent} from './yt-player/yt-player.component';
 
+import { StaffLandingComponent } from './staff-landing/staff-landing.component';
+import { PatientNewComponent } from './patient-new/patient-new.component';
+
 import {AdminListComponent} from './admin-list/admin-list.component';
-import {PrivacyDialogComponent} from './privacy-dialog/privacy-dialog.component';
 import {ResetPasswordComponent} from './reset-password/reset-password.component';
 import {ContactFormComponent} from './contact-form/contact-form.component';
-import {FooterComponent} from './footer/footer.component';
 
 import {AngularFireModule} from "@angular/fire/compat";
 import {AngularFirestoreModule} from "@angular/fire/compat/firestore";
 import {AngularFireAuthModule} from "@angular/fire/compat/auth";
 import {WINDOW_PROVIDERS} from "./util/window-provider";
+import { ToolsPageComponent } from './tools-page/tools-page.component';
+import { SafeSleepComponent } from './safe-sleep/safe-sleep.component';
+import { PatientEditComponent } from './patient-edit/patient-edit.component';
 
 @NgModule({
   declarations: [
@@ -82,8 +84,6 @@ import {WINDOW_PROVIDERS} from "./util/window-provider";
     MainFormComponent,
     LandingComponent,
     LoginComponent,
-    LandingInfoComponent,
-    TestPatientDataComponent,
     ObsValueDisplayComponent,
     LaunchComponent,
     NavContainerComponent,
@@ -97,10 +97,13 @@ import {WINDOW_PROVIDERS} from "./util/window-provider";
     // PdfViewComponent,
     YtPlayerComponent,
     AdminListComponent,
-    PrivacyDialogComponent,
     ResetPasswordComponent,
     ContactFormComponent,
-    FooterComponent,
+    StaffLandingComponent,
+    PatientNewComponent,
+    ToolsPageComponent,
+    SafeSleepComponent,
+    PatientEditComponent,
   ],
   imports: [
     BrowserModule,

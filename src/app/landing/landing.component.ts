@@ -7,44 +7,83 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 import { GravidasService } from '../gravidas.service';
 import { TooltipPosition } from '@angular/material/tooltip';
+import {Router} from "@angular/router";
+import {filter, map, shareReplay, switchMap} from "rxjs/operators";
+import {IRegistration} from "../../Interfaces/IRegistration";
+import {AngularFirestore} from "@angular/fire/compat/firestore";
+import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
+import {FruitFacts, facts} from "../env/fruitfacts";
 
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.scss']
 })
+
 export class LandingComponent implements OnInit {
+
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
 
   gravidasDetails!: Observable<IGravidasDetails[] | undefined>;
   hasBirthed: boolean = false;
   position: TooltipPosition = "below";
-
   isAuthorized = this.fhirAuth.authorized;
-  // loggedIn = this.gravAuth.getLoginAuth();
   email = '';
-
+  userInfo;
+  name;
   user = this.auth.user;
   diagnosis: string | null = null;
+  eDD;
+  gestAge;
+  iEGAWeeks: number = 0;
+  momsFruits = {} as FruitFacts;
+  fruits: FruitFacts[] = facts;
 
   constructor(
     private fhirAuth: FhirAuthService,
     private auth: AuthService,
+    private afs: AngularFirestore,
     public dialog: MatDialog,
     private gravService: GravidasService,
+    private router: Router,
+    private breakpointObserver: BreakpointObserver
   ) {
     this.gravService.getGravidas().subscribe(gravidas => {
       if(gravidas){
         const lastIndex = gravidas.length - 1;
         this.hasBirthed = gravidas[lastIndex].givenBirth;
         this.diagnosis = gravidas[lastIndex].Diagnosis;
+        this.eDD = gravidas[lastIndex].EstDueDate;
+      }
+    })
+    this.userInfo = this.auth.user.pipe(
+      filter(u => u != null),
+      switchMap(u => this.afs
+        .collection('patients')
+        .doc<IRegistration>(u?.uid)
+        .get().pipe(map(doc => doc.data()))
+      )
+    )
+  }
+
+  /*
+  *  Sets the name to display
+  */
+  ngOnInit(): void {
+    this.userInfo.subscribe(user => {
+      if (user) {
+        this.name = user.firstName + ' ' + user.lastName
       }
     })
   }
 
-  ngOnInit(): void {
-
-  }
-
+  /*
+  * Dialog for confirming birth
+  */
   openDialog() {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '300px',
@@ -58,6 +97,9 @@ export class LandingComponent implements OnInit {
     })
   }
 
+  /*
+  * Changes birth status to true after submitBasicInfo
+  */
   changeBirthStatus() {
     this.gravService.getGravidas().subscribe(grav => {
       if(grav) {
@@ -68,6 +110,9 @@ export class LandingComponent implements OnInit {
     });
   }
 
+  /*
+  * Pushes EDD back a week if baby still in hospital
+  */
   changeEDD() {
     this.gravService.getGravidas().subscribe(grav => {
       if(grav) {
@@ -89,5 +134,27 @@ export class LandingComponent implements OnInit {
     } else {
       this.changeEDD();
     }
+  }
+
+  /*
+  * Calculates gestational age in format of weeks & days
+  * Also sets momsFruits based on the week
+  */
+  gestationalAgeCalc(EstDD: any): string{
+    const today = new Date();
+    const DD = new Date(EstDD.getUTCFullYear(), EstDD.getUTCMonth(), EstDD.getUTCDay());
+    const daysUntilDD = (DD.getTime()-today.getTime()) / (1000 * 60 * 60 * 24 );
+    const iGestationalAgeInDays = 280 - daysUntilDD;
+    const fGestationalAgeInWeeks = iGestationalAgeInDays / 7;
+    this.iEGAWeeks = Math.floor( fGestationalAgeInWeeks );
+    const iEGADays = ((fGestationalAgeInWeeks % 1)*6).toFixed(0);
+    this.momsFruits = this.fruits[this.iEGAWeeks - 16]; // Set fruit
+    this.gestAge = this.iEGAWeeks.toString() + ' weeks & ' + iEGADays.toString() + ' days';
+    return this.gestAge;
+  }
+
+  routeToLaunch() {
+    this.router.navigate(['/launch'])
+    return null;
   }
 }

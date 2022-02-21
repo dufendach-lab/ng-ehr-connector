@@ -1,6 +1,6 @@
 import {fhirclient} from 'fhirclient/lib/types';
 import AuthorizeParams = fhirclient.AuthorizeParams;
-import * as data from '../../assets/EpicEndpoints.json'
+// import * as data from '../../assets/EpicEndpoints.json'
 
 export interface FhirEndpoint extends AuthorizeParams {
   OrganizationName: string;

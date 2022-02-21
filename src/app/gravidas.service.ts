@@ -17,30 +17,13 @@ export class GravidasService {
     private afa: AngularFireAuth,
     private afs: AngularFirestore) { }
 
-    // Create a new pregnancy for the currently signed in user
-  async createGravidas(gravidas: IGravidasDetails) : Promise<void> {
+  // Create a new pregnancy for a user based off their firebase uID
+  async createPregnancy(gravidas: IGravidasDetails, patID: string) : Promise<void> {
     const docName = new Date(gravidas.EstDueDate);
     const docNameString = docName.toISOString().substr(0,10);
-    this.patient.subscribe((user) => {
-      if (user) {
-        gravidas.gravidasTitle = docNameString;
-        const uniqueID = user.uid;
-        this.patientInfo.collection('patients').doc(uniqueID).collection('gravidas').doc(docNameString).set(gravidas)
-      }
-    })
-  }
+    gravidas.gravidasTitle = docNameString;
 
-  // Create a new pregnancy for a user based off their firebase uID
-  async createOtherGravidas(gravidas: IGravidasDetails, patID: string) : Promise<void> {
-    if(patID == ""){
-      this.afs.collection('Errors').doc('Gravidas').collection('OtherGravidas').doc(Date()).set({message: "Something wrong"});
-    }
-    else{
-      const docName = new Date(gravidas.EstDueDate);
-      const docNameString = docName.toISOString().substr(0,10);
-      gravidas.gravidasTitle = docNameString;
-      this.patientInfo.collection('patients').doc(patID).collection('gravidas').doc(docNameString).set(gravidas)
-    }
+    await this.patientInfo.collection('patients').doc(patID).collection('gravidas').doc(docNameString).set(gravidas);
   }
 
   // Gets all pregnancies for other user based on their firebase uID

@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Observable } from 'rxjs';
-import { filter, map, switchMap } from 'rxjs/operators';
 import { IRegistration } from 'src/Interfaces/IRegistration';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { IGravidasDetails } from 'src/Interfaces/IGravidasDetails'
-import { formatDate } from '@angular/common';
+import { AngularFireFunctions } from "@angular/fire/compat/functions";
+import {take} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -19,35 +18,37 @@ export class RegistrationService {
 
   constructor(
     private afa: AngularFireAuth,
-    private afs: AngularFirestore) { }
+    private afs: AngularFirestore,
+    private aff: AngularFireFunctions) { }
 
   //Updates User Info above when a registered person is logged in
-  async updatePatient(patient: IRegistration): Promise<void>{
-    this.userInfo.pipe(map(client => client = patient));
+  // async updatePatient(patient: IRegistration): Promise<void>{
+  //   this.userInfo.pipe(map(client => client = patient));
+  // }
+
+  createPatient(email: string, password: string, phoneNumber: string) {
+    return new Promise( (resolve) => {
+      const creating = this.aff.httpsCallable('createUser');
+      creating({email, password, phoneNumber}).pipe(take(1)).subscribe((val) => {
+        const res = val.uid;
+        resolve(res);
+      });
+    })
   }
 
-  async createPatient(email: string, password: string): Promise<boolean | void>{
-    try{
-      await this.afa.createUserWithEmailAndPassword(email, password);
-    }
-    catch(error: any){
-      if(error.code == "auth/email-already-in-use"){
-        return false;
-      }
-    }
+  async createPatientInfo(uid: any, newPatient: IRegistration): Promise<void> {
+      await this.afs.collection('patients').doc(uid).set(newPatient);
+      const role = ["Patient"]
+      await this.afs.collection('users').doc(uid).set({role});
   }
 
-  async createPatientInfo(newPatient: IRegistration): Promise<void> {
-    this.patient.subscribe((user) => {
-        if (user) {
-          const uniqueID = user.uid;
-          this.patientInfo.collection('patients').doc(uniqueID).set(newPatient)
-
-          const accessLevel = {
-            role: "User",
-          };
-          this.afs.collection('users').doc(uniqueID).set(accessLevel);
-        }
-      })
+  deletePatient(uid: string) {
+    this.afs.collection('patients').doc(uid).collection('gravidas').get().pipe(take(1)).subscribe(async (item) => {
+      await this.afs.collection('patients').doc(uid).collection('gravidas').doc(item.docs[0].id).delete();
+    });
+    this.afs.collection('patients').doc(uid).delete();
+    this.afs.collection('users').doc(uid).delete();
+    const deleting = this.aff.httpsCallable('deleteUser');
+    deleting({uid}).pipe().subscribe(() => {});
   }
 }
