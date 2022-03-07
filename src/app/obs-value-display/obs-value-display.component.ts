@@ -12,6 +12,7 @@ export class ObsValueDisplayComponent implements OnInit {
   @Input() obsList: Observation[] = [];
 
   constructor() {
+
   }
 
   ngOnInit(): void {

@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card *ngIf="(isHandset$ | async); else Desktop">
   <mat-card-content>
     <h2>Various tips to assure your babies safety</h2>
     <br>
@@ -51,6 +51,14 @@
   </mat-card-content>
 </mat-card>
 
+<ng-template #Desktop>
+  <div class="desktop-card">
+    <mat-card>
+      Desktop Card
+      <app-safe-sleep></app-safe-sleep>
+    </mat-card>
+  </div>
+</ng-template>
 
 
 

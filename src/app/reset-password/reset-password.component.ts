@@ -32,10 +32,10 @@ export class ResetPasswordComponent implements OnInit {
 
   onRestClick(): void{
     const userEmail = this.passwordReset.controls['email'].value;
-    console.log(userEmail);
     this.afa.sendPasswordResetEmail(userEmail).then(() => {
       this.emailNotInUse = false;
       this.resetSent = true;
+      this.dialogRef.close();
     }).catch((err) => {
       this.resetSent = false;
       this.emailNotInUse = true;

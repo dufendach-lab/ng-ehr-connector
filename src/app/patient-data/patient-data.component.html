@@ -1,20 +1,33 @@
 <mat-card class="patient-data-card">
   <mat-card-header>
-    <mat-card-title>Patient Data</mat-card-title>
+    <mat-card-title>Health Records</mat-card-title>
   </mat-card-header>
   <mat-card-content>
     <div class="data-container" fxLayout="column" fxLayoutGap="15px">
-          <p>Data retrieved from the EHR is displayed here</p>
+      <div>
+        <p>Here's what we were able to find. Deselect any data you wish to be withheld:</p>
+        <mat-checkbox color="primary"
+                      [checked]="allComplete"
+                      [indeterminate]="someComplete()"
+                      (change)="setAll($event.checked)">
+          Select All
+        </mat-checkbox>
+      </div>
       <mat-accordion>
 
         <!-- VITAL SIGNS PANEL -->
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
+              <mat-checkbox [(ngModel)]="task.subtasks[0].completed"
+                            (click)="$event.stopPropagation()"
+                            (keydown)="$event.stopPropagation()"
+                            color="primary"
+                            (ngModelChange)="updateAllComplete()">
                 <mat-icon >equalizer</mat-icon>&nbsp;&nbsp;
                 <span>Vital Signs</span>
 
-<!--              </mat-checkbox>-->
+              </mat-checkbox>
             </mat-panel-title>
           </mat-expansion-panel-header>
           <div *ngIf="(vitalsBundle | async) as bundle; else loading">
@@ -26,10 +39,15 @@
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
+              <mat-checkbox [(ngModel)]="task.subtasks[1].completed"
+                            (click)="$event.stopPropagation()"
+                            (keydown)="$event.stopPropagation()"
+                            color="primary"
+                            (ngModelChange)="updateAllComplete()">
                 <mat-icon >science</mat-icon>&nbsp;&nbsp;
                 <span>Laboratory</span>
 
-<!--              </mat-checkbox>-->
+              </mat-checkbox>
             </mat-panel-title>
           </mat-expansion-panel-header>
           <br>
@@ -42,8 +60,15 @@
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
+              <mat-checkbox [(ngModel)]="task.subtasks[2].completed"
+                            (click)="$event.stopPropagation()"
+                            (keydown)="$event.stopPropagation()"
+                            color="primary"
+                            (ngModelChange)="updateAllComplete()">
                 <mat-icon >medication</mat-icon> &nbsp;&nbsp;
                 <span>Medical Statement</span>
+
+              </mat-checkbox>
             </mat-panel-title>
           </mat-expansion-panel-header>
           <br>
@@ -56,10 +81,15 @@
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
+              <mat-checkbox [(ngModel)]="task.subtasks[3].completed"
+                            (click)="$event.stopPropagation()"
+                            (keydown)="$event.stopPropagation()"
+                            color="primary"
+                            (ngModelChange)="updateAllComplete()">
                 <mat-icon >local_hospital</mat-icon>&nbsp;&nbsp;
                 <span>Conditions</span>
 
-<!--              </mat-checkbox>-->
+              </mat-checkbox>
             </mat-panel-title>
           </mat-expansion-panel-header>
           <br>
@@ -72,8 +102,15 @@
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
+              <mat-checkbox [(ngModel)]="task.subtasks[4].completed"
+                            (click)="$event.stopPropagation()"
+                            (keydown)="$event.stopPropagation()"
+                            color="primary"
+                            (ngModelChange)="updateAllComplete()">
                 <mat-icon >healing</mat-icon>&nbsp;&nbsp;
                 <span>Procedures</span>
+
+              </mat-checkbox>
             </mat-panel-title>
           </mat-expansion-panel-header>
           <br>
@@ -90,4 +127,4 @@
   </mat-card-content>
 </mat-card>
 
-<ng-template #loading><br>Data transfer not authorized or error occurred.</ng-template>
+<ng-template #loading><br>No information to display</ng-template>

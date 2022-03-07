@@ -12,7 +12,8 @@ import {filter, map, shareReplay, switchMap} from "rxjs/operators";
 import {IRegistration} from "../../Interfaces/IRegistration";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
-import {FruitFacts, facts} from "../env/fruitfacts";
+import {IFruit} from "../../Interfaces/IFruit";
+import * as maFruits from "../../assets/fruits.json";
 
 @Component({
   selector: 'app-landing',
@@ -38,10 +39,10 @@ export class LandingComponent implements OnInit {
   user = this.auth.user;
   diagnosis: string | null = null;
   eDD;
-  gestAge;
+  gestAge = '';
   iEGAWeeks: number = 0;
-  momsFruits = {} as FruitFacts;
-  fruits: FruitFacts[] = facts;
+  momsFruits = {} as IFruit;
+  fruits: IFruit[] = maFruits;
 
   constructor(
     private fhirAuth: FhirAuthService,
@@ -58,6 +59,7 @@ export class LandingComponent implements OnInit {
         this.hasBirthed = gravidas[lastIndex].givenBirth;
         this.diagnosis = gravidas[lastIndex].Diagnosis;
         this.eDD = gravidas[lastIndex].EstDueDate;
+        this.gestAge = this.gestationalAgeCalc(this.eDD);
       }
     })
     this.userInfo = this.auth.user.pipe(
@@ -68,18 +70,14 @@ export class LandingComponent implements OnInit {
         .get().pipe(map(doc => doc.data()))
       )
     )
-  }
-
-  /*
-  *  Sets the name to display
-  */
-  ngOnInit(): void {
     this.userInfo.subscribe(user => {
       if (user) {
         this.name = user.firstName + ' ' + user.lastName
       }
     })
   }
+
+  ngOnInit(): void { }
 
   /*
   * Dialog for confirming birth
@@ -149,8 +147,8 @@ export class LandingComponent implements OnInit {
     this.iEGAWeeks = Math.floor( fGestationalAgeInWeeks );
     const iEGADays = ((fGestationalAgeInWeeks % 1)*6).toFixed(0);
     this.momsFruits = this.fruits[this.iEGAWeeks - 16]; // Set fruit
-    this.gestAge = this.iEGAWeeks.toString() + ' weeks & ' + iEGADays.toString() + ' days';
-    return this.gestAge;
+    let gestational = this.iEGAWeeks.toString() + ' weeks & ' + iEGADays.toString() + ' days';
+    return gestational;
   }
 
   routeToLaunch() {

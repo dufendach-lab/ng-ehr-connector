@@ -29,6 +29,12 @@
 mat-icon {
   vertical-align: middle;
 }
+.auth-card {
+  img {
+    object-fit: cover;
+    border-top-right-radius: 10px;
+  }
+}
 .woah-card {
   background-image: url('/../../assets/img/mom (1).png');
   background-size: 95%;
@@ -99,18 +105,22 @@ mat-icon {
     font-weight: bolder;
   }
 
+  .fruit-card-container {
+    padding: 10px;
+  }
+
   .fruit-card {
-    background-color: rgba(245,245,245,0.3);
+    background-color: rgba(245, 245, 245, 0.6);
 
     mat-card-title-group {
-      color: #f5f5f5;
+      color: #565a5c;
       padding: 10px;
     }
     p {
       font-size: 12px;
       text-align: right;
       font-style: italic;
-      color: #f5f5f5;
+      color: #565a5c;
     }
     span {
       font-weight: bolder;
@@ -127,23 +137,17 @@ mat-icon {
   grid-auto-rows: 1fr;
 }
 .dt-preg-status-card {
-  background-image: linear-gradient(rgba(245,245,245,.3) 55%, $cchmc-pink);
-  background-blend-mode: multiply;
   img {
     object-fit: cover;
     border-top-right-radius: 10px;
   }
 }
 .dt-auth-card {
-  background-image: linear-gradient(rgba(245,245,245,.5) 55%, $cchmc-pink);
-  background-blend-mode: multiply;
   img {
     object-fit: cover;
   }
 }
 .dt-dashboard-card {
-  background-image: linear-gradient(rgba(245,245,245,.5) 65%, $cchmc-pink);
-  background-blend-mode: multiply;
   img {
     object-fit: cover;
   }
@@ -177,22 +181,26 @@ mat-card-header {
   padding: 10px 1px;
 }
 mat-card-subtitle {
-  color: white;
+  //color: white;
+  color: #565a5c;
 }
 mat-card-title-group {
-  color: #f5f5f5;
+  color: #565a5c;
+  //color: #b3e6ef;
 
   mat-card-title, mat-card-subtitle {
     padding: 10px 0 0 10px;
   }
 }
 mat-card-content {
+  color: #565a5c;
   padding: 10px;
 }
 mat-card {
-  background-color: rgba(245,245,245,0.3);
+  background-color: rgba(245, 245, 245, 0.6);
   background-repeat: no-repeat;
   border-radius: 10px;
+  //color: #565a5c;
   padding: 0;
   margin: 0;
 

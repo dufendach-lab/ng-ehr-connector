@@ -27,9 +27,19 @@ export class PatientDataComponent implements OnInit {
 
   testBundle: Subject<Bundle | Observation> = new Subject();
 
-  constructor(private obsService: ObservationService) {
-
+  task: Task = {
+    name: 'Authorize All',
+    completed: true,
+    subtasks: [
+      {name: 'vitals', completed: true, subtasks: []},
+      {name: 'labs', completed: true, subtasks: []},
+      {name: 'meds', completed: true, subtasks: []},
+      {name: 'conditions', completed: true, subtasks: []},
+      {name: 'procedure', completed: true, subtasks: []},
+    ]
   }
+
+  constructor(private obsService: ObservationService) { }
 
   ngOnInit(): void { // Calls to grab data from EHR
     this.obsService.getObservationByCategory("vital-signs").then(b => this.vitalsBundle.next(b));
@@ -40,6 +50,32 @@ export class PatientDataComponent implements OnInit {
     // this.obsService.getObservation().then(b => this.testBundle.next(b)); THIS STATEMENT USED FOR LOINC TESTING
   }
 
+  allComplete: boolean = false;
+  // These three functions handle checkbox selections
+  updateAllComplete() {
+    this.allComplete = this.task.subtasks != null && this.task.subtasks.every(t => t.completed);
+  }
+  someComplete(): boolean {
+    if (this.task.subtasks == null) {
+      return false;
+    }
+    return this.task.subtasks.filter(t => t.completed).length > 0 && !this.allComplete;
+  }
+  setAll(completed: boolean) {
+    this.allComplete = completed;
+    if (this.task.subtasks == null) {
+      return;
+    }
+    this.task.subtasks.forEach(t => t.completed = completed);
+  }
+
   submitData(): void {
+  //   if(this.task.subtasks[0].completed) {
+  //     console.log('Vitals - is selected');
+  //     let obs = this.vitalsBundle.asObservable();
+  //     obs.pipe().subscribe(val => {
+  //       console.log(val.entry)
+  //     })
+  //   }
   }
 }

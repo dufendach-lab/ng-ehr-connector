@@ -26,7 +26,7 @@
       <div class="toolbar">
         <mat-toolbar color="primary" role="heading">
           <!-- Back button for mobile phones on every page except for the landing -->
-          <ng-container *ngIf="(router.url != '/landing')">
+          <ng-container *ngIf="!isHomeRoute()">
             <button mat-icon-button routerLink="/" *ngIf="(isHandset$ | async)">
               <mat-icon>navigate_before</mat-icon>
             </button>

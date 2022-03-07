@@ -19,13 +19,18 @@ mat-card-content {
   line-height: 30px;
   font-size: 18px;
 
+  p {
+    text-indent: 1.75rem;
+  }
   span {
     font-weight: bolder;
   }
 }
 
 .dt-resource-container {
-
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
   mat-card-title {
     color: $cchmc-pink;
   }

@@ -15,11 +15,15 @@ admin.initializeApp();
 // CREATE NEW USER
 exports.createUser = functions.https.onCall(async (data, context) => {
   return new Promise((res, rej) => {
+    if (!context.auth) {
+      throw new functions.https.HttpsError("failed-precondition", "The function must be called while authenticated");
+    }
     admin.auth().createUser({
       email: data.email,
       emailVerified: true,
       phoneNumber: data.phoneNumber,
       password: data.password,
+      displayName: data.displayName,
     }).then((userRecord) => {
       if (userRecord) {
         res(userRecord.toJSON());
@@ -32,6 +36,9 @@ exports.createUser = functions.https.onCall(async (data, context) => {
 
 // RETRIEVE USER DATA
 exports.getOneUser = functions.https.onCall(async (data, context) => {
+  if (!context.auth) {
+    throw new functions.https.HttpsError("failed-precondition", "The function must be called while authenticated");
+  }
   try {
     admin.auth().getUser(data.uid).then((userRecord) => {
       console.log("Successfully fetched user data: ", userRecord.toJSON());
@@ -44,6 +51,9 @@ exports.getOneUser = functions.https.onCall(async (data, context) => {
 // UPDATE A USER
 exports.updateUser = functions.https.onCall(async (data, context) => {
   return new Promise((res, rej) => {
+    if (!context.auth) {
+      throw new functions.https.HttpsError("failed-precondition", "The function must be called while authenticated");
+    }
     admin.auth().updateUser(data.uid, {
       phoneNumber: data.phoneNumber,
     }).then((userRecord) => {
@@ -59,6 +69,9 @@ exports.updateUser = functions.https.onCall(async (data, context) => {
 // DELETE A USER
 exports.deleteUser = functions.https.onCall(async (data, context) => {
   return new Promise((res) => {
+    if (!context.auth) {
+      throw new functions.https.HttpsError("failed-precondition", "The function must be called while authenticated");
+    }
     admin.auth().deleteUser(data.uid).then(() => {
       res(true);
     });
