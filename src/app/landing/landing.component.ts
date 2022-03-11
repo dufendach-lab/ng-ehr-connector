@@ -41,7 +41,8 @@ export class LandingComponent implements OnInit {
   eDD;
   gestAge = '';
   iEGAWeeks: number = 0;
-  momsFruits = {} as IFruit;
+  twinA = {} as IFruit;
+  twinB = {} as IFruit;
   fruits: IFruit[] = maFruits;
 
   constructor(
@@ -75,9 +76,11 @@ export class LandingComponent implements OnInit {
         this.name = user.firstName + ' ' + user.lastName
       }
     })
+    this.twinA = this._getFruit(18);
+    this.twinB = this._getFruit(28.2);
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   /*
   * Dialog for confirming birth
@@ -146,7 +149,7 @@ export class LandingComponent implements OnInit {
     const fGestationalAgeInWeeks = iGestationalAgeInDays / 7;
     this.iEGAWeeks = Math.floor( fGestationalAgeInWeeks );
     const iEGADays = ((fGestationalAgeInWeeks % 1)*6).toFixed(0);
-    this.momsFruits = this.fruits[this.iEGAWeeks - 16]; // Set fruit
+    // this.momsFruits = this.fruits[this.iEGAWeeks - 16]; // Set fruit
     let gestational = this.iEGAWeeks.toString() + ' weeks & ' + iEGADays.toString() + ' days';
     return gestational;
   }
@@ -154,5 +157,22 @@ export class LandingComponent implements OnInit {
   routeToLaunch() {
     this.router.navigate(['/launch'])
     return null;
+  }
+
+  private _getFruit(wgt1: number) {
+    const arr = Array.from(this.fruits);
+    const num = arr.reduce((prev, curr) => Math.abs(curr.weight - wgt1) < Math.abs(prev.weight - wgt1) ? curr : prev);
+    const fruit = arr.find(obj => obj.weight === num.weight);
+    if(fruit) {
+      return fruit;
+    } else {
+      return {
+        weight: 0,
+        fruit: '',
+        length: '',
+        type: '',
+        imgUrl: ''
+      }
+    }
   }
 }

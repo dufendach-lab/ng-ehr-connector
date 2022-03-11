@@ -1,6 +1,6 @@
 export interface IFruit {
   fruit: string;
-  weight: string;
+  weight: number;
   length: string;
   type: string;
   imgUrl: string;

@@ -5,6 +5,8 @@ import {fhirclient} from 'fhirclient/lib/types';
 import {ObservationService} from '../observation.service';
 import Bundle = fhirclient.FHIR.Bundle;
 import Observation = fhirclient.FHIR.Observation;
+import {FhirAuthService} from "../fhir-auth.service";
+import {Router} from "@angular/router";
 
 interface Task {
   name: string;
@@ -18,6 +20,8 @@ interface Task {
   styleUrls: ['./patient-data.component.scss']
 })
 export class PatientDataComponent implements OnInit {
+
+  hasSent: boolean = false;
 
   vitalsBundle: Subject<Bundle | Observation> = new Subject();
   labBundle: Subject<Bundle | Observation> = new Subject();
@@ -39,7 +43,7 @@ export class PatientDataComponent implements OnInit {
     ]
   }
 
-  constructor(private obsService: ObservationService) { }
+  constructor(private obsService: ObservationService, private fauth: FhirAuthService, private router: Router) { }
 
   ngOnInit(): void { // Calls to grab data from EHR
     this.obsService.getObservationByCategory("vital-signs").then(b => this.vitalsBundle.next(b));
@@ -69,7 +73,14 @@ export class PatientDataComponent implements OnInit {
     this.task.subtasks.forEach(t => t.completed = completed);
   }
 
-  submitData(): void {
+  switchPt() {
+    this.fauth.logOut();
+    this.router.navigate(['authorize']);
+  }
+
+  async submitData() {
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    this.hasSent = true;
   //   if(this.task.subtasks[0].completed) {
   //     console.log('Vitals - is selected');
   //     let obs = this.vitalsBundle.asObservable();

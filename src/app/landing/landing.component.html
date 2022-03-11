@@ -8,11 +8,31 @@
     </div>
 
     <div class="fruit-facts">
-      <p class="fact-state">Your babies are approximately the {{ this.momsFruits.type }} of <span>{{ this.momsFruits.fruit }}s</span></p>
-      <div>
-        <img src="{{ this.momsFruits.imgUrl }}" alt="{{ this.momsFruits.fruit }}">
+      <div class="twin-fruit-container" fxLayout="row" fxLayoutAlign="space-between">
+        <mat-card class="mat-elevation-z0 fruit-card"
+                  matTooltip="Weight: ~{{twinA.weight}}oz | Length: ~{{twinA.length}}"
+                  (click)="tooltip.show()"
+                  #tooltip="matTooltip"
+                  matTooltipPosition="above">
+          <div fxLayout="column" fxLayoutAlign="center center">
+            <h3>Twin A</h3>
+            <img style="border-radius: 50%" mat-card-md-image src="{{twinA.imgUrl}}" alt="fruit">
+            <p>Twin A is about the {{twinA.type}} of a {{twinA.fruit}}!</p>
+          </div>
+        </mat-card>
+        <mat-divider [vertical]="true" style="margin-bottom: 20px; margin-top: 20px; border-right-color: whitesmoke;"></mat-divider>
+        <mat-card class="mat-elevation-z0 fruit-card"
+                  matTooltip="Weight: ~{{twinB.weight}}oz | Length: ~{{twinB.length}}"
+                  (click)="tooltip2.show()"
+                  #tooltip2="matTooltip"
+                  matTooltipPosition="above">
+          <div fxLayout="column" fxLayoutAlign="center center">
+            <h3>Twin B</h3>
+            <img style="border-radius: 50%" mat-card-md-image src="{{twinB.imgUrl}}" alt="fruit">
+            <p>Twin B is about the {{twinB.type}} of a {{twinB.fruit}}!</p>
+          </div>
+        </mat-card>
       </div>
-      <p id="stats">Weight: ~{{ this.momsFruits.weight }} &nbsp;&nbsp; Length: ~{{ this.momsFruits.length }}</p>
     </div>
 
     <!--  Main card - Preg status if mom has not birthed  -->
@@ -99,20 +119,27 @@
         <p style="font-size: 48px;"><span style="font-weight: bolder">Hello,</span> <br>{{ name }}</p>
       </div>
 
-      <div class="fruit-card-container">
-          <mat-card class="fruit-card">
-            <mat-card-title-group>
-              <mat-card-title>You are {{ this.gestAge }} pregnant</mat-card-title>
-              <mat-card-subtitle>Your babies are about the {{ this.momsFruits.type }} of {{ this.momsFruits.fruit }}'s</mat-card-subtitle>
-              <img mat-card-md-image src="{{this.momsFruits.imgUrl}}" alt="fruit">
-            </mat-card-title-group>
-            <mat-card-content>
-              <p id="stat">Weight: ~{{ this.momsFruits.weight }} &nbsp;&nbsp; Length: ~{{ this.momsFruits.length }}</p>
-            </mat-card-content>
-          </mat-card>
-
+      <div class="twin-fruit-container" fxLayout="row" fxLayoutAlign="space-between">
+        <div fxLayout="column" fxLayoutAlign="center center"
+             matTooltip="Weight: ~{{twinA.weight}}oz | Length: ~{{twinA.length}}"
+             (click)="tooltip.show()"
+             #tooltip="matTooltip"
+             matTooltipPosition="above">
+          <p>Twin A</p>
+          <img style="border-radius: 50%" mat-card-md-image src="{{this.twinA.imgUrl}}" alt="fruit">
+          <p style="font-size: 12px; font-style: italic">Twin A is about the {{twinA.type}} of a {{twinA.fruit}}!</p>
+        </div>
+        <mat-divider [vertical]="true" style="margin-bottom: 20px; margin-top: 20px; border-right-color: whitesmoke;"></mat-divider>
+        <div fxLayout="column" fxLayoutAlign="center center"
+             matTooltip="Weight: ~{{twinB.weight}}oz | Length: ~{{twinB.length}}"
+             (click)="tooltip2.show()"
+             #tooltip2="matTooltip"
+             matTooltipPosition="above">
+          <p>Twin B</p>
+          <img style="border-radius: 50%" mat-card-md-image src="{{this.twinB.imgUrl}}" alt="fruit">
+          <p style="font-size: 12px; font-style: italic">Twin B is about the {{twinB.type}} of a {{twinB.fruit}}!</p>
+        </div>
       </div>
-
     </div>
 
     <div class="dt-card-container">
