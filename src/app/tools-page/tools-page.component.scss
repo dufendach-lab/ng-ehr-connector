@@ -1,5 +1,5 @@
 mat-card {
-  background-color: rgba(245, 245, 245, .5);
+  //background-color: rgba(245, 245, 245, .5);
 }
 mat-expansion-panel {
   border-radius: 10px;
@@ -16,4 +16,10 @@ mat-card-title {
   span {
     font-weight: bolder;
   }
+}
+
+.desktop-card {
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
 }

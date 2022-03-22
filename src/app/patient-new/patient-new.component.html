@@ -2,7 +2,7 @@
   <form fxLayout="column" [formGroup]="registration">
     <!-- Mother's First Name input -->
     <ng-container>
-      <mat-form-field class="form-field" fxFlex>
+      <mat-form-field class="form-field" fxFlex appearance="outline">
         <mat-label>First Name</mat-label>
         <input type="text"
                matInput
@@ -10,14 +10,14 @@
       </mat-form-field>
 
       <!-- Mother's Last Name Input Field -->
-      <mat-form-field class="form-field" fxFlex>
+      <mat-form-field class="form-field" fxFlex appearance="outline">
         <mat-label>Last Name</mat-label>
         <input type="text"
                matInput
                formControlName="lastname"/>
       </mat-form-field>
       <!-- Mother's Date of Birth Input Field -->
-      <mat-form-field class="form-field">
+      <mat-form-field class="form-field" appearance="outline">
         <input matInput
                [matDatepicker]="DoBpicker"
                placeholder="Birthday"
@@ -26,7 +26,7 @@
         <mat-datepicker #DoBpicker disabled="false"></mat-datepicker>
       </mat-form-field>
 
-      <mat-form-field>
+      <mat-form-field appearance="outline">
         <mat-label>Phone Number</mat-label>
         <input matInput
                type="tel"
@@ -35,18 +35,16 @@
         <mat-hint>No spaces or dashes</mat-hint>
       </mat-form-field>
 
-      <mat-form-field class="form-field">
+      <mat-form-field class="form-field" appearance="outline">
         <mat-label>Email</mat-label>
         <input type="text"
                matInput
                formControlName="email"/>
+        <mat-error *ngIf="emailInUse">Email is already in use</mat-error>
       </mat-form-field>
-      <div *ngIf="emailInUse">
-        <span style="color: red;">Email is already in use</span>
-      </div>
 
       <!-- Psasword Input Field -->
-      <mat-form-field class="form-field">
+      <mat-form-field class="form-field" appearance="outline">
         <mat-label>Password</mat-label>
         <input [type]="hide1 ? 'password' : 'text'"
                matInput
@@ -54,18 +52,8 @@
         <mat-icon matSuffix (click)="hide1 = !hide1"
                   class="material-icons">{{hide1 ? "visibility_off" : "visibility"}}</mat-icon>
       </mat-form-field>
-      <span>Please reenter your password</span>
-      <mat-form-field class="form-field">
-        <mat-label>Password</mat-label>
-        <input [type]="hide2 ? 'password' : 'text'"
-               matInput
-               formControlName="password2"/>
-        <mat-icon matSuffix (click)="hide2 = !hide2"
-                  class="material-icons">{{hide2 ? "visibility_off" : "visibility"}}</mat-icon>
-      </mat-form-field>
-      <div *ngIf="!passwordsMatch">
-        <span style="color: red;">Passwords do not match</span>
-      </div>
+      <button mat-raised-button style="width: fit-content" (click)="genPassword()">Generate Password</button>
+
     </ng-container>
     &nbsp;
     <button mat-raised-button

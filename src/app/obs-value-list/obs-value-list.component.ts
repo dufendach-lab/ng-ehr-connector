@@ -14,6 +14,7 @@ export class ObsValueListComponent implements OnChanges {
   @Input() observations: Bundle | null | Observation = null;
 
   obsList: Observation[] = [];
+  check: boolean = false;
 
   constructor() { }
 
@@ -27,6 +28,7 @@ export class ObsValueListComponent implements OnChanges {
   private updateObservationList() {
     if (this.observations) {
       this.obsList = this.observations.entry;
+      if(!this.observations.entry[0].resource.issue) { this.check = true; }
     }
   }
 

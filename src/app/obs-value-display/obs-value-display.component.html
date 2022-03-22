@@ -3,6 +3,7 @@
     <li>
       <ng-container *ngIf="obs.resource.issue; then skip"></ng-container>
 
+
       <ng-container *ngIf="obs.resource.resourceType == 'Observation' && obs.resource.valueQuantity">
         <span style="font-weight: bolder;">{{ obs.resource.code.text }}:  </span> {{obs.resource.valueQuantity.value | number:'1.0-3'}} {{obs.resource.valueQuantity.unit}}
         <p>Date Issued: {{ (obs.resource.issued || obs.resource.effectiveDateTime) | date: 'short'}} EST</p>

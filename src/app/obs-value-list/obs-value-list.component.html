@@ -1,1 +1,3 @@
-<app-obs-value-display [obsList]="obsList"></app-obs-value-display>
+<app-obs-value-display [obsList]="obsList" *ngIf="check; else loading"></app-obs-value-display>
+
+<ng-template #loading><br>No information to display</ng-template>

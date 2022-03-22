@@ -1,12 +1,14 @@
 <form [formGroup]="login" fxLayout="column">
-  <mat-form-field>
+  <mat-form-field appearance="outline">
     <mat-label>Email</mat-label>
     <input matInput type="text" formControlName="email">
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field appearance="outline">
     <mat-label>Password</mat-label>
     <input matInput type="text" formControlName="password">
   </mat-form-field>
+  <a (click)="passReset()" href="javascript:;">Forgot password?</a>
+  <br>
   <button mat-button (click)="tempLogin()">Login</button>
 </form>
 <!--<form class="registration-form" [formGroup]="registration" fxLayout="column"> &lt;!&ndash;(ngSubmit)="submit()"&ndash;&gt;-->

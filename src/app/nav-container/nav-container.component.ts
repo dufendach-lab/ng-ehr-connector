@@ -70,4 +70,11 @@ export class NavContainerComponent implements OnInit {
     }
   }
 
+  isHomeRoute() {
+    if(this.router.url === '/landing' || this.router.url === '/staff/landing') {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

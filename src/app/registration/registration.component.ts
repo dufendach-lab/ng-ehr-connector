@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, Validators} from '@angular/forms';
+import { FormControl, FormGroup, Validators} from '@angular/forms';
 import {FhirAuthService} from "../fhir-auth.service";
 import { Router } from '@angular/router';
 import {AuthService} from "../auth.service";
+import {ResetPasswordComponent} from "../reset-password/reset-password.component";
+import {MatDialog} from "@angular/material/dialog";
 
 
 @Component({
@@ -11,26 +13,33 @@ import {AuthService} from "../auth.service";
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
-  login = this.fb.group({
-    email: ['', Validators.required],
-    password: ['', Validators.required]
+  login = new FormGroup({
+    email: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required)
   })
 
   constructor(
-    private fb: FormBuilder,
     private fhirService: FhirAuthService,
     private auth: AuthService,
     private router: Router,
+    private dialog: MatDialog
     ) {
   }
 
   ngOnInit(): void { }
 
   tempLogin() {
-    this.auth.checkCreditionals(this.login.value['email'], this.login.value['password'])
+    this.auth.checkCreditionals(this.login.controls['email'].value, this.login.controls['password'].value)
       .then(() => {
         this.router.navigate(['']);
       });
+  }
+
+  passReset() {
+    const dialogRef = this.dialog.open(ResetPasswordComponent, {
+      width: '300px',
+      data: false
+    });
   }
 
 }

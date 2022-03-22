@@ -41,26 +41,37 @@ export class PatientNewComponent implements OnInit {
   *
   * */
   onSubmit() {
-    if(this.registration.value['password1'] === this.registration.value['password2']) {
-      try {
-        this.reg.createPatient(this.registration.value['email'], this.registration.value['password1'], ('+1' + this.registration.value['phone'])).then((result) => {
-          if(result) {
-            this.regInfo.firstName = this.registration.value['firstname'];
-            this.regInfo.lastName = this.registration.value['lastname'];
-            this.regInfo.MotherDoB = this.registration.value['MotherDoB'];
-            this.regInfo.phone = ('+1' + this.registration.value['phone']);
-            this.regInfo.roles = ["Patient"];
-            this.reg.createPatientInfo(result, this.regInfo).then(() => {
-              this.router.navigate(['/admin-list']);
-            });
-          }
-        });
-      } catch (e) {
-        this.emailInUse = true;
-      }
-    } else {
-      this.passwordsMatch = false;
+    try {
+      this.reg.createPatient(this.registration.value['email'],
+        this.registration.value['password1'],
+        ('+1' + this.registration.value['phone']))
+        .then((result) => {
+        if(result) {
+          this.regInfo.firstName = this.registration.value['firstname'];
+          this.regInfo.lastName = this.registration.value['lastname'];
+          this.regInfo.MotherDoB = this.registration.value['MotherDoB'];
+          this.regInfo.phone = ('+1' + this.registration.value['phone']);
+          this.regInfo.roles = ["Patient"];
+          this.reg.createPatientInfo(result, this.regInfo).then(() => {
+            this.router.navigate(['/admin-list']);
+          });
+        }
+      });
+    } catch (e) {
+      this.emailInUse = true;
     }
+  }
+
+  genPassword() {
+    const chars = "0123456789abcdefghijklmnopqrstuvwxyz!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const passwordLength = 12;
+    let password = "";
+
+    for(let i = 0; i < passwordLength; i++) {
+      let randNum = Math.floor(Math.random() * chars.length);
+      password += chars.substring(randNum, randNum + 1);
+    }
+    this.registration.controls['password1'].setValue(password);
   }
 
 }

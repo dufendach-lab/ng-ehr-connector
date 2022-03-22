@@ -4,81 +4,81 @@
     <h2>Please fill out all of the information below.</h2><br>
     <ng-container [formGroup]="userDataForm" style="margin-top: 3rem;">
 
-      <h3>Baby's Name</h3>
-      <mat-form-field>
+      <mat-card-title>Baby's Legal Name</mat-card-title>
+      <mat-form-field appearance="outline">
         <mat-label>First Name</mat-label>
-        <input matInput type="text" formControlName="babyFirstName" [(ngModel)]="newData.babyFirstName">
+        <input matInput type="text" formControlName="babyFirstName">
       </mat-form-field>&nbsp;&nbsp;
-      <mat-form-field>
+      <mat-form-field appearance="outline">
         <mat-label>Last Name</mat-label>
-        <input matInput type="text" formControlName="babyLastName" [(ngModel)]="newData.babyLastName">
+        <input matInput type="text" formControlName="babyLastName">
       </mat-form-field>
-      <br><br>
 
-      <h3>Baby's Date of Birth</h3>
-      <mat-form-field>
+      <mat-card-title>Baby's Date of Birth</mat-card-title>
+      <mat-form-field appearance="outline">
         <mat-label>Date</mat-label><br>
-        <input matInput [matDatepicker]="picker" formControlName="DOB" placeholder="--/--/----" [(ngModel)]="newData.DOB">
+        <input matInput [matDatepicker]="picker" formControlName="DOB" placeholder="--/--/----">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
-      <br><br>
 
-      <h3>Baby's Time of Birth</h3>
-      <mat-form-field>
+      <mat-card-title>Baby's Time of Birth</mat-card-title>
+      <mat-form-field appearance="outline">
         <mat-label>Time</mat-label>
-        <input matInput type="time" formControlName="TOB" [(ngModel)]="newData.TOB">
+        <input matInput type="time" formControlName="TOB">
       </mat-form-field>
-      <br><br>
 
-      <h3>Baby's Birth Weight</h3>
-      <mat-form-field>
+      <mat-card-title>Baby's Birth Weight</mat-card-title>
+      <mat-form-field appearance="outline">
         <mat-label>Pounds</mat-label>
-        <input matInput type="text" formControlName="birthWeightLbs" [(ngModel)]="newData.birthWeightLbs">
+        <input matInput type="text" formControlName="birthWeightLbs">
       </mat-form-field>&nbsp;&nbsp;
-      <mat-form-field>
+      <mat-form-field appearance="outline">
         <mat-label>Ounces</mat-label>
-        <input matInput type="text" formControlName="birthWeightOs" [(ngModel)]="newData.birthWeightOs">
+        <input matInput type="text" formControlName="birthWeightOs">
       </mat-form-field>
-      <br><br>
 
-      <h3>Baby's Sex</h3>
-      <mat-radio-group formControlName="sexOfChild" [(ngModel)]="newData.sexOfChild">
-        <mat-radio-button value="male">Male</mat-radio-button><br><br>
-        <mat-radio-button value="female">Female</mat-radio-button><br><br>
-        <mat-radio-button value="other">Other</mat-radio-button>
-      </mat-radio-group>
-      <br><br>
+      <mat-card-title>Baby's Sex</mat-card-title>
+      <mat-form-field appearance="outline">
+        <mat-select formControlName="sexOfChild">
+          <mat-option value="Male">Male</mat-option>
+          <mat-option value="Female">Female</mat-option>
+          <mat-option value="Nonbinary">Non-binary</mat-option>
+          <mat-option value="X">X</mat-option>
+          <mat-option value="Unknown">Unknown</mat-option>
+          <mat-option value="Other">Other</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-card-title>Delivery Location</mat-card-title>
+      <mat-form-field appearance="outline">
+        <mat-select formControlName="deliverLoc">
+          <mat-option value="Good Samaritan Hospital">Good Samaritan Hospital</mat-option>
+          <mat-option value="TriHealth">TriHealth</mat-option>
+          <mat-option value="University of Cincinnati Medical Center">University of Cincinnati Medical Center</mat-option>
+          <mat-option value="Other">Other</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-      <h3>Delivery Location</h3>
-      <mat-radio-group formControlName="deliverLoc" [(ngModel)]="newData.deliveryLocation">
-        <mat-radio-button value="cchmc">Cincinnati Childrens</mat-radio-button><br><br>
-        <mat-radio-button value="gsh">Good Samaritan Hospital</mat-radio-button><br><br>
-        <mat-radio-button value="ucmc">University of Cincinnati Medical Center</mat-radio-button><br><br>
-        <mat-radio-button value="other">Other</mat-radio-button>
-      </mat-radio-group>
-
-      <br><br>
-      <div *ngIf="userDataForm.value.deliverLoc == 'other'">
-        <mat-form-field>
-          <mat-label>Describe</mat-label>
-          <input matInput type="text" formControlName="otherDesc" [(ngModel)]="newData.otherDescription">
+      <div *ngIf="userDataForm.value.deliverLoc == 'Other'">
+        <mat-form-field appearance="outline">
+          <mat-label>Name of Hospital</mat-label>
+          <input matInput type="text" formControlName="otherDesc">
         </mat-form-field>
       </div>
 
-      <h3>Type of Birth</h3>
-      <mat-radio-group formControlName="typeOfBirth" [(ngModel)]="newData.typeOfBirth">
-        <mat-radio-button value="vaginal">Vaginal Birth</mat-radio-button>&nbsp;&nbsp;
-        <mat-radio-button value="cesarea">C-Section</mat-radio-button>
-      </mat-radio-group>
+      <div>
+        <mat-card-title>Type of Birth</mat-card-title>
+        <mat-radio-group formControlName="typeOfBirth">
+          <mat-radio-button value="Vaginal">Vaginal Birth</mat-radio-button>&nbsp;&nbsp;
+          <mat-radio-button value="Cesarean">C-Section</mat-radio-button>
+        </mat-radio-group>
+      </div>
       <br><br>
-
-      <h3>Baby's Status</h3>
-      <mat-form-field>
+      <mat-card-title>Baby's Status</mat-card-title>
+      <mat-form-field appearance="outline">
         <mat-label>Status</mat-label>
-        <mat-select formControlName="babyStatus" [(ngModel)]="newData.babyStatus">
+        <mat-select formControlName="babyStatus">
           <mat-option value="home">Baby is home</mat-option>
-          <mat-option value="homewithequip">Baby is home with equipment</mat-option>
           <mat-option value="inhospital">Baby is still in hospital</mat-option>
           <mat-option value="dead">Baby is deceased</mat-option>
         </mat-select>
@@ -86,46 +86,45 @@
 
       <!-- Baby Status Conditional Options -->
       <div *ngIf="userDataForm.value.babyStatus === 'dead'">
-        <mat-form-field>
+        <mat-form-field appearance="outline">
           <mat-label>Date of Death</mat-label>
-          <input matInput [matDatepicker]="picker" formControlName="DOD" placeholder="--/--/----" [(ngModel)]="newData.DOD">
+          <input matInput [matDatepicker]="picker" formControlName="DOD" placeholder="--/--/----">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
-        <p>If you would like further support around your loss please contact the CCHMC Department of Pastoral Care and Bereavement Services at <span style="font-weight: bolder;">513-636-7720</span>.</p>
-      </div>
-      <div *ngIf="userDataForm.value.babyStatus === 'homewithequip'">
-        <mat-form-field>
-          <mat-label>Equipment</mat-label>
-          <input matInput type="text" formControlName="typeEquipment" [(ngModel)]="newData.typeEquipment">
-        </mat-form-field>
+        <p>For further support around your loss please contact the CCHMC Department of Pastoral Care and Bereavement Services at <span style="font-weight: bolder;">513-636-7720</span>.</p>
       </div>
       <div *ngIf="userDataForm.value.babyStatus === 'home'">
-        <mat-form-field>
+        <mat-form-field appearance="outline">
           <mat-label>Date of Discharge</mat-label>
           <input matInput [matDatepicker]="picker" formControlName="dateOfDischarge" placeholder="--/--/----" [(ngModel)]="newData.dateOfDischarge">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
+        <mat-card-title>Was your baby sent home with any equipment?</mat-card-title>
+        <mat-radio-group formControlName="typeEquipment">
+          <mat-radio-button value="Oxygen">Oxygen</mat-radio-button>&nbsp;&nbsp;
+          <mat-radio-button value="Ventilator">Ventilator</mat-radio-button>&nbsp;&nbsp;
+          <mat-radio-button value="No Equipment">None</mat-radio-button>
+        </mat-radio-group>
+
       </div>
       <div *ngIf="userDataForm.value.babyStatus === 'inhospital'">
-        <h3>Were you transfered?</h3>
-        <mat-radio-group formControlName="wasTransfered" [(ngModel)]="newData.wasTransfered">
+        <mat-card-title>Were you transferred?</mat-card-title>
+        <mat-radio-group formControlName="wasTransferred" [(ngModel)]="newData.wasTransferred">
           <mat-radio-button value="yes">Yes</mat-radio-button>&nbsp;&nbsp;
           <mat-radio-button value="no">No</mat-radio-button>
         </mat-radio-group>
-        <div *ngIf="this.userDataForm.value.wasTransfered === 'yes'">
-          <br><br>
-          <mat-form-field>
-            <mat-label>Transfered to</mat-label>
-            <input matInput type="text" formControlName="transferedTo" [(ngModel)]="newData.transferedTo">
+        <br>
+<!--        ON HOLD NEED TO DISCUSS -->
+        <div *ngIf="this.userDataForm.value.wasTransferred === 'yes'">
+          <mat-form-field appearance="outline">
+            <mat-label>Transferred to</mat-label>
+            <input matInput type="text" formControlName="transferredTo" [(ngModel)]="newData.transferredTo">
           </mat-form-field>
         </div>
       </div>
-
-      <br><br>
-
-
+      <br>
       <button mat-raised-button
       color="primary"
       type="submit"

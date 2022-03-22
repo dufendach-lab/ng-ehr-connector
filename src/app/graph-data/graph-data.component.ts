@@ -107,7 +107,7 @@ export class GraphDataComponent implements OnInit {
   private drawPlot(): void {
     this.svg.append("g")
       .attr("transform", "translate(0," + this.height + ")")
-      .call(d3.axisBottom(this.xScale).ticks(d3.timeMonth.every(2)))
+      .call(d3.axisBottom(this.xScale).ticks(d3.timeMonth.every(6)))
       .selectAll("text")
       .attr("transform", "translate(-10,10)rotate(-45)")
       .style("text-anchor", "end")
@@ -170,7 +170,7 @@ export class GraphDataComponent implements OnInit {
       .attr("id", "dotsTooltip")
       .attr("cx", d => this.xScale(d.date))
       .attr("cy", d => this.yScale(d.value))
-      .attr("r", 5)
+      .attr("r", 3)
       .attr("stroke", "#ca5699")
       .attr("stroke-width", 1.5)
       .style("fill", "#ffffff")
@@ -178,14 +178,14 @@ export class GraphDataComponent implements OnInit {
       .on('mouseover', (e, d) => {
         d3.select(e.currentTarget).transition()
           .duration(100)
-          .attr("r", 7)
+          .attr("r", 5)
           .style("fill", "#ca5699");
           tooltip.style('visibility', 'visible');
       })
       .on('mouseout', (e, d) => {
         d3.select(e.currentTarget).transition()
           .duration(400)
-          .attr("r", 5)
+          .attr("r", 3)
           .style("fill", "#ffffff");
           tooltip.style('visibility', 'hidden')
       })

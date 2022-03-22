@@ -1,22 +1,23 @@
-<div class="edit-container">
+
+<div>
   <mat-card>
-    <form [formGroup]="ptEditForm" (ngSubmit)="onSubmit()" fxLayout="column">
-      <p>Edit your profile here</p>
-      <mat-form-field>
-        <mat-label>First Name</mat-label>
-        <input matInput type="text" formControlName="firstName">
+    <form [formGroup]="ptEmailForm" class="edit-form" (ngSubmit)="submitForm()" fxLayout="column">
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input type="text" email="true" matInput formControlName="email">
       </mat-form-field>
-      <mat-form-field>
-        <mat-label>Last Name</mat-label>
-        <input matInput type="text" formControlName="lastName">
-      </mat-form-field>
-      <mat-form-field>
+      <mat-form-field appearance="outline">
         <mat-label>Phone Number</mat-label>
-        <input matInput type="text" formControlName="phoneNum">
+        <input type="tel" pattern="[0-9]{10}" matInput formControlName="phone">
+        <mat-hint>No dashes or spaces</mat-hint>
       </mat-form-field>
 
-      <button [disabled]="isCalling" mat-raised-button type="submit">Update Profile</button>
+      <div class="save-button">
+        <div></div>
+        <button mat-raised-button type="submit" class="mat-primary" [disabled]="!hasChanged">Save</button>
+      </div>
+
     </form>
+
   </mat-card>
 </div>
-
