@@ -32,7 +32,7 @@
           </button>
 
           <span fxFlex></span>
-          <button mat-icon-button (click)="drawer.toggle()" *ngIf="(isHandset$ | async)">
+          <button mat-icon-button (click)="drawer.toggle()" *ngIf="(isHandset$ | async) else LogoutButt">
             <mat-icon>menu</mat-icon>
           </button>
         </mat-toolbar>
@@ -50,4 +50,10 @@
   <ng-container *ngIf="(isHandset$ | async)">
     <h3>Welcome, {{nameConcat}}!</h3>
   </ng-container>
+</ng-template>
+
+<ng-template #LogoutButt>
+  <button mat-icon-button (click)="logout()">
+    <mat-icon>logout</mat-icon>
+  </button>
 </ng-template>
