@@ -20,21 +20,21 @@
   <div class="login-area mat-elevation-z3" fxLayout="column" fxLayoutGap="15px" fxLayout.lt-sm="column">
     <ng-container *ngIf="!registerEnabled else register" class="register-phone">
       <h2 class="center-horizontal">Log In</h2>
-      <app-login></app-login>
+      <app-registration></app-registration>
       <mat-divider></mat-divider>
       <p class="center-horizontal">Alt Login</p>
-      <button mat-button (click)="registerEnabled = true" mat-raised-button color="primary" class="action-button">Email / Password</button>
+      <button mat-button (click)="registerEnabled = true" mat-raised-button color="primary" class="action-button">Phone Number</button>
     </ng-container>
   </div>
 </div>
 
 <ng-template #register style="overflow: auto">
   <h2 class="center-horizontal">Alternate Login</h2>
-  <app-registration></app-registration>
+  <app-login></app-login>
 
   <mat-divider></mat-divider>
-  <p>Prefer to use a text message?</p>
-  <button mat-button (click)="registerEnabled = false"  mat-raised-button color="primary" class="action-button">Login with Phone Number</button>
+  <p>Prefer to use email?</p>
+  <button mat-button (click)="registerEnabled = false"  mat-raised-button color="primary" class="action-button">Login with email and password</button>
 </ng-template>
 
 <ng-template #phone>
@@ -58,10 +58,10 @@
       <div class="login-area-phone mat-elevation-z3" fxLayout="column" fxLayoutGap="15px">
         <ng-container *ngIf="!registerEnabled else register">
           <h2 class="center-horizontal">Log In</h2>
-          <app-login></app-login>
+          <app-registration></app-registration>
           <mat-divider></mat-divider>
           <p class="center-horizontal">Alt Login</p>
-          <button mat-button (click)="registerEnabled = true"  mat-raised-button color="primary" class="action-button">Email / Password</button>
+          <button mat-button (click)="registerEnabled = true"  mat-raised-button color="primary" class="action-button">Phone Number</button>
         </ng-container>
       </div>
   </div>
