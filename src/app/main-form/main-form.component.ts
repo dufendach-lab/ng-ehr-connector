@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup } from '@angular/forms';
 import {formatDate} from "@angular/common";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 // Interface to hold form data that will be put in DB
 export interface patientData {
@@ -50,21 +51,28 @@ export class MainFormComponent implements OnInit {
   });
 
   newData = { } as patientData;
+  hasSent: boolean = false;
 
-  constructor() {
+  constructor(private _snackBar: MatSnackBar) { }
 
-  }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   // TODO: currently console logs the data interface
   // Will hook up to firestore
-  submit() {
+  async submit() {
     this.newData = this.userDataForm.value
     this.newData.birthWeight = this._ImperialToMetric(this.userDataForm.controls['birthWeightLbs'].value, this.userDataForm.controls['birthWeightOs'].value).toString() + 'g';
     console.log(this._reformatDate(this.userDataForm.controls['DOB'].value))
     console.log(this.newData);
+
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    this.openSnackBar('Successful!', 'Close');
+
+    this.hasSent = true;
+  }
+
+  nextPt() {
+    location.reload();
   }
 
   private _ImperialToMetric(lbs: number, oz: number): number {
@@ -85,5 +93,12 @@ export class MainFormComponent implements OnInit {
     let ans = date.substring(3,6).toUpperCase();
     let last = date.substring(6,11);
     return first + ans + last;
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 3200,
+      panelClass: ['success-snackbar']
+    });
   }
 }

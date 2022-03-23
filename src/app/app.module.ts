@@ -20,6 +20,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTableModule} from '@angular/material/table';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 
 import {FlexLayoutModule} from '@angular/flex-layout';
 
@@ -140,6 +141,7 @@ import { PatientEditComponent } from './patient-edit/patient-edit.component';
     LayoutModule,
     MatTableModule,
     MatTooltipModule,
+    MatSnackBarModule,
 
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,

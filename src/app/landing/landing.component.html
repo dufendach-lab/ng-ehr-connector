@@ -3,33 +3,28 @@
   <!-- Mobile view -->
   <ng-container *ngIf="isHandset$ | async; else Desktop" class="phone-container">
     <div class="welcome-container">
-      <p style="font-size: 48px"><span>Hello,</span> <br>{{ name }}</p>
+<!--      <p style="font-size: 48px"><span>Hello,</span> <br>{{ name }}</p>-->
       <p><span>You are</span><br> {{ this.gestAge }} pregnant</p>
     </div>
 
     <div class="fruit-facts">
       <div class="twin-fruit-container" fxLayout="row" fxLayoutAlign="space-between">
-        <mat-card class="mat-elevation-z0 fruit-card"
-                  matTooltip="Weight: ~{{twinA.weight}}oz | Length: ~{{twinA.length}}"
-                  (click)="tooltip.show()"
-                  #tooltip="matTooltip"
-                  matTooltipPosition="above">
+        <mat-card class="mat-elevation-z0 fruit-card">
           <div fxLayout="column" fxLayoutAlign="center center">
-            <h3>Twin A</h3>
+            <h3>Hades</h3>
             <img style="border-radius: 50%" mat-card-md-image src="{{twinA.imgUrl}}" alt="fruit">
-            <p>Twin A is about the {{twinA.type}} of a {{twinA.fruit}}!</p>
+            <p>Hades is about the {{twinA.type}} of a {{twinA.fruit}}!</p>
+            <p>Weighing approximately {{twinA.weight}}oz and a length of {{twinA.length}}</p>
+            <p></p>
           </div>
         </mat-card>
         <mat-divider [vertical]="true" style="margin-bottom: 20px; margin-top: 20px; border-right-color: whitesmoke;"></mat-divider>
-        <mat-card class="mat-elevation-z0 fruit-card"
-                  matTooltip="Weight: ~{{twinB.weight}}oz | Length: ~{{twinB.length}}"
-                  (click)="tooltip2.show()"
-                  #tooltip2="matTooltip"
-                  matTooltipPosition="above">
+        <mat-card class="mat-elevation-z0 fruit-card">
           <div fxLayout="column" fxLayoutAlign="center center">
-            <h3>Twin B</h3>
+            <h3>Athena</h3>
             <img style="border-radius: 50%" mat-card-md-image src="{{twinB.imgUrl}}" alt="fruit">
-            <p>Twin B is about the {{twinB.type}} of a {{twinB.fruit}}!</p>
+            <p>Athena is about the {{twinB.type}} of a {{twinB.fruit}}!</p>
+            <p>Weighing approximately {{twinB.weight}}oz and a length of {{twinB.length}}</p>
           </div>
         </mat-card>
       </div>
@@ -77,7 +72,7 @@
           <mat-card class="resource-card"
                     routerLink="/resources">
             <mat-card-content>
-              <h2>Resources</h2>
+              <h2>TTTS Information</h2>
               <br><br><br>
               <br><br><br>
               <br><br><br>
@@ -89,7 +84,7 @@
           <mat-card class="extras-card"
                     routerLink="/tools">
             <mat-card-content>
-              <h2>Tools</h2>
+              <h2>Resources</h2>
               <br><br><br>
               <br><br><br>
               <br><br><br>
@@ -125,7 +120,7 @@
              (click)="tooltip.show()"
              #tooltip="matTooltip"
              matTooltipPosition="above">
-          <p>Twin A</p>
+          <p>Emilio</p>
           <img style="border-radius: 50%" mat-card-md-image src="{{this.twinA.imgUrl}}" alt="fruit">
           <p style="font-size: 12px; font-style: italic">Twin A is about the {{twinA.type}} of a {{twinA.fruit}}!</p>
         </div>
@@ -135,7 +130,7 @@
              (click)="tooltip2.show()"
              #tooltip2="matTooltip"
              matTooltipPosition="above">
-          <p>Twin B</p>
+          <p>Lorenzo</p>
           <img style="border-radius: 50%" mat-card-md-image src="{{this.twinB.imgUrl}}" alt="fruit">
           <p style="font-size: 12px; font-style: italic">Twin B is about the {{twinB.type}} of a {{twinB.fruit}}!</p>
         </div>

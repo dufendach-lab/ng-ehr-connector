@@ -35,36 +35,6 @@ const routes: Routes = [
         canActivate: [PatientGuardService]
       },
       {
-        path: 'staff/landing',
-        component: StaffLandingComponent,
-        canActivate: [RouteGuardService]
-      },
-      {
-        path: 'patient/:id',
-        component: PatientSearchComponent,
-        canActivate: [RouteGuardService]
-      },
-      {
-        path: 'add/patient',
-        component: PatientNewComponent,
-        canActivate: [RouteGuardService]
-      },
-      {
-        path: 'admin-list',
-        component: AdminListComponent,
-        canActivate: [RouteGuardService]
-      },
-      {
-        path: 'patient/edit/:id',
-        component: GravidasViewerComponent,
-        canActivate: [RouteGuardService]
-      },
-      {
-        path: 'patient/gravida/add/:id',
-        component: GravidasDetailEditorComponent,
-        canActivate: [RouteGuardService]
-      },
-      {
         path: 'dashboard',
         component: DashboardComponent,
         canActivate: [PatientGuardService]
@@ -106,6 +76,39 @@ const routes: Routes = [
         path: 'tools',
         component: ToolsPageComponent,
         canActivate: [PatientGuardService]
+      },
+    ]
+  },
+  {
+    path: 'admin',
+    component: StaffLandingComponent,
+    canActivate: [RouteGuardService],
+    children: [
+      // Add admin routes here
+      {
+        path: '',
+        redirectTo: 'patient/list',
+        pathMatch: 'full',
+      },
+      {
+        path: 'patient/:id',
+        component: PatientSearchComponent,
+      },
+      {
+        path: 'patient/add',
+        component: PatientNewComponent,
+      },
+      {
+        path: 'patient/list',
+        component: AdminListComponent,
+      },
+      {
+        path: 'patient/edit/:id',
+        component: GravidasViewerComponent,
+      },
+      {
+        path: 'patient/gravida/add/:id',
+        component: GravidasDetailEditorComponent,
       },
     ]
   },

@@ -58,7 +58,7 @@ export class DataTableComponent implements OnInit, OnChanges {
       if(d.resource.issue) { return; }
       let datum: Data = {name: '', unit: '', values: [{value: '', date: ''}]}
 
-      if(this.isNameInThere(this.data, d.resource.code.text) === false) {
+      if(!this.isNameInThere(this.data, d.resource.code.text)) {
         if(d.resource.code.text === "Weight") {
           datum.name = d.resource.code.text
           datum.unit = d.resource.valueQuantity.unit;
@@ -157,7 +157,8 @@ export class DataTableComponent implements OnInit, OnChanges {
     }
 
     this.dialog.open(graph.GraphDataComponent, {
-      data: this.data[num]
+      data: this.data[num],
+      minWidth: '100%',
     });
   }
 
