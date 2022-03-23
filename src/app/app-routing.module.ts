@@ -18,6 +18,7 @@ import {LaunchComponent} from "./launch/launch.component";
 import {PatientNewComponent} from "./patient-new/patient-new.component";
 import {ToolsPageComponent} from "./tools-page/tools-page.component";
 import {PatientEditComponent} from "./patient-edit/patient-edit.component";
+import {StaffContainerComponent} from "./staff-container/staff-container.component";
 
 const routes: Routes = [
   {
@@ -81,14 +82,18 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    component: StaffLandingComponent,
+    component: StaffContainerComponent,
     canActivate: [RouteGuardService],
     children: [
       // Add admin routes here
       {
         path: '',
-        redirectTo: 'patient/list',
+        redirectTo: 'home',
         pathMatch: 'full',
+      },
+      {
+        path: 'home',
+        component: StaffLandingComponent,
       },
       {
         path: 'patient/:id',

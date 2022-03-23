@@ -6,32 +6,34 @@
       <mat-icon>logout</mat-icon>
     </button>
     <!-- SEARCH CARD -->
-    <router-outlet></router-outlet>
-<!--    <mat-card class="search-card"-->
-<!--              routerLink="patient/list">-->
-<!--      <mat-card-header>-->
-<!--        <mat-card-title>-->
-<!--          <mat-icon>person_search</mat-icon>-->
-<!--          Patient Search-->
-<!--        </mat-card-title>-->
-<!--      </mat-card-header>-->
-<!--      <mat-card-content>-->
-<!--        Search, edit, add, & delete patients.-->
-<!--      </mat-card-content>-->
-<!--    </mat-card>-->
+<!--    <router-outlet></router-outlet>-->
+    <mat-card class="search-card"
+              routerLink="../patient/list">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>person_search</mat-icon>
+          Patient Search
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        Search, edit, add, & delete patients.
+      </mat-card-content>
+    </mat-card>
 
-<!--    &lt;!&ndash; DOCUMENTS CARD &ndash;&gt;-->
-<!--    <mat-card class="document-card">-->
-<!--      <mat-card-header>-->
-<!--        <mat-card-title>-->
-<!--          <mat-icon>folder_open</mat-icon>-->
-<!--          Documents-->
-<!--        </mat-card-title>-->
-<!--      </mat-card-header>-->
-<!--      <mat-card-content>-->
-<!--        View & print documents.-->
-<!--      </mat-card-content>-->
-<!--    </mat-card>-->
+    <!-- DOCUMENTS CARD -->
+    <mat-card class="document-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>folder_open</mat-icon>
+          Documents
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        View & print documents.
+      </mat-card-content>
+    </mat-card>
   </div>
 </div>
+
+<app-admin-list></app-admin-list>
 
