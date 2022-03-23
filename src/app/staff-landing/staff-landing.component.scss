@@ -2,6 +2,15 @@
 @import "src/cchmc";
 
 .wrapper {
+  //min-height: 100vh;
+  //background: linear-gradient(rgba(255,255,255,.8), $cchmc-blue), url("../../assets/img/cchmc-pattern.PNG");
+  //background-attachment: fixed;
+  //background-color: #98cbcf;
+  //background-blend-mode: multiply;
+}
+
+.content {
+  padding: 1rem;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(max(300px, 40vw), 1fr));
   gap: 15px 15px;

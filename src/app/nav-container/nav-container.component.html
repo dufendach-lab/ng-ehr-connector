@@ -2,19 +2,14 @@
 
 <mat-sidenav-container class="sidenav-container">
 
-  <mat-sidenav #drawer class="sidenav" fixedInViewport position="end"
+  <mat-sidenav #drawer class="sidenav" fixedInViewport position="start"
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="(isHandset$ | async) === false">
+    [mode]="'over'"
+    [opened]="false">
+
     <mat-card-title *ngIf="isHandset$|async" class="app-title-nav">Connect 4 Care</mat-card-title>
     <mat-nav-list>
       <a mat-list-item (click)="closeSideNav()" routerLink="">Home</a>
-      <ng-container *ngIf="isPat; else Staff">
-        <a mat-list-item (click)="closeSideNav()" routerLink="dashboard">Connect to Hospital</a>
-        <a mat-list-item (click)="closeSideNav()" routerLink="gravidas">Pregnancies</a>
-        <a mat-list-item (click)="closeSideNav()" routerLink="edit/profile">Edit Profile</a>
-      </ng-container>
-
       <a mat-list-item (click)="logout()">Logout</a>
     </mat-nav-list>
 
@@ -26,7 +21,7 @@
       <div class="toolbar">
         <mat-toolbar color="primary" role="heading">
           <!-- Back button for mobile phones on every page except for the landing -->
-          <ng-container *ngIf="!isHomeRoute()">
+          <ng-container *ngIf="!isHomeRoute(); else Welcome;">
             <button mat-icon-button routerLink="/" *ngIf="(isHandset$ | async)">
               <mat-icon>navigate_before</mat-icon>
             </button>
@@ -37,7 +32,7 @@
           </button>
 
           <span fxFlex></span>
-          <button mat-icon-button (click)="drawer.toggle()" *ngIf="(isHandset$ | async)">
+          <button mat-icon-button (click)="drawer.toggle()" *ngIf="(isHandset$ | async) else LogoutButt">
             <mat-icon>menu</mat-icon>
           </button>
         </mat-toolbar>
@@ -51,7 +46,14 @@
   </mat-sidenav-content>
 </mat-sidenav-container>
 
-<ng-template #Staff>
-  <a mat-list-item (click)="closeSideNav()" routerLink="admin-list">Patient List</a>
-  <a mat-list-item (click)="closeSideNav()" routerLink="">Documents</a>
+<ng-template #Welcome>
+  <ng-container *ngIf="(isHandset$ | async)">
+    <h3>Welcome, {{nameConcat}}!</h3>
+  </ng-container>
+</ng-template>
+
+<ng-template #LogoutButt>
+  <button mat-icon-button (click)="logout()">
+    <mat-icon>logout</mat-icon>
+  </button>
 </ng-template>

@@ -7,6 +7,7 @@ import Bundle = fhirclient.FHIR.Bundle;
 import Observation = fhirclient.FHIR.Observation;
 import {FhirAuthService} from "../fhir-auth.service";
 import {Router} from "@angular/router";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 interface Task {
   name: string;
@@ -43,7 +44,10 @@ export class PatientDataComponent implements OnInit {
     ]
   }
 
-  constructor(private obsService: ObservationService, private fauth: FhirAuthService, private router: Router) { }
+  constructor(private obsService: ObservationService,
+              private fauth: FhirAuthService,
+              private router: Router,
+              private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void { // Calls to grab data from EHR
     this.obsService.getObservationByCategory("vital-signs").then(b => this.vitalsBundle.next(b));
@@ -74,12 +78,18 @@ export class PatientDataComponent implements OnInit {
   }
 
   switchPt() {
-    this.fauth.logOut();
-    this.router.navigate(['authorize']);
+    let key = sessionStorage.getItem('SMART_KEY');
+    if(key !== null) {
+      key = key.replace(/^"|"$/g, ''); // Remove quotes from smart key string
+      const parsed = JSON.parse(sessionStorage.getItem(key)!);
+      const params = this.fauth.getAuthParams({OrganizationName: '', FHIRPatientFacingURI: `${parsed.serverUrl}`});
+      this.fauth.authorize(params);
+    }
   }
 
   async submitData() {
     await new Promise(resolve => setTimeout(resolve, 1500));
+    this.openSnackBar('Successful!', 'Close');
     this.hasSent = true;
   //   if(this.task.subtasks[0].completed) {
   //     console.log('Vitals - is selected');
@@ -88,5 +98,12 @@ export class PatientDataComponent implements OnInit {
   //       console.log(val.entry)
   //     })
   //   }
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 3200,
+      panelClass: ['success-snackbar']
+    });
   }
 }

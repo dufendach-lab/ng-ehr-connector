@@ -18,6 +18,7 @@ import {LaunchComponent} from "./launch/launch.component";
 import {PatientNewComponent} from "./patient-new/patient-new.component";
 import {ToolsPageComponent} from "./tools-page/tools-page.component";
 import {PatientEditComponent} from "./patient-edit/patient-edit.component";
+import {StaffContainerComponent} from "./staff-container/staff-container.component";
 
 const routes: Routes = [
   {
@@ -33,36 +34,6 @@ const routes: Routes = [
         path: 'landing',
         component: LandingComponent,
         canActivate: [PatientGuardService]
-      },
-      {
-        path: 'staff/landing',
-        component: StaffLandingComponent,
-        canActivate: [RouteGuardService]
-      },
-      {
-        path: 'patient/:id',
-        component: PatientSearchComponent,
-        canActivate: [RouteGuardService]
-      },
-      {
-        path: 'add/patient',
-        component: PatientNewComponent,
-        canActivate: [RouteGuardService]
-      },
-      {
-        path: 'admin-list',
-        component: AdminListComponent,
-        canActivate: [RouteGuardService]
-      },
-      {
-        path: 'patient/edit/:id',
-        component: GravidasViewerComponent,
-        canActivate: [RouteGuardService]
-      },
-      {
-        path: 'patient/gravida/add/:id',
-        component: GravidasDetailEditorComponent,
-        canActivate: [RouteGuardService]
       },
       {
         path: 'dashboard',
@@ -106,6 +77,43 @@ const routes: Routes = [
         path: 'tools',
         component: ToolsPageComponent,
         canActivate: [PatientGuardService]
+      },
+    ]
+  },
+  {
+    path: 'admin',
+    component: StaffContainerComponent,
+    canActivate: [RouteGuardService],
+    children: [
+      // Add admin routes here
+      {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full',
+      },
+      {
+        path: 'home',
+        component: StaffLandingComponent,
+      },
+      {
+        path: 'patient/:id',
+        component: PatientSearchComponent,
+      },
+      {
+        path: 'patient/add',
+        component: PatientNewComponent,
+      },
+      {
+        path: 'patient/list',
+        component: AdminListComponent,
+      },
+      {
+        path: 'patient/edit/:id',
+        component: GravidasViewerComponent,
+      },
+      {
+        path: 'patient/gravida/add/:id',
+        component: GravidasDetailEditorComponent,
       },
     ]
   },

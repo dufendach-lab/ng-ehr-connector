@@ -21,3 +21,11 @@ $default-padding: 15px;
 .vertical-fill-container {
   height: 100%;
 }
+
+.success-snackbar {
+  background: #73b44a;
+  color: #f5f5f5;
+  button {
+    color: #f5f5f5;
+  }
+}

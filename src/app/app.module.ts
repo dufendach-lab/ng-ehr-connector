@@ -20,6 +20,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTableModule} from '@angular/material/table';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 
 import {FlexLayoutModule} from '@angular/flex-layout';
 
@@ -69,6 +70,7 @@ import {WINDOW_PROVIDERS} from "./util/window-provider";
 import { ToolsPageComponent } from './tools-page/tools-page.component';
 import { SafeSleepComponent } from './safe-sleep/safe-sleep.component';
 import { PatientEditComponent } from './patient-edit/patient-edit.component';
+import { StaffContainerComponent } from './staff-container/staff-container.component';
 
 @NgModule({
   declarations: [
@@ -104,6 +106,7 @@ import { PatientEditComponent } from './patient-edit/patient-edit.component';
     ToolsPageComponent,
     SafeSleepComponent,
     PatientEditComponent,
+    StaffContainerComponent,
   ],
   imports: [
     BrowserModule,
@@ -140,6 +143,7 @@ import { PatientEditComponent } from './patient-edit/patient-edit.component';
     LayoutModule,
     MatTableModule,
     MatTooltipModule,
+    MatSnackBarModule,
 
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,

@@ -128,10 +128,16 @@
       <button mat-raised-button
       color="primary"
       type="submit"
-      [disabled]="!userDataForm.valid"
+      [disabled]="!userDataForm.valid || hasSent"
       (click)="submit()"
-      style="margin-bottom: 4rem;">
-      Submit</button>
+      style="margin-right: 1rem;">
+      Send to Cincinnati Children's</button>
+      <button mat-raised-button
+              color="primary"
+              type="submit"
+              [disabled]="!hasSent"
+              (click)="nextPt()">
+        Next Infant</button>
 
     </ng-container>
   </mat-card>
