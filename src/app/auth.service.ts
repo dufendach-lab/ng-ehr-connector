@@ -1,28 +1,33 @@
-import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
-import { of } from 'rxjs';
-import { IRegistration } from 'src/Interfaces/IRegistration'
+import {Injectable} from '@angular/core';
+import {AngularFireAuth} from '@angular/fire/compat/auth';
+import {AngularFirestore} from '@angular/fire/compat/firestore';
+import {Observable, of} from 'rxjs';
+import {first, map, switchMap} from 'rxjs/operators';
+import {IRegistration, Role} from 'src/Interfaces/IRegistration'
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  readonly user = this.afa.user
+  readonly testing$: Observable<IRegistration | null | undefined>;
+
+  isLoggedIn = false;
 
   constructor(private afa: AngularFireAuth, private afs: AngularFirestore) {
     this.testing$ = this.afa.authState.pipe(switchMap(user => {
-      if(user) {
+      if (user) {
+        this.isLoggedIn = true;
         return this.afs.collection<IRegistration>('patients').doc(user.uid).valueChanges()
       } else {
+        this.isLoggedIn = false;
         return of(null)
       }
     }))
+
+    this.testing$.pipe(first()).subscribe(); // hack to be sure this is called at least once
   }
 
-  user = this.afa.user
-  testing$: Observable<IRegistration | null | undefined>;
 
   /*
   * Signs in to firebase with email & password
@@ -34,14 +39,14 @@ export class AuthService {
   /*
   * Signs in to firebase with phone number
   */
-  phoneLogin (phoneNum: string, appVerifier: any) {
+  phoneLogin(phoneNum: string, appVerifier: any) {
     return this.afa.signInWithPhoneNumber(phoneNum, appVerifier);
   }
 
   /*
   * Signs user out of firebase auth
   */
-  signout(){
+  signout() {
     this.afa.signOut().then(() => {
       console.log('Signed out of firebase authentication');
     }, (error) => {
@@ -53,7 +58,7 @@ export class AuthService {
   * Gets all patients from firestore 'patient' collection
   * Used in admin-list component
   */
-  GetAllPats():  Observable<IRegistration[]> {
+  GetAllPats(): Observable<IRegistration[]> {
     return this.afa.user.pipe( // Pipe from the "user" object because first need a signed-in user
       switchMap((user) => {
         if (user) {
@@ -71,7 +76,7 @@ export class AuthService {
       map(regPatient => { // This map converts a Firestore Timestamp to a JavaScript Date object
         const patients: IRegistration[] = [];
         regPatient.forEach(curPat => {
-          if(curPat.MotherDoB){
+          if (curPat.MotherDoB) {
             // const momDoB = curPat.MotherDoB.toDate();
             // curPat.MotherDoB = momDoB;
           }
@@ -86,24 +91,18 @@ export class AuthService {
   * Role based authentication helper functions
   * Used in route guard services
   */
-  isPatient(user: IRegistration): boolean {
-    const allowed = ['Patient']
-    return this.checkAuth(user, allowed);
+  isPatient() {
+    return this.hasRole(['Patient'])
   }
 
-  isEmployee(user: IRegistration): boolean {
-    const allowed = ['Admin', 'Staff']
-    return this.checkAuth(user, allowed)
+  isEmployee() {
+    return this.hasRole(['Admin', 'Staff'])
   }
 
   // determines if user has matching role
-  private checkAuth(user: IRegistration, allowedRoles: string[]): boolean {
-    if(!user) { return false }
-    for(const role of allowedRoles) {
-      if(user.roles[role]) {
-        return true
-      }
-    }
-    return false
+  hasRole(allowedRoles: Role[]) {
+    return this.testing$.pipe(
+      map(user => user?.roles && user.roles.some(r=> allowedRoles.indexOf(r) >= 0))
+    );
   }
 }

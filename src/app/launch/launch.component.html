@@ -33,7 +33,7 @@
   <app-registration></app-registration>
 
   <mat-divider></mat-divider>
-  <p>Have a phone?</p>
+  <p>Prefer to use a text message?</p>
   <button mat-button (click)="registerEnabled = false"  mat-raised-button color="primary" class="action-button">Login with Phone Number</button>
 </ng-template>
 
@@ -53,7 +53,7 @@
         <button mat-button>Contact Us</button>
       </div>
     </div>
-    <div class="main-area" style="filter:blur(2px)"></div>
+    <div class="main-area"></div>
 
       <div class="login-area-phone mat-elevation-z3" fxLayout="column" fxLayoutGap="15px">
         <ng-container *ngIf="!registerEnabled else register">
