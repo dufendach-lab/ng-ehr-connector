@@ -11,9 +11,9 @@
       <div class="twin-fruit-container" fxLayout="row" fxLayoutAlign="space-between">
         <mat-card class="mat-elevation-z0 fruit-card">
           <div fxLayout="column" fxLayoutAlign="center center">
-            <h3>Hades</h3>
+            <h3>Kareem</h3>
             <img style="border-radius: 50%" mat-card-md-image src="{{twinA.imgUrl}}" alt="fruit">
-            <p>Hades is about the {{twinA.type}} of a {{twinA.fruit}}!</p>
+            <p>Kareem is about the {{twinA.type}} of a {{twinA.fruit}}!</p>
             <p>Weighing approximately {{twinA.weight}}oz and a length of {{twinA.length}}</p>
             <p></p>
           </div>
@@ -21,9 +21,9 @@
         <mat-divider [vertical]="true" style="margin-bottom: 20px; margin-top: 20px; border-right-color: whitesmoke;"></mat-divider>
         <mat-card class="mat-elevation-z0 fruit-card">
           <div fxLayout="column" fxLayoutAlign="center center">
-            <h3>Athena</h3>
+            <h3>Serena</h3>
             <img style="border-radius: 50%" mat-card-md-image src="{{twinB.imgUrl}}" alt="fruit">
-            <p>Athena is about the {{twinB.type}} of a {{twinB.fruit}}!</p>
+            <p>Serena is about the {{twinB.type}} of a {{twinB.fruit}}!</p>
             <p>Weighing approximately {{twinB.weight}}oz and a length of {{twinB.length}}</p>
           </div>
         </mat-card>
@@ -120,9 +120,9 @@
              (click)="tooltip.show()"
              #tooltip="matTooltip"
              matTooltipPosition="above">
-          <p>Hades</p>
+          <p>Kareem</p>
           <img style="border-radius: 50%" mat-card-md-image src="{{this.twinA.imgUrl}}" alt="fruit">
-          <p style="font-size: 12px; font-style: italic">Hades is about the {{twinA.type}} of a {{twinA.fruit}}!</p>
+          <p style="font-size: 12px; font-style: italic">Kareem is about the {{twinA.type}} of a {{twinA.fruit}}!</p>
         </div>
         <mat-divider [vertical]="true" style="margin-bottom: 20px; margin-top: 20px; border-right-color: whitesmoke;"></mat-divider>
         <div fxLayout="column" fxLayoutAlign="center center"
@@ -130,9 +130,9 @@
              (click)="tooltip2.show()"
              #tooltip2="matTooltip"
              matTooltipPosition="above">
-          <p>Athena</p>
+          <p>Serena</p>
           <img style="border-radius: 50%" mat-card-md-image src="{{this.twinB.imgUrl}}" alt="fruit">
-          <p style="font-size: 12px; font-style: italic">Athena is about the {{twinB.type}} of a {{twinB.fruit}}!</p>
+          <p style="font-size: 12px; font-style: italic">Serena is about the {{twinB.type}} of a {{twinB.fruit}}!</p>
         </div>
       </div>
     </div>
