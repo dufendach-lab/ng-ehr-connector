@@ -77,7 +77,7 @@ export class LandingComponent implements OnInit {
       }
     })
     this.twinA = this._getFruit(18);
-    this.twinB = this._getFruit(28.2);
+    this.twinB = this._getFruit(32);
   }
 
   ngOnInit(): void {}
