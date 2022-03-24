@@ -23,7 +23,6 @@ export class AdminListComponent implements OnInit {
   * Constructor grabs all patients and stores in patientObj
   */
   constructor(private authSer: AuthService, private routing: Router,) {
-    console.log('IM HERE IM HERE');
     this.allPatients = this.authSer.GetAllPats();
     this.allPatients.subscribe(value => {
       value.forEach(val => {

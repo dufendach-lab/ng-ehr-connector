@@ -11,7 +11,9 @@ export class DashboardComponent implements OnInit {
 
   patient = this.ps.patient.pipe(filter(p => p !== null && p !== undefined)); // create patient
 
-  constructor(private ps: PatientService) { }
+  constructor(private ps: PatientService) {
+    console.log(this.patient)
+  }
 
   ngOnInit(): void {
   }

@@ -12,15 +12,15 @@ export class AuthService {
   readonly user = this.afa.user
   readonly testing$: Observable<IRegistration | null | undefined>;
 
-  isLoggedIn;
+  // isLoggedIn;
 
   constructor(private afa: AngularFireAuth, private afs: AngularFirestore) {
     this.testing$ = this.afa.authState.pipe(switchMap(user => {
       if (user) {
-        this.isLoggedIn = true;
+        // this.isLoggedIn = true;
         return this.afs.collection<IRegistration>('patients').doc(user.uid).valueChanges()
       } else {
-        this.isLoggedIn = false;
+        // this.isLoggedIn = false;
         return of(null)
       }
     }))
