@@ -7,14 +7,16 @@ import { PatientService } from '../patient.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
 
   patient = this.ps.patient.pipe(filter(p => p !== null && p !== undefined)); // create patient
 
   constructor(private ps: PatientService) {
-    console.log(this.patient)
+    // console.log(this.patient)
+
+    this.patient.subscribe(pt => console.log(pt))
+
+
   }
 
-  ngOnInit(): void {
-  }
 }
