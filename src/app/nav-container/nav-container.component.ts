@@ -7,6 +7,7 @@ import {FhirAuthService} from "../fhir-auth.service";
 import {AuthService} from "../auth.service";
 import { IRegistration } from 'src/Interfaces/IRegistration';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import {PatientStateService, PregState} from "../patient-state.service";
 
 @Component({
   selector: 'app-nav-container',
@@ -29,11 +30,16 @@ export class NavContainerComponent implements OnInit {
   nameConcat = '';
   isPat = true;
 
+  userState: PregState | undefined;
+  colorState: string = '#ca5699';
+  controlState = PregState;
+
   constructor(private breakpointObserver: BreakpointObserver,
               public router: Router,
               private auth: FhirAuthService,
               private ehrAuth: AuthService,
               private afs: AngularFirestore,
+              private stateService: PatientStateService
   ) {
     this.userInfo = this.ehrAuth.user.pipe(
       filter(u => u != null),
@@ -43,6 +49,17 @@ export class NavContainerComponent implements OnInit {
         .get().pipe(map(doc => doc.data()))
       )
     )
+
+    this.stateService.getPatientState().subscribe(data => {
+      if (data) {
+        this.userState = this.stateService.getStateEnum(data[data.length - 1].pregnancyStatus);
+        if (this.userState) {
+          this.colorState = this.stateService.setColor(this.userState);
+        }
+      }
+    });
+
+
   }
 
   ngOnInit(): void {

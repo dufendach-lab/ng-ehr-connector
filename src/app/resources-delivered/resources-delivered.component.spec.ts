@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SafeSleepComponent } from './safe-sleep.component';
+import { ResourcesDeliveredComponent } from './resources-delivered.component';
 
-describe('SafeSleepComponent', () => {
-  let component: SafeSleepComponent;
-  let fixture: ComponentFixture<SafeSleepComponent>;
+describe('ResourcesDeliveredComponent', () => {
+  let component: ResourcesDeliveredComponent;
+  let fixture: ComponentFixture<ResourcesDeliveredComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SafeSleepComponent ]
+      declarations: [ ResourcesDeliveredComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SafeSleepComponent);
+    fixture = TestBed.createComponent(ResourcesDeliveredComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

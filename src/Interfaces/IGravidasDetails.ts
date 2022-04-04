@@ -4,5 +4,6 @@ export interface IGravidasDetails {
   hospital: string[];
   parity: number;
   givenBirth: boolean;
+  pregnancyStatus: string;
   gravidasTitle: string;
 }

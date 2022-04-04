@@ -1,0 +1,67 @@
+<div class="pane-container" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between">
+
+  <div class="button-container">
+    <mat-button-toggle-group [vertical]="true" #group="matButtonToggleGroup" [value]="selectedVal" (change)="onValChange(group.value)">
+
+      <mat-button-toggle (click)="firstPaneClicked()" value="first">Selective Fetoscopic Laser Photocoagulation</mat-button-toggle>
+      <mat-button-toggle (click)="secondPaneClicked()" value="second">Resources</mat-button-toggle>
+      <mat-button-toggle (click)="thirdPaneClicked()" value="third">Contact</mat-button-toggle>
+
+    </mat-button-toggle-group>
+  </div>
+
+  <div class="content-pane">
+    <ng-container *ngIf="selectedVal == 'first'; then First; else Second"></ng-container>
+  </div>
+
+</div>
+
+<ng-template #First>
+  <ng-container *ngIf="!(isHandset$ | async); else ShrinkVid">
+    <div>
+      <app-yt-player [vidToGet]="'TTS'"></app-yt-player>
+    </div>
+  </ng-container>
+
+  <ng-template #ShrinkVid>
+    <div class="yt-container">
+      <app-yt-player [vidToGet]="'TTS'"></app-yt-player>
+    </div>
+  </ng-template>
+</ng-template>
+
+<ng-template #Second>
+  <ng-container *ngIf="selectedVal == 'second'; else Third">
+    <div>
+
+      <div>
+        <mat-label>Resources</mat-label>
+        <p>Click here to view all of the resources we provide. From pregnancy to post birth, we provide help with your high-risk pregnancy</p>
+        <div>
+          <div></div>
+          <button mat-raised-button routerLink="/tools">Go</button>
+        </div>
+      </div>
+
+    </div>
+  </ng-container>
+</ng-template>
+
+<ng-template #Third>
+  <ng-container *ngIf="selectedVal == 'third'; else First">
+    <div>
+
+      <div>
+        <mat-label>Contact</mat-label>
+        <p>Click here to get in contact with a Fetal Care Center specialist for any questions regarding your pregnancy. If you are having an emergency. Please dial 911 immediately.</p>
+        <div>
+          <div></div>
+         <a mat-raised-button
+          href="https://www.cincinnatichildrens.org/service/f/fetal-care"
+          target="_blank">Go</a>
+        </div>
+      </div>
+
+    </div>
+  </ng-container>
+</ng-template>

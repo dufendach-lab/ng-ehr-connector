@@ -1,4 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import {Observable} from "rxjs";
+import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
+import {map, shareReplay} from "rxjs/operators";
 
 @Component({
   selector: 'app-yt-player',
@@ -9,7 +12,13 @@ export class YtPlayerComponent implements OnInit {
   @Input('vidToGet') vidId: string | undefined = undefined;
   id: string = '';
 
-  constructor() {
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
+
+  constructor(private breakpointObserver: BreakpointObserver) {
    }
 
   ngOnInit(): void {

@@ -1,0 +1,35 @@
+@use '@angular/material' as mat;
+@import 'src/cchmc';
+
+.pane-container {
+  padding: 2rem 0 2rem 0;
+}
+
+.content-pane {
+  max-width: 640px;
+  max-height: 390px;
+  padding: 1rem;
+
+  .yt-container {
+    max-width: 390px;
+    margin: auto;
+  }
+}
+
+.button-container {
+  margin: auto;
+
+  mat-button-toggle-group {
+    min-height: 360px;
+    border-radius: 10px;
+
+    mat-button-toggle{
+      height: 120px;
+      white-space: normal!important;
+
+      ::ng-deep.mat-button-toggle-button {
+        height: 100%;
+      }
+    }
+  }
+}

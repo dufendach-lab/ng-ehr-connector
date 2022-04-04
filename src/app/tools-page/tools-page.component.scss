@@ -1,25 +1,9 @@
-mat-card {
-  //background-color: rgba(245, 245, 245, .5);
-}
-mat-expansion-panel {
-  border-radius: 10px;
-}
-mat-card-title {
-  text-align: center;
-}
-
-.info-container {
-  margin: 0.5rem;
-  line-height: 30px;
-  font-size: 18px;
-
-  span {
-    font-weight: bolder;
-  }
-}
-
 .desktop-card {
   width: 60%;
   margin-left: auto;
   margin-right: auto;
+}
+
+::ng-deep.mat-list-base {
+  padding-top: 0;
 }

@@ -7,7 +7,7 @@
     [mode]="'over'"
     [opened]="false">
 
-    <mat-card-title *ngIf="isHandset$|async" class="app-title-nav">Connect 4 Care</mat-card-title>
+    <mat-card-title *ngIf="isHandset$|async" class="app-title-nav" [style.background-color]="colorState">Connect 4 Care</mat-card-title>
     <mat-nav-list>
       <a mat-list-item (click)="closeSideNav()" routerLink="">Home</a>
       <a mat-list-item (click)="logout()">Logout</a>
@@ -19,7 +19,8 @@
     <div class="content-container">
 
       <div class="toolbar">
-        <mat-toolbar color="primary" role="heading">
+<!--        <mat-toolbar role="heading" style="background-color: rgba(245,245,245,0)" [style.color]="colorState">-->
+        <mat-toolbar role="heading" style="background-color: rgba(245,245,245,0)" [style.color]="colorState">
           <!-- Back button for mobile phones on every page except for the landing -->
           <ng-container *ngIf="!isHomeRoute(); else Welcome;">
             <button mat-icon-button routerLink="/" *ngIf="(isHandset$ | async)">
@@ -53,7 +54,12 @@
 </ng-template>
 
 <ng-template #LogoutButt>
-  <button mat-icon-button (click)="logout()">
-    <mat-icon>logout</mat-icon>
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>person</mat-icon>
   </button>
 </ng-template>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item routerLink="edit/profile">Edit Profile</button>
+  <button mat-menu-item (click)="logout()">Logout</button>
+</mat-menu>
