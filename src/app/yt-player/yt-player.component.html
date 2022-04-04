@@ -1,9 +1,19 @@
-<div #container>
+<div *ngIf="!(isHandset$ | async); else Phone">
   <youtube-player
   [videoId]="id"
-  [height]="container.offsetWidth / 2"
-  [width]="container.offsetWidth - 20">
+  *ngIf="id">
   </youtube-player>
 </div>
+
+<ng-template #Phone>
+  <div #container>
+    <youtube-player
+      [videoId]="id"
+      [width]="container.offsetWidth"
+      [height]="(container.offsetWidth / (16/9))"
+      *ngIf="id">
+    </youtube-player>
+  </div>
+</ng-template>
 
 

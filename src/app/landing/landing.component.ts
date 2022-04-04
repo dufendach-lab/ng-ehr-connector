@@ -1,12 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FhirAuthService} from "../fhir-auth.service";
-import { AuthService } from '../auth.service';
+import {AuthService} from '../auth.service';
 import {Observable} from "rxjs";
-import { IGravidasDetails } from 'src/Interfaces/IGravidasDetails';
-import { MatDialog } from '@angular/material/dialog';
-import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
-import { GravidasService } from '../gravidas.service';
-import { TooltipPosition } from '@angular/material/tooltip';
+import {IGravidasDetails} from 'src/Interfaces/IGravidasDetails';
+import {MatDialog} from '@angular/material/dialog';
+import {GravidasService} from '../gravidas.service';
+import {TooltipPosition} from '@angular/material/tooltip';
 import {Router} from "@angular/router";
 import {filter, map, shareReplay, switchMap} from "rxjs/operators";
 import {IRegistration} from "../../Interfaces/IRegistration";
@@ -14,6 +13,7 @@ import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 import {IFruit} from "../../Interfaces/IFruit";
 import * as maFruits from "../../assets/fruits.json";
+import {PatientStateService, PregState} from "../patient-state.service";
 
 @Component({
   selector: 'app-landing',
@@ -23,6 +23,8 @@ import * as maFruits from "../../assets/fruits.json";
 
 export class LandingComponent implements OnInit {
 
+  controlState = PregState;
+
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
@@ -30,10 +32,10 @@ export class LandingComponent implements OnInit {
     );
 
   gravidasDetails!: Observable<IGravidasDetails[] | undefined>;
-  hasBirthed: boolean = false;
+  pregState: PregState | undefined;
+  stateColor: string = '';
   position: TooltipPosition = "below";
   isAuthorized = this.fhirAuth.authorized;
-  email = '';
   userInfo;
   name;
   user = this.auth.user;
@@ -52,12 +54,12 @@ export class LandingComponent implements OnInit {
     public dialog: MatDialog,
     private gravService: GravidasService,
     private router: Router,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private stateService: PatientStateService
   ) {
     this.gravService.getGravidas().subscribe(gravidas => {
       if(gravidas){
         const lastIndex = gravidas.length - 1;
-        this.hasBirthed = gravidas[lastIndex].givenBirth;
         this.diagnosis = gravidas[lastIndex].Diagnosis;
         this.eDD = gravidas[lastIndex].EstDueDate;
         this.gestAge = this.gestationalAgeCalc(this.eDD);
@@ -76,40 +78,20 @@ export class LandingComponent implements OnInit {
         this.name = user.firstName + ' ' + user.lastName
       }
     })
-    this.twinA = this._getFruit(18);
-    this.twinB = this._getFruit(32);
+    this.stateService.getPatientState().subscribe(data => {
+      if (data) {
+        this.pregState = this.stateService.getStateEnum(data[data.length - 1].pregnancyStatus);
+        if(this.pregState || this.pregState == 0) { // Check for 0 or else it will be false
+          this.stateColor = this.stateService.setColor(this.pregState);
+        }
+      }
+    });
+
+    this.twinA = this._getFruit(4);
+    this.twinB = this._getFruit(3);
   }
 
   ngOnInit(): void {}
-
-  /*
-  * Dialog for confirming birth
-  */
-  openDialog() {
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      width: '300px',
-      data: false
-    });
-
-    dialogRef.afterClosed().subscribe(res => {
-      if(res) {
-        this.submitBasicInfo(res);
-      }
-    })
-  }
-
-  /*
-  * Changes birth status to true after submitBasicInfo
-  */
-  changeBirthStatus() {
-    this.gravService.getGravidas().subscribe(grav => {
-      if(grav) {
-        const ltg = grav.length - 1;
-        grav[ltg].givenBirth = true;
-        this.gravService.changeGravidasStatus(grav[ltg]);
-      }
-    });
-  }
 
   /*
   * Pushes EDD back a week if baby still in hospital
@@ -122,19 +104,6 @@ export class LandingComponent implements OnInit {
         this.gravService.deleteDocDate(grav[lgt-1]);
       }
     });
-  }
-
-  // Takes in the first data received about the birth!
-  submitBasicInfo(info): void {
-    console.log(info);
-    if(info.status === "born" && info.inHospital === "yes") {
-      this.changeEDD();
-      this.changeBirthStatus();
-    } else if(info.status === "born" || info.status === "died") {
-      this.changeBirthStatus();
-    } else {
-      this.changeEDD();
-    }
   }
 
   /*

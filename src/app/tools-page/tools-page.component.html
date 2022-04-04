@@ -1,13 +1,22 @@
 <mat-card *ngIf="(isHandset$ | async); else Desktop">
-  <mat-card-content>
-    <app-safe-sleep></app-safe-sleep>
-  </mat-card-content>
+  <mat-card-title>Resources</mat-card-title>
+  <mat-tab-group animationDuration="0ms">
+    <mat-tab label="Diagnosis"><app-resources-diagnosis></app-resources-diagnosis></mat-tab>
+    <mat-tab label="Pregnant"><app-resources-pregnant></app-resources-pregnant></mat-tab>
+    <mat-tab label="Delivered"><app-resources-delivered></app-resources-delivered></mat-tab>
+  </mat-tab-group>
 </mat-card>
 
 <ng-template #Desktop>
   <div class="desktop-card">
     <mat-card>
-      <app-safe-sleep></app-safe-sleep>
+      <mat-card-title>Resources</mat-card-title>
+
+      <mat-tab-group animationDuration="0ms">
+        <mat-tab label="Diagnosis"><app-resources-diagnosis></app-resources-diagnosis></mat-tab>
+        <mat-tab label="Pregnant"><app-resources-pregnant></app-resources-pregnant></mat-tab>
+        <mat-tab label="Delivered"><app-resources-delivered></app-resources-delivered></mat-tab>
+      </mat-tab-group>
     </mat-card>
   </div>
 </ng-template>

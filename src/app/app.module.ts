@@ -21,6 +21,11 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatTableModule} from '@angular/material/table';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatTabsModule} from "@angular/material/tabs";
+import {MatGridListModule} from "@angular/material/grid-list";
+import {MatMenuModule} from "@angular/material/menu";
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
 
 import {FlexLayoutModule} from '@angular/flex-layout';
 
@@ -68,9 +73,13 @@ import {AngularFirestoreModule} from "@angular/fire/compat/firestore";
 import {AngularFireAuthModule} from "@angular/fire/compat/auth";
 import {WINDOW_PROVIDERS} from "./util/window-provider";
 import { ToolsPageComponent } from './tools-page/tools-page.component';
-import { SafeSleepComponent } from './safe-sleep/safe-sleep.component';
+import { ResourcesDiagnosisComponent } from './resources-diagnosis/resources-diagnosis.component';
 import { PatientEditComponent } from './patient-edit/patient-edit.component';
 import { StaffContainerComponent } from './staff-container/staff-container.component';
+import { PatientStateComponent } from './patient-state/patient-state.component';
+import { ResourcesInfoPaneComponent } from './resources-info-pane/resources-info-pane.component';
+import { ResourcesPregnantComponent } from './resources-pregnant/resources-pregnant.component';
+import { ResourcesDeliveredComponent } from './resources-delivered/resources-delivered.component';
 
 @NgModule({
   declarations: [
@@ -104,9 +113,13 @@ import { StaffContainerComponent } from './staff-container/staff-container.compo
     StaffLandingComponent,
     PatientNewComponent,
     ToolsPageComponent,
-    SafeSleepComponent,
+    ResourcesDiagnosisComponent,
     PatientEditComponent,
     StaffContainerComponent,
+    PatientStateComponent,
+    ResourcesInfoPaneComponent,
+    ResourcesPregnantComponent,
+    ResourcesDeliveredComponent,
   ],
   imports: [
     BrowserModule,
@@ -144,8 +157,14 @@ import { StaffContainerComponent } from './staff-container/staff-container.compo
     MatTableModule,
     MatTooltipModule,
     MatSnackBarModule,
+    MatStepperModule,
+    MatTabsModule,
+    MatGridListModule,
+    MatMenuModule,
+    MatButtonToggleModule,
 
-    AngularFireModule.initializeApp(environment.firebase),
+
+  AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
   ],
