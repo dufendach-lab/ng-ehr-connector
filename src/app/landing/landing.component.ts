@@ -43,6 +43,7 @@ export class LandingComponent implements OnInit {
   eDD;
   gestAge = '';
   iEGAWeeks: number = 0;
+  iEGADays: string = '';
   twinA = {} as IFruit;
   twinB = {} as IFruit;
   fruits: IFruit[] = maFruits;
@@ -117,9 +118,9 @@ export class LandingComponent implements OnInit {
     const iGestationalAgeInDays = 280 - daysUntilDD;
     const fGestationalAgeInWeeks = iGestationalAgeInDays / 7;
     this.iEGAWeeks = Math.floor( fGestationalAgeInWeeks );
-    const iEGADays = ((fGestationalAgeInWeeks % 1)*6).toFixed(0);
+    this.iEGADays = ((fGestationalAgeInWeeks % 1)*6).toFixed(0);
     // this.momsFruits = this.fruits[this.iEGAWeeks - 16]; // Set fruit
-    let gestational = this.iEGAWeeks.toString() + ' weeks & ' + iEGADays.toString() + ' days';
+    let gestational = this.iEGAWeeks.toString();
     return gestational;
   }
 
