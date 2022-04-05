@@ -2,7 +2,7 @@
 
 <mat-sidenav-container class="sidenav-container">
 
-  <mat-sidenav #drawer class="sidenav" fixedInViewport position="start"
+  <mat-sidenav #drawer class="sidenav" fixedInViewport position="end"
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="'over'"
     [opened]="false">
@@ -10,13 +10,15 @@
     <mat-card-title *ngIf="isHandset$|async" class="app-title-nav" [style.background-color]="colorState">Connect 4 Care</mat-card-title>
     <mat-nav-list>
       <a mat-list-item (click)="closeSideNav()" routerLink="">Home</a>
+      <a mat-list-item (click)="closeSideNav()" routerLink="/resources">Diagnosis</a>
+      <a mat-list-item (click)="closeSideNav()" routerLink="/tools">Resources</a>
       <a mat-list-item (click)="logout()">Logout</a>
     </mat-nav-list>
 
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <div class="content-container">
+<!--    <div class="content-container">-->
 
       <div class="toolbar">
 <!--        <mat-toolbar role="heading" style="background-color: rgba(245,245,245,0)" [style.color]="colorState">-->
@@ -43,7 +45,7 @@
         <router-outlet></router-outlet>
       </div>
 
-    </div>
+<!--    </div>-->
   </mat-sidenav-content>
 </mat-sidenav-container>
 

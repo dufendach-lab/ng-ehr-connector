@@ -1,0 +1,127 @@
+<mat-accordion class="main-accordian">
+  <mat-expansion-panel [expanded]="step === 0" [disabled]="!canOpenPanelOne" (opened)="setStep(0)" hideToggle>
+    <mat-expansion-panel-header>
+
+      <mat-panel-title>Fetal Care Consultation</mat-panel-title>
+      <mat-panel-description><mat-icon>question_answer</mat-icon></mat-panel-description>
+
+    </mat-expansion-panel-header>
+
+    <div class="expansion-content">
+      <div class="center-button">
+        <button mat-raised-button routerLink="/resources" class="mat-primary">Diagnosis Information</button>
+      </div>
+
+      <p>We have compiled resources specific to your fetal diagnosis. What it is, the various treatments,
+        and the prognosis. There is also a video demonstrating the procedure so you have a better understanding
+      of what to expect.</p>
+
+      <br>
+
+      <div style="margin-left: -16px; margin-right: -16px">
+        <app-yt-player [vidToGet]="'TTS'"></app-yt-player>
+      </div>
+
+      <br><br>
+
+      <div class="center-button">
+        <button mat-raised-button routerLink="/tools" class="mat-primary">Prepare for Visit</button>
+      </div>
+
+      <p>As you prepare your visit to Cincinnati Children's, use this resource to make this process easier.
+        Things like local hotels, local food, and guidance through the facilities here at Children's.</p>
+    </div>
+
+    <p style="font-style: italic; font-size: 14px; margin-top: 2rem;">When your consultation has concluded and you are heading home, click the box below to confirm and proceed to the next section.</p>
+
+    <mat-action-row>
+      <mat-checkbox #checked1 color="primary">Confirm to proceed</mat-checkbox>
+      <button mat-stroked-button color="primary" (click)="nextStep()" [disabled]="checked1.checked == false">To Home</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel [expanded]="step === 1" [disabled]="!canOpenPanelTwo" (opened)="setStep(1)" hideToggle>
+    <mat-expansion-panel-header>
+
+      <mat-panel-title>Pregnant</mat-panel-title>
+      <mat-panel-description><mat-icon>pregnant_woman</mat-icon></mat-panel-description>
+
+    </mat-expansion-panel-header>
+
+    <div class="expansion-content">
+      <div class="center-button">
+        <button mat-raised-button routerLink="/tools" class="mat-primary">Resources</button>
+      </div>
+
+      <p>We have compiled a list of resources to assist you in these next few weeks leading up to your babies births. Things like healthy dieting,
+        exercise, travel and more can be found here.</p>
+
+      <div class="center-button">
+        <button mat-raised-button class="mat-primary">Contact Now</button>
+      </div>
+
+      <p>For any questions or concerns regarding your pregnancy while you are home, use the button above
+      to get in touch with a physician.</p>
+
+    </div>
+
+    <p style="font-style: italic; font-size: 14px; margin-top: 2rem;">When you have delivered, confirm below and click the button to proceed.</p>
+
+    <mat-action-row>
+      <mat-checkbox #checked2 color="primary">Confirm</mat-checkbox>
+      <button mat-stroked-button color="primary" (click)="nextStep()" [disabled]="checked2.checked == false">To Delivered</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel [expanded]="step === 2" [disabled]="!canOpenPanelThree" (opened)="setStep(2)" hideToggle>
+    <mat-expansion-panel-header>
+
+      <mat-panel-title>Delivered</mat-panel-title>
+      <mat-panel-description><mat-icon>child_friendly</mat-icon></mat-panel-description>
+
+    </mat-expansion-panel-header>
+
+    <div class="expansion-content">
+      <div class="center-button">
+        <button mat-raised-button routerLink="/authorize" class="mat-primary">Connect to my baby's Medical Record</button>
+      </div>
+
+      <p>At Cincinnati Children's we strive for the best care for our patients. Now that you have delivered, you can connect to your babies
+        medical records. Sending this information to Cincinnati Children's will help us improve care for all patients. Read more about it on our connection page.</p>
+
+      <div class="center-button">
+        <button mat-raised-button routerLink="/authorize" class="mat-primary">Tracking</button>
+      </div>
+
+      <p>To track your newborn's height, length, feeding, sleeping and more, head to our tracking page.
+      From here, you can get a visual display on the progress your newborn is making.</p>
+
+    </div>
+
+    <p style="font-style: italic; font-size: 14px; margin-top: 2rem;">If you are still in the NICU, confirm below and click the button for more resources that may be helpful to you.</p>
+
+    <mat-action-row>
+      <mat-checkbox #checked3 color="primary">Confirm</mat-checkbox>
+      <button mat-stroked-button color="primary" (click)="nextStep()" [disabled]="checked3.checked == false">In Hospital</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel [expanded]="step === 3" [disabled]="!canOpenPanelFour" (opened)="setStep(3)" hideToggle>
+    <mat-expansion-panel-header>
+
+      <mat-panel-title>Out of Hospital</mat-panel-title>
+      <mat-panel-description><mat-icon>health_and_safety</mat-icon></mat-panel-description>
+
+    </mat-expansion-panel-header>
+
+    <div class="expansion-content">
+      <div class="center-button"><button mat-raised-button color="primary">Growth Tracker</button></div>
+      <p>For tracking your infants growth, use the tool above. It contains graphs so you can get a
+        visual of the growth over time. You can automatically update this tracker and it's contents
+      by connecting your infants medical records the same way you did before.</p>
+    </div>
+  </mat-expansion-panel>
+
+
+</mat-accordion>
+
