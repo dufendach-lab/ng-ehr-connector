@@ -2,7 +2,7 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { MatDialog } from '@angular/material/dialog';
+import {APP_TITLE} from "../app-config.service";
 
 @Component({
   selector: 'app-launch',
@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class LaunchComponent implements OnInit {
   registerEnabled = false;
+  title = APP_TITLE;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
