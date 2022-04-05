@@ -34,7 +34,7 @@
 
 <ng-template #PhConsultation>
   <div class="welcome-container" [style.background-color]="stateColor">
-    <p><span>You are</span><br> {{ this.gestAge }} <sup>{{this.iEGADays}}</sup> weeks pregnant</p>
+    <p>Currently {{ gestAge }}<sup>{{iEGADays}}</sup> weeks</p>
   </div>
   <div class="ph-consultation" [style.background-color]="stateColor">
     <p>The purpose of this app is to provide better care for our patients at Cincinnati Children's. See
@@ -45,7 +45,7 @@
 <ng-template #PhPregnant>
   <div class="fruit-facts" [style.background-color]="stateColor" *ngIf="pregState === controlState.HOME; else PhDelivered">
     <div class="welcome-container" [style.background-color]="stateColor">
-      <p style="font-size: 36px;"><span>You are</span><br> {{ this.gestAge }} <sup>{{this.iEGADays}}</sup> weeks pregnant</p>
+      <p style="font-size: 36px;"><span>You are</span><br> {{ gestAge }} <sup>{{iEGADays}}</sup> weeks pregnant</p>
     </div>
     <div class="twin-fruit-container" fxLayout="row" fxLayoutAlign="space-between">
       <mat-card class="mat-elevation-z0 fruit-card">
@@ -212,7 +212,7 @@
              #tooltip="matTooltip"
              matTooltipPosition="above">
           <p>Kareem</p>
-          <img style="border-radius: 50%" mat-card-md-image src="{{this.twinA.imgUrl}}" alt="fruit" width="112px" height="112px">
+          <img style="border-radius: 50%" mat-card-md-image src="{{twinA.imgUrl}}" alt="fruit" width="112px" height="112px">
           <p style="font-size: 12px; font-style: italic">Kareem is about the {{twinA.type}} of a {{twinA.fruit}}!</p>
         </div>
         <mat-divider [vertical]="true" style="margin-bottom: 20px; margin-top: 20px; border-right-color: whitesmoke;"></mat-divider>
@@ -222,7 +222,7 @@
              #tooltip2="matTooltip"
              matTooltipPosition="above">
           <p>Serena</p>
-          <img style="border-radius: 50%" mat-card-md-image src="{{this.twinB.imgUrl}}" alt="fruit" width="112px" height="112px">
+          <img style="border-radius: 50%" mat-card-md-image src="{{twinB.imgUrl}}" alt="fruit" width="112px" height="112px">
           <p style="font-size: 12px; font-style: italic">Serena is about the {{twinB.type}} of a {{twinB.fruit}}!</p>
         </div>
       </div>
@@ -243,7 +243,7 @@
              #tooltip="matTooltip"
              matTooltipPosition="above">
           <p>Kareem</p>
-          <img style="border-radius: 50%" mat-card-md-image src="{{this.twinA.imgUrl}}" alt="fruit" width="112px" height="112px">
+          <img style="border-radius: 50%" mat-card-md-image src="{{twinA.imgUrl}}" alt="fruit" width="112px" height="112px">
           <p style="font-size: 12px; font-style: italic">Kareem is about the {{twinA.type}} of a {{twinA.fruit}}!</p>
         </div>
         <mat-divider [vertical]="true" style="margin-bottom: 20px; margin-top: 20px; border-right-color: whitesmoke;"></mat-divider>
@@ -253,7 +253,7 @@
              #tooltip2="matTooltip"
              matTooltipPosition="above">
           <p>Serena</p>
-          <img style="border-radius: 50%" mat-card-md-image src="{{this.twinB.imgUrl}}" alt="fruit" width="112px" height="112px">
+          <img style="border-radius: 50%" mat-card-md-image src="{{twinB.imgUrl}}" alt="fruit" width="112px" height="112px">
           <p style="font-size: 12px; font-style: italic">Serena is about the {{twinB.type}} of a {{twinB.fruit}}!</p>
         </div>
       </div>
@@ -273,7 +273,7 @@
            #tooltip="matTooltip"
            matTooltipPosition="above">
         <p>Kareem</p>
-        <img style="border-radius: 50%" mat-card-md-image src="{{this.twinA.imgUrl}}" alt="fruit" width="112px" height="112px">
+        <img style="border-radius: 50%" mat-card-md-image src="{{twinA.imgUrl}}" alt="fruit" width="112px" height="112px">
         <p style="font-size: 12px; font-style: italic">Kareem is about the {{twinA.type}} of a {{twinA.fruit}}!</p>
       </div>
       <mat-divider [vertical]="true" style="margin-bottom: 20px; margin-top: 20px; border-right-color: whitesmoke;"></mat-divider>
@@ -283,7 +283,7 @@
            #tooltip2="matTooltip"
            matTooltipPosition="above">
         <p>Serena</p>
-        <img style="border-radius: 50%" mat-card-md-image src="{{this.twinB.imgUrl}}" alt="fruit" width="112px" height="112px">
+        <img style="border-radius: 50%" mat-card-md-image src="{{twinB.imgUrl}}" alt="fruit" width="112px" height="112px">
         <p style="font-size: 12px; font-style: italic">Serena is about the {{twinB.type}} of a {{twinB.fruit}}!</p>
       </div>
     </div>
