@@ -80,6 +80,7 @@ import { PatientStateComponent } from './patient-state/patient-state.component';
 import { ResourcesInfoPaneComponent } from './resources-info-pane/resources-info-pane.component';
 import { ResourcesPregnantComponent } from './resources-pregnant/resources-pregnant.component';
 import { ResourcesDeliveredComponent } from './resources-delivered/resources-delivered.component';
+import { PatientStateNewComponent } from './patient-state-new/patient-state-new.component';
 
 @NgModule({
   declarations: [
@@ -120,6 +121,7 @@ import { ResourcesDeliveredComponent } from './resources-delivered/resources-del
     ResourcesInfoPaneComponent,
     ResourcesPregnantComponent,
     ResourcesDeliveredComponent,
+    PatientStateNewComponent,
   ],
   imports: [
     BrowserModule,
