@@ -46,7 +46,6 @@ export class DataTableComponent implements OnInit, OnChanges {
     }
   }
 
-
   /**
    * Analyzes the data sent, then places into data array
    * @returns

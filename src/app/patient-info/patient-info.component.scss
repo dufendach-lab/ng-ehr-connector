@@ -1,14 +1,13 @@
-p {
-  padding-left: 1%;
+.patient-info-card {
+  margin: auto;
+  padding: 1rem;
 }
 
-.patient-info-card {
-    margin: auto;
-
-    mat-card-content {
-        .pt-info-container {
-            display: flex;
-            justify-content: space-evenly;
-        }
-    }
+mat-card-content {
+  p {
+    margin-left: 1rem;
+  }
+  span {
+    font-weight: bold;
+  }
 }

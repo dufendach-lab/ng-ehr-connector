@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {GravidasService} from "../gravidas.service";
-import {PatientStateService} from "../patient-state.service";
+import {PatientStateService, PregState} from "../patient-state.service";
 
 @Component({
   selector: 'app-patient-state-new',
@@ -8,7 +8,8 @@ import {PatientStateService} from "../patient-state.service";
   styleUrls: ['./patient-state-new.component.scss']
 })
 export class PatientStateNewComponent implements OnInit {
-  @Input() setIndex: number = -1;
+
+  initStep: PregState | undefined;
   step: number = -1;
 
   canOpenPanelOne: boolean = false;
@@ -25,20 +26,23 @@ export class PatientStateNewComponent implements OnInit {
         this.gravName = grav[grav.length - 1].gravidasTitle;
       }
     })
+    this.state.state$.pipe().subscribe(value => {
+      this.step = value - 1;
+      this.initStep = value - 1;
+      this.checkPanelStates();
+    });
   }
 
-  ngOnInit(): void {
-    this.step = this.setIndex;
-    this.checkPanelStates();
-  }
+  ngOnInit(): void {}
 
   setStep(index: number) {
     this.step = index;
   }
 
   nextStep() {
-    this.state.setPatientState(this.setIndex, this.gravName);
+    this.state.setPatientState(this.initStep!, this.gravName);
     this.step++;
+    console.log(this.step);
     this.checkPanelStates();
   }
 

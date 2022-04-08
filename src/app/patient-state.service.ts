@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import {AngularFirestore} from "@angular/fire/compat/firestore";
-import {AngularFireAuth} from "@angular/fire/compat/auth";
-import { map, switchMap } from 'rxjs/operators';
+import { AngularFirestore } from "@angular/fire/compat/firestore";
+import { AngularFireAuth } from "@angular/fire/compat/auth";
+import { first, switchMap } from 'rxjs/operators';
+import { ReplaySubject } from "rxjs";
 
 export enum PregState {
-  FETALCARE,
+  FETALCARE = 1,
   HOME,
   DELIVERED,
   NICU
@@ -15,23 +16,27 @@ export enum PregState {
 })
 export class PatientStateService {
 
-  constructor(private afs: AngularFirestore,
-              private afa: AngularFireAuth) {}
+  private readonly _state$ = new ReplaySubject<PregState>(0);
+  readonly state$ = this._state$.asObservable();
 
-  getPatientState() {
-    return this.afa.user.pipe(
+  constructor(private afs: AngularFirestore, private afa: AngularFireAuth) {
+    this.afa.user.pipe(
       switchMap((user) => {
         if(user) {
           return this.afs.collection('patients').doc(user.uid).collection('gravidas').valueChanges();
         }
         return Promise.reject(new Error('User is not defined...'));
       })
-    );
+    ).pipe().subscribe(val => {
+      let tempState = this._getStateEnum(val[0].pregnancyStatus);
+      this._setState(tempState!);
+    });
+
+    this.state$.pipe(first()).subscribe();
   }
 
   setPatientState(state: PregState, docName: string) {
     const stateName = this._setStateString(state);
-    console.log(stateName);
     this.afa.user.subscribe((user) => {
       if (user) {
         this.afs.collection('patients').doc(user.uid).collection('gravidas').doc(docName).update({pregnancyStatus: stateName});
@@ -39,21 +44,20 @@ export class PatientStateService {
     })
   }
 
-  private _setStateString (stateNum: PregState): string {
-    if (stateNum == 0) return 'HOME';
-    if (stateNum == 1) return 'DELIVERED';
-    if (stateNum == 2) return 'NICU';
-    if(stateNum == 3) return 'NICU';
-    else return 'ERROR';
+  /*
+  * UTILITY FUNCTIONS
+  * */
+  private _setState(val: PregState) {
+    this._state$.next(val);
   }
-  setColor(state: PregState): string {
-    if(state == 0) return '#ca5699';
-    if(state == 1) return '#73b44a';
-    if(state == 2) return '#0090b4';
-    if(state == 3) return '#99336e';
-    return '';
+  private _setStateString (stateNum: PregState): string { // Returns the next state as a string to set in Firestore
+    const cnt = Object.keys(PregState).length;
+
+    if (stateNum < cnt - 1) return PregState[stateNum + 2];
+
+    return PregState[cnt - 1];
   }
-  getStateEnum (stateName: string): PregState | undefined {
+  private _getStateEnum (stateName: string): PregState | undefined {
     if (stateName == 'FETALCARE') return PregState.FETALCARE;
     if (stateName == 'HOME') return PregState.HOME;
     if (stateName == 'DELIVERED') return PregState.DELIVERED;

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {PatientStateService} from "../patient-state.service";
 import {Observable} from "rxjs";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
@@ -25,21 +25,13 @@ export class ResourcesInfoPaneComponent implements OnInit {
     );
 
   selectedVal: string;
-
-  active = '';
-  inactive = '#f2f2f3';
   activePane = 'first';
   lastPane = 0;
 
   tiles: Tile[] = [];
 
   constructor(private stateServ: PatientStateService, private breakpointObserver: BreakpointObserver) {
-    this.stateServ.getPatientState().subscribe(data => {
-      if (data) {
-        let state = this.stateServ.getStateEnum(data[data.length - 1].pregnancyStatus);
-        this.active = this.stateServ.setColor(state!);
-      }
-    });
+
     this.selectedVal= 'first';
   }
 

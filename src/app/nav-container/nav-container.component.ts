@@ -7,7 +7,7 @@ import {FhirAuthService} from "../fhir-auth.service";
 import {AuthService} from "../auth.service";
 import { IRegistration } from 'src/Interfaces/IRegistration';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import {PatientStateService, PregState} from "../patient-state.service";
+import {PatientStateService} from "../patient-state.service";
 
 @Component({
   selector: 'app-nav-container',
@@ -30,9 +30,7 @@ export class NavContainerComponent implements OnInit {
   nameConcat = '';
   isPat = true;
 
-  userState: PregState | undefined;
-  colorState: string = '#ca5699';
-  controlState = PregState;
+  state$ = this.stateService.state$;
 
   constructor(private breakpointObserver: BreakpointObserver,
               public router: Router,
@@ -49,16 +47,6 @@ export class NavContainerComponent implements OnInit {
         .get().pipe(map(doc => doc.data()))
       )
     )
-
-    this.stateService.getPatientState().subscribe(data => {
-      if (data) {
-        this.userState = this.stateService.getStateEnum(data[data.length - 1].pregnancyStatus);
-        if (this.userState) {
-          this.colorState = this.stateService.setColor(this.userState);
-        }
-      }
-    });
-
 
   }
 
@@ -88,10 +76,6 @@ export class NavContainerComponent implements OnInit {
   }
 
   isHomeRoute() {
-    if(this.router.url === '/landing' || this.router.url === '/admin') {
-      return true;
-    } else {
-      return false;
-    }
+    return this.router.url === '/landing' || this.router.url === '/admin';
   }
 }

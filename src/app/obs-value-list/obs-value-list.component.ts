@@ -1,4 +1,3 @@
-import { formatDate } from '@angular/common';
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 
 import { fhirclient }from 'fhirclient/lib/types';

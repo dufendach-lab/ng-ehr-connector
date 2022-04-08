@@ -32,7 +32,6 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {PatientInfoComponent} from './patient-info/patient-info.component';
-import {NavbarComponent} from './navbar/navbar.component';
 import {PatientDataComponent} from './patient-data/patient-data.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {ObsValueListComponent} from './obs-value-list/obs-value-list.component';
@@ -57,7 +56,6 @@ import {GravidasDetailEditorComponent} from './gravidas-detail-editor/gravidas-d
 import {GravidasViewerComponent} from './gravidas-viewer/gravidas-viewer.component';
 import {PatientSearchComponent} from './patient-search/patient-search.component';
 import {NewMomResourceComponent} from './new-mom-resource/new-mom-resource.component';
-import {ConfirmationDialogComponent} from './confirmation-dialog/confirmation-dialog.component';
 import {YouTubePlayerModule} from '@angular/youtube-player';
 import {YtPlayerComponent} from './yt-player/yt-player.component';
 
@@ -81,12 +79,13 @@ import { ResourcesInfoPaneComponent } from './resources-info-pane/resources-info
 import { ResourcesPregnantComponent } from './resources-pregnant/resources-pregnant.component';
 import { ResourcesDeliveredComponent } from './resources-delivered/resources-delivered.component';
 import { PatientStateNewComponent } from './patient-state-new/patient-state-new.component';
+import { InfantCardsComponent } from './infant-cards/infant-cards.component';
+import { StateColorPipe } from './state-color.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     PatientInfoComponent,
-    NavbarComponent,
     PatientDataComponent,
     DashboardComponent,
     ObsValueListComponent,
@@ -105,8 +104,6 @@ import { PatientStateNewComponent } from './patient-state-new/patient-state-new.
     GravidasViewerComponent,
     PatientSearchComponent,
     NewMomResourceComponent,
-    ConfirmationDialogComponent,
-    // PdfViewComponent,
     YtPlayerComponent,
     AdminListComponent,
     ResetPasswordComponent,
@@ -122,6 +119,8 @@ import { PatientStateNewComponent } from './patient-state-new/patient-state-new.
     ResourcesPregnantComponent,
     ResourcesDeliveredComponent,
     PatientStateNewComponent,
+    InfantCardsComponent,
+    StateColorPipe,
   ],
   imports: [
     BrowserModule,
@@ -130,10 +129,7 @@ import { PatientStateNewComponent } from './patient-state-new/patient-state-new.
 
     FormsModule,
     ReactiveFormsModule,
-
     FlexLayoutModule,
-
-    // PdfViewerModule,
     YouTubePlayerModule,
 
     // Material imports

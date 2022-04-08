@@ -2,9 +2,8 @@ import {Inject, Injectable} from '@angular/core';
 import {from, Observable, Subject} from "rxjs";
 import Client from "fhirclient/lib/Client";
 import {oauth2} from "fhirclient";
-import {EPIC_DEV_CLIENT_ID, epicConfig, FhirEndpoint, smartHealthIt} from "./env/endpoints";
+import {EPIC_DEV_CLIENT_ID, FhirEndpoint} from "./env/endpoints";
 import {first, map, shareReplay} from "rxjs/operators";
-// import * as endpointData from '../assets/EpicEndpoints.json'
 import * as endpointData from '../assets/test-epic-endpoints.json'
 import {WINDOW} from "./util/window-provider";
 import {fhirclient} from "fhirclient/lib/types";

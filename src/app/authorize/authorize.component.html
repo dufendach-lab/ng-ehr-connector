@@ -1,4 +1,4 @@
-<div *ngIf="gravidasDetails | async as gd" fxLayout="column" style="margin-bottom: 1rem;">
+<div *ngIf="gravidasDetails | async as gd" fxLayout="column" class="add-margin-bottom">
   <h3 style="text-align: center">Search for your hospital in the list below</h3>
 
 </div>
@@ -7,7 +7,7 @@
   <span fxFlex></span>
 
   <mat-card fxFlex="600px" fxFlex.lt-sm="85%">
-    <form class="login-form" (ngSubmit)="onSubmit()" fxLayout="column">
+    <form (ngSubmit)="onSubmit()" fxLayout="column">
       <mat-form-field class="form-field">
         <mat-label>Search for Hospital</mat-label>
         <input type="text" matInput [formControl]="stateCtrl" [matAutocomplete]="auto">

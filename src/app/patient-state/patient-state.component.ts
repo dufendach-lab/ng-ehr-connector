@@ -1,8 +1,8 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Observable} from "rxjs";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 import {map, shareReplay} from "rxjs/operators";
-import {PregState} from "../patient-state.service";
+import {PatientStateService} from "../patient-state.service";
 
 @Component({
   selector: 'app-patient-state',
@@ -10,23 +10,27 @@ import {PregState} from "../patient-state.service";
   styleUrls: ['./patient-state.component.scss']
 })
 export class PatientStateComponent implements OnInit {
-  @Input() indice: number = -1;
+
   @ViewChild('stepper') stepper;
-
   isChecked = false;
+  index: number | undefined;
 
- isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(private breakpointObserver: BreakpointObserver, private stateService: PatientStateService) {
+      this.stateService.state$.pipe().subscribe(val => {
+        this.index = val;
+      })
+  }
 
   ngOnInit(): void {}
 
   ngAfterViewInit() {
-    this._setStepper(this.indice);
+    this._setStepper(this.index!);
   }
 
   private _setStepper(index: number): void {

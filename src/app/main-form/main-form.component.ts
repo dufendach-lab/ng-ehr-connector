@@ -75,18 +75,19 @@ export class MainFormComponent implements OnInit {
     location.reload();
   }
 
+  /*
+  * Utility Functions
+  * */
   private _ImperialToMetric(lbs: number, oz: number): number {
     // 1 lb = 453.592 g
     // 1 oz = 28.3495 g
-    let ans = 0;
-    ans = (lbs * 453.592) + (oz * 28.3495);
+    let ans = (lbs * 453.592) + (oz * 28.3495);
     ans = Math.floor(ans * 10) / 10;
     return ans;
   }
   private _reformatDate(date: Date) {
     let ans = formatDate(date, 'dd-MMM-yy', 'en-US');
-    let res = this._transformDate(ans);
-    return res;
+    return this._transformDate(ans);
   }
   private _transformDate(date: string) {
     let first = date.substring(0,3);

@@ -1,4 +1,4 @@
-<div *ngIf="(patient | async) as pt else auth" class="container" fxLayoutGap="15px">
+<div *ngIf="(patient | async) as pt else auth">
   <app-patient-info [patient]="pt" ></app-patient-info>
   <app-patient-data></app-patient-data>
 </div>

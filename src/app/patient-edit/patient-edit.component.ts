@@ -27,7 +27,7 @@ export class PatientEditComponent implements OnInit {
   auth = getAuth();
   user = this.logAuth.user;
   ptInfo: any;
-  patId: string | undefined = '';
+  patId: string | undefined;
   hasChanged: boolean = false;
   ptPhone: any;
   ptEmail: any;

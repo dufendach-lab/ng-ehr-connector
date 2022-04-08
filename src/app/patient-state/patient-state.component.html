@@ -1,118 +1,93 @@
-<mat-stepper [orientation]="(isHandset$ | async) ? 'vertical' : 'horizontal'" #stepper class="state-stepper">
+<mat-stepper #stepper class="state-stepper">
   <!--          STEP SEPERATOR    -->
   <mat-step label=" Fetal Center Consultation" [editable]="true">
     <ng-template matStepLabel>Fetal Care Center Consultation</ng-template>
-    <ng-container *ngIf="!(isHandset$ | async); else FCCPhone;">
+    <ng-container>
 
+      <mat-card>
+        <div class="center-button">
+          <button mat-raised-button routerLink="/resources" class="mat-primary">Diagnosis Information</button>
+        </div>
+
+        <p>We have compiled resources specific to your fetal diagnosis. What it is, the various treatments,
+          and the prognosis.</p>
+        <div>
+          <app-yt-player [vidToGet]="'TTS'"></app-yt-player>
+        </div>
+        <br>
+
+        <div class="center-button">
+          <button mat-raised-button routerLink="/tools" class="mat-primary">Prepare for Visit</button>
+        </div>
+
+        <p>As you prepare your visit to Cincinnati Children's, use this resource to make this process easier.
+          Local hotels, food, and guidance through the facilities here at Children's.</p>
+        <br>
+
+        <p>When your visit has concluded, click the button below to move forward.</p>
+        <div class="button-container">
+          <mat-checkbox #checked color="primary">Confirm</mat-checkbox>
+          <button mat-raised-button (click)="stepper.next()" [disabled]="checked.checked == false" class="mat-primary">Going Home</button>
+        </div>
+
+      </mat-card>
     </ng-container>
   </mat-step>
   <!--          STEP SEPERATOR    -->
   <mat-step label="Returning Home" [editable]="true">
-    <ng-container *ngIf="!(isHandset$ | async); else HomePhone;">
+    <ng-container>
+
+      <mat-card>
+        <div class="center-button">
+          <button mat-raised-button routerLink="/tools" class="mat-primary">Resources</button>
+        </div>
+
+        <p>We have compiled a list of resources to assist you in these next few weeks. Healthy dieting, exercise, travel and more.</p>
+        <br>
+
+        <p>Once you have delivered, confirm delivery by clicking on the button below.</p>
+
+        <div class="button-container">
+          <mat-checkbox #checked2 color="primary">Confirm</mat-checkbox>
+          <button mat-raised-button (click)="stepper.next()" [disabled]="checked2.checked == false" class="mat-primary">Delivered</button>
+        </div>
+      </mat-card>
 
     </ng-container>
   </mat-step>
   <!--          STEP SEPERATOR    -->
   <mat-step label="Delivered" [editable]="true">
-    <ng-container *ngIf="!(isHandset$ | async); else DeliveredPhone;">
+    <ng-container>
+
+      <mat-card>
+        <div class="center-button">
+          <button mat-raised-button routerLink="/authorize" class="mat-primary">Connect</button>
+        </div>
+
+        <p>At Cincinnati Children's we strive for the best care for our patients. Now that you have delivered, you can connect to your babies
+          medical records. Sending this information to Cincinnati Children's will help us improve care for all patients. Read more about it on our connection page.</p>
+        <br>
+
+        <p>For helpful information while you are in the NICU, click the button below to move forward.</p>
+        <div class="button-container">
+          <mat-checkbox #checked3 color="primary">Confirm</mat-checkbox>
+          <button mat-raised-button (click)="stepper.next()" [disabled]="checked3.checked == false" class="mat-primary">In NICU</button>
+        </div>
+      </mat-card>
 
     </ng-container>
   </mat-step>
   <!--          STEP SEPERATOR    -->
   <mat-step label="In NICU" [editable]="true">
-    <ng-container *ngIf="!(isHandset$ | async); else NICUPhone;">
+    <ng-container>
 
-      <div class="button-container">
-        <div></div>
-        <button mat-stroked-button (click)="stepper.reset();" class="mat-primary">Reset</button>
-      </div>
+      <mat-card>
+        <div class="button-container">
+          <div></div>
+          <button mat-stroked-button (click)="stepper.reset();" class="mat-primary">Reset</button>
+        </div>
+      </mat-card>
 
     </ng-container>
   </mat-step>
 </mat-stepper>
-
-<ng-template #FCCPhone>
-  <div>
-    <mat-card>
-      <div class="center-button">
-        <button mat-raised-button routerLink="/resources" class="mat-primary">Diagnosis Information</button>
-      </div>
-
-      <p>We have compiled resources specific to your fetal diagnosis. What it is, the various treatments,
-      and the prognosis.</p>
-      <div style="margin-left: -16px; margin-right: -16px">
-        <app-yt-player [vidToGet]="'TTS'"></app-yt-player>
-      </div>
-      <br>
-
-      <div class="center-button">
-        <button mat-raised-button routerLink="/tools" class="mat-primary">Prepare for Visit</button>
-      </div>
-
-      <p>As you prepare your visit to Cincinnati Children's, use this resource to make this process easier.
-      Local hotels, food, and guidance through the facilities here at Children's.</p>
-      <br>
-
-      <p>When your visit has concluded, click the button below to move forward.</p>
-      <div class="button-container">
-        <mat-checkbox #checked color="primary">Confirm</mat-checkbox>
-        <button mat-raised-button (click)="stepper.next()" [disabled]="checked.checked == false" class="mat-primary">Going Home</button>
-      </div>
-    </mat-card>
-
-  </div>
-</ng-template>
-
-<ng-template #HomePhone>
-  <div>
-    <mat-card>
-      <div class="center-button">
-        <button mat-raised-button routerLink="/tools" class="mat-primary">Resources</button>
-      </div>
-
-      <p>We have compiled a list of resources to assist you in these next few weeks. Healthy dieting, exercise, travel and more.</p>
-      <br>
-
-      <p>Once you have delivered, confirm delivery by clicking on the button below.</p>
-
-      <div class="button-container">
-        <mat-checkbox #checked2 color="primary">Confirm</mat-checkbox>
-        <button mat-raised-button (click)="stepper.next()" [disabled]="checked2.checked == false" class="mat-primary">Delivered</button>
-      </div>
-    </mat-card>
-
-  </div>
-</ng-template>
-
-<ng-template #DeliveredPhone>
-  <div>
-    <mat-card>
-      <div class="center-button">
-        <button mat-raised-button routerLink="/authorize" class="mat-primary">Connect</button>
-      </div>
-
-      <p>At Cincinnati Children's we strive for the best care for our patients. Now that you have delivered, you can connect to your babies
-        medical records. Sending this information to Cincinnati Children's will help us improve care for all patients. Read more about it on our connection page.</p>
-      <br>
-
-      <p>For helpful information while you are in the NICU, click the button below to move forward.</p>
-      <div class="button-container">
-        <mat-checkbox #checked3 color="primary">Confirm</mat-checkbox>
-        <button mat-raised-button (click)="stepper.next()" [disabled]="checked3.checked == false" class="mat-primary">In NICU</button>
-      </div>
-    </mat-card>
-
-  </div>
-</ng-template>
-
-<ng-template #NICUPhone>
-  <div>
-    <mat-card>
-      <div class="button-container">
-        <div></div>
-        <button mat-stroked-button (click)="stepper.reset();" class="mat-primary">Reset</button>
-      </div>
-    </mat-card>
-
-  </div>
-</ng-template>

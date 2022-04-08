@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {Observable, tap} from 'rxjs';
+import {Observable} from 'rxjs';
 import {filter, first, map, startWith, switchMap} from 'rxjs/operators';
 import {FhirAuthService} from "../fhir-auth.service";
 import {Router} from "@angular/router";
@@ -18,7 +18,6 @@ import { IGravidasDetails } from 'src/Interfaces/IGravidasDetails';
 })
 export class AuthorizeComponent implements OnInit {
 
-  client = this.auth.client;
   user = this.logAuth.user;
   gravidasDetails: Observable<IGravidasDetails | undefined>;
 
@@ -49,7 +48,6 @@ export class AuthorizeComponent implements OnInit {
   ngOnInit() {
     this.filteredOptions = this.stateCtrl.valueChanges.pipe(
       startWith(''),
-      tap(value => console.log(this.endpoints.find(v => v.OrganizationName === value))),
       map(value => this._filter(value))
     );
   }

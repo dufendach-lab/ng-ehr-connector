@@ -11,11 +11,8 @@ import Observation = fhirclient.FHIR.Observation;
 export class ObsValueDisplayComponent implements OnInit {
   @Input() obsList: Observation[] = [];
 
-  constructor() {
+  constructor() {}
 
-  }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
 }
