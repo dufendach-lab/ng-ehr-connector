@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivate, Router} from '@angular/router';
+import {ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot} from '@angular/router';
 import {AuthService} from "./auth.service";
 import {map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
-export class RouteGuardService implements CanActivate {
+export class RouteGuardService implements CanActivate, CanActivateChild {
 
   constructor(private router: Router, private auth: AuthService) { }
 
@@ -19,6 +19,10 @@ export class RouteGuardService implements CanActivate {
       console.warn('Access denied - staff only')
       return this.router.parseUrl('/landing');
     }))
+  }
+
+  canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot)  {
+    return this.canActivate(childRoute);
   }
 }
 

@@ -40,9 +40,7 @@ export class PatientSearchComponent implements OnInit {
                private afa: AngularFireAuth,
                private actRoute: ActivatedRoute,
                private regService: RegistrationService,
-               private router: Router) {   }
-
-  ngOnInit(): void {
+               private router: Router) {
     this.actRoute.paramMap.subscribe((routeParams) => {
       const nav = (routeParams.get('id') == '' || routeParams.get('id')==null) ? "" : routeParams.get('id');
       if(nav != "" && nav){
@@ -51,9 +49,9 @@ export class PatientSearchComponent implements OnInit {
     })
 
     this.patientInfo = this.afs
-        .collection('patients')
-        .doc<IRegistration>(this.patUID)
-        .get().pipe(map(doc => doc.data()))
+      .collection('patients')
+      .doc<IRegistration>(this.patUID)
+      .get().pipe(map(doc => doc.data()))
 
     this.patientInfo.subscribe((info) => {
       if(info){
@@ -67,26 +65,24 @@ export class PatientSearchComponent implements OnInit {
     })
   }
 
+  ngOnInit(): void { }
+
   Clicked_DeleteUser(){
     this.regService.deletePatient(this.patUID);
-    this.router.navigate(['admin-list']);
+    this.router.navigate(['admin/patient/list']);
   }
 
   editFirstNameClick(){
     this.isFirstNameEdit = !this.isFirstNameEdit;
-    console.log("First Name Icon clicked");
   }
   editLastNameClick(){
     this.isLastNameEdit = !this.isLastNameEdit;
-    console.log("Last Name Icon clicked");
   }
   editDoBClick(){
     this.isDoBEdit = !this.isDoBEdit;
-    console.log("DoB Icon clicked");
   }
   editAccessLevel(){
     this.isAccessLevelEdit = !this.isAccessLevelEdit;
-    console.log("DoB Icon clicked");
   }
   submitUserEdits() {
     const role = this.patientUserInfo.roles;

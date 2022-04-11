@@ -85,36 +85,41 @@ const routes: Routes = [
     component: StaffContainerComponent,
     canActivate: [RouteGuardService],
     children: [
-      // Add admin routes here
       {
         path: '',
-        redirectTo: 'home',
-        pathMatch: 'full',
-      },
-      {
-        path: 'home',
-        component: StaffLandingComponent,
-      },
-      {
-        path: 'patient/:id',
-        component: PatientSearchComponent,
-      },
-      {
-        path: 'patient/add',
-        component: PatientNewComponent,
-      },
-      {
-        path: 'patient/list',
-        component: AdminListComponent,
-      },
-      {
-        path: 'patient/edit/:id',
-        component: GravidasViewerComponent,
-      },
-      {
-        path: 'patient/gravida/add/:id',
-        component: GravidasDetailEditorComponent,
-      },
+        canActivateChild: [RouteGuardService],
+        children: [
+          {
+            path: '',
+            redirectTo: '/admin/home',
+            pathMatch: 'full',
+          },
+          {
+            path: 'home',
+            component: StaffLandingComponent,
+          },
+          {
+            path: 'patient/add',
+            component: PatientNewComponent,
+          },
+          {
+            path: 'patient/list',
+            component: AdminListComponent,
+          },
+          {
+            path: 'patient/:id',
+            component: PatientSearchComponent,
+          },
+          {
+            path: 'patient/edit/:id',
+            component: GravidasViewerComponent,
+          },
+          {
+            path: 'patient/gravida/add/:id',
+            component: GravidasDetailEditorComponent,
+          },
+        ]
+      }
     ]
   },
   {

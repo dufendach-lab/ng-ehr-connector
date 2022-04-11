@@ -1,0 +1,16 @@
+.pt-container {
+  margin: 0 auto;
+}
+.button-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 50%;
+  margin: 0 auto
+}
+.make-bold {
+  font-weight: bolder;
+}
+.add-padding {
+  padding: 1rem;
+}

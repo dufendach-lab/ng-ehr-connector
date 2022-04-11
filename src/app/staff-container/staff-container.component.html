@@ -1,4 +1,10 @@
 
 <div class="container">
+  <ng-container *ngIf="!isHomeRoute()">
+    <button mat-icon-button routerLink="/admin/home" *ngIf="(isHandset$ | async)">
+      <mat-icon>navigate_before</mat-icon>
+    </button>
+  </ng-container>
+
   <router-outlet></router-outlet>
 </div>

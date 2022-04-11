@@ -1,3 +1,29 @@
-mat-card {
-  background-color: rgba(245,245,245,.3);
+@import "src/cchmc";
+
+.pregnancy-container {
+  margin: 0 auto;
+}
+.patient-data-card {
+  background-color: $cchmc-blue;
+  color: #f5f5f5;
+}
+
+.title-font {
+  font-size: 16px;
+  font-weight: bold;
+}
+.stat-font {
+  font-size: 16px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.add-button {
+  padding-top: 1rem;
+  button {
+    background-color: white;
+  }
 }

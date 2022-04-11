@@ -76,6 +76,6 @@ export class NavContainerComponent implements OnInit {
   }
 
   isHomeRoute() {
-    return this.router.url === '/landing' || this.router.url === '/admin';
+    return this.router.url === '/landing';
   }
 }

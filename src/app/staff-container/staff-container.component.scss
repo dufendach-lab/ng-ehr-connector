@@ -1,11 +1,18 @@
 @import 'src/cchmc';
 
 .container {
-  min-height: 100vh;
-  min-width: 100%;
-
-  background: linear-gradient(rgba(255,255,255,.8), $cchmc-blue), url("../../assets/img/cchmc-pattern.PNG");
-  background-attachment: fixed;
-  background-color: #98cbcf;
-  background-blend-mode: multiply;
+  max-height: 100vh;
+  max-width: 100%;
+  padding: 1rem;
+}
+.mat-icon-button {
+  width: 48px;
+  height: 48px;
+  line-height: 48px;
+  .mat-icon {
+    font-size: 36px;
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+  }
 }

@@ -47,7 +47,7 @@ export class AdminListComponent implements OnInit {
   */
   editPatient(patID: string | undefined): void {
     if(patID){
-      this.routing.navigate(['patient', patID])
+      this.routing.navigate(['admin', 'patient', patID])
     }
     else{
       console.log("Something wrong");
