@@ -1,0 +1,25 @@
+@import "../../../../cchmc";
+
+.pregnancy-container {
+  margin: 0 auto;
+}
+.title-font {
+  font-size: 16px;
+  font-weight: bold;
+}
+.stat-font {
+  font-size: 16px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.add-button {
+  padding-top: 1rem;
+}
+mat-card-subtitle {
+  font-size: 20px;
+  padding-bottom: 1rem;
+}

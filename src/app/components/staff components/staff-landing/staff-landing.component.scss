@@ -1,0 +1,43 @@
+@use '../../../../../node_modules/@angular/material/index' as mat;
+@import "../../../../cchmc";
+
+.content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(max(300px, 40vw), 1fr));
+  gap: 15px 15px;
+  padding-bottom: 10px;
+  margin: 0 auto;
+}
+mat-icon {
+  vertical-align: middle;
+}
+.header {
+
+  button {
+    margin: auto 0;
+  }
+  h1 {
+    color: $cchmc-blue;
+  }
+}
+
+mat-card {
+  border-radius: 10px;
+  padding: 0;
+
+  &:hover {
+    @include mat.elevation-transition();
+    @include mat.elevation(10);
+  }
+}
+
+mat-card-header {
+  background-color: $cchmc-blue;
+  border-radius: 10px 10px 0 0;
+  color: white;
+  padding: 10px 1px;
+}
+
+mat-card-content {
+  padding: 10px;
+}

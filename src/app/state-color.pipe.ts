@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {PregState} from "./patient-state.service";
+import {PregState} from "./services/patient-state.service";
 
 type PregString = 'FETALCARE' | 'HOME' | 'DELIVERED' | 'NICU';
 

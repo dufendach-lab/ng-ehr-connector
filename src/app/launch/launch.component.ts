@@ -2,7 +2,7 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import {APP_TITLE} from "../app-config.service";
+import {APP_TITLE} from "../services/app-config.service";
 
 @Component({
   selector: 'app-launch',

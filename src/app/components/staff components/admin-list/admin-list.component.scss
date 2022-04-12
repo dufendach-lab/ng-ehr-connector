@@ -1,0 +1,18 @@
+@import "../../../../cchmc";
+
+.list-container {
+  margin: 0 auto;
+  h2 {
+    color: $cchmc-blue;
+  }
+}
+
+.pat-card-scope {
+  line-height: 30px;
+}
+
+.box-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
