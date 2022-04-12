@@ -24,60 +24,67 @@ const routes: Routes = [
   {
     path: '',
     component: NavContainerComponent,
+    canActivate: [PatientGuardService],
     children: [
       {
         path: '',
-        redirectTo: 'landing',
-        pathMatch: 'full',
-      },
-      {
-        path: 'landing',
-        component: LandingComponent,
-        canActivate: [PatientGuardService]
-      },
-      {
-        path: 'dashboard',
-        component: DashboardComponent,
-        canActivate: [PatientGuardService]
-      },
-      {
-        path: 'survey',
-        component: MainFormComponent,
-        canActivate: [PatientGuardService]
-      },
-      {
-        path: 'contact',
-        component: ContactFormComponent,
-        canActivate: [PatientGuardService]
-      },
-      {
-        path: 'authorize',
-        component: AuthorizeComponent,
-        canActivate: [PatientGuardService]
-      },
-      {
-        path: 'edit/profile',
-        component: PatientEditComponent,
-        canActivate: [PatientGuardService]
-      },
-      {
-        path: 'gravidas',
-        component: GravidasViewerComponent
-      },
-      {
-        path: 'gravidas/edit',
-        component: GravidasDetailEditorComponent
-      },
-      {
-        path: 'resources',
-        component: NewMomResourceComponent,
-        canActivate: [PatientGuardService]
-      },
-      {
-        path: 'tools',
-        component: ToolsPageComponent,
-        canActivate: [PatientGuardService]
-      },
+        canActivateChild: [PatientGuardService],
+        children: [
+          {
+            path: '',
+            redirectTo: 'landing',
+            pathMatch: 'full',
+          },
+          {
+            path: 'landing',
+            component: LandingComponent,
+            canActivate: [PatientGuardService]
+          },
+          {
+            path: 'dashboard',
+            component: DashboardComponent,
+            canActivate: [PatientGuardService]
+          },
+          {
+            path: 'survey',
+            component: MainFormComponent,
+            canActivate: [PatientGuardService]
+          },
+          {
+            path: 'contact',
+            component: ContactFormComponent,
+            canActivate: [PatientGuardService]
+          },
+          {
+            path: 'authorize',
+            component: AuthorizeComponent,
+            canActivate: [PatientGuardService]
+          },
+          {
+            path: 'edit/profile',
+            component: PatientEditComponent,
+            canActivate: [PatientGuardService]
+          },
+          {
+            path: 'gravidas',
+            component: GravidasViewerComponent
+          },
+          {
+            path: 'gravidas/edit',
+            component: GravidasDetailEditorComponent
+          },
+          {
+            path: 'resources',
+            component: NewMomResourceComponent,
+            canActivate: [PatientGuardService]
+          },
+          {
+            path: 'tools',
+            component: ToolsPageComponent,
+            canActivate: [PatientGuardService]
+          },
+        ]
+      }
     ]
   },
   {
