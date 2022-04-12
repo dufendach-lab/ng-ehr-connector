@@ -3,6 +3,7 @@ import {Observable} from "rxjs";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 import {map, shareReplay} from "rxjs/operators";
 import {Router} from "@angular/router";
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-staff-container',
@@ -11,7 +12,7 @@ import {Router} from "@angular/router";
 })
 export class StaffContainerComponent implements OnInit {
 
-  constructor(private breakpointObserver: BreakpointObserver, private router: Router) { }
+  constructor(private breakpointObserver: BreakpointObserver, private router: Router, private location: Location) { }
 
   ngOnInit(): void {
   }
@@ -24,6 +25,10 @@ export class StaffContainerComponent implements OnInit {
 
   isHomeRoute() {
     return this.router.url === '/admin/home';
+  }
+
+  back() {
+    this.location.back();
   }
 
 }

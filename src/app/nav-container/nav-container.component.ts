@@ -8,6 +8,7 @@ import {AuthService} from "../auth.service";
 import { IRegistration } from 'src/Interfaces/IRegistration';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import {PatientStateService} from "../patient-state.service";
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-nav-container',
@@ -37,7 +38,8 @@ export class NavContainerComponent implements OnInit {
               private auth: FhirAuthService,
               private ehrAuth: AuthService,
               private afs: AngularFirestore,
-              private stateService: PatientStateService
+              private stateService: PatientStateService,
+              private location: Location
   ) {
     this.userInfo = this.ehrAuth.user.pipe(
       filter(u => u != null),
@@ -77,5 +79,8 @@ export class NavContainerComponent implements OnInit {
 
   isHomeRoute() {
     return this.router.url === '/landing';
+  }
+  back() {
+    this.location.back();
   }
 }

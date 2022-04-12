@@ -97,10 +97,10 @@ export class GravidasService {
   // Updates pregnancy information for another user based on their firebase uID
   async EditOtherGravidas(preg: IGravidasDetails, patID: string | undefined) : Promise<void>{
     if(patID){
-      this.afs.collection('patients').doc(patID).collection('gravidas').doc(preg.gravidasTitle).update(preg);
+      await this.afs.collection('patients').doc(patID).collection('gravidas').doc(preg.gravidasTitle).update(preg);
     }
     else{
-      this.afs.collection('Errors').doc('Gravidas').collection('EditGravidas').doc(Date()).set({message: "Something wrong"});
+      await this.afs.collection('Errors').doc('Gravidas').collection('EditGravidas').doc(Date()).set({message: "Something wrong"});
     }
   }
 
@@ -125,18 +125,16 @@ export class GravidasService {
   }
 
   async changeDocDate(gravidas: IGravidasDetails): Promise<void> {
-    const name = gravidas.gravidasTitle;
     const now = new Date(Date.now() + (1.8144e9));
     const newName = now.toISOString().substr(0,10);
 
     this.patient.subscribe((user) => {
       if(user) {
-        const id = user.uid;
-        this.patientInfo.collection('patients').doc(id).collection('gravidas').doc(name).get().subscribe(d => {
+        this.patientInfo.collection('patients').doc(user.uid).collection('gravidas').doc(gravidas.gravidasTitle).get().subscribe(d => {
           let data = d.data();
           if(d && data) {
             data.gravidasTitle = newName;
-            this.patientInfo.collection('patients').doc(id).collection('gravidas').doc(newName).set(data);
+            this.patientInfo.collection('patients').doc(user.uid).collection('gravidas').doc(newName).set(data);
           }
         });
       }
@@ -145,11 +143,9 @@ export class GravidasService {
 
   async deleteDocDate(gravidas: IGravidasDetails): Promise<void> {
     if(gravidas) {
-      const name = gravidas.gravidasTitle;
       this.patient.subscribe((user) => {
         if(user) {
-          const id = user.uid;
-          this.patientInfo.collection('patients').doc(id).collection('gravidas').doc(name).delete();
+          this.patientInfo.collection('patients').doc(user.uid).collection('gravidas').doc(gravidas.gravidasTitle).delete();
         }
       })
     }

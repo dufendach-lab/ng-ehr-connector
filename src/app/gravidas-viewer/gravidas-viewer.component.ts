@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { RegistrationService } from '../registration.service';
 import { IRegistration } from '../../Interfaces/IRegistration'
 import { IGravidasDetails } from '../../Interfaces/IGravidasDetails'
 import { AuthService } from '../auth.service';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { GravidasService } from '../gravidas.service';
 
 @Component({
@@ -17,12 +16,12 @@ import { GravidasService } from '../gravidas.service';
 export class GravidasViewerComponent implements OnInit {
 
   EDD: any;
-  gestationalAge: any;
   user = this.logAuth.user;
+
   gravidasDetails: Observable<IGravidasDetails | undefined>;
   allGravidas: Observable<IGravidasDetails[]> | undefined;
-  isAdminNav = false;
-  adminNavID!: string | null;
+  adminNavID: string | undefined;
+
   dueDateEdit = false;
   diagnosisEdit = false;
   parityEdit = false;
@@ -55,11 +54,10 @@ export class GravidasViewerComponent implements OnInit {
 
     this.actRoute.paramMap.subscribe((routeParams) => {
       const nav = (routeParams.get('id') == '' || routeParams.get('id')==null) ? "" : routeParams.get('id');
-      if(nav != ""){
-        this.isAdminNav = true;
-        this.allGravidas = this.gravService.getOtherGravidas(nav!);
+      if(nav && nav != ""){
+        this.allGravidas = this.gravService.getOtherGravidas(nav);
+        this.adminNavID = nav;
       }
-      this.adminNavID = nav;
     })
   }
 
@@ -72,8 +70,7 @@ export class GravidasViewerComponent implements OnInit {
 	  const iEGAWeeks = Math.floor( fGestationalAgeInWeeks );
 	  const iEGADays = ((fGestationalAgeInWeeks % 1)*6).toFixed(0);
 
-    this.gestationalAge = iEGAWeeks.toString() + ' weeks ' + iEGADays.toString() + ' days';
-    return this.gestationalAge;
+    return iEGAWeeks.toString() + ' weeks ' + iEGADays.toString() + ' days';
   }
 
   Clicked_SubmitChanges(preg: IGravidasDetails){
