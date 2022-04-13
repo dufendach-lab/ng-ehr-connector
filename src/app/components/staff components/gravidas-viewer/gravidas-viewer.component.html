@@ -1,9 +1,11 @@
 <div class="pregnancy-container" fxFlex="800px" fxFlex.lt-sm="100%">
   <div class="data-container" fxLayout="column" fxLayoutGap="15px">
+    <mat-card-title>Pregnancy's</mat-card-title>
+
     <div *ngFor="let gravida of allGravidas | async">
       <mat-card>
-        <mat-card-title>Pregnancy's</mat-card-title>
-        <mat-card-subtitle>{{gravida.gravidasTitle}}</mat-card-subtitle>
+
+        <mat-card-subtitle>Due Date // {{gravida.gravidasTitle | date: 'MM-dd-YYYY'}}</mat-card-subtitle>
 
         <mat-card-content fxLayout="column" fxLayoutGap="1rem">
 
