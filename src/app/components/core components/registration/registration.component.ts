@@ -29,7 +29,7 @@ export class RegistrationComponent implements OnInit {
   ngOnInit(): void { }
 
   tempLogin() {
-    this.auth.checkCreditionals(this.login.controls['email'].value, this.login.controls['password'].value)
+    this.auth.checkCredentials(this.login.controls['email'].value, this.login.controls['password'].value)
       .then(() => {
         this.router.navigate(['']);
       });

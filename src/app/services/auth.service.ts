@@ -28,7 +28,7 @@ export class AuthService {
   /*
   * Signs in to firebase with email & password
   */
-  checkCreditionals(email: string, pword: string) {
+  checkCredentials(email: string, pword: string) {
     return this.afa.signInWithEmailAndPassword(email, pword);
   }
 

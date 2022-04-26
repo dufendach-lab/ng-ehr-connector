@@ -26,22 +26,63 @@
   </mat-card>
 
   <!--  Generates every patient in the firestore  -->
-  <h2>List of patients: </h2>
-  <div *ngFor="let patient of allPatients | async">
-    <div *ngIf="patient.roles.includes('Patient')">
+  <mat-tab-group>
+    <mat-tab label="All Patients">
+      <h2>List of patients: </h2>
+      <div *ngFor="let patient of allPatients | async">
+        <div *ngIf="patient.roles.includes('Patient')">
+          <mat-card>
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+              <div class="pat-card-scope">
+                <div>Name: {{patient.firstName}} {{patient.lastName}}</div>
+                <div>Phone Number: {{ patient.phone }}</div>
+                <div>Mother's DoB: {{patient.MotherDoB.toDate() | date: "MM/dd/yyyy"}}</div>
+              </div>
+              <div>
+                <button mat-stroked-button (click)="editPatient(patient.docName)">Edit</button>
+              </div>
+            </div>
+          </mat-card>
+          <br />
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Upcoming Visits">
+<!--   Just a visual of what it could be - will need its own component    -->
+      <h2>List of Upcoming Visits: </h2>
       <mat-card>
         <div fxLayout="row" fxLayoutAlign="space-between center">
           <div class="pat-card-scope">
-            <div>Name: {{patient.firstName}} {{patient.lastName}}</div>
-            <div>Phone Number: {{ patient.phone }}</div>
-            <div>Mother's DoB: {{patient.MotherDoB.toDate() | date: "MM/dd/yyyy"}}</div>
+            <div>Name: Clarissa Monclair</div>
+            <div>DOB: 10/14/1996</div>
+            <div>Appointment Date: 4/26/2022</div>
           </div>
-          <div>
-            <button mat-stroked-button (click)="editPatient(patient.docName)">Edit</button>
-          </div>
+          <div><button mat-stroked-button>More Details</button></div>
         </div>
       </mat-card>
       <br />
-    </div>
-  </div>
+      <mat-card>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <div class="pat-card-scope">
+            <div>Name: Stacy Cleveland</div>
+            <div>DOB: 08/26/1997</div>
+            <div>Appointment Date: 4/29/2022</div>
+          </div>
+          <div><button mat-stroked-button>More Details</button></div>
+        </div>
+      </mat-card>
+      <br />
+      <mat-card>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <div class="pat-card-scope">
+            <div>Name: Tara DeWolfe</div>
+            <div>DOB: 02/21/1999</div>
+            <div>Appointment Date: 5/07/2022</div>
+          </div>
+          <div><button mat-stroked-button>More Details</button></div>
+        </div>
+      </mat-card>
+      <br />
+    </mat-tab>
+  </mat-tab-group>
 </div>
