@@ -1,0 +1,103 @@
+<div class="pregnancy-container" fxFlex="800px" fxFlex.lt-sm="100%">
+  <div class="data-container" fxLayout="column" fxLayoutGap="15px">
+    <mat-card-title>Pregnancy's</mat-card-title>
+
+    <div *ngFor="let gravida of allGravidas | async">
+      <mat-card>
+
+        <mat-card-subtitle>Due Date // {{gravida.gravidasTitle | date: 'MM-dd-YYYY'}}</mat-card-subtitle>
+
+        <mat-card-content fxLayout="column" fxLayoutGap="1rem">
+
+          <div fxLayout="row">
+            <button mat-icon-button>
+              <mat-icon
+                (click)="dueDateEdit = !dueDateEdit"
+                class="material-icons">edit
+              </mat-icon>
+            </button>
+
+            <div class="title-font">Estimated Due Date:&emsp;</div>
+            <span *ngIf="!dueDateEdit">
+              <div class="stat-font">{{ gravida.EstDueDate| date: "yyyy/MM/dd" }}</div>
+            </span>
+
+            <span *ngIf="dueDateEdit">
+              <mat-form-field>
+                <input
+                  matInput
+                  [matDatepicker]="DoBpicker"
+                  placeholder="Est. Due Date"
+                  [(ngModel)]="gravida.EstDueDate"/>
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="DoBpicker">
+                </mat-datepicker-toggle>
+                <mat-datepicker #DoBpicker disabled="false"></mat-datepicker>
+              </mat-form-field>
+            </span>
+          </div>
+
+          <div fxLayout="row">
+            <button mat-icon-button>
+              <mat-icon
+                (click)="diagnosisEdit = !diagnosisEdit"
+                class="material-icons">edit
+              </mat-icon>
+            </button>
+            <div class="title-font">Diagnosis:&emsp;</div>
+            <div *ngIf="!diagnosisEdit" class="stat-font">{{ gravida.Diagnosis }}</div>
+            <span *ngIf="diagnosisEdit">
+                <mat-form-field>
+                  <input matInput type="text" [(ngModel)]="gravida.Diagnosis" />
+                </mat-form-field>
+              </span>
+          </div>
+
+          <div fxLayout="row">
+            <div class="title-font">Gestational Age:&emsp;</div>
+            <div class="stat-font">{{gestationalAgeCalc(gravida.EstDueDate)}}</div>
+          </div>
+
+          <div fxLayout="row">
+              <button mat-icon-button>
+                <mat-icon
+                  (click)="parityEdit = !parityEdit"
+                  class="material-icons">edit
+                </mat-icon>
+              </button>
+
+            <div class="title-font">Number of babys:&emsp;</div>
+            <div *ngIf="!parityEdit" class="stat-font">{{gravida.parity}}</div>
+            <span *ngIf="parityEdit">
+                <mat-form-field>
+                  <input matInput type="number" [(ngModel)]="gravida.parity" />
+                </mat-form-field>
+              </span>
+          </div>
+
+          <div class="button-container">
+            <button
+              mat-raised-button
+              class="mat-primary"
+              (click)="Clicked_SubmitChanges(gravida)">Submit Changes
+            </button>
+            <button
+              mat-raised-button
+              class="mat-primary"
+              (click)="Clicked_DeletePreg(gravida)">Delete Pregnancy
+            </button>
+          </div>
+
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="add-button">
+    <button mat-raised-button class="mat-primary" [routerLink]="['/admin/patient/gravida/add', adminNavID]">
+      <mat-icon>add</mat-icon>&emsp;Add a pregnancy
+    </button>
+  </div>
+</div>
+

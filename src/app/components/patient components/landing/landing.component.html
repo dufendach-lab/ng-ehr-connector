@@ -1,0 +1,85 @@
+<div *ngIf="user | async; else Login" class="wrapper">
+  <!--                                  -->
+  <!-- Mobile view -->
+  <!--                                  -->
+  <ng-container *ngIf="isHandset$ | async; else Desktop">
+
+    <app-infant-cards></app-infant-cards>
+
+    <div class="state-padding">
+      <app-patient-state-new></app-patient-state-new>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="card-container">
+      <mat-card [style.background-color]="(state$ | async) | stateColor" routerLink="">
+        <mat-card-title-group>
+          <mat-card-title>Contact</mat-card-title>
+          <mat-card-subtitle>the fetal care center for questions related to your pregnancy.</mat-card-subtitle>
+        </mat-card-title-group>
+      </mat-card>
+    </div>
+
+  </ng-container>
+</div>
+
+<!--                                  -->
+<!-- Desktop view -->
+<!--                                  -->
+
+<ng-template #Desktop>
+  <div class="desktop-container">
+
+    <app-infant-cards></app-infant-cards>
+
+
+    <div class="dt-padding">
+      <app-patient-state></app-patient-state>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="dt-padding">
+      <app-resources-info-pane></app-resources-info-pane>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="dt-card-container dt-padding">
+
+      <mat-card *ngIf="!(isAuthorized | async)" routerLink="/authorize" [style.background-color]="(state$ | async) | stateColor">
+        <mat-card-title-group>
+          <mat-card-title>Connect</mat-card-title>
+          <mat-card-subtitle>to the EHR to transfer birth info to Cincinnati Children's</mat-card-subtitle>
+          <img mat-card-lg-image src="/../../assets/img/pregnancydevice.png" alt="mom">
+        </mat-card-title-group>
+      </mat-card>
+
+      <mat-card *ngIf="(isAuthorized | async)" routerLink="/dashboard" [style.background-color]="(state$ | async) | stateColor">
+        <mat-card-title-group>
+          <mat-card-title>Dashboard</mat-card-title>
+          <mat-card-subtitle>to view and send information from your birth to Cincinnati Children's</mat-card-subtitle>
+          <img mat-card-lg-image src="/../../assets/img/origin.png" alt="mom">
+        </mat-card-title-group>
+      </mat-card>
+
+      <mat-card routerLink="/resources" [style.background-color]="(state$ | async) | stateColor">
+        <mat-card-title-group>
+          <mat-card-title>TTTS Information</mat-card-title>
+          <mat-card-subtitle>to help you better understand</mat-card-subtitle>
+          <img mat-card-lg-image src="/../../assets/img/ttts.png" alt="ttts">
+        </mat-card-title-group>
+      </mat-card>
+
+    </div>
+
+  </div>
+</ng-template>
+
+<!--                                  -->
+<!-- LAUNCHHHH -->
+<!--                                  -->
+<ng-template #Login>
+  <app-launch></app-launch>
+</ng-template>

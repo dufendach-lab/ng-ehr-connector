@@ -1,0 +1,88 @@
+<div class="list-container" fxFlex="800px" fxFlex.lt-sm="100%">
+  <div class="box-buttons">
+    <div></div>
+    <button class="mat-primary" mat-raised-button [routerLink]="'../add'">Add New Patient</button>
+  </div>
+  <!--  Patient Search Card - Autocomplete fills last name  -->
+  <mat-card>
+    <form fxLayout="column" (ngSubmit)="onSubmit()">
+      <mat-form-field>
+        <mat-label>Search</mat-label>
+        <input type="text"
+               placeholder="Search by last name"
+               matInput
+               [formControl]="myControl"
+               [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option.lastName">
+            {{ option.lastName }}, {{ option.firstName }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+
+    <button mat-raised-button class="mat-primary" (click)="onSubmit()">Edit patient profile</button>
+
+  </mat-card>
+
+  <!--  Generates every patient in the firestore  -->
+  <mat-tab-group>
+    <mat-tab label="All Patients">
+      <h2>List of patients: </h2>
+      <div *ngFor="let patient of allPatients | async">
+        <div *ngIf="patient.roles.includes('Patient')">
+          <mat-card>
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+              <div class="pat-card-scope">
+                <div>Name: {{patient.firstName}} {{patient.lastName}}</div>
+                <div>Phone Number: {{ patient.phone }}</div>
+                <div>Mother's DoB: {{patient.MotherDoB.toDate() | date: "MM/dd/yyyy"}}</div>
+              </div>
+              <div>
+                <button mat-stroked-button (click)="editPatient(patient.docName)">Edit</button>
+              </div>
+            </div>
+          </mat-card>
+          <br />
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Upcoming Visits">
+<!--   Just a visual of what it could be - will need its own component    -->
+      <h2>List of Upcoming Visits: </h2>
+      <mat-card>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <div class="pat-card-scope">
+            <div>Name: Clarissa Monclair</div>
+            <div>DOB: 10/14/1996</div>
+            <div>Appointment Date: 4/26/2022</div>
+          </div>
+          <div><button mat-stroked-button>More Details</button></div>
+        </div>
+      </mat-card>
+      <br />
+      <mat-card>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <div class="pat-card-scope">
+            <div>Name: Stacy Cleveland</div>
+            <div>DOB: 08/26/1997</div>
+            <div>Appointment Date: 4/29/2022</div>
+          </div>
+          <div><button mat-stroked-button>More Details</button></div>
+        </div>
+      </mat-card>
+      <br />
+      <mat-card>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <div class="pat-card-scope">
+            <div>Name: Tara DeWolfe</div>
+            <div>DOB: 02/21/1999</div>
+            <div>Appointment Date: 5/07/2022</div>
+          </div>
+          <div><button mat-stroked-button>More Details</button></div>
+        </div>
+      </mat-card>
+      <br />
+    </mat-tab>
+  </mat-tab-group>
+</div>

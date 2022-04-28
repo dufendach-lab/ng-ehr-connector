@@ -1,0 +1,173 @@
+<div *ngIf="patUID != ''" fxFlex="800px" fxFlex.lt-sm="100%" class="pt-container">
+  <mat-card>
+    <div *ngIf="patientInfo | async as pt; else elseTemplate">
+
+      <div class="make-bold add-padding">
+        Displaying Info For: {{ pt.firstName }} {{ pt.lastName }}
+      </div>
+
+      <div class="make-bold add-padding">
+        Date of Birth:
+        {{ patientUserInfo.MotherDoB | date: "MM/dd/yyyy" }}
+      </div>
+
+      <span *ngIf="isEditMode">
+        <div fxLayout="row">
+
+          <button mat-icon-button>
+            <mat-icon
+              *ngIf="isEditMode"
+              matSuffix
+              (click)="editFirstNameClick()"
+              class="material-icons">edit
+            </mat-icon>
+          </button>
+
+          <div>First Name:</div>
+
+          <span *ngIf="!isFirstNameEdit">
+            <div>{{ patientUserInfo.firstName }}</div>
+          </span>
+
+          <span *ngIf="isFirstNameEdit">
+            <mat-form-field>
+              <input matInput type="text" [(ngModel)]="patientUserInfo.firstName" />
+              <button matSuffix mat-icon-button aria-label="Clear" (click)="isFirstNameEdit = false">
+                <mat-icon>check</mat-icon>
+              </button>
+            </mat-form-field>
+          </span>
+        </div>
+
+        <div fxLayout="row">
+          <button mat-icon-button>
+            <mat-icon
+              *ngIf="isEditMode"
+              matSuffix
+              (click)="editLastNameClick()"
+              class="material-icons"
+              >edit</mat-icon>
+          </button>
+
+          <div>Last Name:</div>
+
+          <span *ngIf="!isLastNameEdit">
+            <div>{{ patientUserInfo.lastName }}</div>
+          </span>
+
+          <span *ngIf="isLastNameEdit">
+            <mat-form-field>
+              <input matInput type="text" [(ngModel)]="patientUserInfo.lastName" />
+              <button matSuffix mat-icon-button aria-label="Clear" (click)="isLastNameEdit = false">
+                <mat-icon>check</mat-icon>
+              </button>
+            </mat-form-field>
+          </span>
+
+        </div>
+      </span>
+
+      <div fxLayout="row" *ngIf="isEditMode">
+
+        <button mat-icon-button>
+          <mat-icon
+            *ngIf="isEditMode"
+            matSuffix
+            (click)="editDoBClick()"
+            class="material-icons">edit
+          </mat-icon>
+        </button>
+
+        <div>Date of Birth: </div>
+
+        <mat-form-field>
+          <input
+            matInput
+            [matDatepicker]="DoBpicker"
+            placeholder="Birthday"
+            [(ngModel)]="patientUserInfo.MotherDoB"/>
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="DoBpicker">
+          </mat-datepicker-toggle>
+          <mat-datepicker #DoBpicker disabled="false"></mat-datepicker>
+          <button matSuffix mat-icon-button aria-label="Clear" (click)="isDoBEdit = false">
+            <mat-icon>check</mat-icon>
+          </button>
+        </mat-form-field>
+
+      </div>
+
+      <span *ngIf="isEditMode">
+        <div fxLayout="row">
+
+          <button mat-icon-button *ngIf="isEditMode">
+            <mat-icon
+              *ngIf="isEditMode"
+              matSuffix
+              (click)="editAccessLevel()"
+              class="material-icons">edit
+            </mat-icon>
+          </button>
+
+          <div>Access Level:</div>
+
+          <span *ngIf="!isAccessLevelEdit">
+            <div>{{ patientUserInfo.roles }}</div>
+          </span>
+
+          <span *ngIf="isAccessLevelEdit">
+            <mat-form-field>
+              <mat-label>Choose Access Level</mat-label>
+              <mat-select [(ngModel)]="patientUserInfo.roles">
+                <mat-option value="Patient">Patient</mat-option>
+                <mat-option value="Moderator">Moderator</mat-option>
+                <mat-option value="Admin">Admin</mat-option>
+              </mat-select>
+              <button matSuffix mat-icon-button aria-label="Clear" (click)="isAccessLevelEdit = false">
+                <mat-icon>check</mat-icon>
+              </button>
+            </mat-form-field>
+          </span>
+
+        </div>
+      </span>
+
+
+      <div class="button-container">
+        <button *ngIf="isEditMode"
+            mat-raised-button
+            class="mat-primary"
+            (click)="submitUserEdits()">Submit Changes
+        </button>
+        <button *ngIf="isEditMode"
+                mat-raised-button
+                class="mat-accent"
+                (click)="isEditMode = !isEditMode">Cancel
+        </button>
+        <button
+          *ngIf="!isEditMode"
+          mat-raised-button
+          class="mat-accent"
+          (click)="isEditMode = !isEditMode">Edit User Info
+        </button>
+        <button
+          *ngIf="!isEditMode"
+          mat-raised-button
+          class="mat-accent"
+          [routerLink]="['/admin/patient/edit', patUID]">Edit Pregnancy Info
+        </button>
+        <button
+          *ngIf="!isEditMode"
+          mat-raised-button
+          class="mat-primary"
+          (click)="Clicked_DeleteUser()">Delete User
+        </button>
+      </div>
+    </div>
+  </mat-card>
+</div>
+
+<ng-template #elseTemplate>
+  <div>No results found</div>
+</ng-template>

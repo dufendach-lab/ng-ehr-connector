@@ -1,0 +1,37 @@
+<div class="content"fxFlex="800px" fxFlex.lt-sm="100%">
+
+  <div fxLayout="row" fxLayoutAlign="center space-between" class="header">
+    <h1>Staff Dashboard</h1>
+    <button mat-icon-button (click)="logout()">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </div>
+
+  <!-- SEARCH CARD -->
+<!--    <router-outlet></router-outlet>-->
+  <mat-card class="search-card"
+            [routerLink]="'../patient/list'">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>person_search</mat-icon>
+        Patient Search
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      Search, edit, add, & delete patients.
+    </mat-card-content>
+  </mat-card>
+
+  <!-- DOCUMENTS CARD -->
+  <mat-card class="document-card">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>folder_open</mat-icon>
+        Documents
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      View & print documents.
+    </mat-card-content>
+  </mat-card>
+</div>

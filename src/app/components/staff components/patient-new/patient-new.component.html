@@ -1,0 +1,69 @@
+<div class="container" fxFlex="800px" fxFlex.lt-sm="100%">
+  <mat-card>
+    <mat-card-title>Add New Patient</mat-card-title>
+    <form fxLayout="column" [formGroup]="registration">
+      <!-- Mother's First Name input -->
+      <ng-container>
+        <mat-form-field class="form-field" fxFlex appearance="outline">
+          <mat-label>First Name</mat-label>
+          <input type="text"
+                 matInput
+                 formControlName="firstname"/>
+        </mat-form-field>
+
+        <!-- Mother's Last Name Input Field -->
+        <mat-form-field class="form-field" fxFlex appearance="outline">
+          <mat-label>Last Name</mat-label>
+          <input type="text"
+                 matInput
+                 formControlName="lastname"/>
+        </mat-form-field>
+        <!-- Mother's Date of Birth Input Field -->
+        <mat-form-field class="form-field" appearance="outline">
+          <input matInput
+                 [matDatepicker]="DoBpicker"
+                 placeholder="Birthday"
+                 formControlName="MotherDoB"/>
+          <mat-datepicker-toggle matSuffix [for]="DoBpicker"></mat-datepicker-toggle>
+          <mat-datepicker #DoBpicker disabled="false"></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Phone Number</mat-label>
+          <input matInput
+                 type="tel"
+                 placeholder="Ex: 5139998888"
+                 formControlName="phone">
+          <mat-hint>No spaces or dashes</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label>Email</mat-label>
+          <input type="text"
+                 matInput
+                 formControlName="email"/>
+          <mat-error *ngIf="emailInUse">Email is already in use</mat-error>
+        </mat-form-field>
+
+        <!-- Psasword Input Field -->
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label>Password</mat-label>
+          <input [type]="hide1 ? 'password' : 'text'"
+                 matInput
+                 formControlName="password1"/>
+          <mat-icon matSuffix (click)="hide1 = !hide1"
+                    class="material-icons">{{hide1 ? "visibility_off" : "visibility"}}</mat-icon>
+        </mat-form-field>
+        <button mat-raised-button style="width: fit-content" (click)="genPassword()">Generate Password</button>
+
+      </ng-container>
+      &nbsp;
+      <button mat-raised-button
+              class="submit-button"
+              color="primary"
+              (click)="onSubmit()">Register
+      </button>
+    </form>
+  </mat-card>
+</div>
+

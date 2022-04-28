@@ -31,62 +31,61 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {PatientInfoComponent} from './patient-info/patient-info.component';
-import {NavbarComponent} from './navbar/navbar.component';
-import {PatientDataComponent} from './patient-data/patient-data.component';
-import {DashboardComponent} from './dashboard/dashboard.component';
-import {ObsValueListComponent} from './obs-value-list/obs-value-list.component';
-import {MainFormComponent} from './main-form/main-form.component';
-import {RegistrationComponent} from './registration/registration.component';
-import {AuthorizeComponent} from './authorize/authorize.component';
-import {LandingComponent} from './landing/landing.component';
-import {LoginComponent} from './login/login.component';
+import {PatientInfoComponent} from './components/patient components/patient-info/patient-info.component';
+import {PatientDataComponent} from './components/patient components/patient-data/patient-data.component';
+import {DashboardComponent} from './components/patient components/dashboard/dashboard.component';
+import {ObsValueListComponent} from './components/patient components/obs-value-list/obs-value-list.component';
+import {MainFormComponent} from './components/patient components/main-form/main-form.component';
+import {RegistrationComponent} from './components/core components/registration/registration.component';
+import {AuthorizeComponent} from './components/patient components/authorize/authorize.component';
+import {LandingComponent} from './components/patient components/landing/landing.component';
+import {LoginComponent} from './components/core components/login/login.component';
 
 import {environment} from '../environments/environment';
-import {ObsValueDisplayComponent} from './obs-value-display/obs-value-display.component';
+import {ObsValueDisplayComponent} from './components/patient components/obs-value-display/obs-value-display.component';
 import {LaunchComponent} from './launch/launch.component';
-import {NavContainerComponent} from './nav-container/nav-container.component';
+import {NavContainerComponent} from './components/patient components/nav-container/nav-container.component';
 import {LayoutModule} from '@angular/cdk/layout';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list'
 import {MatDividerModule} from "@angular/material/divider";
 
-import {GraphDataComponent} from './graph-data/graph-data.component';
-import {DataTableComponent} from './data-table/data-table.component';
-import {GravidasDetailEditorComponent} from './gravidas-detail-editor/gravidas-detail-editor.component';
-import {GravidasViewerComponent} from './gravidas-viewer/gravidas-viewer.component';
-import {PatientSearchComponent} from './patient-search/patient-search.component';
-import {NewMomResourceComponent} from './new-mom-resource/new-mom-resource.component';
-import {ConfirmationDialogComponent} from './confirmation-dialog/confirmation-dialog.component';
+import {GraphDataComponent} from './components/patient components/graph-data/graph-data.component';
+import {DataTableComponent} from './components/patient components/data-table/data-table.component';
+import {GravidasDetailEditorComponent} from './components/staff components/gravidas-detail-editor/gravidas-detail-editor.component';
+import {GravidasViewerComponent} from './components/staff components/gravidas-viewer/gravidas-viewer.component';
+import {PatientSearchComponent} from './components/staff components/patient-search/patient-search.component';
+import {NewMomResourceComponent} from './components/patient components/new-mom-resource/new-mom-resource.component';
 import {YouTubePlayerModule} from '@angular/youtube-player';
-import {YtPlayerComponent} from './yt-player/yt-player.component';
+import {YtPlayerComponent} from './components/patient components/yt-player/yt-player.component';
 
-import { StaffLandingComponent } from './staff-landing/staff-landing.component';
-import { PatientNewComponent } from './patient-new/patient-new.component';
+import { StaffLandingComponent } from './components/staff components/staff-landing/staff-landing.component';
+import { PatientNewComponent } from './components/staff components/patient-new/patient-new.component';
 
-import {AdminListComponent} from './admin-list/admin-list.component';
-import {ResetPasswordComponent} from './reset-password/reset-password.component';
-import {ContactFormComponent} from './contact-form/contact-form.component';
+import {AdminListComponent} from './components/staff components/admin-list/admin-list.component';
+import {ResetPasswordComponent} from './components/core components/reset-password/reset-password.component';
+import {ContactFormComponent} from './components/patient components/contact-form/contact-form.component';
 
 import {AngularFireModule} from "@angular/fire/compat";
 import {AngularFirestoreModule} from "@angular/fire/compat/firestore";
 import {AngularFireAuthModule} from "@angular/fire/compat/auth";
 import {WINDOW_PROVIDERS} from "./util/window-provider";
-import { ToolsPageComponent } from './tools-page/tools-page.component';
-import { ResourcesDiagnosisComponent } from './resources-diagnosis/resources-diagnosis.component';
-import { PatientEditComponent } from './patient-edit/patient-edit.component';
-import { StaffContainerComponent } from './staff-container/staff-container.component';
-import { PatientStateComponent } from './patient-state/patient-state.component';
-import { ResourcesInfoPaneComponent } from './resources-info-pane/resources-info-pane.component';
-import { ResourcesPregnantComponent } from './resources-pregnant/resources-pregnant.component';
-import { ResourcesDeliveredComponent } from './resources-delivered/resources-delivered.component';
-import { PatientStateNewComponent } from './patient-state-new/patient-state-new.component';
+import { ToolsPageComponent } from './components/patient components/tools-page/tools-page.component';
+import { ResourcesDiagnosisComponent } from './components/patient components/resources-diagnosis/resources-diagnosis.component';
+import { PatientEditComponent } from './components/patient components/patient-edit/patient-edit.component';
+import { StaffContainerComponent } from './components/staff components/staff-container/staff-container.component';
+import { PatientStateComponent } from './components/patient components/patient-state/patient-state.component';
+import { ResourcesInfoPaneComponent } from './components/patient components/resources-info-pane/resources-info-pane.component';
+import { ResourcesPregnantComponent } from './components/patient components/resources-pregnant/resources-pregnant.component';
+import { ResourcesDeliveredComponent } from './components/patient components/resources-delivered/resources-delivered.component';
+import { PatientStateNewComponent } from './components/patient components/patient-state-new/patient-state-new.component';
+import { InfantCardsComponent } from './components/patient components/infant-cards/infant-cards.component';
+import { StateColorPipe } from './state-color.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     PatientInfoComponent,
-    NavbarComponent,
     PatientDataComponent,
     DashboardComponent,
     ObsValueListComponent,
@@ -105,8 +104,6 @@ import { PatientStateNewComponent } from './patient-state-new/patient-state-new.
     GravidasViewerComponent,
     PatientSearchComponent,
     NewMomResourceComponent,
-    ConfirmationDialogComponent,
-    // PdfViewComponent,
     YtPlayerComponent,
     AdminListComponent,
     ResetPasswordComponent,
@@ -122,6 +119,8 @@ import { PatientStateNewComponent } from './patient-state-new/patient-state-new.
     ResourcesPregnantComponent,
     ResourcesDeliveredComponent,
     PatientStateNewComponent,
+    InfantCardsComponent,
+    StateColorPipe,
   ],
   imports: [
     BrowserModule,
@@ -130,10 +129,7 @@ import { PatientStateNewComponent } from './patient-state-new/patient-state-new.
 
     FormsModule,
     ReactiveFormsModule,
-
     FlexLayoutModule,
-
-    // PdfViewerModule,
     YouTubePlayerModule,
 
     // Material imports

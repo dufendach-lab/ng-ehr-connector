@@ -1,0 +1,13 @@
+.patient-info-card {
+  margin: auto;
+  padding: 1rem;
+}
+
+mat-card-content {
+  p {
+    margin-left: 1rem;
+  }
+  span {
+    font-weight: bold;
+  }
+}

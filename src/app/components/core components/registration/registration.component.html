@@ -1,0 +1,13 @@
+<form [formGroup]="login" fxLayout="column">
+  <mat-form-field appearance="outline">
+    <mat-label>Email</mat-label>
+    <input matInput type="text" formControlName="email">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Password</mat-label>
+    <input matInput type="password" formControlName="password">
+  </mat-form-field>
+  <a (click)="passReset()" href="javascript: void(0);">Forgot password?</a>
+  <br>
+  <button mat-button (click)="tempLogin()">Login</button>
+</form>
